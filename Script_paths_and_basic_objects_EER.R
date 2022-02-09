@@ -40,7 +40,7 @@ for (p in github_list) {
 if (str_detect(getwd(), "goutsmedt")) {
   data_path <- "C:/Users/goutsmedt/Mon Drive/data"
 } else {
-  if (str_detect(getwd(), "shortcut")) {
+  if (str_detect(getwd(), "Dropbox")) {
     data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
   } else {
     data_path <- "/projects/data"
