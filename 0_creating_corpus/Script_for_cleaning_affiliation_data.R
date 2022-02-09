@@ -22,8 +22,8 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #'
 
-source("~/macro_AA/functions/functions_for_cleaning_strings.R")
-source("~/macro_AA/EER_Paper/Script_paths_and_basic_objects_EER.R")
+source("functions/functions_for_cleaning_strings.R")
+source("Script_paths_and_basic_objects_EER.R")
 Institutions <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Institutions.rds"))
 Corpus <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Corpus.rds"))
 

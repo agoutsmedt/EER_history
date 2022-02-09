@@ -21,7 +21,7 @@ knitr::opts_chunk$set(eval = FALSE)
 
 #' # Loading packages, paths and data
 #'
-library(RMySQL)
+
 source("~/macro_AA/EER_Paper/Script_paths_and_basic_objects_EER.R")
 source("~/macro_AA/logins_DO_NOT_UPLOAD.R")
 
@@ -66,10 +66,15 @@ disciplines[,Code_Discipline:=as.character(Code_Discipline)]
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Basic Corpus ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-Corpus <- fread("EER/Corpus_EER/EER_NODES_XP.csv", quote="") %>% data.table
+Corpus <- fread(here(eer_data,
+                     "Corpus_EER",
+                     "EER_NODES_XP.csv"),
+                quote="") %>% data.table
 
 # Scopus and bind
-Corpus_scopus <- readRDS("EER/Corpus_EER/scopus_articles.RDS")
+Corpus_scopus <- readRDS(here(eer_data,
+                              "Corpus_EER",
+                              "scopus_articles.RDS"))
 Corpus_scopus <- Corpus_scopus %>% rename(ID_Art = temp_id)
 Corpus_scopus[,ID_Art:=paste0("S",ID_Art)]
 Corpus_scopus <- Corpus_scopus %>% rename(Titre = title)
@@ -566,7 +571,12 @@ Corpus[ID_Art %in% new_macro, JEL_id := 1]
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Saving bis ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-saveRDS(Corpus, file = paste0(data_path,"EER/1_Corpus_Prepped_and_Merged/Corpus.rds"))
-saveRDS(Authors, file = paste0(data_path,"EER/1_Corpus_Prepped_and_Merged/Authors.rds"))
-saveRDS(refs, file = paste0(data_path,"EER/1_Corpus_Prepped_and_Merged/Refs.rds"))
-
+saveRDS(Corpus, file = here(eer_data,
+                            "1_Corpus_Prepped_and_Merged",
+                            "Corpus.rds"))
+saveRDS(Authors, file = here(eer_data,
+                             "1_Corpus_Prepped_and_Merged",
+                             "Authors.rds"))
+saveRDS(refs, file = here(eer_data,
+                          "1_Corpus_Prepped_and_Merged",
+                          "Refs.rds"))

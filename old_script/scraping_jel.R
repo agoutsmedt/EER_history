@@ -61,7 +61,10 @@ all_art <-  dbGetQuery(ESH, paste0("SELECT *
                                    FROM OST_Expanded_SciHum.Articles 
                                    WHERE Code_Revue=5200;")) %>%  data.table
 issueID <- fread("Corpus_Econlit/revueID.csv", quote = "") %>% data.table()
-EER_jel <- bib2df("EER/Corpus_EER/EER_corpus_JEL.bib") %>% as.data.table()
+EER_jel <- bib2df(here(eer_data,
+                       "Corpus_EER",
+                       "EER_corpus_JEL.bib")) %>% 
+                    as.data.table()
 EER_jel <- EER_jel[,.(VOLUME,YEAR,KEYWORDS,JOURNAL,PAGES,NUMBER)]
 # all art
 issueID <- fread("Corpus_Econlit/revueID.csv", quote = "") %>% data.table()

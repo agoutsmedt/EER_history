@@ -26,10 +26,8 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #'
 #'
-source(here::here(
-  "EER_Paper",
-  "Script_paths_and_basic_objects_EER.R"
-))
+source("Script_paths_and_basic_objects_EER.R")
+source("loading_macro_AA.R")
 
 # EER data
 Corpus_EER <- readRDS(here(
