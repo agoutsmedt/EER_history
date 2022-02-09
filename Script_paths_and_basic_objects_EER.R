@@ -5,7 +5,7 @@
 ##################### Packages ############################################--------------
 
 package_list <- c(
-  "here", "fs",
+  "here", "fs", "biblionetwork",
   "data.table", "tidyverse", "furrr", "ggnewscale", "igraph",
   "quanteda", "tm", "tidytext", "ggraph", "tidygraph",
   "leidenAlg", "reshape2", "scales", "RMySQL", "stringi",
@@ -23,7 +23,6 @@ for (p in package_list) {
 }
 
 github_list <- c(
-  "agoutsmedt/biblionetwork",
   "agoutsmedt/networkflow",
   "mikajoh/tidystm",
   "ParkerICI/vite"
@@ -39,13 +38,22 @@ for (p in github_list) {
 ######################### Paths ##########################################------------
 
 if (stringr::str_detect(getwd(), "goutsmedt")) {
-  data_path <- path.expand("~/data/macro_AA")
+  data_path <- "C:/Users/goutsmedt/Mon Drive/data"
 } else {
-  data_path <- "/projects/data/macro_AA"
+  if (string::str_detect(getwd(), "shortcut")) {
+    data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
+  } else {
+    data_path <- "/projects/data"
+  }
 }
 
+macro_AA_data <- here(data_path,
+                      "macro_AA")
+eer_data <- here(data_path, 
+                 "EER")
+
 picture_path <- here("EER_Paper", "Pictures")
-eer_data <- here(data_path, "EER")
+
 boards_path <- here(eer_data, "editorial_boards")
 macro_data <- here(data_path, "Corpus_Econlit_Matched_WoS")
 
