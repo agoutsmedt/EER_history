@@ -13,7 +13,7 @@ package_list <- c(
   "grid", "ggdendro", "readtext", "pander", "RColorBrewer",
   "scico", "plotly", "crosstalk", "widgetframe", "sigmajs",
   "ggdark", "topicmodels", "ggrepel", "stm", "huge",
-  "spacyr", "htmlwidgets", "bib2df"
+  "spacyr", "htmlwidgets", "bib2df","arrow"
 )
 for (p in package_list) {
   if (p %in% installed.packages() == FALSE) {
