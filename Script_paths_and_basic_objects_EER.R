@@ -12,6 +12,7 @@ package_list <- c("fs",
                   "tidyverse", ## Tidy tools
                   "tidygraph",
                   "furrr", 
+                  "janitor", # cleaning data
                   "ggnewscale", ## Visualisation tool
                   "ggraph", 
                   "ggforce", 

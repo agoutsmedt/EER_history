@@ -21,14 +21,18 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #' 
 
-library(tidyverse)
-library(data.table)
-eer_data <- "/projects/data/macro_AA/EER/Corpus_EER/"
-source("~/macro_AA/functions/functions_for_cleaning_strings.R")
+source("Script_paths_and_basic_objects_EER.R")
+source("functions/functions_for_cleaning_strings.R")
 
 #' We import the list of articles extracted from SCOPUS
 
-scopus <- read_delim(paste0(here(eer_data, "corpus_EER", "EER_scopus.txt"), "\t", escape_double = FALSE, trim_ws = TRUE) %>% data.table()
+scopus <- read_delim(here(eer_data, 
+                          "corpus_EER", 
+                          "EER_scopus.txt"), 
+                     "\t", 
+                     escape_double = FALSE, 
+                     trim_ws = TRUE) %>% 
+  data.table()
 
 #' # Cleaning scopus data
 #' 
