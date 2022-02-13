@@ -1,64 +1,54 @@
-Script for cleaning the affiliations data
-================
-Aurélien Goutsmedt
-/ Last compiled on 2021-04-07
+#' ---
+#' title: "Script for cleaning the affiliations data"
+#' author: "Aurélien Goutsmedt"
+#' date: "/ Last compiled on `r format(Sys.Date())`"
+#' output:
+#'   github_document:
+#'     toc: true
+#'     number_sections: true
+#' ---
+#'
+#' # What is this script for?
+#'
+#' This script aims at cleaning scopus data for affiliations. It mainly aims at
+#' avoiding doublons with different names.
+#' 
+#' In the last part of the script, we categorize institutions (Academic, International Organization,
+#' Private, _etc._)
+#'
+#+ r setup, include = FALSE
+knitr::opts_chunk$set(eval = FALSE)
 
-  - [1 What is this script for?](#what-is-this-script-for)
-  - [2 Loading packages, paths and
-    data](#loading-packages-paths-and-data)
-  - [3 Cleaning institutions name](#cleaning-institutions-name)
-      - [3.1 Counting institutions](#counting-institutions)
-      - [3.2 Unifying the names of
-        institutions](#unifying-the-names-of-institutions)
-      - [3.3 Cleaning different university names which are spelled
-        differently](#cleaning-different-university-names-which-are-spelled-differently)
-  - [4 Cleaning countries and by
-    country](#cleaning-countries-and-by-country)
-  - [5 Classifying institutions type](#classifying-institutions-type)
+#' # Loading packages, paths and data
+#'
 
-# 1 What is this script for?
-
-This script aims at cleaning scopus the data for affiliations. It mainly
-aims at simplifying the names of institutions and avoid doublons with
-different names.
-
-# 2 Loading packages, paths and data
-
-``` r
-source("~/macro_AA/functions/functions_for_cleaning_strings.R")
-source("~/macro_AA/EER_Paper/Script_paths_and_basic_objects_EER.R")
+source("functions/functions_for_cleaning_strings.R")
+source("Script_paths_and_basic_objects_EER.R")
 Institutions <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Institutions.rds"))
 Corpus <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Corpus.rds"))
-```
 
-# 3 Cleaning institutions name
 
-\#’ \#\# Cleaning Scopus data
+#' # Cleaning institutions name
+#' 
+#' ## Cleaning Scopus data
+#' 
+#' #' We clean before by hand some institutions for which there are problem that will prevent them 
+#' for being automatically merged with WoS institutions.
 
-\#’ We clean before by hand some institutions for which there are
-problem that will prevent them for being automatically merged with WoS
-institutions.
-
-``` r
 Institutions[str_detect(Institution, "UNIVERSITY OF CALIFORNIA")]$Institution <- c("UNIV-CALIF-DAVIS","UNIV-CALIF-BERKELEY") # checked manually
-```
+Institutions[Pays == "UNITED STATES"]$Pays <- "USA"
+#' The first thing to do is to transform scopus institutions names in a way that allow them
+#' to be merged and cleaned with the WoS institutions. It involves some hands cleaning
+#' for some institution. 
 
-The first thing to do is to transform scopus institutions names in a way
-that allow them to be merged and cleaned with the WoS institutions. It
-involves some hands cleaning for some institution.
-
-``` r
 #Institutions[str_detect(Institution, "WORLD BANK")]$Institution <- "WORLD-BANK"
 
 scopus_to_clean <- data.table("Institution" = Institutions[str_detect(ID_Art, "S") & !Institution %in% unique(Institutions[!str_detect(ID_Art, "S")]$Institution)]$Institution)
 scopus_to_clean[, clean_name := str_replace_all(Institution, " ","-")]
 scopus_to_clean[, clean_name := str_replace_all(clean_name, "UNIVERSITY|UNIVERSITÉ","UNIV")]
 scopus_to_clean[, clean_name := str_replace_all(clean_name, "-OF-|-DE-","-")]
-```
 
-Here is a bit of hand cleaning for some scopus institutions
-
-``` r
+#' Here is a bit of hand cleaning for some scopus institutions
 scopus_to_clean[str_detect(clean_name, "TEL-AVIV")]$clean_name <- "TEL-AVIV-UNIV"
 scopus_to_clean[str_detect(clean_name, "CENTER-PLANNING-AND-ECONOMIC-RESEARCH")]$clean_name <- "CTR-PLANNING-&-ECON-RES"
 scopus_to_clean[str_detect(clean_name, "CENTRAL-PLANNING-BUREAU")]$clean_name <- "CENT-PLANNING-BUR"
@@ -69,97 +59,74 @@ scopus_to_clean[str_detect(clean_name, "INDUSTRIAL-INSTITUTE-SOCIAL-AND-ECONOMIC
 scopus_to_clean[str_detect(clean_name, "RESOURCES-FOR-THE-FUTURE,-INC")]$clean_name <- "RESOURCES-FUTURE-INC"
 scopus_to_clean[str_detect(clean_name, "INSTITUTE-ECONOMIC-STUDIES")]$clean_name <- "INST-ECON-STUDIES"
 scopus_to_clean[str_detect(clean_name, "ASPIRANT-F.N.R.S.")]$clean_name <- "FNRS"
-```
+scopus_to_clean[str_detect(clean_name, "SCHOOL-ECONOMICS")]$clean_name <- "ERASMUS-UNIV-ROTTERDAM"
 
-We now merge with the main data table for each value
-
-``` r
+#' We now merge with the main data table for each value
 for(i in seq_along(scopus_to_clean$Institution)){
   Institutions[Institution == scopus_to_clean$Institution[i]]$Institution <- scopus_to_clean$clean_name[i] 
 }
-```
 
-## 3.1 Counting institutions
+#' ## Counting institutions
+#' 
+#' The first thing we can do is to count the number of times an institution and to spot problems:
+#' `unique(Institutions[, n := .N, by = "Institution"][n > 1, c("Institution","n")][order(-n)])`
+#' A first interesting thing is when you are keeping the countries: you see that the CEPR, for instance,
+#' is associated to different countries, because it is often the second affiliation of an author,
+#' and what is kept is his/her country. For the rest of the analysis, we remove `Pays`.
+#' 
+#' ## Unifying the names of institutions
+#'
+#' Some simplifications are employed in what follows. Many times, it appears that some affiliations
+#' are actually two different institutions. In a first approximation, it will be simplified by
+#' selecting one of the two institutions, but perhaps if will be refined later.
+#'
+#' A tricky case we know: Louvain. The university of Louvain has been splitted in 
+#' two in 1968 (hopefully before the beginning of
+#' our period). Louvain is used for the French-speaking university, Leuven for the Dutch-language
+#' one. The problem is that we have many different names, we thus need to use two unique names
+#' (one for Louvain, one for Leuven).
+#' 
+#' We also transform all the different names of the CORE center in UC-LOUVIN
 
-The first thing we can do is to count the number of times an institution
-and to spot problems: `unique(Institutions[, n := .N, by =
-"Institution"][n > 1, c("Institution","n")][order(-n)])` A first
-interesting thing is when you are keeping the countries: you see that
-the CEPR, for instance, is associated to different countries, because it
-is often the second affiliation of an author, and what is kept is
-his/her country. For the rest of the analysis, we remove `Pays`.
-
-## 3.2 Unifying the names of institutions
-
-Some simplifications are employed in what follows. Many times, it
-appears that some affiliations are actually two different institutions.
-In a first approximation, it will be simplified by selecting one of the
-two institutions, but perhaps if will be refined later.
-
-A tricky case we know: Louvain. The university of Louvain has been
-splitted in two in 1968 (hopefully before the beginning of our period).
-Louvain is used for the French-speaking university, Leuven for the
-Dutch-language one. The problem is that we have many different names, we
-thus need to use two unique names (one for Louvain, one for Leuven).
-
-We also transform all the different names of the CORE center in
-UC-LOUVIN
-
-``` r
 Institutions[str_detect(Institution, "LOUVAIN|^CORE$|CTR-OPERAT") &
                !str_detect(Institution, "MANAGEMENT")]$Institution <- "UNIV-LOUVAIN"
 Institutions[str_detect(Institution, "LEUVEN|KUL")]$Institution <- "UNIV-LEUVEN"
-```
 
-There is a similar problem in Brussels, with the Université libre de
-Bruxelles and the Vrije Universiteit Brussel. In the database, we have
-the ULB and the Free-Univ-Brussels. All the cases we have checked for
-the second ambiguous name are from the ULB. In doubt, we will use the
-English name. We put the Vrije university with them.
+#' There is a similar problem in Brussels, with the Université libre de Bruxelles and the Vrije
+#' Universiteit Brussel. In the database, we have the ULB and the Free-Univ-Brussels. All the cases 
+#' we have checked for the second ambiguous name are from the ULB. In doubt, we will use the 
+#' English name. We put the Vrije university with them.
+#' 
+#' We also merge the "ECARE" research center which is in ULB
 
-We also merge the “ECARE” research center which is in ULB
-
-``` r
 Institutions[str_detect(Institution, "BRUSSELS|BRUXELLES|^ECARE$") &
                !str_detect(Institution, "ST-LOUIS")]$Institution <- "FREE-UNIV-BRUSSELS"
-```
 
-There are different names for the NBER and CEPR
+#' There are different names for the NBER and CEPR
+#' 
 
-``` r
 Institutions[str_detect(Institution, "NATL-BUR-ECON-RES")]$Institution <- "NBER"
 Institutions[str_detect(Institution, 
                         "CTR-ECON-POLICY-RES|CTR-ECON-POLICY-&-RES")]$Institution <- "CEPR"
-```
 
-Same for the London School of Economics
+#' Same for the London School of Economics
 
-``` r
 Institutions[str_detect(Institution, 
                         "UNIV-LONDON-LONDON-SCH-ECON-&-POLIT-SCI|LONDONS-SCH-ECON|LONDON-SCH-ECON")]$Institution <- "LSE"
-```
 
-Same for the IZA institution
+#' Same for the IZA institution
 
-``` r
 Institutions[str_detect(Institution, 
                         "^IZA|INST-LABOR-ECON|INST-STUDY-LABOR")]$Institution <- "IZA"
-```
 
-STATEC is the name of the Luxemburg’s “INSEE” so we exclude it and we
-harmonize INSEE’s names
-
-``` r
+#' STATEC is the name of the Luxemburg's "INSEE" so we exclude it and we harmonize INSEE's names
 Institutions[str_detect(Institution, "INSEE|INST-NATL-STAT") &
                           !str_detect(Institution, "STATEC")]$Institution  <- "INSEE" 
-```
 
-We investigate the issue of the EHESS and ENS. One problem is the DELTA,
-which is recurrent, but is the merging of the EHESS and ENS. By
-convention, we will classify it as EHESS, except when there is a
-precision (like “DELTA-ENS”)
+#' We investigate the issue of the EHESS and ENS. One problem is the DELTA, which is recurrent, but is the merging
+#' of the EHESS and ENS. By convention, we will classify it as EHESS, except when there is a precision (like 
+#' "DELTA-ENS")
 
-``` r
 Institutions[str_detect(Institution, 
                         "EHESS|DELTA|GREMAQ|ECOLE-HAUTES-ETUD-SCI-SOCIALES|CTR-ECON-QUANTITAT-&-COMPARAT|INST-ADV-STUDIES-SOCIAL-SCI|MAISON-SCI-HOMME|ECOLE-HAUTES-ETUDE-SCI-SOCIALES") &
                !str_detect(Institution, "ENS$")]$Institution <- "EHESS"
@@ -167,11 +134,8 @@ Institutions[str_detect(Institution, "DELTA-ENS|ENS-ULM|ECOLE-NORMALE-SUPER")]$I
 Institutions[str_detect(Institution, "ECOLE-HAUTES-ETUDES-COMMERCIALES|-HEC$|HEC-PARIS")]$Institution <- "HEC"
 Institutions[str_detect(Institution, "OFCE-")]$Institution <- "OFCE"
 Institutions[str_detect(Institution, "^SCI-PO")]$Institution <- "SCIENCES-PO"
-```
 
-We also simply different institutions:
-
-``` r
+#' We also simply different institutions:
 Institutions[str_detect(Institution, "CTR-ETUD-PROSPECT-ECON-")]$Institution <- "CEPREMAP"
 Institutions[str_detect(Institution, "ENSAI")]$Institution <- "ENSAI"
 Institutions[str_detect(Institution, "CREST-")]$Institution <- "CREST"
@@ -204,13 +168,11 @@ Institutions[str_detect(Institution, "GATT-|GEN-AGREEMENT")]$Institution <- "GAT
 Institutions[str_detect(Institution, "GOLDMAN-SACHS")]$Institution <- "GOLDMAN-SACHS"
 Institutions[str_detect(Institution, "INT-MONETARY-FUND|INTERNATIONAL-MONETARY-FUND")]$Institution <- "IMF"
 Institutions[str_detect(Institution, "PIRAEUS-")]$Institution <- "PIRAEUS-GRAD-SCH-IND-STUDIES"
-```
 
-We now want to clean the central banks names. We first list the names of
-central banks (it will be useful later to classify them), and check in
-the list when there are multiple names for one institution
+#' We now want to clean the central banks names. We first list the names of central banks (it will
+#' be useful later to classify them), and check in the list when there are multiple names for one
+#' institution
 
-``` r
 cb <- c("FED-RESERVE",
         "CENT-BANK",
         "FED-RES-BANK",
@@ -251,13 +213,11 @@ cb <- c("FED-RESERVE",
         "-NATIONALBANK", 
         "DANMARKS-NATL-BANK",
         "MONETARY-AUTHOR-") # For Singapore and Hong Kong 
-```
 
-To check the potential doublons, we run
-`unique(Institutions[str_detect(Institution, paste0(cb, collapse =
-"|"))]$Institution)`. Then we can make corrections.
+#' To check the potential doublons, we run 
+#' `unique(Institutions[str_detect(Institution, paste0(cb, collapse = "|"))]$Institution)`. Then
+#' we can make corrections.
 
-``` r
 Institutions[str_detect(Institution, "BANQUE-FRANCE|BANK-FRANCE")]$Institution <- "BANQUE-FRANCE"
 Institutions[str_detect(Institution, "BANCO-ESPANA|BANK-SPAIN")]$Institution <- "BANCO-ESPANA"
 Institutions[str_detect(Institution, "BANCA-ITALIA|BANK-ITALY")]$Institution <- "BANCA-ITALIA"
@@ -273,24 +233,19 @@ Institutions[str_detect(Institution, "EUROPEAN-CENT-BANK")]$Institution <- "EURO
 Institutions[str_detect(Institution, "BANK-NORWAY")]$Institution <- "NORGES-BANK"
 Institutions[str_detect(Institution, "OESTERREICH-NAT")]$Institution <- "OESTERREICH-NATIONALBANK"
 Institutions[str_detect(Institution, "DANMARKS-NATL-BANK")]$Institution <- "DANMARKS-NATIONALBANK"
-```
 
-We simplify and harmonise FRB central Banks name:
-
-``` r
+#' We simplify and harmonise FRB central Banks name:
+#' 
 Institutions <- Institutions %>% 
   mutate(Institution = str_replace(Institution,"FED-RESERVE-BANK-","FRB-"))
 
 Institutions[str_detect(Institution, "FED-RESERVE-BANK")]$Institution <- "FRB-NEW-YORK" # Manual check
-```
 
-We now clean british colleges in university. First, we take the
-affiliation where you have both the university and the college. It
-allows us to have a list of the colleges per university. We can identify
-the list of affiliations with a college here, and spot the universities
-with several college.
-
-``` r
+#' We now clean british colleges in university. First, we take the affiliation where you have both
+#' the university and the college. It allows us to have a list of the colleges per university.
+#' We can identify the list of affiliations with a college here, and spot the universities with several
+#' college.
+#' 
 colleges <- unique(Institutions[str_detect(Institution, "-COLL")]$Institution)
 uk_univ <- c("UNIV-LONDON",  # we add a dash as it is necessary in our function to extract the college name
              "UNIV-OXFORD",
@@ -299,64 +254,47 @@ list_uk_univ <- list()
 for(i in uk_univ){
   list_uk_univ[[i]] <- extract_college(colleges, paste0(i,"-"))
 }
-```
 
-We now remove the name of the colleges. This is a big choice for the
-London University as it is very vast and we use to rather refer to
-“Queen Mary” or “Birkbeck”. But as sometimes you just have
-“UNIV-LONDON”, it seems the better approximation for now.
-
-``` r
+#' We now remove the name of the colleges. This is a big choice for the London University as it is very vast
+#' and we use to rather refer to "Queen Mary" or "Birkbeck". But as sometimes you just have "UNIV-LONDON", it
+#' seems the better approximation for now.
 Institutions[str_detect(Institution, "OXFORD")]$Institution <- "UNIV-OXFORD"
 Institutions[str_detect(Institution, "CAMBRIDGE")]$Institution <- "UNIV-CAMBRIDGE"
 Institutions[str_detect(Institution, "UNIV-LONDON")]$Institution <- "UNIV-LONDON" 
-```
 
-We reextract the list of colleges, now that we have cleaned the name of
-universities, using `unique(Institutions[str_detect(Institution,
-"-COLL")]$Institution) %>% sort()` and we try to identify the remaining
-college names with the list we have identified above.
-
-We can do a bit of cleaning on this basis
-
-``` r
+#' We reextract the list of colleges, now that we have cleaned the name of universities,
+#' using `unique(Institutions[str_detect(Institution, "-COLL")]$Institution) %>% sort()`
+#' and we try to identify the remaining college names with the list we have identified 
+#' above.
+#'
+#' We can do a bit of cleaning on this basis
+#' 
 Institutions[str_detect(Institution, "UNIV-COLL-LONDON")]$Institution <- "UNIV-LONDON"
 Institutions[str_detect(Institution, "TRINITY-COLL|UNIV-COLL-DUBLIN") &
                str_detect(Institution, "DUBLIN")]$Institution <- "UNIV-DUBLIN"
 Institutions[str_detect(Institution, "SWANSEA")]$Institution <- "UNIV-SWANSEA"
 Institutions[str_detect(Institution, "COLUMBIA-UNIV")]$Institution <- "COLUMBIA-UNIV"
-```
 
-We add the missing colleges in the list
-
-``` r
+#' We add the missing colleges in the list
 list_uk_univ[["UNIV-OXFORD"]] <- append(list_uk_univ[["UNIV-OXFORD"]], c("BALLIOL-COLL","HARRIS-MANCHESTER-COLL"))
 list_uk_univ[["UNIV-LONDON"]] <- append(list_uk_univ[["UNIV-LONDON"]], c("IMPERIAL-COLL-LONDON","KINGS-COLL-LONDON"))
 list_uk_univ[["UNIV-CAMBRIDGE"]] <- append(list_uk_univ[["UNIV-CAMBRIDGE"]], c("MAGDALENE-COLL"))
-```
 
-There is one doublon in Oxford and Cambridge, “Saint-Johns college” that
-we remove and inspect.
+#' There is one doublon in Oxford and Cambridge, "Saint-Johns college" that we remove and inspect.
 
-``` r
 Institutions[Institution == "ST-JOHNS-COLL"]$Institution <- "UNIV-CAMBRIDGE" # check manually
-```
 
-We recompute the colleges after the cleaning and we match the remaining
-names when they are from one of the big UK university
-
-``` r
+#' We recompute the colleges after the cleaning and we match the remaining names when they are from
+#' one of the big UK university
 colleges <- unique(Institutions[str_detect(Institution, "-COLL")]$Institution) %>% sort()
 
 for(i in seq_along(list_uk_univ)){
 Institutions[str_detect(Institution, 
                         paste0(colleges[colleges %in% list_uk_univ[[i]]], collapse = "|"))]$Institution <- names(list_uk_univ)[i]
 }
-```
 
-## 3.3 Cleaning different university names which are spelled differently
-
-``` r
+#' ## Cleaning different university names which are spelled differently
+#' 
 Institutions[str_detect(Institution, "STOCKHOLM-SCH-ECON")]$Institution <- "STOCKHOLM-SCH-ECON"
 Institutions[str_detect(Institution, "STOCKHOLM") &
                str_detect(Institution, "UNIV")]$Institution <- "UNIV-STOCKHOLM"
@@ -383,60 +321,41 @@ Institutions[str_detect(Institution, "UQAM")]$Institution <- "UNIV-QUEBEC"
 Institutions[str_detect(Institution, "^EUI$")]$Institution <- "EUROPEAN-UNIV-INST"
 Institutions[str_detect(Institution, "BARCELONA-GSE")]$Institution <- "UNIV-POMPEU-FABRA"
 Institutions[str_detect(Institution, "U-AUTONOMA-BARCELONA")]$Institution <- "UNIV-AUTONOMA-BARCELONA"
-```
+Institutions[str_detect(Institution, "UNIV-OREGON")]$Institution <- "UNIV-OREGON"
 
-We have spotted that sometimes “UNIV” is at the beginning or at the end.
-The strategy is:
-
-  - listing all the university with the pattern “UNIV-NAME” or
-    “NAME-UNIV”
-  - extracting the NAME and rewriting as “UNIV-NAME”
-  - checking when the original name is different from the one we have
-    rebuilt.
-  - checking for potential conflicts (like YORK-UNIV for Canada and
-    UNIV-YORK for England, already problematic in the database)
-  - changing names in the data table.
-
-<!-- end list -->
-
-``` r
+#' We have spotted that sometimes "UNIV" is at the beginning or at the end. The strategy is:
+#' 
+#' - listing all the university with the pattern "UNIV-NAME" or "NAME-UNIV"
+#' - extracting the NAME and rewriting as "UNIV-NAME"
+#' - checking when the original name is different from the one we have rebuilt.
+#' - checking for potential conflicts (like YORK-UNIV for Canada and UNIV-YORK for England, already
+#' problematic in the database)
+#' - changing names in the data table.
 correct_univ <- data.table("Institution" = c(unique(Institutions[str_detect(Institution, "^UNIV-[A-z]{1,}$")]$Institution),
                                            unique(Institutions[str_detect(Institution, "^[A-z]{1,}-UNIV$")]$Institution)))
 correct_univ[, correct_name := paste0("UNIV-",str_remove(Institution, "UNIV-|-UNIV"))]
 correct_univ <- correct_univ[Institution != correct_name] %>% unique()
-```
 
-We check for the correct names that were already in the database to have
-an idea of potential problems.
-
-``` r
+#' We check for the correct names that were already in the database to have an idea of potential problems.
 check_inst <- data.table("ID_Art" = c(),"Institution" = c(), "Pays" = c())
 for(i in seq_along(correct_univ$Institution)){
 inst <- Institutions[Institution == correct_univ$correct_name[i]]
 inst$iteration <- i
 check_inst <- rbind(check_inst, inst)
 }
-```
 
-The only conflict is with the two university of York, and we distinguish
-the one in Canada.
-
-``` r
+#' The only conflict is with the two university of York, and we distinguish the one in Canada.
 Institutions[Institution == "YORK-UNIV" & Pays == "CANADA"]$Institution <- "YORK-UNIV-TORONTO"
 
 
 for(i in seq_along(correct_univ$Institution)){
   Institutions[Institution == correct_univ$Institution[i]]$Institution <- correct_univ$correct_name[i] 
 }
-```
 
-# 4 Cleaning countries and by country
-
-We have spotted some problems with some names which are linked to
-different countries. We thus do a bit of cleaning on them, to
-distinguish the institutions depending on the country.
-
-``` r
+#' # Cleaning countries and by country
+#' 
+#' We have spotted some problems with some names which are linked to different countries. We thus 
+#' do a bit of cleaning on them, to distinguish the institutions depending on the country.
 Institutions[Institution == "IND-INST-ECON-&-SOCIAL-RES"]$Pays <- "SWEDEN"
 Institutions[Pays == "YOGUSLAVIA"]$Pays <- "YUGOSLAVIA"
 Institutions[Institution == "INST-ECON" &
@@ -445,20 +364,16 @@ Institutions[Institution == "UCL" &
                Pays == "ENGLAND"]$Institution <- "UNIV-LONDON" # This is due to the fact that we have put all the London colleges together
 Institutions[Institution == "UCL" &
                Pays == "BELGIUM"]$Institution <- "UNIV-LOUVAIN"
-```
 
-# 5 Classifying institutions type
 
-``` r
+#' # Classifying institutions type
+#' 
+
 inst_type <- data.table("Institution" = unique(Institutions$Institution),
                         "Type" = rep(x = "NA", times = length(unique(Institutions$Institution))))
-```
 
-We list first all the universities without the “UNIV” part in their
-names, and then we classify them as universities, with the institutions
-with “UNIV”.
-
-``` r
+#' We list first all the universities without the "UNIV" part in their names, and then we classify
+#' them as universities, with the institutions with "UNIV".
 university <- c("MIT",
                 "NYU",
                 "CNRS",
@@ -482,15 +397,11 @@ university <- c("MIT",
                 "CERGE-EI",
                 "SUNY-ALBANY")
 
-inst_type[str_detect(Institution, "UNIV") | Institution %in% university]$Type <- "University"
+inst_type[str_detect(Institution, "UNIV") | Institution %in% university]$Type <- "Academic"
 inst_type[str_detect(Institution, "COLL|ECOLE|COLEGIO|FAC-|ACAD-") &
-            !str_detect(Institution, "INST")]$Type <- "University"
-```
+            !str_detect(Institution, "INST")]$Type <- "Academic"
 
-Same here but for all the networks and institutions without “INST” in
-their name and then
-
-``` r
+#' Same here but for all the networks and institutions without "INST" in their name and then
 network <- c("CEPR", 
              "NBER",
              "IZA",
@@ -517,16 +428,15 @@ network <- c("CEPR",
              "OFCE",
              "CIRANO",
              "NESTPAR",
-             "RAND-CORP")
+             "RAND-CORP",
+             "CTR-PLANNING-&-ECON-RES")
 
 inst_type[(str_detect(Institution, "INST|FDN-|-FDN") |
             Institution %in% network) &
-            Type != "University"]$Type <- "Institute & Network"
-```
+            Type != "Academic"]$Type <- "Institute & Network"
 
-We identify the business schools:
+#' We identify the business schools:
 
-``` r
 bs <- c("STOCKHOLM-SCH-ECON",
         "ATHENS-SCH-ECON-&-BUSINESS-SCI",
         "NORWEGIAN-SCH-ECON",
@@ -535,28 +445,21 @@ bs <- c("STOCKHOLM-SCH-ECON",
 inst_type[(str_detect(Institution, "MANAGEMENT|BUSINESS") &
              str_detect(Institution, "SCH")) |
              Institution %in% bs]$Type <- "Business School"
-```
 
-We try to put non yet attributed institution in the university category
-
-``` r
+#' We try to put non yet attributed institution in the university category
 inst_type[(str_detect(Institution, "ECON|GRAD") & 
             str_detect(Institution, "SCH")) &
-             Type != "Business School"]$Type <- "University"
+             Type != "Business School"]$Type <- "Academic"
 inst_type[(str_detect(Institution, "ECON|CTR|CENTER") & 
              str_detect(Institution, "RES|")) &
-            Type == "NA"]$Type <- "University"
-```
+            Type == "NA"]$Type <- "Academic"
 
-We identify the central banks:
+#' We identify the central banks:
+#' 
 
-``` r
 inst_type[str_detect(Institution, paste0(cb, collapse = "|"))]$Type <- "Central Bank"
-```
 
-We identify the international organisations
-
-``` r
+#' We identify the international organisations
 io <- c("WORLD-BANK",  # We list here all the international organisations
         "IMF",
         "BANK-INT-SETTLEMENTS",
@@ -577,11 +480,10 @@ io <- c("WORLD-BANK",  # We list here all the international organisations
         "UNITED-NATIONS-IND-DEV-ORG")
 
 inst_type[Institution %in% io]$Type <- "International Organization"
-```
 
-We identify national public organization
+#' We identify national public organization
+#' 
 
-``` r
 npo <- c("SWISS-FED-BANKING-COMMISS",
          "CENT-PLANNING-BUR",
          "ISRAEL-CENT-BUR-STAT",
@@ -596,12 +498,10 @@ npo <- c("SWISS-FED-BANKING-COMMISS",
          "CENT-BUR-STAT")
 
 inst_type[str_detect(Institution, "MINIST|TREASURY|US-BUR-|US-DEPT-") | Institution %in% npo]$Type <- "National Public Organization"
-```
 
-We now tackles the private firms, and first the banks that remain after
-identifying central banks
+#' We now tackles the private firms, and first the banks that remain after 
+#' identifying central banks
 
-``` r
 private <- c("GOLDMAN-SACHS",
              "COOPERS-&-LYBRAND",
              "EMERGING-MARKETS-GRP",
@@ -614,17 +514,16 @@ private <- c("GOLDMAN-SACHS",
              "WHARTON-ECON-FORECASTING-ASSOC",
              "SHEARSON-LOEB-RHOADES-INC")
 inst_type[(str_detect(Institution, "BANK|MANAGEMENT") | Institution %in% private) & Type == "NA"]$Type <- "Private"
-```
 
-We now merge the types we have identified with the main data table.
-
-``` r
+#' We now merge the types we have identified with the main data table.
+#' 
 inst_type[Institution == "NULL"]$Institution <- "NA"
 Institutions <- merge(Institutions,inst_type, by = "Institution")
-```
 
-We finally save the new database under a different name
+#' Some cleaning on `countries_grouped`
+#' 
+Institutions[Pays == "SWEDEN",]$Countries_grouped <- "Europe"
 
-``` r
+#' We finally save the new database under a different name
+#' 
 saveRDS(Institutions,paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Institutions_cleaned.rds"))
-```
