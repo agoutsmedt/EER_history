@@ -13,18 +13,12 @@ ESH <- dbConnect(MySQL(),
 path_microsoft <- here(eer_data,
                        "Corpus_Top5",
                        "MS_Academics_AB")
-top_5_AB1 <- bib2df(here(path_microsoft, "MS_JPE.bib"))
-top_5_AB2 <- bib2df(here(path_microsoft, "MS_AER_69_90.bib"))
-top_5_AB3 <- bib2df(here(path_microsoft, "MS_AER_91_07.bib"))
-top_5_AB4 <- bib2df(here(path_microsoft, "MS_Econometrica.bib"))
-top_5_AB5 <- bib2df(here(path_microsoft, "MS_QJE_01_07.bib"))
-top_5_AB6 <- bib2df(here(path_microsoft, "MS_QJE_69_00.bib"))
-top_5_AB7 <- bib2df(here(path_microsoft, "MS_RES.bib"))
-top_5_AB <- rbind(top_5_AB1, top_5_AB2, top_5_AB3, top_5_AB4, top_5_AB5, top_5_AB6, top_5_AB7)
-top_5_AB <- top_5_AB %>% as.data.table()
-top_5_AB$PAGES_START <- str_split_fixed(top_5_AB$PAGES, "--", 2) %>% .[,1]
-top_5_AB$PAGES_END <- str_split_fixed(top_5_AB$PAGES, "--", 2) %>% .[,2]
-
+MS_files <- list.files(path_microsoft)[str_which(list.files(path_microsoft), "^MS")]
+top_5_AB <- map(MS_files, ~bib2df(here(path_microsoft, .x))) %>% 
+  bind_rows() %>% 
+  mutate(PAGES_START = str_extract(PAGES, "^\\d+"),
+         PAGES_END = str_extract(PAGES, "\\d+$")) %>% 
+  as.data.table()
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Exploration####
@@ -45,15 +39,31 @@ top_5_AB
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 # all art
-all_art <- dbGetQuery(ESH, paste0("SELECT * FROM OST_Expanded_SciHum.Articles WHERE ItemID_Ref != 0;")) %>% data.table()
-readRDS()
-issueID <- fread(here(macro_AA_data, 
+if(str_detect(here(), "home")){
+  all_art <- dbGetQuery(ESH, paste0("SELECT * FROM OST_Expanded_SciHum.Articles WHERE ItemID_Ref != 0;")) %>% 
+    data.table()
+  revues <- dbGetQuery(ESH, "SELECT Code_Revue, Revue, Code_Discipline FROM OST_Expanded_SciHum.Revues;") %>% 
+    data.table()
+} else {
+  all_art <- arrow::read_parquet(here(macro_AA_data, 
+                                      "OST_generic_data",
+                                      "all_art.parquet"),
+                                 as_data_frame = FALSE) %>% 
+    filter(ItemID_Ref != 0) %>% 
+    collect() %>% 
+    data.table()
+  
+  revues <- readRDS(here(macro_AA_data, 
+                         "OST_generic_data",
+                         "revues.rds")) %>% 
+    data.table()
+}
+
+issueID <- readRDS(here(macro_AA_data, 
                       "OST_generic_data",
-                      "revueID.csv"), 
-                      quote = "") %>% 
+                      "revueID.rds")) %>% 
                    data.table()
-# Disciplines and Journals
-revues <- dbGetQuery(ESH, "SELECT Code_Revue, Revue, Code_Discipline FROM OST_Expanded_SciHum.Revues;") %>% data.table()
+
 # Get IssueID for matching
 all_art <- merge(all_art, issueID[, .(IssueID, Volume)], by = "IssueID")
 

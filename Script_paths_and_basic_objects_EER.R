@@ -75,7 +75,7 @@ if (str_detect(getwd(), "goutsmedt")) {
   if (str_detect(getwd(), "Dropbox")) {
     data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
   } else {
-    data_path <- "/projects/data"
+    data_path <- "/projects/data/macro_AA"
   }
 }
 
