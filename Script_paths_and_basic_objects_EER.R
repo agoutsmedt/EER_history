@@ -4,16 +4,48 @@
 
 ##################### Packages ############################################--------------
 
-package_list <- c(
-  "here", "fs", "biblionetwork",
-  "data.table", "tidyverse", "furrr", "ggnewscale", "igraph",
-  "quanteda", "tm", "tidytext", "ggraph", "tidygraph",
-  "leidenAlg", "reshape2", "scales", "RMySQL", "stringi",
-  "ggforce", "directlabels", "patchwork", "DescTools", "DT",
-  "grid", "ggdendro", "readtext", "pander", "RColorBrewer",
-  "scico", "plotly", "crosstalk", "widgetframe", "sigmajs",
-  "ggdark", "topicmodels", "ggrepel", "stm", "huge",
-  "spacyr", "htmlwidgets", "bib2df","arrow"
+package_list <- c("fs",
+                  "here",
+                  "RMySQL",
+                  "bib2df", # for importing Microsoft data
+                  "data.table", 
+                  "tidyverse", ## Tidy tools
+                  "tidygraph",
+                  "furrr", 
+                  "ggnewscale", ## Visualisation tool
+                  "ggraph", 
+                  "ggforce", 
+                  "directlabels", 
+                  "patchwork", 
+                  # "grid", # Needed?
+                  "ggdendro",
+                  "scales", 
+                  "ggrepel",
+                  "RColorBrewer",
+                  "scico",
+                  "ggdark",
+                  # "igraph", # No need?
+                  "quanteda", ## Text analysis tools
+                  "tm", 
+                  "tidytext", 
+                  "stm", 
+                  "topicmodels",
+                  "spacyr", 
+                  "stringi",
+                  "huge", # Use with stm for spatialisation of networks
+                  # "readtext", # What for?
+                  "leidenAlg", # Clusterisation but integrated in igraph now? 
+                  "biblionetwork",
+                  "reshape2",
+                  # "DescTools", # what for?
+                  "DT", ## Hmtl interactive tools
+                  "plotly", 
+                  "crosstalk", 
+                  "widgetframe", 
+                  "sigmajs",
+                  "htmlwidgets", 
+                  "pander", # For publication?
+                  "glue"
 )
 for (p in package_list) {
   if (p %in% installed.packages() == FALSE) {
@@ -47,13 +79,17 @@ if (str_detect(getwd(), "goutsmedt")) {
   }
 }
 
+# First level path
 macro_AA_data <- here(data_path,
                       "macro_AA")
 eer_data <- here(data_path, 
                  "EER")
 
+
 boards_path <- here(eer_data, "editorial_boards")
 macro_data <- here(macro_AA_data, "Corpus_Econlit_Matched_WoS")
 
-picture_path <- here("EER_Paper", 
-                     "Pictures")
+# Pictures
+picture_path <- here(eer_data, 
+                     "pictures")
+tm_picture_path <- here(picture_path, "topic_modelling")

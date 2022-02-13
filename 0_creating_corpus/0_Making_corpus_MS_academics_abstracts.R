@@ -1,11 +1,6 @@
-require(bib2df)
-require(ggplot2)
-library(RMySQL)
-library(data.table)
-require(magrittr)
-library(stringr)
 
-source("~/macro_AA/logins_DO_NOT_UPLOAD.R")
+source("Script_paths_and_basic_objects_EER.R")
+source("~/macro_AA/logins_DO_NOT_UPLOAD.R") 
 ESH <- dbConnect(MySQL(),
                  user = usr, password = pswd, dbname = "OST_Expanded_SciHum",
                  host = "127.0.0.1"
@@ -51,6 +46,7 @@ top_5_AB
 
 # all art
 all_art <- dbGetQuery(ESH, paste0("SELECT * FROM OST_Expanded_SciHum.Articles WHERE ItemID_Ref != 0;")) %>% data.table()
+readRDS()
 issueID <- fread(here(macro_AA_data, 
                       "OST_generic_data",
                       "revueID.csv"), 
