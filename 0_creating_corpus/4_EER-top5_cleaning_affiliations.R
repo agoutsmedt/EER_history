@@ -28,6 +28,24 @@ Institutions <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Insti
 Corpus <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Corpus.rds"))
 
 
+# ADD tHIS PART FROM SCRIPT II
+# Cleaning this wrong info # To move in another script??
+country_clean <- tribble(
+  ~ to_correct, ~ correction,
+  "FED-REP-GER", "GERMANY",
+  "WEST-GERMANY", "GERMANY",
+  "UNITED STATES", "USA",
+  "ENGLAND", "UK",
+  "CZECHOSLOVAKIA|CZECH-REPUBLIC", "CZECH REPUBLIC"
+)
+
+for(i in 1:nrow(country_clean)){
+  Institutions <- Institutions %>% 
+    mutate(Pays = ifelse(str_detect(Pays, country_clean$to_correct[i]),
+                         country_clean$correction[i],
+                         Pays))
+}
+
 #' # Cleaning institutions name
 #' 
 #' ## Cleaning Scopus data
@@ -37,6 +55,8 @@ Corpus <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Corpus.rds"
 
 Institutions[str_detect(Institution, "UNIVERSITY OF CALIFORNIA")]$Institution <- c("UNIV-CALIF-DAVIS","UNIV-CALIF-BERKELEY") # checked manually
 Institutions[Pays == "UNITED STATES"]$Pays <- "USA"
+
+
 #' The first thing to do is to transform scopus institutions names in a way that allow them
 #' to be merged and cleaned with the WoS institutions. It involves some hands cleaning
 #' for some institution. 

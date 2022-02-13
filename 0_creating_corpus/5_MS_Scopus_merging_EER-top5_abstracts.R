@@ -1,10 +1,13 @@
 
 source("Script_paths_and_basic_objects_EER.R")
 source("~/macro_AA/logins_DO_NOT_UPLOAD.R") 
+
+if(str_detect(here(), "home")){
 ESH <- dbConnect(MySQL(),
                  user = usr, password = pswd, dbname = "OST_Expanded_SciHum",
                  host = "127.0.0.1"
 )
+}
 
 `%notin%` <- Negate(`%in%`)
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#

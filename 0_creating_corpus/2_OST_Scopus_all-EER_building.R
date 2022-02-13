@@ -11,7 +11,7 @@
 #' # What is this script for?
 #' 
 #' This script aims at extracting all the articles of the EER, the references, the list of authors
-#' and their affiliations. It also extracts the same data for the four missing years (1970-1973).
+#' and their affiliations. It also extracts the same data for the four missing years (1971-1973).
 #' 
 #' 
 #' > WARNING: This script still needs a lot of cleaning
@@ -22,15 +22,20 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #'
 
-source("~/macro_AA/EER_Paper/Script_paths_and_basic_objects_EER.R")
+source("Script_paths_and_basic_objects_EER.R")
+source("loading_macro_AA.R") # Not necessary if a different matching with JEL
 source("~/macro_AA/logins_DO_NOT_UPLOAD.R")
 
-ESH <- dbConnect(MySQL(), user=usr, password=pswd, dbname='OST_Expanded_SciHum',
-                 host='127.0.0.1')
-setwd("/projects/data/macro_AA")
+if(str_detect(here(), "home")){
+  source("~/macro_AA/logins_DO_NOT_UPLOAD.R")
+  ESH <- dbConnect(MySQL(),
+                   user = usr, password = pswd, dbname = "OST_Expanded_SciHum",
+                   host = "127.0.0.1"
+  )
+}
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Disciplines ####
+#### Disciplines #### # To move in another place ??
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 revues <- fread("all_journals.csv", quote="") %>% data.table
@@ -66,97 +71,105 @@ disciplines[,Code_Discipline:=as.character(Code_Discipline)]
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Basic Corpus ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-Corpus <- fread(here(eer_data,
-                     "Corpus_EER",
-                     "EER_NODES_XP.csv"),
-                quote="") %>% data.table
+Corpus_ost <- fread(here(eer_data,
+                         "Corpus_EER",
+                         "EER_NODES_XP.csv"),
+                    quote="") %>% 
+  mutate(ID_Art = as.character(ID_Art)) %>% 
+  select(-Code_Discipline) %>% 
+  data.table 
 
 # Scopus and bind
 Corpus_scopus <- readRDS(here(eer_data,
-                              "Corpus_EER",
-                              "scopus_articles.RDS"))
-Corpus_scopus <- Corpus_scopus %>% rename(ID_Art = temp_id)
-Corpus_scopus[,ID_Art:=paste0("S",ID_Art)]
-Corpus_scopus <- Corpus_scopus %>% rename(Titre = title)
-Corpus_scopus <- Corpus_scopus %>% rename(Nom_ISI = author)
-Corpus_scopus[,Nom_ISI:=toupper(Nom_ISI)]
-Corpus_scopus[,Code_Document:=99]
-Corpus_scopus[,Code_Revue:=5200]
-Corpus_scopus[,Code_Discipline:=119]
-Corpus_scopus[,ItemID_Ref:=ID_Art]
-Corpus <- rbind(Corpus, Corpus_scopus[,.(ID_Art, ItemID_Ref, Annee_Bibliographique, Titre, Code_Document, Code_Revue, Code_Discipline)])
+                              "scopus",
+                              "scopus_EER_missing_years.rds")) %>% 
+  .[["articles"]] %>% 
+  rename(ID_Art = scopus_id,
+         Titre = dc_title,
+         Nom_ISI = dc_creator,
+         Annee_Bibliographique = year) %>% 
+  mutate(Nom_ISI = toupper(Nom_ISI),
+         Code_Document = 99,
+         Code_Revue = 5200,
+         ItemID_Ref = ID_Art,
+         Annee_Bibliographique = as.integer(Annee_Bibliographique)) %>% 
+  select(ID_Art, ItemID_Ref, Annee_Bibliographique, Titre, starts_with("Code"))
 
-Corpus[,Id:=as.character(ID_Art)]
-Corpus[,ID_Art:=as.character(ID_Art)]
-Corpus[,ItemID_Ref:=as.character(ItemID_Ref)]
-Corpus[,Code_Revue:=as.character(Code_Revue)]
-Corpus[, c("Code_Discipline"):=NULL]
+Corpus <- Corpus_ost %>% 
+  bind_rows(Corpus_scopus) %>% 
+  mutate(Id = ID_Art,
+         Code_Revue = as.character(Code_Revue)) %>% 
+  filter(Code_Document %in% c(1:3, 6, 99)) # Keeping only articles and similar
 
-# Document types
-Corpus <- Corpus[Code_Document == 1 | Code_Document == 2 | Code_Document == 3 | Code_Document == 6 | Code_Document == 99]
+# Identifying macro JEL or not with macro_AA data 
+# NOT SURE TO KEEP THIS HERE !!
 
-# JEL IDs
-JEL1 <- readRDS("/projects/data/macro_AA/Corpus_Econlit_Matched_WoS/Old_JEL_matched_corpus_nodes.rds")
-JEL2 <- readRDS("/projects/data/macro_AA/Corpus_Econlit_Matched_WoS/JEL_matched_corpus_nodes.rds")
-JEL <- rbind(JEL1,JEL2)
-Corpus <- Corpus[,JEL_id:=0][ID_Art %in% JEL$ID_Art, JEL_id:=1]
+Corpus <- Corpus %>% 
+  mutate(jel_id = ifelse(ID_Art %in% nodes_JEL$ID_Art, 1, 0))
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Authors ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-Authors <- fread("EER/Corpus_EER/EER_AUT_XP.csv", quote="") %>% data.table
+Authors_ost <- fread(here(eer_data,
+                          "Corpus_EER",
+                          "EER_AUT_XP.csv"), quote="") %>% 
+  mutate(ID_Art = as.character(ID_Art)) %>% 
+  data.table
 
 # Scopus and bind
-Authors_scopus <- readRDS("EER/Corpus_EER/scopus_authors.RDS")
-Authors_scopus <- Authors_scopus %>% rename(ID_Art = temp_id)
-Authors_scopus[,ID_Art:=paste0("S",ID_Art)]
+Authors_scopus <- readRDS(here(eer_data,
+                               "scopus",
+                               "scopus_EER_missing_years.rds")) %>% 
+  .[["authors"]] %>% 
+  rename(ID_Art = scopus_id,
+         Ordre = seq,
+         Nom_ISI = authname) %>% 
+  mutate(Ordre = as.integer(Ordre),
+         Nom_ISI = toupper(Nom_ISI) %>% 
+           str_replace_all(" (?=[A-Z]\\.)", "-") %>% # replace space before initial by a dash to match OST format
+           str_remove_all("\\.")) %>% 
+  select(ID_Art, Nom_ISI, Ordre)
 
-Authors_scopus <- Authors_scopus %>% rename(Ordre = order)
-Authors_scopus <- Authors_scopus %>% rename(Nom_ISI = author)
-Authors <- rbind(Authors, Authors_scopus)
-
-Authors[,ID_Art:=as.character(ID_Art)]
-Authors <- Authors[ID_Art %in% Corpus$ID_Art][,Nom_ISI:=toupper(Nom_ISI)]
-
-# info about sources
-Authors <- merge(Authors, Corpus[,.(ID_Art, Annee_Bibliographique)], by = "ID_Art", all.x = TRUE)
-
+Authors <- Authors_ost %>% 
+  bind_rows(Authors_scopus) %>% 
+  left_join(select(Corpus, ID_Art, Annee_Bibliographique))
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Institutions ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 # UE <- fread("EER/UE.csv") %>% data.table
-UE <- fread("EER/Europe_continent.csv") %>% data.table 
+UE <- fread(here(eer_data, 
+                 "Europe_continent.csv")) %>% 
+  data.table 
 
-Institutions <- fread("EER/Corpus_EER/EER_INST_XP.csv", quote="") %>% data.table
+Institutions_ost <- fread(here(eer_data,
+                               "Corpus_EER",
+                               "EER_INST_XP.csv"),
+                          quote="") %>% 
+  mutate(ID_Art = as.character(ID_Art)) %>% 
+  select(-c(Nom_ISI, Ordre)) %>%
+  filter(Institution != "NULL") %>% # No Country is null but if it was the case we could have add the country
+  data.table %>% 
+  unique
 
 # Scopus and bind
-Institutions_scopus <- readRDS("EER/Corpus_EER/scopus_institutions.RDS")
-Institutions_scopus <- Institutions_scopus %>% rename(ID_Art = temp_id)
-Institutions_scopus[,ID_Art:=paste0("S",ID_Art)]
-Institutions_scopus <- Institutions_scopus %>% rename(Ordre = order_inst)
-Institutions_scopus <- Institutions_scopus %>% rename(Institution = institution)
-Institutions_scopus <- Institutions_scopus %>% rename(Pays = country)
-Institutions_scopus[,Pays:=toupper(Pays)]
-Institutions_scopus[,Institution:=toupper(Institution)]
-Institutions <- rbind(Institutions, Institutions_scopus[,.(ID_Art, Institution, Pays, Ordre)], fill=TRUE)
+Institutions_scopus <- readRDS(here(eer_data,
+                                    "scopus",
+                                    "scopus_EER_missing_years.rds")) %>% 
+  .[["institutions"]] %>% 
+  rename(ID_Art = scopus_id) %>% 
+  mutate(Pays = toupper(affiliation_country),
+         Institution = toupper(affilname)) %>% 
+  filter(! is.na(Institution)) %>% 
+  select(ID_Art, Institution, Pays) %>% 
+  mutate(Pays = ifelse(Institution == "INSTITUTE OF ECONOMIC STUDIES", "SWEDEN", Pays)) # missing country for the IES
 
+Institutions <- Institutions_ost %>% 
+  bind_rows(Institutions_scopus) %>% 
+  filter(ID_Art %in% Corpus$ID_Art) %>% 
+  left_join(select(Corpus, ID_Art, Annee_Bibliographique))
 
-# Cleaning this wrong info
-Institutions[Pays=="FED-REP-GER", Pays:="GERMANY"]
-Institutions[Pays=="WEST-GERMANY", Pays:="GERMANY"]
-Institutions[Pays=="CZECHOSLOVAKIA" | Pays=="CZECH-REPUBLIC", Pays:="CZECH REPUBLIC"]
-
-Institutions[, c("Nom_ISI", "Ordre"):=NULL] # removing useless columns
-Institutions <- Institutions[,head(.SD, 1),.(ID_Art,Institution)] #keeping unique institutions by ID_Art
-Institutions <- Institutions[Institution!="NULL" | Pays!="NULL" ]
-
-Institutions[,ID_Art:=as.character(ID_Art)]
-Institutions <- Institutions[ID_Art %in% Corpus$ID_Art]
-
-# info about sources
-Institutions <- merge(Institutions, Corpus[,.(ID_Art, Annee_Bibliographique)], by = "ID_Art", all.x = TRUE)
-
+############################### THIS PART SHOULD GO IN SCRIPT 4 ##########################
 # Identifying europe
 Institutions[, Countries_grouped:=Pays]
 
@@ -202,15 +215,34 @@ Corpus[,.N,ID_Art][N>1]
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 ################  Claveau BD %%%%%%%%%%%%
 
-all_ref <-  dbGetQuery(ESH, paste0("SELECT ID_Art, ItemID_Ref, New_id2, Annee, Nom, Revue_Abbrege, Volume, Page 
+if(str_detect(here(), "home")){
+  all_ref <-  dbGetQuery(ESH, paste0("SELECT ID_Art, ItemID_Ref, New_id2, Annee, Nom, Revue_Abbrege, Volume, Page 
                                    FROM OST_Expanded_SciHum.References7 as ref 
-                                   WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200);")) %>%  data.table
-all_art <-  dbGetQuery(ESH, paste0("SELECT * 
+                                   WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200);")) %>%
+    data.table
+  all_art <-  dbGetQuery(ESH, paste0("SELECT * 
                                    FROM OST_Expanded_SciHum.Articles 
-                                   WHERE ItemID_Ref IN (SELECT ItemID_Ref FROM OST_Expanded_SciHum.References7 WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200));")) %>%  data.table
-Corpus_Claveau <-  dbGetQuery(ESH, paste0("SELECT ID_Art, Annee_Bibliographique, Code_Revue 
-                                   FROM OST_Expanded_SciHum.Articles
-                                   WHERE Code_Revue=5200")) %>%  data.table
+                                   WHERE ItemID_Ref IN (SELECT ItemID_Ref FROM OST_Expanded_SciHum.References7 WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200));")) %>%
+    data.table
+} else {
+  id_art <- Corpus %>% 
+    filter(! str_detect(ID_Art, "S")) %>% 
+    select(ID_Art)
+  all_ref <- arrow::read_parquet(here(macro_AA_data,
+                                      "OST_generic_data",
+                                      "all_ref.parquet"),
+                                 as_data_frame = FALSE) %>% 
+    filter(ID_Art %in% id_art$ID_Art) %>% 
+    collect() %>% 
+    data.table
+  all_art <- arrow::read_parquet(here(macro_AA_data,
+                                      "OST_generic_data",
+                                      "all_art.parquet"),
+                                 as_data_frame = FALSE) %>% 
+    filter(ItemID_Ref %in% all_ref$ItemID_Ref & ItemID_Ref != 0) %>% 
+    collect() %>% 
+    data.table
+}
 
 # Infos about refs (REF_RAW=83 174 with 59 286 unique id2 et 34 062 unique ItemID_Ref)
 refs_Claveau <- merge(all_ref, all_art[ItemID_Ref!=0], by="ItemID_Ref", all.x = TRUE) 
@@ -422,6 +454,7 @@ saveRDS(Institutions, file = "EER/1_Corpus_Prepped_and_Merged/Institutions.rds")
 saveRDS(Authors, file = "EER/1_Corpus_Prepped_and_Merged/Authors.rds")
 saveRDS(refs, file = "EER/1_Corpus_Prepped_and_Merged/Refs.rds")
 
+
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Last steps of cleaning ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
@@ -498,7 +531,7 @@ scopus_abstract[Nom_ISI == "STEIGUMJR-E"]$Nom_ISI <- "STEIGUM-E"
 scopus_abstract[Nom_ISI == "ROSEN-NA"]$Nom_ISI <- "ROSEN-A"
 
 scopus_abstract <- scopus_abstract[order(Annee_Bibliographique,Nom_ISI,Titre)][Annee_Bibliographique <= max(Corpus$Annee_Bibliographique) &
-                                     !is.na(abstract)]
+                                                                                 !is.na(abstract)]
 scopus_abstract <- scopus_abstract %>% 
   mutate(author_date = paste0(Nom_ISI,"-",Annee_Bibliographique),
          Titre_alt = str_squish(str_replace_all(Titre, "[:punct:]", " ")),
@@ -508,12 +541,12 @@ scopus_abstract <- scopus_abstract %>%
   as.data.table()
 
 merge_corpus_authordate <- merge(scopus_abstract[count_authordate == 1, c("temp_id","abstract","author_date")], 
-                      Corpus[count_authordate  == 1], 
-                      by = "author_date")
+                                 Corpus[count_authordate  == 1], 
+                                 by = "author_date")
 
 merge_corpus_title <- merge(scopus_abstract[,c("temp_id","abstract","Titre_alt")], 
-                               Corpus, 
-                               by = "Titre_alt")
+                            Corpus, 
+                            by = "Titre_alt")
 
 #' There is a "normal" doublon in `merge_corpus_title` that we can remove (an article
 #' is an answer to another article, with the same title)
@@ -547,9 +580,9 @@ link_id <- data.table(ID_Art = c("41014562","42281165","42035495","7143275",
                                  "12668535","14139264","19354563","61558363",
                                  "61558365","61558360"),
                       temp_id = as.integer(c("650","552","554","2784",
-                                  "2612","2199","2288","2153",
-                                  "1983","1859","1398","3603",
-                                  "3602","3614")))
+                                             "2612","2199","2288","2153",
+                                             "1983","1859","1398","3603",
+                                             "3602","3614")))
 
 manual_merge <- merge(link_id, scopus_abstract, by = "temp_id")
 merge_corpus <- rbind(merge_corpus[,c("ID_Art","abstract")],manual_merge[,c("ID_Art","abstract")])
