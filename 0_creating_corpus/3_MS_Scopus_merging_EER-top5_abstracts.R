@@ -17,7 +17,7 @@ path_microsoft <- here(eer_data,
                        "Corpus_Top5",
                        "MS_Academics_AB")
 MS_files <- list.files(path_microsoft)[str_which(list.files(path_microsoft), "^MS")]
-top_5_AB <- map(MS_files, ~bib2df(here(path_microsoft, .x))) %>% 
+top_5_AB <- map(MS_files, ~ bib2df(here(path_microsoft, .x))) %>% 
   bind_rows() %>% 
   mutate(PAGES_START = str_extract(PAGES, "^\\d+"),
          PAGES_END = str_extract(PAGES, "\\d+$")) %>% 
