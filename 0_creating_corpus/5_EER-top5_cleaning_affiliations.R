@@ -28,16 +28,7 @@ Institutions <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Insti
 Corpus <- readRDS(paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Corpus.rds"))
 
 
-# ADD tHIS PART FROM SCRIPT II
-# Cleaning this wrong info # To move in another script??
-country_clean <- tribble(
-  ~ to_correct, ~ correction,
-  "FED-REP-GER", "GERMANY",
-  "WEST-GERMANY", "GERMANY",
-  "UNITED STATES", "USA",
-  "ENGLAND", "UK",
-  "CZECHOSLOVAKIA|CZECH-REPUBLIC", "CZECH REPUBLIC"
-)
+
 
 for(i in 1:nrow(country_clean)){
   Institutions <- Institutions %>% 
@@ -547,3 +538,47 @@ Institutions[Pays == "SWEDEN",]$Countries_grouped <- "Europe"
 #' We finally save the new database under a different name
 #' 
 saveRDS(Institutions,paste0(data_path, "EER/1_Corpus_Prepped_and_Merged/Institutions_cleaned.rds"))
+
+
+
+
+# UE <- fread("EER/UE.csv") %>% data.table
+UE <- fread(here(eer_data, 
+                 "Europe_continent.csv")) %>% 
+  data.table 
+
+# ADD tHIS PART FROM SCRIPT II
+# Cleaning this wrong info # To move in another script??
+country_clean <- tribble(
+  ~ to_correct, ~ correction,
+  "FED-REP-GER", "GERMANY",
+  "WEST-GERMANY", "GERMANY",
+  "UNITED STATES", "USA",
+  "ENGLAND", "UK",
+  "CZECHOSLOVAKIA|CZECH-REPUBLIC", "CZECH REPUBLIC"
+)
+
+############################### THIS PART SHOULD GO IN SCRIPT 4 ##########################
+# Identifying europe
+Institutions[, Countries_grouped:=Pays]
+
+Institutions[Pays %in% toupper(UE$Countries), Countries_grouped:="Europe"]
+
+Institutions[Countries_grouped!="Europe" & Countries_grouped!="USA",.N,Pays][order(-N)]
+Institutions[Countries_grouped=="Europe",.N,Pays][order(-N)]
+
+# Identifying Collaborations
+Institutions[,n_institutions_tot:=.N,.(ID_Art)]
+Institutions[,EU:=0][Countries_grouped=="Europe", EU:=1][,EU_share:=sum(EU)/n_institutions_tot,ID_Art]
+Institutions[,US:=0][Countries_grouped=="USA", US:=1][,US_share:=sum(US)/n_institutions_tot,ID_Art]
+Institutions[, EU_US_collab:= "Neither", ID_Art]
+Institutions[EU_share>0 & US_share>0, EU_US_collab:= "Collaboration", ID_Art]
+Institutions[EU_share==0 & US_share==1, EU_US_collab:= "USA Only", ID_Art]
+Institutions[EU_share==1 & US_share==0, EU_US_collab:= "Europe Only", ID_Art]
+
+
+bridges_collab <- Institutions[EU_US_collab== "Collaboration"][,list(Target = rep(Institution[1:(length(Institution)-1)],(length(Institution)-1):1),
+                                                                     Source = rev(Institution)[sequence((length(Institution)-1):1)]),
+                                                               by= ID_Art]
+bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(Source, Target)] # exchanging
+bridges_collab[,.N,.(Target,Source)][order(-N)] %>% top_n(20)

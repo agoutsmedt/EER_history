@@ -88,7 +88,6 @@ eer_data <- here(data_path,
 
 
 boards_path <- here(eer_data, "editorial_boards")
-macro_data <- here(macro_AA_data, "Corpus_Econlit_Matched_WoS")
 
 # Pictures
 picture_path <- here(eer_data, 
