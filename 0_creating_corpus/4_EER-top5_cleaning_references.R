@@ -1,43 +1,55 @@
-################  Claveau BD %%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#### References ####
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#' ---
+#' title: "Script for building the EER references"
+#' author: "Aurélien Goutsmedt and Alexandre Truc"
+#' date: "/ Last compiled on `r format(Sys.Date())`"
+#' output: 
+#'   github_document:
+#'     toc: true
+#'     number_sections: true
+#' ---
+#' 
+#' # What is this script for?
+#' 
+#' This script aims at cleaning all the refefrences of the EER and top 5 Macro
+#' 
+#' 
+#'
+#' 
+#+ r setup, include = FALSE
+# knitr::opts_chunk$set(eval = FALSE)
 
-if(str_detect(here(), "home")){
-  all_ref <-  dbGetQuery(ESH, paste0("SELECT ID_Art, ItemID_Ref, New_id2, Annee, Nom, Revue_Abbrege, Volume, Page 
-                                   FROM OST_Expanded_SciHum.References7 as ref 
-                                   WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200);")) %>%
-    data.table
-  all_art <-  dbGetQuery(ESH, paste0("SELECT * 
-                                   FROM OST_Expanded_SciHum.Articles 
-                                   WHERE ItemID_Ref IN (SELECT ItemID_Ref FROM OST_Expanded_SciHum.References7 WHERE ID_Art IN (SELECT ID_Art FROM OST_Expanded_SciHum.Articles WHERE Code_Revue=5200));")) %>%
-    data.table
-} else {
-  id_art <- Corpus %>% 
-    filter(! str_detect(ID_Art, "S")) %>% 
-    select(ID_Art)
-  all_ref <- arrow::read_parquet(here(macro_AA_data,
-                                      "OST_generic_data",
-                                      "all_ref.parquet"),
-                                 as_data_frame = FALSE) %>% 
-    filter(ID_Art %in% id_art$ID_Art) %>% 
-    collect() %>% 
-    data.table
-  all_art <- arrow::read_parquet(here(macro_AA_data,
-                                      "OST_generic_data",
-                                      "all_art.parquet"),
-                                 as_data_frame = FALSE) %>% 
-    filter(ItemID_Ref %in% all_ref$ItemID_Ref & ItemID_Ref != 0) %>% 
-    collect() %>% 
-    data.table
-}
+#' # Loading packages, paths and data
+#'
 
-# Infos about refs (REF_RAW=83 174 with 59 286 unique id2 et 34 062 unique ItemID_Ref)
-refs_Claveau <- merge(all_ref, all_art[ItemID_Ref!=0], by="ItemID_Ref", all.x = TRUE) 
+source("Script_paths_and_basic_objects_EER.R")
 
-# Infos about revues
-refs_Claveau <- merge(refs_Claveau, revues[,Code_Revue:=as.integer(Code_Revue)][,.(Code_Revue,Code_Discipline)], by="Code_Revue", all.x = TRUE)
 
-# Noramlize Claveau's BD
-refs_Claveau <- refs_Claveau[,.(ID_Art_Source=ID_Art.x, ItemID_Ref_old_claveau=ItemID_Ref, New_id2, Nom, Annee, Code_Revue, Code_Discipline, Titre, Revue_Abbrege, Volume, Page)]
-refs_Claveau <- refs_Claveau[ID_Art_Source %in% Corpus$ID_Art]
+Refs <- readRDS(here(eer_data, 
+                     "0_To_Be_Cleaned",
+                     "References_EER_Top5_To_Clean.rds"))
+Corpus <- readRDS(here(eer_data,
+                       "0_To_Be_Cleaned",
+                       "Corpus_EER_Top5_No_Abstract.rds"))
+
+# Keeping only refs from macro articles
+Refs_macro <- Refs[ID_Art %in% Corpus[jel_id==1]$ID_Art]
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#### Cleaning between ItemID_Ref and New_id2 ####
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+# Take unique observation when multiple refs for one article
+Refs[ItemID_Ref!=0,.N,.(ID_Art,ItemID_Ref)][order(-N)]
+
+Corpus[ID_Art==5797613] %>% as.tibble()
+
+Refs_macro <- Refs[ID_Art %in% Corpus[jel_id==1]$ID_Art]
+
+
+
 # Take unique observation when multiple refs for one article
 refs_Claveau_unique <- refs_Claveau[ItemID_Ref_old_claveau!=0, head(.SD, 1), .(ID_Art_Source,ItemID_Ref_old_claveau)]
 refs_Claveau <- rbind(refs_Claveau_unique,refs_Claveau[ItemID_Ref_old_claveau==0])
@@ -200,33 +212,3 @@ refs <- rbind(refs, refs_scopus[,.(ID_Art_Source=ID_Art,ItemID_Ref_Target, Nom, 
 refs[ItemID_Ref_Target=="SR10",Titre_scopus:="L'Equilibre economique en 1961"]
 refs[is.na(Titre) & is.na(Titre_scopus)==FALSE, Titre:=toupper(Titre_scopus)]
 refs[, c("Titre_scopus"):=NULL]
-
-################ Completing Refs Informations %%%%%%%%%%%%
-refs[,ID_Art_Source:=as.character(ID_Art_Source)]
-refs[,Id:=as.character(ID_Art_Source)]
-refs[,Annee_Bibliographique_Target:=Annee]
-refs[,Nom_Target:=Nom]
-refs[,Code_Revue:=as.character(Code_Revue)]
-refs[,Code_Discipline:=as.character(Code_Discipline)]
-
-# Label column
-refs <- refs[, name_short:=  gsub("-.*","",Nom)]
-refs$name_short <- toupper(refs$name_short)
-refs <- refs[,Label_Target:=paste0(name_short,",",Annee_Bibliographique_Target)]
-refs[, c("name_short"):=NULL]
-
-# Disciplines and journals
-refs <- merge(refs, revues[,.(Code_Revue=as.character(Code_Revue), Revue)], by="Code_Revue", all.x = TRUE)
-refs[,Revue := sub("\r","", Revue)]
-refs <- merge(refs, disciplines, by="Code_Discipline", all.x = TRUE)
-refs[is.na(Revue) & is.na(journal_scopus)==FALSE, Revue:=toupper(journal_scopus)]
-refs[, c("journal_scopus"):=NULL]
-
-# Info about Sources
-refs[,nb_cit_tot:=.N,ItemID_Ref_Target]
-
-# Info about Sources
-refs <- merge(refs, Corpus[,.(ID_Art, Annee_Bibliographique)], by.x = "ID_Art_Source", by.y = "ID_Art", all.x = TRUE)
-setnames(refs, "Annee_Bibliographique", "Annee_Bibliographique_Source")
-refs[,ID_Art:=ID_Art_Source]
-refs[,ItemID_Ref:=ItemID_Ref_Target]

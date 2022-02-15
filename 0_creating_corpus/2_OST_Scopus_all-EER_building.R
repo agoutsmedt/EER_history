@@ -256,6 +256,9 @@ if(str_detect(here(), "home")){
     data.table
 }
 
+references_info_unique <- references_info[,.N,.(ID_Art,ItemID_Ref)][,.N,ItemID_Ref][N==1]
+references_ost <- merge(references_ost, references_info_unique, by="ItemID_Ref",all.x = TRUE)
+
 references_ost <- references_ost %>% 
   left_join(select(references_info, ItemID_Ref, Titre, Code_Revue) %>% unique()) %>% 
   left_join(select(issueID, Code_Revue, Revue) %>% unique()) %>% 
