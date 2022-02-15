@@ -59,12 +59,6 @@ issueID <- readRDS(here(macro_AA_data,
                         "OST_generic_data",
                         "revueID.rds")) %>% 
   data.table()
-Revues <- readRDS(here(macro_AA_data, 
-                        "OST_generic_data",
-                        "revues.RDS")) %>% 
-  data.table()
-Revues[,Revue:=sub("\r", "", Revue)] # remove some weird characters in journal name
-
 
 Corpus_ost <- Corpus_ost %>% 
   left_join(select(issueID, Code_Revue, IssueID, Revue, Volume, Numero)) %>% 
@@ -259,20 +253,22 @@ if(str_detect(here(), "home")){
                                         as_data_frame = FALSE) %>% 
     filter(ItemID_Ref %in% itemid_ref) %>%  # can cause problem with filtering with Arrow
     collect() %>% 
-    data.table
+    data.table %>% 
+    distinct(ID_Art, ItemID_Ref, .keep_all = TRUE) %>% # doublons
+    distinct(ItemID_Ref, .keep_all = TRUE)  # doublons
+    
 }
 
-references_info_unique <- references_info[,.N,.(ID_Art,ItemID_Ref)][,.N,ItemID_Ref][N==1]
-references_ost_dt <- merge(references_ost, 
-                           references_info[ItemID_Ref %in% references_info_unique$ItemID_Ref,.(ItemID_Ref,Titre,Code_Revue)], 
-                           by="ItemID_Ref",all.x = TRUE)
-references_ost_dt <- merge(references_ost_dt, 
-                           Revues, 
-                           by="Code_Revue",all.x = TRUE)
+#' We need the journals to put the name of the journal in references
+Revues <- readRDS(here(macro_AA_data, 
+                       "OST_generic_data",
+                       "revues.RDS")) %>% 
+  mutate(Revue := str_remove(Revue, "\\\r")) %>% 
+  data.table() 
 
 references_ost <- references_ost %>% 
   left_join(select(references_info, ItemID_Ref, Titre, Code_Revue) %>% unique()) %>% 
-  left_join(select(issueID, Code_Revue, Revue) %>% unique()) %>% 
+  left_join(select(Revues, Code_Revue, Revue) %>% unique()) %>% 
   select(ID_Art, ItemID_Ref, New_id2, Annee, Nom, Titre, Revue, Revue_Abbrege) %>% 
   mutate(across(contains("id"), ~ as.character(.))) %>% 
   data.table
