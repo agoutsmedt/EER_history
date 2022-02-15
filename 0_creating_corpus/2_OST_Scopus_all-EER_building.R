@@ -59,6 +59,12 @@ issueID <- readRDS(here(macro_AA_data,
                         "OST_generic_data",
                         "revueID.rds")) %>% 
   data.table()
+Revues <- readRDS(here(macro_AA_data, 
+                        "OST_generic_data",
+                        "revues.RDS")) %>% 
+  data.table()
+Revues[,Revue:=sub("\r", "", Revue)] # remove some weird characters in journal name
+
 
 Corpus_ost <- Corpus_ost %>% 
   left_join(select(issueID, Code_Revue, IssueID, Revue, Volume, Numero)) %>% 
@@ -257,7 +263,12 @@ if(str_detect(here(), "home")){
 }
 
 references_info_unique <- references_info[,.N,.(ID_Art,ItemID_Ref)][,.N,ItemID_Ref][N==1]
-references_ost <- merge(references_ost, references_info_unique, by="ItemID_Ref",all.x = TRUE)
+references_ost_dt <- merge(references_ost, 
+                           references_info[ItemID_Ref %in% references_info_unique$ItemID_Ref,.(ItemID_Ref,Titre,Code_Revue)], 
+                           by="ItemID_Ref",all.x = TRUE)
+references_ost_dt <- merge(references_ost_dt, 
+                           Revues, 
+                           by="Code_Revue",all.x = TRUE)
 
 references_ost <- references_ost %>% 
   left_join(select(references_info, ItemID_Ref, Titre, Code_Revue) %>% unique()) %>% 
