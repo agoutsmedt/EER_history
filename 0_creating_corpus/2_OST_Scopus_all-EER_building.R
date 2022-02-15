@@ -73,14 +73,26 @@ Corpus_scopus <- readRDS(here(eer_data,
   rename(Titre = dc_title,
          Volume = prism_volume,
          Numero = prism_issue_identifier) %>% 
-  mutate(ID_Art = scopus_id,
+  mutate(ID_Art = paste0("S", str_remove(dc_identifier, ".*:")), # scopus permanent id
          ItemID_Ref = ID_Art,
          Annee_Bibliographique = as.integer(year),
          Revue = toupper(prism_publication_name),
          Page_Debut = str_extract(prism_page_range, "^\\d+") %>% as.integer(),
-         Page_Fin = str_extract(prism_page_range, "\\d+$") %>% as.integer()) %>% 
+         Page_Fin = str_extract(prism_page_range, "\\d+$") %>% as.integer())
+
+#' Scopus has two types of ids for articles: one permanent id (`dc_identifier`) and one contextual
+#' id which is linked to your query in Scopus API (originally `entry_number` and `scopus_id` here). 
+#' The second id is necessary to join the corpus with authors and affiliations, but what we want is
+#' to keep the permanent id.
+
+scopus_two_ids <- Corpus_scopus %>% 
+  select(ID_Art, scopus_id) %>% 
+  unique
+
+Corpus_scopus <- Corpus_scopus %>% 
   select(ID_Art, ItemID_Ref, Titre, Annee_Bibliographique, Revue, Volume, Numero, Page_Debut, Page_Fin)
 
+#' Binding OST and scopus
 Corpus <- Corpus_ost %>% 
   mutate(ID_Art = as.character(ID_Art),
          ItemID_Ref = as.character(ItemID_Ref)) %>% # for binding
@@ -98,14 +110,14 @@ macro_id_art <- readRDS(here(macro_AA_data,
 #' 
 
 scopus_macro <- tribble(
-  ~dc_identifier, ~ID_Art,
-  "SCOPUS_ID:0041619337", "S3755",
-  "SCOPUS_ID:0003565397", "S3777",
-  "SCOPUS_ID:0002059851", "S3782",
-  "SCOPUS_ID:49549169830", "S3728",
-  "SCOPUS_ID:49549169639", "S3729",
-  "SCOPUS_ID:49549165211", "S3732",
-  "SCOPUS_ID:49549164396", "S3734"
+  ~ID_Art,
+  "S0041619337",
+  "S0003565397",
+  "S0002059851",
+  "S49549169830",
+  "S49549169639",
+  "S49549165211",
+  "S49549164396"
 )
 
 macro_id_art <- macro_id_art %>% 
@@ -134,8 +146,8 @@ if(str_detect(here(), "home")){
 Authors_scopus <- readRDS(here(eer_data,
                                "scopus",
                                "scopus_EER_missing_years.rds")) %>% 
-  .[["authors"]] %>% 
-  rename(ID_Art = scopus_id) %>% 
+  .[["authors"]] %>%
+  left_join(scopus_two_ids) %>% 
   mutate(Ordre = as.integer(seq),
          Nom = toupper(authname) %>% 
            str_replace_all(" (?=[A-Z]\\.)", "-") %>% # replace space before initial by a dash to match OST format
@@ -210,8 +222,8 @@ Institutions_ost <- readRDS(here(macro_AA_data,
 Institutions_scopus <- readRDS(here(eer_data,
                                     "scopus",
                                     "scopus_EER_missing_years.rds")) %>% 
-  .[["institutions"]] %>% 
-  rename(ID_Art = scopus_id) %>% 
+  .[["institutions"]] %>%
+  left_join(scopus_two_ids) %>% 
   mutate(Pays = toupper(affiliation_country),
          Institution = toupper(affilname)) %>% 
   filter(! is.na(Institution)) %>% 
@@ -286,8 +298,8 @@ references_scopus <- readRDS(here(eer_data,
                                "scopus",
                                "scopus_EER_missing_years.rds")) %>% 
   .[["references"]] %>% 
-  left_join(scopus_id) %>% 
-  mutate(ItemID_Ref = paste0("S", scopus_id), # 
+  mutate(ID_Art = paste0("S", str_remove(citing_art, ".*:")),
+         ItemID_Ref = paste0("S", scopus_id), # 
          New_id2 = ItemID_Ref,
          Annee = str_extract(prism_cover_date, "^\\d+") %>% as.integer(),
          Nom = toupper(author_list_author_ce_indexed_name) %>% 
