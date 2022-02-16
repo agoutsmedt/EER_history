@@ -52,7 +52,7 @@ Refs_macro[,line_id:=rownames(Refs_macro)]
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Data.table version of cleaning, but let's forget about it in the end ####
+#### Data.table version of cleaning, but let's forget about it for now ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 # The big issue with New_id2 is that it sometimes split the same refs into multiple refs, other times it regroups it.
