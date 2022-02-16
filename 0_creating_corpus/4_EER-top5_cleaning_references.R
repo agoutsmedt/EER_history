@@ -26,6 +26,7 @@
 
 source("Script_paths_and_basic_objects_EER.R")
 
+`%notin%` <- Negate(`%in%`)
 
 Refs <- readRDS(here(eer_data, 
                      "0_To_Be_Cleaned",
@@ -34,30 +35,139 @@ Corpus <- readRDS(here(eer_data,
                        "0_To_Be_Cleaned",
                        "Corpus_EER_Top5_No_Abstract.rds"))
 
-# Keeping only refs from macro articles
-Refs_macro <- Refs[ID_Art %in% Corpus[jel_id==1]$ID_Art]
+
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Cleaning between ItemID_Ref and New_id2 ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 # Take unique observation when multiple refs for one article
-Refs[ItemID_Ref!=0,.N,.(ID_Art,ItemID_Ref)][order(-N)]
+Refs <- rbind(Refs[ItemID_Ref==0], Refs[ItemID_Ref!=0, head(.SD, 1), .(ID_Art,ItemID_Ref)]) # we remove art/ref doubles when ItemID_Ref!=0 and keep only the first observations (sometimes titles are different so can't use unique(). Bind it with the other ref when item==0
+if(Refs[ItemID_Ref!="0",.N,.(ID_Art,ItemID_Ref)][N>1][,.N]>1){print("ALERTE")}else{print("No Art/Refs double, all good")}
 
-Corpus[ID_Art==5797613] %>% as.tibble()
-
+# Keeping only refs from macro articles and relevant time period
 Refs_macro <- Refs[ID_Art %in% Corpus[jel_id==1]$ID_Art]
+Refs_macro[,n_newid2:=.N,New_id2]
+Refs_macro[,line_id:=rownames(Refs_macro)]
+
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#### Data.table version of cleaning, but let's forget about it in the end ####
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+
+# The big issue with New_id2 is that it sometimes split the same refs into multiple refs, other times it regroups it.
+Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][order(N)][N>1] # times when it regroups
+Refs_macro[New_id2=="18586495"]
+Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,ItemID_Ref][order(N)][N>1] # times when it splits
+Refs_macro[ItemID_Ref=="245598"]
+Refs_macro[,n_authors:=.N,Nom]
+
+# Etape 1: lorsque newid2 donne un id a quelque chose sans ItemID_Ref, on vérifie qu'il n'y a pas de gros split
+Refs_macro[New_id2!=0 & ItemID_Ref==0 & n_newid2>1]
+
+# premier nettoyage vérifier qu'il est correcte de: 1) donner un ItemID_Ref quand ItemID_Ref==0 sur la base de new_id2 2) regrouper des ItemID_Ref quand new_id2 propose de les regrouper
+Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
+
+# newid2 to remove
+newid2_with_item <- Refs_macro[ItemID_Ref!=0 & New_id2!=0]$New_id2 %>% as.data.table()
+newid2_with_item_also0 <- Refs_macro[New_id2!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2 %>% as.data.table()
+
+# Etape 2:
+Refs_macro[New_id2 %notin% newid2_with_item_also0 & New_id2 %notin% newid2_with_item & New_id2!=0][,.N,New_id2][N>1]
+Refs_macro[New_id2 %in% newid2_with_item_also0 & New_id2!=0][,.N,New_id2][N>1]
 
 
 
-# Take unique observation when multiple refs for one article
-refs_Claveau_unique <- refs_Claveau[ItemID_Ref_old_claveau!=0, head(.SD, 1), .(ID_Art_Source,ItemID_Ref_old_claveau)]
-refs_Claveau <- rbind(refs_Claveau_unique,refs_Claveau[ItemID_Ref_old_claveau==0])
-if(refs_Claveau[ItemID_Ref_old_claveau!="0",.N,.(ID_Art_Source,ItemID_Ref_old_claveau)][N>1][,.N]>1){print("ALERTE")}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Let's look at the couples of ItemID_Ref & New_id2
+couple_Ids <- Refs_macro[,.N,.(ItemID_Ref,New_id2)]
+couple_Ids[,New_id2_agree:=.N,New_id2]
+couple_Ids[,ItemID_Ref_agree:=.N,ItemID_Ref]
+agree <- couple_Ids[New_id2_agree==1 & ItemID_Ref_agree==1]
+
+Refs_macro[ItemID_Ref %notin% agree$ItemID_Ref & New_id2 %notin% agree$New_id2]
+
+
+
+Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N==1]
+
+
+Refs_macro[,n_itemref:=.N,ItemID_Ref]
+Refs_macro[,n_newid2:=.N,New_id2]
+
+# premier nettoyage vérifier qu'il est correcte de: 1) donner un ItemID_Ref quand ItemID_Ref==0 sur la base de new_id2 2) regrouper des ItemID_Ref quand new_id2 propose de les regrouper
+Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
+
+
+# Deuxième nettoyage: on ne va pas vérifier qu'ItemID_Ref regroupe des choses par erreurs, 
+# Par contre nous allons vérifier que les références regroupées par new_id2 sont correctes lorsqu'elles adviennent au moins 2 fois
+Cleaning_2 <- Refs_macro[New_id2 !=0 & ItemID_Ref==0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
+Cleaning_2[,n_occur:=.N,New_id2]
+Cleaning_2[n_occur>1]
+
+
+
+Refs_macro[New_id2 %in% Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2] %>% group_by(New_id2)
 
 # ItemID_Ref as new_id2, excepted when there is no New_id2 but an ItemID_Ref
-refs_Claveau[,ItemID_Ref_Target:=as.character(ItemID_Ref_old_claveau)]
-refs_Claveau[ItemID_Ref_old_claveau==0 & New_id2!=0,ItemID_Ref_Target:=paste0("cl",New_id2)]
+Refs[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][order(N)]
+
+
+
+
+
+
+
+
+
+# ordonner la colonne ItemID_Ref pour prendre le plus petit + regrouper => but: donner l'itemID_Ref le plus petit, quand le new_id2 fait un bon regroupement.
+Refs_macro[New_id2 %in% Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
+
+
+
+# Ce sont les cas où le newid2 est associé à deux ITemsID_Ref (y compris 0)
+view(Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
+view(Refs_macro[New_id2 !=0 & ItemID_Ref==0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
+
+
+
+view(Refs_macro[New_id2 !=0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2][,.N,New_id2][N>1][sum(N)])
+
+
+
+view(Refs_macro[New_id2 !=0 & New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
+
+
+# si un new_id2, associé à aucun ItemID_Ref
+
+view(Refs_macro[New_id2 !=0 & New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
+
+view(Refs_macro[New_id2 !=0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2]$New_id2])
+
+
+
+
+
+
+
+Refs[,old_ItemID_Ref:=as.character(ItemID_Ref)]
+
+Refs[old_ItemID_Ref==0 & New_id2!=0,ItemID_Ref_Target:=paste0("cl",New_id2)]
 
 # ################  Main_BD %%%%%%%%%%%%
 # test <- fread("EER/Corpus_EER/EER_REFS_XP.csv", quote="") %>% data.table
