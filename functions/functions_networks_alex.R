@@ -176,7 +176,7 @@ coupling_strength_bibliographic_coupling <- function(dt, source = from, ref = to
   bib_coup$from <- as.character(bib_coup$Source)
   bib_coup$to <- as.character(bib_coup$Target)
   bib_coup <- unique(bib_coup[, c("from","to","weight","Source","Target")])
-
+  
   # # Renaming columns
   # setnames(bib_coup, c("N"), 
   #          c("nb_shared_references"))
@@ -500,7 +500,7 @@ make_a_graph <- function(tbl,
   }
   
   tbl <- tbl %>% activate(nodes) %>% select(-c(Leiden1)) %>% left_join(name) 
-
+  
   #### Color #### 
   
   #Add color to nodes
@@ -520,7 +520,7 @@ make_a_graph <- function(tbl,
     select (-c(color)) %>% 
     left_join(color_tresh[,.(Id, color)])
   
-    
+  
   #Mix color for edges of different color
   tbl <- tbl %>% #mix color
     activate(edges) %>%
@@ -529,26 +529,26 @@ make_a_graph <- function(tbl,
   
   #### Layout #### 
   if(layout_graph == "TRUE"){
- 
-  #Force Atlas 2 (without overlap)
-  fa_lay <- layout_forceatlas2(tbl, ew.influence = 1, kgrav = 1, iter = iter_1,
-                               prevent.overlap = FALSE, fixed = NULL, stopping.tolerance = 0.001,
-                               barnes.hut = TRUE)
-
-  fa_lay <- fa_lay$lay %>% as.data.table
-  tbl <- tbl %>% activate(nodes) %>% mutate(x = fa_lay$x, y = fa_lay$y)  
-  
-  #Force Atlas 2 (with overlap)
-  fa_lay <- layout_forceatlas2(tbl, ew.influence = 1, kgrav = 1, iter = iter_2,
-                               prevent.overlap = TRUE, fixed = NULL, stopping.tolerance = 0.001,
-                               barnes.hut = TRUE)
-
-  fa_lay <- fa_lay$lay %>% as.data.table
-  tbl <- tbl %>% activate(nodes) %>%  mutate(x = fa_lay$x, y = fa_lay$y)
+    
+    #Force Atlas 2 (without overlap)
+    fa_lay <- layout_forceatlas2(tbl, ew.influence = 1, kgrav = 1, iter = iter_1,
+                                 prevent.overlap = FALSE, fixed = NULL, stopping.tolerance = 0.001,
+                                 barnes.hut = TRUE)
+    
+    fa_lay <- fa_lay$lay %>% as.data.table
+    tbl <- tbl %>% activate(nodes) %>% mutate(x = fa_lay$x, y = fa_lay$y)  
+    
+    #Force Atlas 2 (with overlap)
+    fa_lay <- layout_forceatlas2(tbl, ew.influence = 1, kgrav = 1, iter = iter_2,
+                                 prevent.overlap = TRUE, fixed = NULL, stopping.tolerance = 0.001,
+                                 barnes.hut = TRUE)
+    
+    fa_lay <- fa_lay$lay %>% as.data.table
+    tbl <- tbl %>% activate(nodes) %>%  mutate(x = fa_lay$x, y = fa_lay$y)
   }
-
+  
   #### Secondary network #### 
-
+  
   #Add color to nodes
   tbl_sec <- tbl %>% 
     activate(nodes) %>% 
@@ -645,9 +645,9 @@ detect_leiden <- function(tbl,
 
 
 detect_leidenalg <- function(tbl, 
-                          resolution = 1, 
-                          name_leiden = NULL,
-                          niter = 5000)
+                             resolution = 1, 
+                             name_leiden = NULL,
+                             niter = 5000)
 {
   #Leiden
   leiden <- leidenAlg::leiden.community(tbl, resolution = resolution, n.iterations = niter)
@@ -708,64 +708,37 @@ layout_fa2 <- function(tbl,
 }
 
 
-layout_fa2_java <- function(graph_list,
-                            niter = 3000,
-                            threads = 2,
-                            gravity = 1)
+layout_fa2_java <- function(tbl=tbl,niter=3000)
 {
   #Layout
-  graph_before <- graph_list %>% 
-    activate(nodes) %>% 
-    mutate(id = as.character(Id))
-  nodes_before <- graph_list %>% 
-    activate(nodes) %>% 
-    as.data.table()
+  graph_before <- tbl %>% activate(nodes) %>% mutate(id=as.character(Id))
+  nodes_before <- tbl %>% activate(nodes) %>% as.data.table()
   
   if("x" %in% colnames(nodes_before)){
-    graph_before <- graph_before %>% 
-      activate(nodes) %>% 
-      mutate(x = ifelse(is.na(x) == TRUE, sample(1:100), x))
-    graph_before <- graph_before %>% 
-      activate(nodes) %>% 
-      mutate(y = ifelse(is.na(y) == TRUE, sample(1:100), y))
-    graph_before <- graph_before %>% 
-      activate(nodes) %>% 
-      select(id, ID_Art, x, y, size)
+    graph_before <- graph_before %>% activate(nodes) %>% mutate(x = ifelse(is.na(x)==TRUE,sample(1:100),x))
+    graph_before <- graph_before %>% activate(nodes) %>% mutate(y = ifelse(is.na(y)==TRUE,sample(1:100),y))
+    graph_before <- graph_before %>% activate(nodes) %>% select(c(id,ID_Art,x,y,size))
   }
   else{
-    graph_before <- graph_before %>% 
-      activate(nodes) %>% 
-      select(id, ID_Art, size)
+    graph_before <- graph_before %>% activate(nodes) %>% select(c(id,ID_Art,size))
   }
   
   write.graph(graph = graph_before, file = 'tidy.graphml', format = 'graphml')
-  system(paste0("java -jar GephiLayouts-1.0.jar forceatlas2 -i ./tidy.graphml -o  ./forceatlas2.graphml -threads ",
-  threads,
-  "-maxiters ",
-  niter,
-  " -barneshut true -adjustsizes true -gravity ",
-  gravity))
-  gml <- read.graph("forceatlas2.graphml", 
-                    format="graphml")
+  system(paste0('java -jar "D://Dropbox/8-Projets Quanti/1-R_Projects/Home/2-External_tools/GephiLayouts-1.0.jar" forceatlas2 -i ./tidy.graphml -o  ./forceatlas2.graphml -threads 16 -maxiters ',niter,' -barneshut true -adjustsizes true -gravity 1'))
+  
+  
+  gml <- read.graph("forceatlas2.graphml", format="graphml")
   graph_after <- as_tbl_graph(gml)
-  graph_after <- graph_after %>% 
-    activate(nodes) %>% 
-    as.data.table() %>% 
-    .[,.(x,y,ID_Art)]
+  graph_after <- graph_after %>% activate(nodes) %>% as.data.table() %>% .[,.(x,y,ID_Art)]
   
   if("x" %in% colnames(nodes_before)){
-    graph_list <- graph_list %>% 
-      activate(nodes) %>% 
-      select(-c(x,y)) %>% 
-      left_join(graph_after)
+    tbl <- tbl %>% activate(nodes) %>% select(-c(x,y)) %>% left_join(graph_after)
   }
   else{
-    graph_list <- graph_list %>% 
-      activate(nodes) %>% 
-      left_join(graph_after)
+    tbl <- tbl %>% activate(nodes) %>% left_join(graph_after)
   }
   
-  return (graph_list)
+  return (tbl)
 }
 
 
@@ -870,17 +843,17 @@ tf_idf <- function(tbl = tbl, color_table = color, number_of_words = 10, n_colum
   tf_idf_table <- merge(tible_tf_idf, documents_names[,.(doc_id, Leiden1)], by.x = "document", by.y = "doc_id")
   
   if(unstemming==TRUE){
-  unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
-  unstemming_table[,unstemmed_word:=stemCompletion(unstemming_table$term, dictionary$word, type = "prevalent")] # unstem with most common word
-  
-  tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
-  tf_idf_table[unstemmed_word=="" | is.na(unstemmed_word)==TRUE, unstemmed_word:=term] # unstem with most common word
+    unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
+    unstemming_table[,unstemmed_word:=stemCompletion(unstemming_table$term, dictionary$word, type = "prevalent")] # unstem with most common word
+    
+    tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
+    tf_idf_table[unstemmed_word=="" | is.na(unstemmed_word)==TRUE, unstemmed_word:=term] # unstem with most common word
   }
   if(unstemming==FALSE){
     tf_idf_table[,unstemmed_word:=term]
   }
   
-
+  
   tf_idf_table[,term := unstemmed_word]
   
   tf_idf_table_uni <- tf_idf_table
@@ -924,15 +897,15 @@ tf_idf <- function(tbl = tbl, color_table = color, number_of_words = 10, n_colum
   tf_idf_table[,term2:=str_extract(tf_idf_table$term, '\\S+$')]
   
   if(unstemming==TRUE){
-  unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
-  unstemming_table[,unstemmed_word1:=stemCompletion(unstemming_table$term1, dictionary$word, type = "prevalent")] # unstem with most common word
-  tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
-  tf_idf_table[unstemmed_word1=="" | is.na(unstemmed_word1)==TRUE,unstemmed_word1:=term1]# unstem with most common word
-  
-  unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
-  unstemming_table[,unstemmed_word2:=stemCompletion(unstemming_table$term2, dictionary$word, type = "prevalent")] # unstem with most common word
-  tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
-  tf_idf_table[unstemmed_word2=="" | is.na(unstemmed_word2)==TRUE,unstemmed_word2:=term2]
+    unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
+    unstemming_table[,unstemmed_word1:=stemCompletion(unstemming_table$term1, dictionary$word, type = "prevalent")] # unstem with most common word
+    tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
+    tf_idf_table[unstemmed_word1=="" | is.na(unstemmed_word1)==TRUE,unstemmed_word1:=term1]# unstem with most common word
+    
+    unstemming_table <- tf_idf_table[order(-count)][, head(.SD, number_of_words), .(Leiden1)]
+    unstemming_table[,unstemmed_word2:=stemCompletion(unstemming_table$term2, dictionary$word, type = "prevalent")] # unstem with most common word
+    tf_idf_table <- tf_idf_table %>% left_join(unstemming_table)
+    tf_idf_table[unstemmed_word2=="" | is.na(unstemmed_word2)==TRUE,unstemmed_word2:=term2]
   }
   if(unstemming==FALSE){
     tf_idf_table[,unstemmed_word1:=term1]
@@ -993,76 +966,127 @@ tf_idf_old <- function(tbl = tbl, color_table = color, number_of_words = 10, n_c
   #' A table with a Leiden 1 column, and a color column for the color of communities
   #' @number_of_words
   #' How many words on the graph
-
-# Cleaning the titles
-tf_idf <- tbl %>% activate(nodes) %>% as.data.table()
-tf_idf <- tf_idf[Titre!="NULL"]
-tf_idf[,Titre := stripWhitespace(Titre)]
-tf_idf[,Titre := removePunctuation(Titre)]
-tf_idf[,Titre := removeNumbers(Titre)]
-tf_idf[,Titre := tolower(Titre)]
-tf_idf[,Titre := removeWords(Titre, stopwords("english"))]
-tf_idf[,Titre := as.character(Titre)]
-tible_tf_idf <- tf_idf[,paste(Titre, collapse = ", "), by="Leiden1"]
-
-dictionary <- tible_tf_idf #Dictionnary to find the root of stem word before stemming
-dictionary <- dictionary %>% unnest_tokens(word, V1)
-
-tible_tf_idf[,V1 := stemDocument(V1)]
-
-# tf-idf using quanteda
-tible_tf_idf <- corpus(tible_tf_idf, text_field = "V1")
-
-tible_tf_idf <- dfm(tible_tf_idf)
-
-tible_tf_idf <- dfm_tfidf(tible_tf_idf)
-
-# Keep column of names
-documents_names <- cbind(docvars(tible_tf_idf), as.data.frame(tible_tf_idf)) %>% as.data.table()
-tible_tf_idf <- tidy(tible_tf_idf) %>% as.data.table()
-tible_tf_idf <- merge(tible_tf_idf, documents_names[,.(doc_id, Leiden1)], by.x = "document", by.y = "doc_id")
-
-tf_idf_table <- tible_tf_idf[order(-count)][, head(.SD, number_of_words), Leiden1]
-tf_idf_table <- merge(tf_idf_table, color_table, by = "Leiden1", all.x = TRUE)
-
-tf_idf_table[,unstemmed_word:=stemCompletion(tf_idf_table$term, dictionary$word, type = "prevalent")] # unstem with most common word
-tf_idf_table[unstemmed_word=="",unstemmed_word:=term] # unstem with most common word
-
-plot <- ggplot(tf_idf_table[as.integer(Leiden1)<=n_com], aes(reorder_within(unstemmed_word, count, color), count, fill = color)) +
-  geom_bar(stat = "identity", alpha = .8, show.legend = FALSE) +
-  labs(title = "Highest tf-idf",
-       x = "Words", y = "tf-idf") +
-  facet_wrap(~Leiden1, ncol = n_columns, scales = "free") +
-  scale_x_reordered() +
-  scale_fill_identity() +
-  coord_flip() 
-
-list_return <- list("plot" = plot, "list_words" = tf_idf_table, "dictionary" = dictionary)
-
-return (list_return)
+  
+  # Cleaning the titles
+  tf_idf <- tbl %>% activate(nodes) %>% as.data.table()
+  tf_idf <- tf_idf[Titre!="NULL"]
+  tf_idf[,Titre := stripWhitespace(Titre)]
+  tf_idf[,Titre := removePunctuation(Titre)]
+  tf_idf[,Titre := removeNumbers(Titre)]
+  tf_idf[,Titre := tolower(Titre)]
+  tf_idf[,Titre := removeWords(Titre, stopwords("english"))]
+  tf_idf[,Titre := as.character(Titre)]
+  tible_tf_idf <- tf_idf[,paste(Titre, collapse = ", "), by="Leiden1"]
+  
+  dictionary <- tible_tf_idf #Dictionnary to find the root of stem word before stemming
+  dictionary <- dictionary %>% unnest_tokens(word, V1)
+  
+  tible_tf_idf[,V1 := stemDocument(V1)]
+  
+  # tf-idf using quanteda
+  tible_tf_idf <- corpus(tible_tf_idf, text_field = "V1")
+  
+  tible_tf_idf <- dfm(tible_tf_idf)
+  
+  tible_tf_idf <- dfm_tfidf(tible_tf_idf)
+  
+  # Keep column of names
+  documents_names <- cbind(docvars(tible_tf_idf), as.data.frame(tible_tf_idf)) %>% as.data.table()
+  tible_tf_idf <- tidy(tible_tf_idf) %>% as.data.table()
+  tible_tf_idf <- merge(tible_tf_idf, documents_names[,.(doc_id, Leiden1)], by.x = "document", by.y = "doc_id")
+  
+  tf_idf_table <- tible_tf_idf[order(-count)][, head(.SD, number_of_words), Leiden1]
+  tf_idf_table <- merge(tf_idf_table, color_table, by = "Leiden1", all.x = TRUE)
+  
+  tf_idf_table[,unstemmed_word:=stemCompletion(tf_idf_table$term, dictionary$word, type = "prevalent")] # unstem with most common word
+  tf_idf_table[unstemmed_word=="",unstemmed_word:=term] # unstem with most common word
+  
+  plot <- ggplot(tf_idf_table[as.integer(Leiden1)<=n_com], aes(reorder_within(unstemmed_word, count, color), count, fill = color)) +
+    geom_bar(stat = "identity", alpha = .8, show.legend = FALSE) +
+    labs(title = "Highest tf-idf",
+         x = "Words", y = "tf-idf") +
+    facet_wrap(~Leiden1, ncol = n_columns, scales = "free") +
+    scale_x_reordered() +
+    scale_fill_identity() +
+    coord_flip() 
+  
+  list_return <- list("plot" = plot, "list_words" = tf_idf_table, "dictionary" = dictionary)
+  
+  return (list_return)
 }
 
 
 
 sigma_it <- function(tbl = tbl)
 {
-nodes <- tbl %>% activate(nodes) %>% as.data.table()
-nodes[,id:=as.character(Id)]
-nodes[,label:=as.character(Label)]
-edges <- tbl %>% activate(edges) %>% as.data.table()
-edges[,id:=as.character(seq(1, nrow(edges)), by=1)]
-edges[,target:=as.character(Target)]
-edges[,source:=as.character(Source)]
-sigmajs() %>% # initialise
-  sg_nodes(nodes, id, label, size, color) %>% # add nodes
-  sg_edges(edges, id, source, target) %>% # add edges
-  sg_settings(drawLabels = TRUE, drawEdgeLabels = FALSE) %>% 
-  sg_force() %>% 
-  sg_force_stop() %>% # stop force after 5 seconds
-  sg_drag_nodes() %>% 
-  sg_noverlap() %>%
-  sg_settings(defaultEdgeType = "curve") %>%
-  sg_button(c("force_start", "force_stop"), "Start Layout") %>%
-  sg_button(c("force_stop"), "Stop Layout") %>%
-  sg_button(c("noverlap"), "No Overlap")
+  nodes <- tbl %>% activate(nodes) %>% as.data.table()
+  nodes[,id:=as.character(Id)]
+  nodes[,label:=as.character(Label)]
+  edges <- tbl %>% activate(edges) %>% as.data.table()
+  edges[,id:=as.character(seq(1, nrow(edges)), by=1)]
+  edges[,target:=as.character(Target)]
+  edges[,source:=as.character(Source)]
+  sigmajs() %>% # initialise
+    sg_nodes(nodes, id, label, size, color) %>% # add nodes
+    sg_edges(edges, id, source, target) %>% # add edges
+    sg_settings(drawLabels = TRUE, drawEdgeLabels = FALSE) %>% 
+    sg_force() %>% 
+    sg_force_stop() %>% # stop force after 5 seconds
+    sg_drag_nodes() %>% 
+    sg_noverlap() %>%
+    sg_settings(defaultEdgeType = "curve") %>%
+    sg_button(c("force_start", "force_stop"), "Start Layout") %>%
+    sg_button(c("force_stop"), "Stop Layout") %>%
+    sg_button(c("noverlap"), "No Overlap")
 }
+
+
+detect_walktrap <- function(tbl)
+{
+  #Leiden
+  leiden <- cluster_walktrap(tbl, weights = E(tbl)$weight, steps = 4)
+  tbl <- tbl %>% activate(nodes) %>% mutate(Leiden_num = leiden$membership) %>% mutate(Leiden1 = leiden$membership) %>% mutate(Leiden1 = sprintf("%02d", Leiden1)) %>% mutate(Leiden1 = as.character(Leiden1))
+  
+  #Share Leiden
+  share_l <- tbl %>% activate(nodes) %>% as.data.table()
+  share_l <- share_l[,share_leiden:= .N/share_l[,.N], Leiden1]
+  tbl <- tbl %>% 
+    activate(nodes) %>% 
+    left_join(share_l)
+  
+  return (tbl)
+}
+
+detect_infomap <- function(tbl)
+{
+  #Leiden
+  leiden <- cluster_infomap(tbl, e.weights = E(tbl)$weight)
+  tbl <- tbl %>% activate(nodes) %>% mutate(Leiden_num = leiden$membership) %>% mutate(Leiden1 = leiden$membership) %>% mutate(Leiden1 = sprintf("%02d", Leiden1)) %>% mutate(Leiden1 = as.character(Leiden1))
+  
+  #Share Leiden
+  share_l <- tbl %>% activate(nodes) %>% as.data.table()
+  share_l <- share_l[,share_leiden:= .N/share_l[,.N], Leiden1]
+  tbl <- tbl %>%
+    activate(nodes) %>%
+    left_join(share_l)
+  
+  return (tbl)
+}
+
+
+detect_leiden_igraph <- function(tbl)
+{
+  #Leiden
+  leiden <- cluster_leiden(tbl, objective_function="modularity", weight = E(tbl)$weight, n_iterations=1000)
+  tbl <- tbl %>% activate(nodes) %>% mutate(Leiden_num = leiden$membership) %>% mutate(Leiden1 = leiden$membership) %>% mutate(Leiden1 = sprintf("%02d", Leiden1)) %>% mutate(Leiden1 = as.character(Leiden1))
+  
+  #Share Leiden
+  share_l <- tbl %>% activate(nodes) %>% as.data.table()
+  share_l <- share_l[,share_leiden:= .N/share_l[,.N], Leiden1]
+  tbl <- tbl %>%
+    activate(nodes) %>%
+    left_join(share_l)
+  print("Done")
+  return (tbl)
+}
+
