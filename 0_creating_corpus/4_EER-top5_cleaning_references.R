@@ -25,300 +25,195 @@
 #'
 
 source("Script_paths_and_basic_objects_EER.R")
-
-`%notin%` <- Negate(`%in%`)
+to_clean <- FALSE
 
 Refs <- readRDS(here(eer_data, 
                      "0_To_Be_Cleaned",
                      "References_EER_Top5_To_Clean.rds"))
+
 Corpus <- readRDS(here(eer_data,
                        "0_To_Be_Cleaned",
                        "Corpus_EER_Top5_No_Abstract.rds"))
 
-
-
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Cleaning between ItemID_Ref and New_id2 ####
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-
-# Take unique observation when multiple refs for one article
-Refs <- rbind(Refs[ItemID_Ref==0], Refs[ItemID_Ref!=0, head(.SD, 1), .(ID_Art,ItemID_Ref)]) # we remove art/ref doubles when ItemID_Ref!=0 and keep only the first observations (sometimes titles are different so can't use unique(). Bind it with the other ref when item==0
-if(Refs[ItemID_Ref!="0",.N,.(ID_Art,ItemID_Ref)][N>1][,.N]>1){print("ALERTE")}else{print("No Art/Refs double, all good")}
-
-# Keeping only refs from macro articles and relevant time period
-Refs_macro <- Refs[ID_Art %in% Corpus[jel_id==1]$ID_Art]
-Refs_macro[,n_newid2:=.N,New_id2]
-Refs_macro[,line_id:=rownames(Refs_macro)]
-
-
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Data.table version of cleaning, but let's forget about it for now ####
-#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-
-# The big issue with New_id2 is that it sometimes split the same refs into multiple refs, other times it regroups it.
-Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][order(N)][N>1] # times when it regroups
-Refs_macro[New_id2=="18586495"]
-Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,ItemID_Ref][order(N)][N>1] # times when it splits
-Refs_macro[ItemID_Ref=="245598"]
-Refs_macro[,n_authors:=.N,Nom]
-
-# Etape 1: lorsque newid2 donne un id a quelque chose sans ItemID_Ref, on vérifie qu'il n'y a pas de gros split
-Refs_macro[New_id2!=0 & ItemID_Ref==0 & n_newid2>1]
-
-# premier nettoyage vérifier qu'il est correcte de: 1) donner un ItemID_Ref quand ItemID_Ref==0 sur la base de new_id2 2) regrouper des ItemID_Ref quand new_id2 propose de les regrouper
-Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
-
-# newid2 to remove
-newid2_with_item <- Refs_macro[ItemID_Ref!=0 & New_id2!=0]$New_id2 %>% as.data.table()
-newid2_with_item_also0 <- Refs_macro[New_id2!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2 %>% as.data.table()
-
-# Etape 2:
-Refs_macro[New_id2 %notin% newid2_with_item_also0 & New_id2 %notin% newid2_with_item & New_id2!=0][,.N,New_id2][N>1]
-Refs_macro[New_id2 %in% newid2_with_item_also0 & New_id2!=0][,.N,New_id2][N>1]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Let's look at the couples of ItemID_Ref & New_id2
-couple_Ids <- Refs_macro[,.N,.(ItemID_Ref,New_id2)]
-couple_Ids[,New_id2_agree:=.N,New_id2]
-couple_Ids[,ItemID_Ref_agree:=.N,ItemID_Ref]
-agree <- couple_Ids[New_id2_agree==1 & ItemID_Ref_agree==1]
-
-Refs_macro[ItemID_Ref %notin% agree$ItemID_Ref & New_id2 %notin% agree$New_id2]
-
-
-
-Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N==1]
-
-
-Refs_macro[,n_itemref:=.N,ItemID_Ref]
-Refs_macro[,n_newid2:=.N,New_id2]
-
-# premier nettoyage vérifier qu'il est correcte de: 1) donner un ItemID_Ref quand ItemID_Ref==0 sur la base de new_id2 2) regrouper des ItemID_Ref quand new_id2 propose de les regrouper
-Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
-
-
-# Deuxième nettoyage: on ne va pas vérifier qu'ItemID_Ref regroupe des choses par erreurs, 
-# Par contre nous allons vérifier que les références regroupées par new_id2 sont correctes lorsqu'elles adviennent au moins 2 fois
-Cleaning_2 <- Refs_macro[New_id2 !=0 & ItemID_Ref==0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
-Cleaning_2[,n_occur:=.N,New_id2]
-Cleaning_2[n_occur>1]
-
-
-
-Refs_macro[New_id2 %in% Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2] %>% group_by(New_id2)
-
-# ItemID_Ref as new_id2, excepted when there is no New_id2 but an ItemID_Ref
-Refs[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][order(N)]
-
-
-
-
-
-
-
-
-
-# ordonner la colonne ItemID_Ref pour prendre le plus petit + regrouper => but: donner l'itemID_Ref le plus petit, quand le new_id2 fait un bon regroupement.
-Refs_macro[New_id2 %in% Refs_macro[ItemID_Ref!=0,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2]
-
-
-
-# Ce sont les cas où le newid2 est associé à deux ITemsID_Ref (y compris 0)
-view(Refs_macro[New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
-view(Refs_macro[New_id2 !=0 & ItemID_Ref==0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
-
-
-
-view(Refs_macro[New_id2 !=0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2][,.N,New_id2][N>1][sum(N)])
-
-
-
-view(Refs_macro[New_id2 !=0 & New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
-
-
-# si un new_id2, associé à aucun ItemID_Ref
-
-view(Refs_macro[New_id2 !=0 & New_id2 %in% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2][N>1]$New_id2])
-
-view(Refs_macro[New_id2 !=0 & New_id2 %notin% Refs_macro[,.N,.(ItemID_Ref,New_id2)][,.N,New_id2]$New_id2])
-
-
-
-
-
-
-
-Refs[,old_ItemID_Ref:=as.character(ItemID_Ref)]
-
-Refs[old_ItemID_Ref==0 & New_id2!=0,ItemID_Ref_Target:=paste0("cl",New_id2)]
-
-# ################  Main_BD %%%%%%%%%%%%
-# test <- fread("EER/Corpus_EER/EER_REFS_XP.csv", quote="") %>% data.table
-# # Remove stupid doubles from stupid database having multiple ItemID_Ref for same ID_Art
-# list_error_merge_title <- refs[ItemID_Ref_Target!="NULL",.N,.(ID_Art_Source,ItemID_Ref_Target)][N>1]
-# refs[ItemID_Ref_Target %in% list_error_merge_title$ItemID_Ref_Target, Code_Discipline:="NULL"]
-# refs[ItemID_Ref_Target %in% list_error_merge_title$ItemID_Ref_Target, Code_Revue:="NULL"]
-# refs[ItemID_Ref_Target %in% list_error_merge_title$ItemID_Ref_Target, Titre:="NULL"]
-# # Take unique observation when multiple refs for one article
-# refs_unique <- refs[ItemID_Ref_Target!="NULL", head(.SD, 1), .(ID_Art_Source,ItemID_Ref_Target)] 
-# refs <- rbind(refs_unique,refs[ItemID_Ref_Target=="NULL"])
-# 
-# refs[ItemID_Ref_Target!="NULL",.N,.(ID_Art_Source,ItemID_Ref_Target)][N>1]
-# 
-# #test to compare both ref tables
-# refs_Claveau[ID_Art_Source %in% Corpus[Annee_Bibliographique<=2015]$ID_Art, .N]
-# refs[ID_Art_Source %in% Corpus[Annee_Bibliographique<=2015]$ID_Art, .N]
-# 
-# ################  Bind all %%%%%%%%%%%%
-# #Bind both
-# refs <- rbind(refs[ItemID_Ref_Target!="NULL"], 
-#               refs_Claveau[ItemID_Ref_old_claveau==0], 
-#               fill=TRUE)
-
-refs <- refs_Claveau[ID_Art_Source %in% Corpus$ID_Art]
-
-# put everything in place for cleaning, we now have 83 153 refs with 58 646 unique refs
-cleaning <- refs[ItemID_Ref_Target != 0, n_aut_year_couple:=.N,.(Nom,Annee)]
-cleaning <- refs[ItemID_Ref_Target != 0, n_cit:=.N,ItemID_Ref_Target]
-
-cleaning <- cleaning[ItemID_Ref_Target != 0][order(-n_aut_year_couple, Nom, Annee, ItemID_Ref_Target),.(n_aut_year_couple,n_cit, ItemID_Ref_Target, Nom, Annee, Titre, Revue_Abbrege)]
-cleaning <- cleaning[!duplicated(cleaning)]
-cleaning[,ItemID_Ref_Target:=as.character(ItemID_Ref_Target)]
-
-#export and import the cleaned version for [ItemID_Ref_Target != 0]
-write.csv(cleaning, "EER/Corpus_EER/cleaning_within_newid2.csv")
-cleaned_refs <- fread("EER/Corpus_EER/cleaning_within_newid2_cleaned.csv") %>% data.table
-cleaned_refs<- cleaned_refs[,.(New_ItemID_Ref_Target,ItemID_Ref_Target,New_Titre)][New_ItemID_Ref_Target!="" | New_Titre!=""]
-cleaned_refs<- cleaned_refs[!duplicated(cleaned_refs)]
-
-refs_final <- merge(refs, cleaned_refs, by = "ItemID_Ref_Target", all.x = TRUE, all.y = FALSE)
-refs_final[New_ItemID_Ref_Target!="", ItemID_Ref_Target:=New_ItemID_Ref_Target]
-refs_final[New_Titre!="", Titre:=New_Titre]
-refs <- copy(refs_final)
-
-#export and import the cleaned version for [ItemID_Ref_old_claveau==0 & New_id2!=0 & n_aut_year_couple>5]
-write.csv(refs[ItemID_Ref_old_claveau==0 & New_id2!=0 & n_aut_year_couple>5][order(Nom,Annee,ItemID_Ref_Target)], "EER/Corpus_EER/cleaning_within_newid2_step2.csv")
-cleaned_refs <- fread("EER/Corpus_EER/cleaning_within_newid2_step2_cleaned.csv") %>% data.table
-cleaned_refs<- cleaned_refs[,.(New_ItemID_Ref_Target,ItemID_Ref_Target)][New_ItemID_Ref_Target!=""]
-cleaned_refs<- cleaned_refs[!duplicated(cleaned_refs)]
-refs[,New_ItemID_Ref_Target:=NULL]
-refs_final <- merge(refs, cleaned_refs, by = "ItemID_Ref_Target", all.x = TRUE, all.y = FALSE)
-refs_final[is.na(New_ItemID_Ref_Target)==FALSE, ItemID_Ref_Target:=New_ItemID_Ref_Target]
-# we cleaned the corpus twice, we now have 83 153 refs 57 451 unique refs
-refs <- copy(refs_final)
-# remove institutionnal papers we now have 81 083 and 55 583 unique
-refs <- refs[str_detect(Nom,"\\*")==FALSE]
-
-refs[Revue_Abbrege %like% "HDB EC GROW%"]
-write.csv(refs[ID_Art_Source %in% Corpus[Annee_Bibliographique<=1980]$ID_Art][ItemID_Ref_Target!=0,.N,.(ItemID_Ref_Target,Nom,Annee, Titre, Revue_Abbrege)][order(Nom,Annee,Revue_Abbrege,Titre)], "EER/Corpus_EER/explore_refs_last_check.csv")
-
-
-#last cleaning
-cleaned_refs <- fread("EER/Corpus_EER/explore_refs_last_check_cleaned.csv") %>% data.table
-cleaned_refs<- cleaned_refs[,.(New_ItemID_Ref_Target,ItemID_Ref_Target,New_Titre, New_Nom)][New_ItemID_Ref_Target!="" | New_Titre!="" | New_Nom!=""]
-cleaned_refs<- cleaned_refs[!duplicated(cleaned_refs)]
-
-refs[,New_ItemID_Ref_Target:=NULL]
-refs[,New_Titre :=NULL]
-
-refs_final <- merge(refs, cleaned_refs, by = "ItemID_Ref_Target", all.x = TRUE, all.y = FALSE)
-refs_final[New_ItemID_Ref_Target!="", ItemID_Ref_Target:=New_ItemID_Ref_Target]
-refs_final[New_Titre!="", Titre:=New_Titre]
-refs_final[New_Nom!="", Nom:=New_Nom]
-# We now have 81 083 and 55 404 unique
-refs <- copy(refs_final)
-
-
-
-
-# refs[,n_aut_year:=NULL]
-refs_Claveau[ItemID_Ref_Target=="46322181"][,.N]
-refs_Claveau[ItemID_Ref_Target=="36302916"][,.N]
-refs[ItemID_Ref_Target=="975989"][,.N]
-################  Scopus merging %%%%%%%%%%%%
-# Scopus normalization: there are 665 references in the scopus bd
-refs_scopus <- readRDS("EER/Corpus_EER/scopus_references.RDS")
-refs_scopus <- refs_scopus %>% rename(ID_Art = temp_id)
-refs_scopus[,ID_Art:=paste0("S",ID_Art)]
-refs_scopus[,temp_idref:=paste0("SR",temp_idref)]
-refs_scopus <- refs_scopus %>% rename(Nom = author)
-refs_scopus[,Nom:=toupper(Nom)]
-refs_scopus <- refs_scopus %>% rename(Annee = Year)
-refs_scopus <- refs_scopus %>% rename(Volume = volume)
-refs_scopus <- refs_scopus %>% rename(Page = pages)
-refs_scopus[, first_page:= str_replace(Page, "\\-.*","")]
-
-# WoS normalization
-# id_ref <- fread("EER/Corpus_EER/EER_refs_identifiers2.csv", quote="") %>% data.table
-id_ref <- copy(refs)
-# id_ref <- refs #29943
-id_ref[, names_scopuslike:= str_replace(Nom, "\\-.*","")]
-
-
-# # Match on author.year.volume
-# id_ref_match <- id_ref[names_scopuslike!="NULL" & Annee!="NULL" & Volume!="NULL" & Page!="NULL"]
-# id_ref_match <- id_ref_match[,matching_col:=paste0(names_scopuslike,Annee,Volume,Page)]
-# refs_scopus_match <- refs_scopus[Nom!="<NA>" & Annee!="<NA>" & Volume!="<NA>" & first_page!="<NA>"]
-# refs_scopus_match <- refs_scopus_match[,matching_col:=paste0(Nom,Annee,Volume,first_page)] 
-# # Match and get the temp_idref/ItemID_Ref relationship
-# scopus_ItemID_Ref <- merge(refs_scopus_match[,.(matching_col,temp_idref)], id_ref_match[,.(matching_col,ItemID_Ref_Target)], by = "matching_col")
-# scopus_ItemID_Ref <- scopus_ItemID_Ref[,head(.SD, 1),matching_col]
-
-
-
-
-# #### Give uniques IDs to the sames references that are not in WoS %%%
-# refs_scopus <- merge(refs_scopus[,.(ID_Art, temp_idref, Nom, Annee, journal_scopus=journal, Titre_scopus=title)], scopus_ItemID_Ref[,.(temp_idref,ItemID_Ref_Target)], by = "temp_idref", all.x = TRUE)
-# refs_to_give_unique_Ids <- refs_scopus[,find_scopus_ids:=.N,.(Nom,Annee)][order(find_scopus_ids)]
-# write.csv(refs_to_give_unique_Ids[order(Nom,Annee)], "EER/Corpus_EER/refs_to_give_unique_Ids.csv")
-
-# Manually give them Ids
-# match_list_manual <- id_ref[names_scopuslike %in% refs_to_give_unique_Ids$Nom & Annee %in% refs_to_give_unique_Ids$Annee][order(Nom, Annee)]
-# write.csv(match_list_manual, "EER/Corpus_EER/manual_check.csv")
-refs_scopus <- refs_scopus %>% rename(journal_scopus = journal)
-refs_scopus <- refs_scopus %>% rename(Titre_scopus = title)
-
-refs_to_give_unique_Ids <- fread("EER/Corpus_EER/refs_to_give_unique_Ids_cleaned.csv", quote="") %>% data.table
-refs_to_give_unique_Ids <- refs_to_give_unique_Ids %>% rename(manual_ids = manual_id)
-
-refs_to_give_unique_Ids <- refs_to_give_unique_Ids[manual_ids!=""]
-
-#### Scopus and bind %%%
-refs_scopus <- merge(refs_scopus, refs_to_give_unique_Ids[,.(temp_idref,manual_ids)], by="temp_idref", all.x = TRUE)
-refs_scopus[, ItemID_Ref_Target:=manual_ids]
-refs_scopus[is.na(ItemID_Ref_Target)==TRUE, ItemID_Ref_Target:=temp_idref]
-write.csv(refs_scopus, "EER/Corpus_EER/explore_refs_scopus_last_check.csv")
-
-#### FINAL SCOPUS MANUAL CLEANING %%%
-refs_scopus <- fread("EER/Corpus_EER/explore_refs_scopus_last_check_cleaned.csv") %>% data.table
-refs_scopus[is.na(manual_ids)==FALSE, ItemID_Ref_Target:=manual_ids]
-refs_scopus <- refs_scopus %>% rename(journal_scopus = journal)
-refs_scopus <- refs_scopus %>% rename(Titre_scopus = title)
-refs_scopus <- merge(refs_scopus, cleaned_refs, by = "ItemID_Ref_Target", all.x = TRUE, all.y = FALSE)
-refs_scopus[New_ItemID_Ref_Target!="", ItemID_Ref_Target:=New_ItemID_Ref_Target]
-refs_scopus[,New_ItemID_Ref_Target:=NULL]
-refs_scopus[,New_Titre :=NULL]
-refs_scopus[,New_Nom :=NULL]
-
-
-refs <- rbind(refs, refs_scopus[,.(ID_Art_Source=ID_Art,ItemID_Ref_Target, Nom, Annee, journal_scopus,Titre_scopus)], fill=TRUE)
-refs[ItemID_Ref_Target=="SR10",Titre_scopus:="L'Equilibre economique en 1961"]
-refs[is.na(Titre) & is.na(Titre_scopus)==FALSE, Titre:=toupper(Titre_scopus)]
-refs[, c("Titre_scopus"):=NULL]
+Refs_macro <- Refs %>% 
+  filter(ID_Art %in% filter(Corpus, jel_id == 1)$ID_Art)
+
+#' We put a small test here to check that the `New_id2` are different from the 
+#' `ItemID_Ref` as it would be a problem when merging both in a new id column.
+test <-  Refs %>% 
+  filter(ItemID_Ref == New_id2,
+         ItemID_Ref != 0,
+         New_id2 != 0,
+         ! str_detect(ItemID_Ref, "^S"))
+if(nrow(test) > 0){
+  message("We have a problem: some New_id2 are the same than ItemID_Ref")
+} else {
+  message("No similar New_id2 and ItemID_Ref")
+}
+
+#' # Checking  `New_id2`
+#' 
+#' We remove doublons of Item (`ItemID_Ref`)/id2 (`New_id2`) couple. We have different cases
+#' we want to manage:
+#' 
+#' - We have id2 that split (wrongly) non-null Item. We want to keep the Item and do not care of these
+#' id2;
+#' - We have multiple non-null Item associated to one id2. We want to check if these unique
+#' id2 are right in merging the Item. 
+#' - We have id2 associated to null Item. We want to check if the id2 is secure or if it
+#' risks to associate together different references. By removing doublons, we are leaving
+#' only one occurence 
+#' 
+#' ## Merging `ItemID_Ref` together if true `New_id2`
+#' 
+#' 
+
+if(isTRUE(to_clean)){
+cleaning_item <- Refs_macro %>% 
+  select(ItemID_Ref, New_id2, Nom, Annee, Revue_Abbrege, Titre) %>% 
+  filter(ItemID_Ref != 0,
+         New_id2 != 0,
+         ! str_detect(ItemID_Ref, "^S")) %>% 
+  distinct(ItemID_Ref, New_id2, .keep_all = TRUE) %>% # remove double occurence of the couple
+  add_count(New_id2, name = "id_count") %>% # only new_id that appears at least twice (meaning = that have at least two items)
+  filter(id_count > 1) %>% 
+  group_by(New_id2) %>% 
+  mutate(ItemID_Ref = as.integer(ItemID_Ref), # weird ranking of the minimum item if not
+         New_item = min(ItemID_Ref), # by default we give the minimun, and we will correct manually
+         good_new_id2 = TRUE) %>%  # if wrong, we put FALSE and do not associate the minimum ItemID_Ref
+  arrange(New_id2, Nom, Annee, Revue_Abbrege, Titre, ItemID_Ref)
+
+
+write_excel_csv2(cleaning_item,
+                 here(eer_data,
+                      "0_To_Be_Cleaned",
+                      "ItemID_Ref_to_clean.csv"))
+
+
+#' ## Checking  `New_id2` associated with null `ItemID_Ref`
+#' 
+#' By joining with `cleaned_item`, we give to the New_id2 which are also associated
+#' to a positive item, the minimum item identified in the step below.
+
+cleaning_new_id <- Refs_macro %>% 
+  select(ItemID_Ref, New_id2, Nom, Annee, Revue_Abbrege) %>% 
+  filter(ItemID_Ref == 0,
+         New_id2 != 0,
+         ! str_detect(ItemID_Ref, "^S")) %>% 
+  add_count(New_id2, name = "id_count") %>% 
+  distinct(New_id2, .keep_all = TRUE) %>% 
+  filter(id_count > 1) %>% 
+  mutate(New_id2 = as.integer(New_id2)) %>% # for joining and arranging
+  left_join(select(cleaned_item, New_id2, New_item, good_new_id2) %>% unique(), by = c("New_id2" = "New_id2")) %>% 
+  mutate(good_new_id2 = ifelse(is.na(good_new_id2), TRUE, good_new_id2)) %>% # it is more likely to have right new_id2 so easier to just put some FALSE when false
+  arrange(Nom, Annee, Revue_Abbrege, New_item)
+
+  write_excel_csv2(cleaning_new_id,
+                 here(eer_data,
+                      "0_To_Be_Cleaned",
+                      "New_id2_to_clean.csv"))
+
+
+#' ## Addin the new id: `id_clean`
+#' 
+#' We reimport after manual cleaning and we save the association
+#' 
+cleaned_item <- read_csv2(here(eer_data,
+                               "0_To_Be_Cleaned",
+                               "ItemID_Ref_cleaned.csv")) %>% 
+  mutate(id_clean = ifelse(good_new_id2 == FALSE, ItemID_Ref, New_item)) # We keep the original ItemID_ref if New_id2 is wrong (does not allow to merge items)
+
+#' We reimport after manual cleaning and we save the association
+#' 
+cleaned_new_id <- read_csv2(here(eer_data,
+                               "0_To_Be_Cleaned",
+                               "New_id2_cleaned.csv")) %>% 
+  mutate(id_clean = ifelse(is.na(New_item) & good_new_id2 == TRUE, New_id2, New_item)) # could do it in `New_item` but that's more than an item as we use new_id2 too
+
+#' We saved a simple list of Item and id2 associated with the cleaned id, as well as if they
+#' are right or wrong. We can progressively increase this list
+all_cleaned <- cleaned_item %>% 
+  select(ItemID_Ref, New_id2, id_clean, good_new_id2) %>% 
+  bind_rows(select(cleaned_new_id, ItemID_Ref, New_id2, id_clean, good_new_id2))
+
+write_csv2(all_cleaned, here(eer_data,
+                  "0_To_Be_Cleaned",
+                  "merged_id.csv"))
+
+saveRDS(all_cleaned, here(eer_data,
+                             "0_To_Be_Cleaned",
+                             "merged_id.rds"))
+}
+
+#' We can now integrate the cleaned id from the list of correction saved
+#' 
+all_cleaned <- readRDS(here(eer_data,
+                            "0_To_Be_Cleaned",
+                            "merged_id.rds")) %>% 
+  mutate(across(where(is.double), ~ as.character(.)),
+         id_clean = ifelse(is.na(id_clean), 0, id_clean)) # as for ItemID_Ref or New_ID2, we put 0 if no ID.
+
+Refs_cleaned <- Refs %>% 
+  left_join(all_cleaned) %>% 
+  mutate(id_clean = ifelse(is.na(id_clean), ItemID_Ref, id_clean)) %>% 
+  select(-good_new_id2) 
+
+#' ## Cleaning Scopus
+#' 
+#' Here, the goal is to merge Scopus id with WoS id. It will be quicker to do it.
+#' 
+
+if(isTRUE(to_clean)){
+  Refs_cleaned %>% 
+    filter(str_detect(ItemID_Ref, "^S"),
+           ID_Art %in% Refs_macro$ID_Art) %>% # we clean only articles with a jel code
+    select(ItemID_Ref, Annee, Nom, Titre, Revue) %>% 
+    mutate(id_clean = NA) %>% 
+    arrange(Nom, Annee, Titre, ItemID_Ref) %>% 
+    distinct(ItemID_Ref, .keep_all = TRUE) %>% 
+    write_excel_csv2(here(eer_data,
+                          "0_To_Be_Cleaned",
+                          "scopus_refs_to_merge.csv"))
+}
+
+#' We reimport the merged file and merged with the whole ref file
+#' 
+
+scopus_refs_cleaned <- read_csv2(here(eer_data,
+                                      "0_To_Be_Cleaned",
+                                      "scopus_refs_merged.csv")) %>% 
+  filter(! is.na(id_clean)) %>% 
+  rename(new_scopus_id = id_clean)
+
+direct_citations <- Refs_cleaned %>% 
+  left_join(select(scopus_refs_cleaned, ItemID_Ref, new_scopus_id)) %>% 
+  mutate(id_clean = ifelse(! is.na(new_scopus_id), new_scopus_id, id_clean)) %>% 
+  select(-c(new_scopus_id, New_id2)) %>% 
+  as.data.table()
+
+saveRDS(select(direct_citations, ID_Art, ItemID_Ref, id_clean), 
+               here(eer_data,
+                    "1_Corpus_Prepped_and_Merged",
+                    "Direct_citations_top5_EER.rds"))
+
+#' We save a different file with just the list of references with the more information
+#' we can collect. We will remove doublons by keeping the row with more information.
+#' 
+
+important_info <- c("Annee",
+                    "Nom",
+                    "Titre",
+                    "Revue")
+references <- direct_citations %>% 
+  filter(id_clean != 0) %>% 
+  mutate(nb_na = rowSums(!is.na(select(., all_of(important_info)))),
+         length_revue_abbrege = str_count(Revue_Abbrege)) %>% 
+  group_by(id_clean) %>% 
+  slice_max(order_by = c(nb_na, -length_revue_abbrege), n = 1, with_ties = FALSE) %>% # That's a way to keep the ref with the more information
+  select(-c(nb_na, length_revue_abbrege, ID_Art, ItemID_Ref)) %>% 
+  relocate(id_clean, .before = everything()) %>% 
+  as.data.table
+
+saveRDS(references, here(eer_data,
+                               "1_Corpus_Prepped_and_Merged",
+                               "References_top5_EER.rds"))
