@@ -197,7 +197,7 @@ saveRDS(select(direct_citations, ID_Art, ItemID_Ref, id_clean),
                     "Direct_citations_top5_EER.rds"))
 
 #' We save a different file with just the list of references with the more information
-#' we can collect. We will remove doublons by keeping the row with more information.
+#' we can collect. We will remove duplicates by keeping the row with more information.
 #' 
 
 important_info <- c("Annee",

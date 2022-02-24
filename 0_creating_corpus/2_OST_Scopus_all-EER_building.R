@@ -124,8 +124,14 @@ macro_id_art <- macro_id_art %>%
   mutate(ID_Art = as.character(ID_Art)) %>% 
   bind_rows(select(scopus_macro, ID_Art))
 
+#' We eventually add the macro variable (the article has a macro JEL), but also the
+#'  EER vs. Top 5 variable, used later in the analysis.
 Corpus <- Corpus %>% 
-  mutate(jel_id = ifelse(ID_Art %in% macro_id_art$ID_Art, 1, 0))
+  mutate(jel_id = ifelse(ID_Art %in% macro_id_art$ID_Art, 1, 0),
+         journal_type = ifelse(Revue == "EUROPEAN ECONOMIC REVIEW", "EER", "TOP5")) 
+
+
+
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Authors ####
@@ -208,7 +214,10 @@ saveRDS(Corpus, here(eer_data,
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### Institutions ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-Institutions_ost <- readRDS(here(macro_AA_data,
+#' We import first the institutions for all EER. Then institutions for macro_AA.
+#' And we will remove doublons.
+
+Institutions_macro_ost <- readRDS(here(macro_AA_data,
                                "3_Corpus_WoS",
                                "MACRO_AA_INSTITUTIONS.rds")) %>% 
   mutate(ID_Art = as.character(ID_Art)) %>% 
@@ -216,7 +225,15 @@ Institutions_ost <- readRDS(here(macro_AA_data,
   filter(Institution != "NULL",
          ID_Art %in% Corpus$ID_Art) %>% # No Country is null but if it was the case we could have add the country
   data.table %>% 
-  unique
+  unique 
+
+Institutions_eer_ost <- readRDS(here(eer_data,
+                                     "Corpus_EER",
+                                     "Institutions_EER_OST.rds")) %>% 
+  filter(! ID_Art %in% Institutions_macro_ost$ID_Art)
+
+Institutions_ost <- Institutions_macro_ost %>% 
+  bind_rows(Institutions_eer_ost)
 
 # Scopus and bind
 Institutions_scopus <- readRDS(here(eer_data,
