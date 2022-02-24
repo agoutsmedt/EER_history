@@ -1,202 +1,200 @@
+#' ---
+#' title: "Script for building the EER corpus"
+#' author: "Aurélien Goutsmedt and Alexandre Truc"
+#' date: "/ Last compiled on `r format(Sys.Date())`"
+#' output: 
+#'   github_document:
+#'     toc: true
+#'     number_sections: true
+#' ---
+#' 
+#' # What is this script for?
+#' 
+#' This script aims at merging the abstracts extracted from Microsoft Science Academic and 
+#' from Scopus to our corpus coming from the OST database.
+#' 
+#' 
+#' > WARNING: This script still needs a lot of cleaning
+#' 
+#+ r setup, include = FALSE
+knitr::opts_chunk$set(eval = FALSE)
 
+#' # Loading packages, paths and data
+#'
 source("Script_paths_and_basic_objects_EER.R")
-source("~/macro_AA/logins_DO_NOT_UPLOAD.R") 
-
+ 
 if(str_detect(here(), "home")){
+source("~/macro_AA/logins_DO_NOT_UPLOAD.R")
 ESH <- dbConnect(MySQL(),
                  user = usr, password = pswd, dbname = "OST_Expanded_SciHum",
                  host = "127.0.0.1"
 )
 }
 
-`%notin%` <- Negate(`%in%`)
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Making the corpus ####
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#' # Extracting Microsoft Academic data
+#' 
 path_microsoft <- here(eer_data,
                        "Corpus_Top5",
                        "MS_Academics_AB")
 MS_files <- list.files(path_microsoft)[str_which(list.files(path_microsoft), "^MS")]
-top_5_AB <- map(MS_files, ~ bib2df(here(path_microsoft, .x))) %>% 
+Top_5_AB <- map(MS_files, ~ bib2df(here(path_microsoft, .x))) %>% 
   bind_rows() %>% 
   mutate(PAGES_START = str_extract(PAGES, "^\\d+"),
-         PAGES_END = str_extract(PAGES, "\\d+$")) %>% 
-  as.data.table()
+         PAGES_END = str_extract(PAGES, "\\d+$"),
+         AUTHOR = as.character(AUTHOR)) %>% 
+  filter(between(YEAR, 1973, 2002)) %>% # We don't need abstract before as we don't have the jel id (and it's very messy before 1973)
+  select(BIBTEXKEY, AUTHOR, TITLE, JOURNAL, VOLUME, YEAR, PAGES_START, PAGES_END, ABSTRACT) %>% 
+  as.data.table() %>% 
+  unique
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Exploration####
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#' ## Looking at the distribution of abstracts
 
-# histogram
-ggplot(top_5_AB, aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "free") 
 
-# % of missing AB
-top_5_AB %>% as.data.table() %>% .[,n_journals:=.N,JOURNAL] %>%  .[is.na(ABSTRACT)] %>% .[,.N,.(JOURNAL,n_journals)] %>% .[,N/n_journals,JOURNAL]
-
-# histogram of missing abstracts
-ggplot(top_5_AB[is.na(ABSTRACT)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "free") 
-top_5_AB
-
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-#### Matching with WoS ####
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
-
-# all art
-if(str_detect(here(), "home")){
-  all_art <- dbGetQuery(ESH, paste0("SELECT * FROM OST_Expanded_SciHum.Articles WHERE ItemID_Ref != 0;")) %>% 
-    data.table()
-  revues <- dbGetQuery(ESH, "SELECT Code_Revue, Revue, Code_Discipline FROM OST_Expanded_SciHum.Revues;") %>% 
-    data.table()
-} else {
-  all_art <- arrow::read_parquet(here(macro_AA_data, 
-                                      "OST_generic_data",
-                                      "all_art.parquet"),
-                                 as_data_frame = FALSE) %>% 
-    filter(ItemID_Ref != 0) %>% 
-    collect() %>% 
-    data.table()
+look_plots <- FALSE
+if(look_plots == TRUE){
+  # histogram
+  ggplot(Top_5_AB, aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "free") 
   
-  revues <- readRDS(here(macro_AA_data, 
-                         "OST_generic_data",
-                         "revues.rds")) %>% 
-    data.table()
+  # % of missing AB
+  Top_5_AB %>% 
+    as.data.table() %>% 
+    .[,n_journals:=.N,JOURNAL] %>% 
+    .[is.na(ABSTRACT)] %>%
+    .[,.N,.(JOURNAL,n_journals)] %>%
+    .[,N/n_journals,JOURNAL]
+  
+  # histogram of missing abstracts
+  ggplot(Top_5_AB[is.na(ABSTRACT)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "free") 
 }
 
-issueID <- readRDS(here(macro_AA_data, 
-                      "OST_generic_data",
-                      "revueID.rds")) %>% 
-                   data.table()
 
-# Get IssueID for matching
-all_art <- merge(all_art, issueID[, .(IssueID, Volume)], by = "IssueID")
+Corpus <- readRDS(here(eer_data,
+                       "0_To_Be_Cleaned",
+                       "Corpus_EER_Top5_No_Abstract.rds")) %>% 
+  data.table %>% 
+  mutate(matching_column = paste(Annee_Bibliographique, Revue, Page_Debut, Page_Fin, Volume))
 
+#' We will first match by the information on journal issue
+Top_5_AB_prepared <- Top_5_AB %>% 
+  mutate(JOURNAL = toupper(JOURNAL),
+         JOURNAL = ifelse(JOURNAL == "THE AMERICAN ECONOMIC REVIEW", "AMERICAN ECONOMIC REVIEW", JOURNAL),
+         JOURNAL = ifelse(JOURNAL=="THE REVIEW OF ECONOMIC STUDIES", "REVIEW OF ECONOMIC STUDIES", JOURNAL),
+         matching_column = paste(YEAR, JOURNAL, PAGES_START, PAGES_END, VOLUME)) %>% 
+  filter(!is.na(ABSTRACT) & !str_detect(ABSTRACT, "Ñ")) %>%  # Removing unreadable abstract
+  arrange(matching_column, ABSTRACT) # To be sure not to lost abstract when removing duplicates
 
-######################### Getting all_art running smoothly ***************************
-all_art <- all_art[, .(ID_Art, Annee_Bibliographique, Title = Titre, Code_Revue, Page_Debut, Page_Fin, Nb_Page, ItemID_Ref, Volume)]
-all_art <- merge(all_art, revues, by = "Code_Revue")
-all_art[, Revue := sub("\r", "", Revue)]
-all_art <- all_art[, Pages := paste0(all_art$Page_Debut, "-", all_art$Page_Fin)] # formatting pages number
-all_art <- all_art[, ID_by_pub := paste(all_art$Annee_Bibliographique, all_art$Revue, all_art$Pages, all_art$Volume)] # One variable for matching
+Corpus_with_AB <- Corpus %>% 
+  left_join(distinct(Top_5_AB_prepared, matching_column, .keep_all = TRUE) %>% # we want to avoid matching the abstract twice
+              select(matching_column, ABSTRACT)) 
 
-######################### Do the same for dt of JEL ***************************
-top_5_AB[, JOURNAL := toupper(JOURNAL)]
-top_5_AB[JOURNAL=="THE AMERICAN ECONOMIC REVIEW", JOURNAL:="AMERICAN ECONOMIC REVIEW"]
-top_5_AB[JOURNAL=="THE REVIEW OF ECONOMIC STUDIES", JOURNAL:="REVIEW OF ECONOMIC STUDIES"]
-top_5_AB <- top_5_AB[, Pages := paste0(top_5_AB$PAGES_START, "-", top_5_AB$PAGES_END)] # formatting pages number
-dt_MS_art <- top_5_AB[, ID_by_pub := paste(top_5_AB$YEAR, top_5_AB$JOURNAL, top_5_AB$Pages, top_5_AB$VOLUME)]
-dt_MS_art <- dt_MS_art[PAGES_START!=""]
-dt_MS_art <- dt_MS_art[PAGES_END!=""]
-dt_MS_art <- dt_MS_art[VOLUME!=""]
+glue("On { Top_5_AB %>% filter(!is.na(ABSTRACT)) %>% nrow } abstracts for Top 5 in Microsoft
+     Academic for our period, we have matched 
+     { Corpus_with_AB %>% filter(!is.na(ABSTRACT)) %>% nrow} abstracts")
 
-#cleaninr double
-dt_MS_art[,art_in_double:=.N,ID_by_pub] # some articles (~30) are in double because they have multiple pdf sources
-dt_MS_art[art_in_double>1][order(ID_by_pub, NOTE)]
-dt_MS_art[art_in_double>1][NOTE %like% "*Query*"]$BIBTEXKEY
-dt_MS_art <- dt_MS_art[BIBTEXKEY %notin% dt_MS_art[art_in_double>1][NOTE %like% "*Query*"]$BIBTEXKEY] # remove artilces with "query dates" in note
-dt_MS_art[, NOTE := sub(" cites:", "", NOTE)]
-dt_MS_art[, NOTE := as.numeric(NOTE)]
-dt_MS_art <- dt_MS_art[order(ID_by_pub, -NOTE)][,head(.SD,1),ID_by_pub] #keep only articles that are the most cited when same IDs
+#' We can isolate what has not been matched and try again but with the title now:
+#' we remove the first article of the title (as in WoS) and we remove punctuation to avoid
+#' difference.
+MS_Non_matched <- Top_5_AB_prepared %>% 
+  filter(! matching_column %in% Corpus_with_AB$matching_column) %>% 
+  mutate(TITLE_modify = str_remove(TITLE, "^The |^On |^A(n)? ") %>% toupper,
+         TITLE_modify = str_squish(str_replace_all(TITLE_modify, "[:punct:]", " ")),
+         new_matching_column = paste(YEAR, JOURNAL, TITLE_modify),
+         ABSTRACT_second_matching = ABSTRACT)
 
+Corpus_with_AB <- Corpus_with_AB %>% 
+  mutate(Title_modify = str_squish(str_replace_all(Titre, "[:punct:]", " ")),
+         new_matching_column = paste(Annee_Bibliographique, Revue, Title_modify)) %>% 
+  left_join(select(MS_Non_matched, new_matching_column, ABSTRACT_second_matching)) %>% 
+  mutate(ABSTRACT = ifelse(!is.na(ABSTRACT_second_matching), ABSTRACT_second_matching, ABSTRACT)) %>% 
+  select(-c(Title_modify, ABSTRACT_second_matching))
 
-######################### Merging everything ***************************
-# JEL with bd to find article by their volume, pages, year, and journal
-dt_MS_art_ID_ART <- merge(dt_MS_art, all_art[,.(ID_Art, ID_by_pub)], by="ID_by_pub", all.x = TRUE)
-saveRDS(dt_MS_art_ID_ART, 
-        here(eer_data,
-             "1_Corpus_Prepped_and_Merged",
-             "abstracts_MS_with_ID_Art.RDS"))
-saveRDS(top_5_AB, 
-        here(eer_data,
-             "1_Corpus_Prepped_and_Merged",
-             "abstracts_MS_RAW.RDS"))
+glue("On { Top_5_AB %>% filter(!is.na(ABSTRACT)) %>% nrow } abstracts for Top 5 in Microsoft
+     Academic for our period, we have matched 
+     { Corpus_with_AB %>% filter(!is.na(ABSTRACT)) %>% nrow} abstracts")
 
-missing_ID_Art <- readRDS("EER/1_Corpus_Prepped_and_Merged/abstracts_MS_with_ID_Art.RDS")
-ggplot(missing_ID_Art[is.na(ID_Art),.N,YEAR], aes(x=as.character(YEAR),y=N)) + geom_bar(stat="identity")
-ggplot(missing_ID_Art[is.na(ID_Art)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "fixed")
+#' We isolate again what is lefting, just to 
+MS_Non_matched_bis <- MS_Non_matched %>% 
+  filter(! new_matching_column %in% Corpus_with_AB$new_matching_column)
 
 
-
-#' We now need to add the abstracts identified with scopus. The difficulty
-#' is to match the two corpora together. The strategy is to match on author-date
-#' when there is a unique author-date per year, then to match on title, then
-#' to match what is lefting for multiple author-date for a year, and then to finish
-#' manually.
+#' We will now match the abstracts identified with Scopus. It will allow us to add
+#' abstract for the EER, but also to add abstracts for the Top 5 when not matched with
+#' MS academic.
 #' 
-
-begin_words <- c("^A ","^THE ","^AN ", "^ON THE ")
-Corpus <- Corpus[order(Annee_Bibliographique,Nom_ISI,Titre)][Annee_Bibliographique < 2019]
-Corpus <- Corpus %>% 
-  mutate(author_date = paste0(Nom_ISI,"-",Annee_Bibliographique),
-         Titre = toupper(Titre),
-         Titre_alt = str_squish(str_replace_all(Titre, "[:punct:]", " ")),
-         Titre_alt = str_remove(Titre_alt, paste0(begin_words, collapse = "|"))) %>% 
-  group_by(author_date) %>% 
-  mutate(count_authordate = n()) %>% 
-  as.data.table()
-
-#' Loading and preparing abstracts data
-scopus_abstract <- readRDS(paste0(eer_data,"scopus_abstract.RDS"))
-scopus_abstract[Nom_ISI == "THELL-H"]$Nom_ISI <- "THEIL-H"
-scopus_abstract[Nom_ISI == "RECONCILIATION-A"]$Nom_ISI <- "BRADA-J"
-scopus_abstract[Nom_ISI == "STEIGUMJR-E"]$Nom_ISI <- "STEIGUM-E"
-scopus_abstract[Nom_ISI == "ROSEN-NA"]$Nom_ISI <- "ROSEN-A"
-
-scopus_abstract <- scopus_abstract[order(Annee_Bibliographique,Nom_ISI,Titre)][Annee_Bibliographique <= max(Corpus$Annee_Bibliographique) &
-                                                                                 !is.na(abstract)]
-scopus_abstract <- scopus_abstract %>% 
-  mutate(author_date = paste0(Nom_ISI,"-",Annee_Bibliographique),
-         Titre_alt = str_squish(str_replace_all(Titre, "[:punct:]", " ")),
-         Titre_alt = str_remove(Titre_alt, paste0(begin_words, collapse = "|"))) %>% 
-  group_by(author_date) %>% 
-  mutate(count_authordate = n()) %>% 
-  as.data.table()
-
-merge_corpus_authordate <- merge(scopus_abstract[count_authordate == 1, c("temp_id","abstract","author_date")], 
-                                 Corpus[count_authordate  == 1], 
-                                 by = "author_date")
-
-merge_corpus_title <- merge(scopus_abstract[,c("temp_id","abstract","Titre_alt")], 
-                            Corpus, 
-                            by = "Titre_alt")
-
-#' There is a "normal" doublon in `merge_corpus_title` that we can remove (an article
-#' is an answer to another article, with the same title)
+#' We first need to clean the journals as they are several different names in scopus.
 #' 
-merge_corpus_title <- merge_corpus_title[-which(duplicated(merge_corpus_title$abstract))]
+#' As above, we create the same types of matching column.
 
-#' We now work on the cases with two author-dates. 
-#' 
+journals <- c("European Economic Review",
+              "American Economic Review",
+              "The American Economic Review",
+              "American Economic Review, Papers and Proceedings",
+              "Review of Economic Studies",
+              "The Review of economic studies",
+              "Quarterly Journal of Economics",
+              "Journal of Political Economy",
+              "The journal of political economy",
+              "Econometrica",
+              "Econometrica : journal of the Econometric Society")
 
-#merge_corpus_alt <- merge(scopus_abstract[count_authordate > 1, c("temp_id","abstract","Titre_alt")], 
-#                          Corpus[count_authordate  > 1], 
-#                          by = "Titre_alt") %>% 
-#  unique()
+scopus_corpus <- readRDS(here(eer_data,
+                              "scopus",
+                              "scopus_EER-Top5_art.rds")) %>% 
+  filter(prism_publication_name %in% journals,
+         ! is.na(dc_description)) %>% 
+  mutate(Revue = str_remove_all(prism_publication_name, "^The | :.*|,.*") %>% toupper,
+         first_page = str_extract(prism_page_range, "^\\d+"),
+         last_page = str_extract(prism_page_range, "\\d+$"),
+         year = str_extract(prism_cover_date, "^\\d{4}"),
+         matching_column = paste(year, Revue, first_page, last_page, prism_volume)) %>% 
+  rename(abstract_scopus = dc_description) %>% 
+  arrange(matching_column, abstract_scopus) %>% 
+  filter(between(year, 1973, 2002))
 
-#merge_corpus_alt <- merge_corpus_alt[-which(duplicated(merge_corpus_alt$abstract))]
+Corpus_with_scopus_AB <- Corpus_with_AB %>% 
+  left_join(distinct(scopus_corpus, matching_column, .keep_all = TRUE) %>% 
+              select(matching_column, abstract_scopus)) 
 
-#' We bind the two merges and remove doublons
+glue("On { scopus_corpus %>% nrow } abstracts for Top 5 in Scopus for our period, 
+     we have matched 
+     { Corpus_with_scopus_AB %>% filter(!is.na(abstract_scopus)) %>% nrow} abstracts")
 
-merge_corpus <- rbind(merge_corpus_authordate, merge_corpus_title) %>% 
-  unique()
+#' We look at what is lefting and try again with titles now
 
+Scopus_Non_matched <- scopus_corpus %>% 
+  filter(! matching_column %in% Corpus_with_scopus_AB$matching_column) %>% 
+  mutate(title_modify = str_remove(dc_title, "^The |^On |^A(n)? ") %>% toupper,
+         title_modify = str_squish(str_replace_all(title_modify, "[:punct:]", " ")),
+         new_matching_column = paste(year, Revue, title_modify),
+         abstract_second_matching = abstract_scopus)
 
-#' We can now finish manually by comparing the lefting content of the two data-frames:
-#' - `view(scopus_abstract[order(Annee_Bibliographique, Nom_ISI)][! temp_id %in% merge_corpus$temp_id])`
-#' - `view(Corpus[! ID_Art %in% merge_corpus$ID_Art, -c("Code_Revue","Code_Document","Id","JEL_id")])`
-#' We build a dataframe with the missing abstracts that we can bind with what we already have, and 
-#' then merge to the Corpus.
+Corpus_with_scopus_AB <- Corpus_with_scopus_AB %>% 
+  left_join(select(Scopus_Non_matched, new_matching_column, abstract_second_matching)) %>% 
+  mutate(abstract_scopus = ifelse(!is.na(abstract_second_matching), abstract_second_matching, abstract_scopus)) %>% 
+  select(-abstract_second_matching)
 
-link_id <- data.table(ID_Art = c("41014562","42281165","42035495","7143275",
-                                 "7917371","11258778","10716665","12147841",
-                                 "12668535","14139264","19354563","61558363",
-                                 "61558365","61558360"),
-                      temp_id = as.integer(c("650","552","554","2784",
-                                             "2612","2199","2288","2153",
-                                             "1983","1859","1398","3603",
-                                             "3602","3614")))
+glue("On { scopus_corpus %>% nrow } abstracts for Top 5 in Scopus for our period, 
+     we have matched 
+     { Corpus_with_scopus_AB %>% filter(!is.na(abstract_scopus)) %>% nrow} abstracts")
 
-manual_merge <- merge(link_id, scopus_abstract, by = "temp_id")
-merge_corpus <- rbind(merge_corpus[,c("ID_Art","abstract")],manual_merge[,c("ID_Art","abstract")])
-Corpus <- merge(Corpus, merge_corpus, by = "ID_Art", all.x = TRUE)
-Corpus[, Label := paste0(str_remove(Nom_ISI, "-.*"), ",",Annee_Bibliographique)]
-                                                        
+#' Just keeping here what has not been matched:
+Scopus_Non_matched_bis <- Scopus_Non_matched %>% 
+  filter(! new_matching_column %in% Corpus_with_scopus_AB$new_matching_column)
+
+#' We have spot to remaining possible match that we are doing manually
+manually_spot <- Scopus_Non_matched_bis %>% 
+  filter(dc_identifier %in% c("SCOPUS_ID:49449120549",
+                              "SCOPUS_ID:0002458040")) %>% 
+  arrange(dc_identifier) %>% 
+  mutate(ID_Art = c("8379909", "41857869")) %>% 
+  select(ID_Art, abstract_scopus) 
+
+Corpus_with_scopus_AB <- Corpus_with_scopus_AB %>% 
+  mutate(abstract_scopus = ifelse(ID_Art == "8379909", filter(manually_spot, ID_Art == "8379909")$abstract_scopus, abstract_scopus),
+         abstract_scopus = ifelse(ID_Art == "41857869", filter(manually_spot, ID_Art == "41857869")$abstract_scopus, abstract_scopus),
+         Abstract = ifelse(!is.na(abstract_scopus), abstract_scopus, ABSTRACT)) %>% 
+  select(-c(matching_column, ABSTRACT, new_matching_column, abstract_scopus))
+
+saveRDS(Corpus_with_scopus_AB, here(eer_data,
+                                    "1_Corpus_Prepped_and_Merged",
+                                    "Corpus_top5_EER.rds"))

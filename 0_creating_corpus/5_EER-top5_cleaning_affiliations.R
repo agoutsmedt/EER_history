@@ -212,6 +212,10 @@ Institutions <- Institutions %>%
   mutate(Countries_grouped = ifelse(Pays == "USA", Pays, Countries_grouped),
          Countries_grouped = ifelse(is.na(Countries_grouped), "OTHER", Countries_grouped))
 
+saveRDS(Institutions, here(eer_data,
+                        "1_Corpus_Prepped_and_Merged",
+                        "Institutions_top5_EER.rds"))
+
 #' Just checking if everything is ok:
 #' `Institutions %>% select(Pays, Countries_grouped) %>% unique`
 #' We can now build the Collabs variable depending if an article has been written only by
