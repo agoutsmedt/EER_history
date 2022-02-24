@@ -212,10 +212,6 @@ Institutions <- Institutions %>%
   mutate(Countries_grouped = ifelse(Pays == "USA", Pays, Countries_grouped),
          Countries_grouped = ifelse(is.na(Countries_grouped), "OTHER", Countries_grouped))
 
-saveRDS(Institutions, here(eer_data,
-                        "1_Corpus_Prepped_and_Merged",
-                        "Institutions_top5_EER.rds"))
-
 #' Just checking if everything is ok:
 #' `Institutions %>% select(Pays, Countries_grouped) %>% unique`
 #' We can now build the Collabs variable depending if an article has been written only by
@@ -223,7 +219,7 @@ saveRDS(Institutions, here(eer_data,
 #' collaborated (without other countries), of if authors are affiliated to other countries
 #' (even if writing with European or US affiliated authors).
 
-Collabs <- Institutions %>% 
+Institutions <- Institutions %>% 
   group_by(ID_Art) %>% 
   mutate(type = paste0(Countries_grouped, collapse = ";"), # we put all the grouped countries information in the same column
          USA = str_detect(type, "USA"),
@@ -233,6 +229,14 @@ Collabs <- Institutions %>%
          EU_US_collab = ifelse(USA == TRUE & EU == FALSE & OTHER == FALSE, "USA Only", EU_US_collab), # Just USA affiliations
          EU_US_collab = ifelse(USA == FALSE & EU == TRUE & OTHER == FALSE, "Europe Only", EU_US_collab), # Just European affiliations
          EU_US_collab = ifelse(USA == TRUE & EU == TRUE & OTHER == FALSE, "Collaboration", EU_US_collab)) %>% 
+  select(-c(type, USA, EU, OTHER)) %>% 
+  data.table
+
+saveRDS(Institutions, here(eer_data,
+                           "1_Corpus_Prepped_and_Merged",
+                           "Institutions_top5_EER.rds"))
+
+Collabs <- Institutions %>% 
   select(ID_Art, EU_US_collab) %>% 
   unique
 
