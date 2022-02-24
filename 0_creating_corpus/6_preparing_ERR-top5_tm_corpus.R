@@ -94,4 +94,4 @@ Corpus_abstract_cleaned <- Corpus_reduced %>%
 
 saveRDS(select(Corpus_abstract_cleaned, ID_Art, All_text), here(eer_data,
                                                                 "1_Corpus_Prepped_and_Merged",
-                                                                "Corpus_TM_cleaned.RDS"))
+                                                                "Corpus_TM_cleaned.rds"))

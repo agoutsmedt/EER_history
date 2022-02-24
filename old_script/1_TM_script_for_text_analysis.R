@@ -21,18 +21,17 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #' 
 #' 
-source("Script_paths_and_basic_objects_EER.R")
+source(here::here("EER_Paper", 
+                  "Script_paths_and_basic_objects_EER.R"))
+source(here("functions", 
+            "functions_for_network_analysis.R"))
 source(here("functions", 
             "functions_for_topic_modelling.R"))
 
 # importing corpus
 Corpus <- readRDS(here(eer_data, 
-                       "1_Corpus_Prepped_and_Merged",
-                       "Corpus_top5_EER.rds"))
-Corpus_text <- readRDS(here(eer_data, 
-                       "1_Corpus_Prepped_and_Merged",
-                       "Corpus_TM_cleaned.rds"))
-
+                           "1_Corpus_Prepped_and_Merged",
+                           "corpus_top5_ERR.rds"))
 alluv_dt <- readRDS(here(eer_data, 
                          "2_Raw_Networks_and_Alluv",
                          "alluv_dt.rds"))
@@ -45,6 +44,176 @@ alluv_dt <- readRDS(here(eer_data,
 #' We will run the topic model analysis only on the articles with an abstract. As a significant
 #' proportion of macro articles in the late 1970s, early 1980s lack of an abstract, we will be forced
 #' in a second step to run the same analysis with the articles without abstracts.
+
+################# Topic modelling on titles and abstracts ################### ------
+###### Choosing the preprocessing steps and the number of topics ######## ----
+
+
+ 
+
+position_excluded <- c("PUNCT", 
+                       "CCONJ", 
+                       "SCONJ", 
+                       "DET",
+                       "ADP",
+                       "NUM", 
+                       "AUX", 
+                       "PART", 
+                       "PRON", 
+                       "INTJ")
+
+to_keep <- c("flows", 
+             "sticky", 
+             "flexible", 
+             "disconnected",
+             "rational",
+             "redistribution",
+             "budgets",
+             "choice",
+             "equilibrium",
+             "realignment",
+             "tradable",
+             "developed",
+             "optimistic",
+             "termed",
+             "fischer",
+             "systematic",
+             "accommodation",
+             "smoothness",
+             "german",
+             "inflows",
+             "specific",
+             "experiments",
+             "merchants",
+             "forecasts",
+             "offers",
+             "instantaneous",
+             "in1ationary",
+             "cause",
+             "wealth",
+             "inconsistency",
+             "risk",
+             "surpluses",
+             "reverting",
+             "restraint",
+             "targeting",
+             "committee",
+             "prices",
+             "fell",
+             "insurance",
+             "forward",
+             "inventory",
+             "shocks",
+             "needs",
+             "yields",
+             "constraint",
+             "budgets",
+             "individual",
+             "structure",
+             "unemployment",
+             "tradable",
+             "developed",
+             "multiplier")
+
+remove_pattern <- c("\\.\\(this", # Weird pattern that is not removed in the tokenization because of ".("
+                    "\"\\-that")
+# test if we are not removing words by position we want to
+# keep: `spacy_word %>% filter(pos == "CCONJ") %>% select(lemma) %>% unique()`
+
+spacy_initialize()
+spacy_word <- spacy_parse(text$word, entity = FALSE) %>% 
+  mutate(lemma = str_remove(lemma, paste0(remove_pattern, collapse = "|"))) %>%  
+  filter(! (pos %in% position_excluded &
+           ! lemma %in% to_keep)) %>% 
+  select(doc_id, token, lemma) %>% 
+  mutate(doc_id = as.integer(str_remove(doc_id, "text")),
+         lemma = str_trim(str_replace_all(lemma, "[:punct:]|[:digit:]", " "), "both"),
+         lemma = toupper(lemma)) %>% 
+  rename(id = doc_id) %>%
+  filter(! lemma == " " & 
+           ! lemma == "" &
+           str_count(lemma) > 1) %>% 
+    as.data.table()
+
+to_correct <- data.table("to_correct" = c("experiments",
+                                          "forecasts",
+                                          "forecasting",
+                                          "offers",
+                                          "inflow",
+                                          "flows",
+                                          "accommodation",
+                                          "accommodative",
+                                          "budgets",
+                                          "in1ationary",
+                                          "markets",
+                                          "prices",
+                                          "shocks",
+                                          "needs",
+                                          "yields"),
+                         "correction" = c("experiment",
+                                          "forecast",
+                                          "forecast",
+                                          "offer",
+                                          "inflows",
+                                          "flow",
+                                          "accommodate",
+                                          "accommodate",
+                                          "budget",
+                                          "inflation",
+                                          "market",
+                                          "price",
+                                          "shock",
+                                          "need",
+                                          "yield"))
+
+
+for(i in 1:nrow(to_correct)) {
+  spacy_word[lemma == to_correct$to_correct[i]]$lemma <- to_correct$correction[i]
+}
+
+
+relemmatized_spacy_word <- spacy_word %>% 
+  mutate(former_lemma = lemma,
+         lemma = textstem::lemmatize_words(token),
+         lemma = toupper(lemma),
+         lemma = str_trim(str_replace_all(lemma, "[:punct:]|[:digit:]|\\^", " "), "both")) %>% 
+  select(id, token, lemma)
+
+lemme_to_correct <- data.table("to_correct" = c("EQUILIBRIA",
+                                                "CEILING",
+                                                "DEVELOPING",
+                                                "DEVELOPES",
+                                                "DISINFLATIONS",
+                                                "FUNDAMENTALS",
+                                                "GOVERNEMENTS",
+                                                "KEYNESIANS",
+                                                "MICROFOUNDATIONS",
+                                                "MISALLOCATIONS",
+                                                "MODELLINGS"),
+                               "correction" = c("EQUILIBRIA",
+                                                "CEILING",
+                                                "DEVELOPING",
+                                                "DEVELOP",
+                                                "DISINFLATION",
+                                                "FUNDAMENTALS",
+                                                "GOVERNEMENT",
+                                                "KEYNESIAN",
+                                                "MICROFOUNDATION",
+                                                "MISALLOCATION",
+                                                "MODELLINGS"))
+
+for(i in 1:nrow(lemme_to_correct)) {
+  relemmatized_spacy_word <- relemmatized_spacy_word %>% 
+    mutate(lemma = ifelse(token == to_correct$to_correct[i], to_correct$correction[i], token))
+}
+
+text <- merge(text[, c("id", "ID_Art", "have_abstract")], 
+              relemmatized_spacy_word, 
+              by = "id") %>% 
+  group_by(ID_Art) %>% 
+  mutate(word = paste0(lemma, collapse = " ")) %>% 
+  select(-token, -id, -lemma) %>% 
+  unique()
 
 remove_words <- data.table(word = c("paper",
                                     "article",
@@ -62,54 +231,44 @@ remove_words <- data.table(word = c("paper",
                                     "consider",
                                     "characterize",
                                     "conclusion",
-                                    "conclusions",
                                     "demonstrate",
+                                    "lead",
                                     "finally",
                                     "significantly",
                                     "explore",
-                                    "ii",
-                                    "iii",
-                                    "iv",
-                                    "examine",
-                                    "examines",
-                                    "author",
-                                    "authors",
-                                    "section",
-                                    "sections"),
+                                    "ii"),
                            lexicon = "own_built") # We remove typical abstract words and figures
 stop_words<- rbind(stop_words, remove_words)
 remove_expressions <- c("'s", "\\.")
 
-term_list <- Corpus_text %>% 
-  unnest_tokens(word, All_text, token = "ngrams", n_min = 1, n = 3, drop = FALSE) %>% 
+term_list <- text %>% 
+  unnest_tokens(word, word, token = "ngrams", n_min = 1, n = 3, drop = FALSE) %>% 
   separate(word, into = c("word_1", "word_2", "word_3"), sep = " ") %>% 
   mutate(unigram = is.na(word_2) & is.na(word_3),
-         bigram = !is.na(word_2) & is.na(word_3),
-         ngram = ifelse(unigram == TRUE, "unigram", NA),
+         bigram = !is.na(word_2) & is.na(word_3)) %>% 
+  mutate(ngram = ifelse(unigram == TRUE, "unigram", NA),
          ngram = ifelse(bigram == TRUE, "bigram", ngram),
-         ngram = ifelse(is.na(ngram), "trigram", ngram),
-         word_2 = ifelse(is.na(word_2), "", word_2),
-         word_3 = ifelse(is.na(word_3), "", word_3),
-         word_1 = str_remove_all(word_1, paste0(remove_expressions, collapse = "|")),
+         ngram = ifelse(is.na(ngram), "trigram", ngram)) %>% 
+  mutate(word_2 = ifelse(is.na(word_2), "", word_2),
+         word_3 = ifelse(is.na(word_3), "", word_3)) %>% 
+  mutate(word_1 = str_remove_all(word_1, paste0(remove_expressions, collapse = "|")),
          word_2 = str_remove_all(word_2, paste0(remove_expressions, collapse = "|")),
          word_3 = str_remove_all(word_3, paste0(remove_expressions, collapse = "|"))) %>% 
-  filter(! str_detect(word_1, "[:digit:]"),
-         ! str_detect(word_2, "[:digit:]"),
-         ! str_detect(word_3, "[:digit:]"),
-         str_count(word_1) != 1,
-         str_count(word_2) != 1,
-         str_count(word_3) != 1) %>%
+  filter(! str_detect(word_1, "[:digit:]") &
+           ! str_detect(word_2, "[:digit:]") &
+           ! str_detect(word_3, "[:digit:]")) %>% 
   anti_join(stop_words, by = c("word_1" = "word")) %>% 
   anti_join(stop_words, by = c("word_2" = "word")) %>% 
   anti_join(stop_words, by = c("word_3" = "word")) %>% 
   unite(term, word_1, word_2, word_3, sep = " ") %>% 
   mutate(term = str_trim(term, "both")) %>% 
-  select(-unigram, -bigram) %>% 
-  data.table()
+  select(-unigram, -bigram)
+term_list <- merge(term_list, text[,c("ID_Art","have_abstract")], by = "ID_Art") %>% 
+  as.data.table()
 
 saveRDS(term_list, here(eer_data,
                         "3_Topic_modelling", 
-                        "TM_term_list.rds"))
+                        "EER_term_list.rds"))
 
 #' We will now produce different set of data depending on different filtering parameters:
 #' 
@@ -138,7 +297,7 @@ data_set <- rbind(data_set_trigram, data_set_bigram) %>%
 
 saveRDS(data_set, here(eer_data, 
                        "3_Topic_modelling",
-                       "TM_data_set.rds"))
+                       "EER_data_set.rds"))
 
 #' The second step is to use the different data sets to create stm objects and them to fit 
 #' topic models for different number of topics.
