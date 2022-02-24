@@ -196,5 +196,5 @@ Corpus_with_scopus_AB <- Corpus_with_scopus_AB %>%
   select(-c(matching_column, ABSTRACT, new_matching_column, abstract_scopus))
 
 saveRDS(Corpus_with_scopus_AB, here(eer_data,
-                                    "1_Corpus_Prepped_and_Merged",
-                                    "Corpus_top5_EER.rds"))
+                                    "0_To_Be_Cleaned",
+                                    "Corpus_EER_Top5_No_Collabs.rds"))

@@ -197,7 +197,7 @@ for(i in seq_along(correct_name$wrong_name)){
 
 saveRDS(Authors, here(eer_data,
                      "1_Corpus_Prepped_and_Merged",
-                     "Authors_EER_Top5.rds"))
+                     "Authors_Top5_EER.rds"))
 
 #' Adding first author name in Corpus
 #' 

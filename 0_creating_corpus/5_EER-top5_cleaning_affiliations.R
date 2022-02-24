@@ -241,8 +241,8 @@ Collabs <- Institutions %>%
 
 readRDS(here(eer_data,
              "0_To_Be_Cleaned",
-             "Corpus_EER_Top5_No_Abstract.rds")) %>% 
+             "Corpus_EER_Top5_No_Collabs.rds")) %>% 
   left_join(Collabs) %>% 
   saveRDS(here(eer_data,
-               "0_To_Be_Cleaned",
-               "Corpus_EER_Top5_Collabs_No_Abstract.rds"))
+               "1_Corpus_Prepped_and_Merged",
+               "Corpus_Top5_EER.rds"))
