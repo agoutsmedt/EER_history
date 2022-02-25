@@ -375,7 +375,7 @@ calculate_lift <- function(model, list_terms, nb_terms = 10) {
   emp.prob <- log(wordcounts$count) - log(sum(wordcounts$count))
   lift <- logbeta - rep(emp.prob, each=nrow(logbeta)) 
   lift <- t(lift)
-  lift <- data.table("term" = tuning_results[preprocessing_id == id & K == nb_topics]$topic_model[[1]]$vocab,
+  lift <- data.table("term" = model$vocab,
                      as.data.table(lift)) %>% 
     pivot_longer(cols = starts_with("V"), 
                  names_to = "topic", 
@@ -530,21 +530,21 @@ return(list)
 
 #' ## Plot topic frequency
 #' 
-plot_frequency <- function(topics, model){
-  topics <- topics %>% 
+plot_frequency <- function(topics_data, model, palette = color){
+  topics_data <- topics_data %>% 
     arrange(id) %>% 
     mutate(frequency = colMeans(model$theta)) %>% 
     as.data.table()
-  topics$topic <- factor(topics$topic, levels = topics[order(frequency)]$topic)
+  topics_data$topic <- factor(topics_data$topic, levels = topics_data[order(frequency)]$topic)
   
-  ggplot(topics, aes(x = frequency, y = topic,
+  ggplot(topics_data, aes(x = frequency, y = topic,
                      group = factor(topic_name),
-                     color = color)) +
+                     color = {{palette}})) +
     geom_segment(aes(x = 0, xend = frequency, yend = topic), size = 4, show.legend = FALSE) +
     theme(legend.position = "none") +
-    geom_label(aes(x = frequency, color = color, label = term_label), size = 4, alpha = 1, hjust = -0.01) +
+    geom_label(aes(x = frequency, color = {{palette}}, label = term_label), size = 4, alpha = 1, hjust = -0.01) +
     scale_color_identity() +
-    expand_limits(x = c(0, max(topics$frequency) + 0.015)) +
+    expand_limits(x = c(0, max(topics_data$frequency) + 0.015)) +
     labs(title = "Top Topics",
          x = "Frequency",
          y = "") +
