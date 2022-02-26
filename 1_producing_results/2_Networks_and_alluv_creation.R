@@ -6,20 +6,24 @@ require(RColorBrewer)
 require(viridis)
 require(DescTools)
 set.seed(333)
+
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### 1 Setting up the Corpus ####
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 Corpus <- readRDS(here(eer_data,
                        "1_Corpus_Prepped_and_Merged",
-                       "Corpus.RDS"))
+                       "Corpus_top5_EER.RDS"))
+Corpus <- Corpus[jel_id==1]
+Corpus <- Corpus[Annee_Bibliographique>=1973]
+       
 Refs <- readRDS(here(eer_data, 
                      "1_Corpus_Prepped_and_Merged",
-                     "Refs.RDS"))
+                     "Direct_citations_top5_EER.RDS"))
+Refs[,ItemID_Ref:=id_clean]
 
 # Corpus, smoothing and  keep jel macro
 Corpus[,ID_Art:=as.character(ID_Art)]
 Corpus[,ItemID_Ref:=as.character(ItemID_Ref)]
-Corpus <- Corpus[jel_id==1]
 
 # Refs, smoothing and Remove missings refs
 Refs[,ID_Art:=as.character(ID_Art)]
@@ -32,7 +36,7 @@ Refs <- Refs[ID_Art %in% Corpus$ID_Art]
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
 # Time window
-time_window <- 10
+time_window <- 8
 first_year <- Corpus[order(Annee_Bibliographique), head(.SD, 1)]$Annee_Bibliographique
 last_year <- (as.numeric(Corpus[order(-Annee_Bibliographique), head(.SD, 1)]$Annee_Bibliographique) - time_window + 1) # +1 to get the very last year in the window
 last_year <- 1990
@@ -44,11 +48,11 @@ weight_treshold_value <- 2
 
 # Filter for important communities
 min_n_years <- 2
-min_leiden_max <- 0.05
+min_leiden_max <- 0.04
 
 # Filter for grey
 min_n_years_grey <- 1
-min_leiden_max_grey <- 0.05
+min_leiden_max_grey <- 0.04
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### 3 Coupling####
@@ -85,6 +89,8 @@ tbl_coup_list <- intertemporal_naming_function(tbl_coup_list, treshold_similarit
 
 #################### 5.1 Crossing and meta grouping ####################
 alluv_dt <- make_into_alluv_dt(tbl_coup_list)
+alluv_dt <- merge(alluv_dt, Corpus[,.N,.(EU_US_collab,ID_Art)], by.x = "Id", by.y = "ID_Art",all.x=TRUE)
+
 alluv_dt <- minimize_crossing(alluv_dt)
 alluv_dt <- meta_grouping(alluv_dt, treshold_meta_groups=0.45)
 alluv_dt[,meta_group_size:=.N,.(new_Id_com,meta_group)]
@@ -92,7 +98,46 @@ alluv_dt[,meta_group_size:=.N,.(new_Id_com,meta_group)]
 #################### 5.2 Label ####################
 label <- copy(alluv_dt)
 label <- label[,.N,.(new_Id_com, share_leiden_max)][order(share_leiden_max)]
-label[,Label_com:=new_Id_com]
+
+community_name <- tribble(
+  ~new_Id_com, ~Label_com,
+  "Mgz4J8yL", "International Macroeconomics & Target Zone",
+  "CQpUqaZS", "Disequilibrium & Keynesian Macro",
+  "Pnz6WX4w", "Modeling Consumption & Production",
+  "piySoCVv", "Optimal Taxation \\(1\\)",
+  "Ezhslxbw", "Political Economics of Central Banks",
+  "JAqUI5vj", "Target Zone & Currency Crises",
+  "SMwcTgPW", "Optimal Taxation \\(2\\)",
+  "kthrIEeL", "Exchange Rate Dynamics",
+  "5LSPOQtk", "Theory of Unemployment & Job Dynamics",
+  "RL0j0Wjd", "Capital & Income Taxation",
+  "BW7MeofH", "Taxation, Tobin's Q & Monetarism",
+  "8ljfcYnr", "Coordination & Sunspots \\(2\\)",
+  "mFfXMCSH", "Coordination & Sunspots \\(1\\)",
+  "Th6dCLZm", "Monetary Policy, Financial Transmission & Cycles \\(2\\)",
+  "vpvjT1UD", "Business Cycles, Cointegration & Trends",
+  "rabMUXQL", "Terms of Trade & Devaluation",
+  "OwqYJU4A", "Taxation, Debt & Growth",
+  "5tcMbr61", "Endogenous Growth",
+  "QLir0DCu", "Monetary Policy, Financial Transmission & Cycles \\(1\\)",
+  "slbs4yZO", "RBC",
+  "oWvS0ZKo", "Exchange Rate Dynamics & Expectations",
+  "ZfbnKTMy", "Monetary Approach of Balance of Payments",
+  "ghGgIdnw", "Demand for Money",
+  "piHtlAjF", "Inflation, Interest Rates & Expectations",
+  "VcbF4o2X", "REH, Monetary Policy & Business Cycles",
+  "8rBp4n5V", "Credit Rationing, Rational Expectations & Imperfect Information",
+  "wQE43lv5", "Inflation & Rigidities",
+  "dEgJmubE", "Monetary Policy, Target & Output Gap",
+  "ztGPr6dZ", "Permanent Income Hypothesis & Life-Cycle",
+  "KkkrUrNU", "Monetary Economics & Demand for Money",
+  "fMHDM0xi", "New Theory of Money: Search, Bargaining...",
+  "tG4VUh3F", "Marginal Taxation",
+  "NTSLryx5", "Intergenerational Model, Savings and Consumption"
+)
+label <- merge(label, community_name, by="new_Id_com",all.x=TRUE)
+# label[,Label_com:=new_Id_com]
+
 
 #################### 5.3 Coloring ####################
 # Table of individual colors for each communities, ordered by order to maximize color diversity inside meta groups
@@ -150,7 +195,7 @@ ggplot(alluv_dt_graph, aes(x = Window, y=share, stratum = new_Id_com, alluvium =
   scale_fill_identity() +
   ggtitle("") +
   geom_label_repel(stat = "stratum", size = 5, aes(label = Label_com_unique))
-# ggsave("EER/Graphs/Intertemporal_communities2.png", width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Intertemporal_communities.png"), width=35, height=20, units = "cm")
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 #### 6 tf-idf ####
@@ -170,14 +215,13 @@ tf_idf_color[is.na(Label_com),Leiden1:=new_Id_com]
 
 tf_idf_results <- tf_idf(tf_idf_table, tf_idf_color, 15, 4, treshold_com = 0.05, size_title_wrap=10, unstemming = TRUE)
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#### 7 EU/US differences ####
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
 
-
-
-
-
-nb_cit <- Refs[, .N, ItemID_Ref_Target]
+nb_cit <- Refs[, .N, ItemID_Ref]
 colnames(nb_cit)[colnames(nb_cit) == "N"] <- "size"
-nb_cit_all <- merge(Corpus, nb_cit, by.x = "ItemID_Ref", by.y = "ItemID_Ref_Target", all.x = TRUE)
+nb_cit_all <- merge(Corpus, nb_cit, by.x = "ItemID_Ref", by.y = "ItemID_Ref", all.x = TRUE)
 nb_cit_all[is.na(size),size:=0]
 
 alluv_dt_as_nodes <- copy(alluv_dt_graph)
@@ -189,13 +233,13 @@ most_influential_nodes[,weighted_size:=size*nodes_n_time_com]
 most_influential_nodes <- most_influential_nodes[, head(.SD, 1), .(new_Id_com,Id)]
 most_influential_nodes <- most_influential_nodes[order(-weighted_size)]
 
-com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>=0.05 & n_years>=2, .N, Label_com][order(-N)]$Label_com
+com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>=min_leiden_max & n_years>=min_n_years, .N, new_Id_com][order(-N)]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
 euro_com_stat_list <- list()
 
 for (com in com_to_inspect) {
-  alluv_com  <- alluv_dt_as_nodes[Label_com==paste0(com)]
+  alluv_com  <- alluv_dt_as_nodes[new_Id_com==paste0(com)]
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window))) + (time_window - 1)))
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window)))))
   
@@ -265,59 +309,58 @@ for (com in com_to_inspect) {
 
 diff_stat_euro_com <- rbindlist(euro_com_stat_list)
 diff_stat_euro_com[,com_name:=new_Id_com]
-diff_stat_euro_com[new_Id_com %notin% community_name$community_name,com_name:=NA]
-saveRDS(diff_stat_euro_com,"EER/2_Raw_Networks_and_Alluv/euro_vs_us_communities.rds")
+# diff_stat_euro_com[new_Id_com %notin% community_name$community_name,com_name:=NA]
+# saveRDS(diff_stat_euro_com,"EER/2_Raw_Networks_and_Alluv/euro_vs_us_communities.rds")
 
 com_to_inspect <- diff_stat_euro_com[order(-sum_diff), .N, new_Id_com]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
 
-ggplot(diff_stat_euro_com, aes(x=europeans_authors_diff, y=EER_articles_diff)) +
-  geom_point()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  # scale_x_continuous("Years") +
-  geom_vline(aes(xintercept = 0))+
-  geom_hline(aes(yintercept = 0))+
-  # scale_y_continuous("Share of EER in Top 5 Macro Refs") +
-  coord_cartesian(ylim = c(NA,NA), xlim = c(NA, NA)) +
-  scale_color_discrete(guide = FALSE) +
-  ggrepel::geom_label_repel(aes(label = as.character(new_Id_com)), data = diff_stat_euro_com, segment.color = NA) +
-  theme_minimal() +
-  geom_smooth(method=lm, se=FALSE)
-ggsave("EER/Graphs/Communities_europeanisation.png", width=35, height=20, units = "cm")
+new_Id_com_size <- alluv_dt_as_nodes[,.N,new_Id_com][order(-N)] # size of dots
+new_Id_com_size <-  new_Id_com_size %>% rename(new_Id_com_size = N)
 
+diff_stat_euro_com <- merge(diff_stat_euro_com, new_Id_com_size, by="new_Id_com", all.x = TRUE) # size dot
+diff_stat_euro_com <- merge(diff_stat_euro_com, community_name, by="new_Id_com",all.x=TRUE)#label name
 
+# diff_stat_euro_com[new_Id_com %notin% community_name$community_name,new_Id_com:=NA]
 
-diff_stat_euro_com[new_Id_com %notin% community_name$community_name,new_Id_com:=NA]
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.4) +
   geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  ggrepel::geom_text_repel(aes(label = as.character(new_Id_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
-  geom_point( alpha = 0.8) +
+  ggrepel::geom_text_repel(aes(label = as.character(Label_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
+  geom_point(aes(size = new_Id_com_size), alpha = 0.8) +
   scale_color_identity() +
   scale_fill_identity() +
   labs(title = "Over/Under representation of the EER and Europeans in Communities",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_minimal() 
-ggsave("EER/Graphs/Communities_europeanisation_alagoutsmedt.png", width=35, height=20, units = "cm")
-
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw.png"), width=35, height=20, units = "cm")
 
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
   geom_hline(yintercept = 0, size = 1, alpha = 0.3) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(color = sum_diff), size = 4, alpha = 0.8) +
+  geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
-                           aes(label = as.character(new_Id_com)), size = 2.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.11, 1.2), labels = c("Less European", "More European")) +
+                           aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-0.35, 0.65), labels = c("Less European", "More European")) +
   labs(title = "",
        color = "",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
-  theme(legend.position = "bottom")
-ggsave("EER/Graphs/Communities_europeanisation_alagoutsmedt_colored.png", width=35, height=20, units = "cm")
+  theme(legend.position = "bottom") +
+  guides(size = "none") 
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=35, height=20, units = "cm")
 
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+#### 8 Saving ####
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
+saveRDS(tf_idf_results, here(eer_data,"2_Raw_Networks_and_Alluv", "tf_idf.RDS"))
+saveRDS(alluv_dt, here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
+saveRDS(alluv_dt_graph, here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDs"))
+saveRDS(tbl_coup_list, here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
 
