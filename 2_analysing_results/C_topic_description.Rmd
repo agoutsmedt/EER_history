@@ -36,12 +36,12 @@ library(kableExtra)
 
 ```{r loading}
 # load packages, paths, and the macro plateform data
-source(here::here("EER_Paper", "Script_paths_and_basic_objects_EER.R"))
+source(here::here("Script_paths_and_basic_objects_EER.R"))
 
 # load communities data
 networks_top5 <- readRDS(here(eer_data, 
                               "2_raw_Networks_and_Alluv",
-                              "list_networks_EER_Top5_Macro.rds")) %>%
+                              "Tbl_coup_list.rds")) %>%
   lapply(function(tbl) (tbl %>% activate(nodes) %>% as.data.table())) %>%
   rbindlist(idcol = "window", fill = TRUE) %>%
   mutate(window = paste0(window, "-", as.integer(window) + 9)) %>%
@@ -49,38 +49,53 @@ networks_top5 <- readRDS(here(eer_data,
   unique()
 
 community_name <- tribble(
-  ~new_Id_com, ~community_name,
-  "yyL6YW7G", "Keynesian Economics & Disequilibrium",
-  "Qwu7xDUm", "Political Economy of Central Banks",
-  "G6fFxm2O", "Macro Time Series: Trends, Disturbances & Cycles",
-  "8ljfcYnr", "Real Exchange Rate & Pricing",
-  "QcfNSgcH", "Financial Intermediation & Monetary Policy",
-  "piHtlAjF", "Public Finance: Optimal Taxation",
-  "oTz25N6R", "Sunspots & Coordination",
-  "vpvjT1UD", "Indexation & Monopolistic Competition",
-  "c6Nqp2v2", "Demand for Money",
-  "EEEzS4Be", "Consumption: intertemporal substitution & permanent income",
-  "b5XZ9r9c", "New theoretical approaches of Money: search, random-matching",
-  "DnbEqB4A", "RBC, fluctuations & time series",
-  "poAkzBqE", "Endogenous Growth",
-  "piySoCVv", "Rational Expectations & Business Cycles",
-  "ztGPr6dZ", "Exchange Rate Determination & Cointegration",
-  "FbeuSKRj", "Business Cycles, Unemployment Fluctuations & Equilibrium Unemployment",
-  "oZLXQ5FE", "Ridigities, Contracts & Imperfect Competition"
+  ~new_Id_com, ~Label_com,
+  "Mgz4J8yL", "International Macroeconomics & Target Zone",
+  "CQpUqaZS", "Disequilibrium & Keynesian Macro",
+  "Pnz6WX4w", "Modeling Consumption & Production",
+  "piySoCVv", "Optimal Taxation (1)",
+  "Ezhslxbw", "Political Economics of Central Banks",
+  "JAqUI5vj", "Target Zone & Currency Crises",
+  "SMwcTgPW", "Optimal Taxation (2)",
+  "kthrIEeL", "Exchange Rate Dynamics",
+  "5LSPOQtk", "Theory of Unemployment & Job Dynamics",
+  "RL0j0Wjd", "Capital & Income Taxation",
+  "BW7MeofH", "Taxation, Tobin's Q & Monetarism",
+  "8ljfcYnr", "Coordination & Sunspots (2)",
+  "mFfXMCSH", "Coordination & Sunspots (1)",
+  "Th6dCLZm", "Monetary Policy, Financial Transmission & Cycles (2)",
+  "vpvjT1UD", "Business Cycles, Cointegration & Trends",
+  "rabMUXQL", "Terms of Trade & Devaluation",
+  "OwqYJU4A", "Taxation, Debt & Growth",
+  "5tcMbr61", "Endogenous Growth",
+  "QLir0DCu", "Monetary Policy, Financial Transmission & Cycles (1)",
+  "slbs4yZO", "RBC",
+  "oWvS0ZKo", "Exchange Rate Dynamics & Expectations",
+  "ZfbnKTMy", "Monetary Approach of Balance of Payments",
+  "ghGgIdnw", "Demand for Money",
+  "piHtlAjF", "Inflation, Interest Rates & Expectations",
+  "VcbF4o2X", "REH, Monetary Policy & Business Cycles",
+  "8rBp4n5V", "Credit Rationing, Rational Expectations & Imperfect Information",
+  "wQE43lv5", "Inflation & Rigidities",
+  "dEgJmubE", "Monetary Policy, Target & Output Gap",
+  "ztGPr6dZ", "Permanent Income Hypothesis & Life-Cycle",
+  "KkkrUrNU", "Monetary Economics & Demand for Money",
+  "fMHDM0xi", "New Theory of Money: Search, Bargaining...",
+  "tG4VUh3F", "Marginal Taxation",
+  "NTSLryx5", "Intergenerational Model, Savings and Consumption"
 )
 
 networks_top5 <- networks_top5 %>% 
-  left_join(community_name) %>% 
-  mutate(community_name = ifelse(is.na(community_name), new_Id_com, community_name))
+  left_join(community_name)
 
 # load the topics stats and gamma attributes
 topic_diff <- readRDS(here(eer_data, 
                            "3_Topic_modelling",
-                           "topic_model_7-55_topics_diff.rds"))
+                           "TM_topics_diff.rds"))
 
 topics <- readRDS(here(eer_data, 
                            "3_Topic_modelling",
-                           "topic_model_7-55_gamma_values.rds")) %>%
+                           "TM_gamma_values.rds")) %>%
   filter(gamma > 0.1) %>%
   left_join(topic_diff) %>%
   mutate(
@@ -91,106 +106,193 @@ topics <- readRDS(here(eer_data,
   arrange(desc(total_diff)) %>%
   as.data.table()
 
+prevalence_rank <- topics %>% 
+  select(topic_name, topic_prevalence) %>% 
+  unique() %>% 
+  arrange(desc(topic_prevalence)) %>% 
+  mutate(rank_prevalence = 1:n()) 
+
 # load the highest frex value terms for each topics
 top_terms <- readRDS(here(eer_data, 
                           "3_Topic_modelling",
-                          "topic_model_7-55_top_terms.rds")) %>%
+                          "TM_top_terms.rds")) %>%
   rename("topic_n" = topic) %>%
-  filter(measure == "frex")
+  filter(measure  %in% c("frex", "lift"))
 
 # merge institutions data for EER and top5
-institutions_eer <- readRDS(here(eer_data, 
+institutions <- readRDS(here(eer_data, 
                                  "1_Corpus_Prepped_and_Merged",
-                                 "Institutions_cleaned.rds")) %>%
-  select(ID_Art, Institution, Pays)
-institutions_top5 <- authors_JEL %>%
-  select(ID_Art, Institution, Pays) %>% 
-  filter(!ID_Art %in% institutions_eer$ID_Art)
-institutions <- rbind(institutions_eer, institutions_top5) %>%
-  filter(across(everything(), ~ !is.na(.))) %>%
-  inner_join(topics) %>%
+                                 "Institutions_Top5_EER.rds")) %>%
+  inner_join(select(topics, ID_Art, topic_name)) %>%
   select(ID_Art, Institution, Pays, topic_name)
 
 # merge articles from topics with what they cite
-ref_topics <- merge(topics, edges_JEL[, ID_Art := as.character(ID_Art)], by = "ID_Art") %>%
-  as.data.table()
-ref_topics <- ref_topics[, nb_cit_topic := .N, by = c("topic_name", "New_id2")] %>%
-  .[, nb_cit_european := .N, by = c("topic_name", "New_id2", "Journal_type", "EU_US_collab")] %>%
-  select(New_id2, Nom, Annee, Revue_Abbrege, topic_name, Journal_type, EU_US_collab, nb_cit_topic, nb_cit_european) %>%
+Corpus <- readRDS(here(eer_data, 
+                     "1_Corpus_Prepped_and_Merged",
+                     "Corpus_Top5_EER.rds")) %>% 
+  select(ID_Art, ItemID_Ref)
+
+Refs <- readRDS(here(eer_data, 
+                     "1_Corpus_Prepped_and_Merged",
+                     "References_Top5_EER.rds"))
+Direct_citations <- readRDS(here(eer_data, 
+                     "1_Corpus_Prepped_and_Merged",
+                     "Direct_citations_Top5_EER.rds")) %>% 
+  inner_join(Refs)
+  
+
+ref_topics <- topics %>% 
+  select(ID_Art, topic, topic_name, journal_type, EU_US_collab) %>% 
+  inner_join(Direct_citations) %>% # we don't want doc without references
+  .[, nb_cit_topic := .N, by = c("topic", "id_clean")] %>% 
+  .[, nb_cit_journal := .N, by = c("topic", "id_clean", "journal_type")] %>%
+  .[, nb_cit_affiliation := .N, by = c("topic", "id_clean", "EU_US_collab")] %>% 
+  select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, topic_name, journal_type, EU_US_collab, nb_cit_topic, nb_cit_journal, nb_cit_affiliation) %>%
   unique()
 
-cited_corpus <- merge(topics, nodes_JEL[, ID_Art := as.character(ID_Art)][, c("ID_Art", "ItemID_Ref")], by = "ID_Art")
-edges_JEL[, nb_cit := .N, by = "ItemID_Ref"]
-cited_corpus <- merge(cited_corpus, edges_JEL[, c("ItemID_Ref", "nb_cit")], by = "ItemID_Ref") %>%
-  unique()
+cited_corpus <- topics %>% 
+  left_join(Corpus) %>% 
+  left_join(count(Direct_citations, ItemID_Ref)) %>% 
+  rename(nb_cit = n)
+
+# tf-idf of refs
+refs_tf_idf <-  ref_topics %>% 
+  filter(nb_cit_topic  > 3) %>% 
+  select(id_clean, topic_name, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>% 
+  unique() %>% 
+  bind_tf_idf(id_clean, topic_name, nb_cit_topic) %>% 
+  group_by(topic_name) %>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(topic_name, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic, tf_idf)
+
+# tf-idf of institutions
+institutions_tf_idf <-  institutions %>% 
+  group_by(topic_name) %>% 
+  add_count(Institution) %>% 
+  filter(n > 2) %>% 
+  select(-c(ID_Art, Pays)) %>% 
+  unique() %>% 
+  bind_tf_idf(Institution, topic_name, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(topic_name, Institution, n, tf_idf)
+
+countries_tf_idf <-  institutions %>% 
+  group_by(topic_name) %>% 
+  add_count(Pays) %>% 
+  filter(n > 3) %>% 
+  select(-c(ID_Art, Institution)) %>% 
+  unique() %>% 
+  bind_tf_idf(Pays, topic_name, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(topic_name, Pays, n, tf_idf)
 ```
 
 # General difference in affiliations and journals
 
 ```{r}
-knitr::include_graphics(paste0(here::here(), "/EER_Paper/Pictures/mean_diff_plot7-55.png"))
+knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
 ```
 
+```{r}
+knitr::include_graphics(here(picture_path, "topic_modelling", "topic_per_year.png"))
+```
 
 # Details on the different topics
 
 ```{r results = "asis"}
 
-for (topic in unique(topics$topic_name)) {
+for (topic_turn in unique(topics$topic_name)) {
   topic_in_question <- topics %>% 
-    filter(topic_name == topic)
-  
-  topic_terms <- top_terms %>%
-    filter(topic_n == as.integer(str_extract(topic, "[:digit:]+")))
+    filter(topic_name == topic_turn)
 
-  refs <- ref_topics[topic_name == topic][, -"topic_name"]
-  doublons <- which(duplicated(refs$New_id2))
-  refs <- refs[-doublons]
+  # Calculate top frex and lift value for the topic 
+  topic_terms <- top_terms %>%
+    filter(topic_n == as.integer(str_extract(topic_turn, "[:digit:]+")),
+           measure == "frex") %>%
+    left_join((top_terms %>%
+    filter(topic_n == as.integer(str_extract(topic_turn, "[:digit:]+")),
+           measure == "lift") %>% 
+      ungroup() %>%  
+      select(-topic_n)), 
+    by = c("rank" = "rank"),
+    suffix = c("_frex", "_lift")) %>% 
+    select(! starts_with("measure")) %>% 
+    relocate(rank, .after = topic_n)
+
+# Calculating top ref
+  refs <- ref_topics %>% 
+    filter(topic_name == topic_turn) %>% 
+    select(-topic_name) 
 
   top_refs <- refs %>%
-    select(-Journal_type, -EU_US_collab) %>%
+    select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>%
     unique() %>%
-    slice_max(order_by = nb_cit_topic, n = 15, with_ties = FALSE)
+    slice_max(order_by = nb_cit_topic, n = 15, with_ties = FALSE) %>% 
+    select(-id_clean)
 
-  top_refs_EER_Europeans <- refs %>%
-    #  filter(Journal_type == "EER", EU_US_collab == "Europe Only") %>%
-    select(-Journal_type, -EU_US_collab) %>%
+  top_refs_journal <- refs %>%
+    select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, journal_type, nb_cit_journal) %>%
     unique() %>%
-    slice_max(order_by = nb_cit_european, n = 15, with_ties = FALSE)
+    group_by(journal_type) %>% 
+    slice_max(order_by = nb_cit_journal, n = 15, with_ties = FALSE) %>% 
+    filter(nb_cit_journal > 1) %>% 
+    select(-id_clean)
 
-  cited <- cited_corpus[topic_name == topic][, -"topic_name"]
+  top_refs_affiliation <- refs %>%
+    filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
+    select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, EU_US_collab, nb_cit_affiliation) %>%
+    unique() %>%
+    group_by(EU_US_collab) %>% 
+    slice_max(order_by = nb_cit_affiliation, n = 15, with_ties = FALSE) %>% 
+    select(-id_clean) %>% 
+    filter(nb_cit_affiliation > 1)
+
+# Most cited document of the topic
+  cited <- cited_corpus %>% 
+    filter(topic_name == topic_turn,
+           ! is.na(nb_cit),
+           nb_cit > 1) %>% 
+    select(ID_Art, Nom, Annee_Bibliographique, Titre, Revue, journal_type, EU_US_collab, nb_cit)
+  
   top_cited <- cited %>%
-    select(-document, -gamma, -ItemID_Ref, -ID_Art) %>%
-    unique() %>%
     slice_max(order_by = nb_cit, n = 15, with_ties = FALSE)
+  
+  top_cited_journal <- cited %>%
+    group_by(journal_type) %>%
+    slice_max(order_by = nb_cit, n = 10, with_ties = FALSE)
+  
+  top_cited_affiliation <- cited %>%
+    filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
+    group_by(EU_US_collab) %>%
+    slice_max(order_by = nb_cit, n = 10, with_ties = FALSE)
 
-  top_cited_EER <- cited %>%
-    filter(Journal_type == "EER") %>%
-    select(-document, -gamma, -ItemID_Ref, -ID_Art, -Journal_type) %>%
-    unique() %>%
-    slice_max(order_by = nb_cit, n = 15, with_ties = FALSE)
-
+# Looking at links between topics and communities
   top_communities <- topics %>%
-    filter(topic_name == topic) %>%
+    filter(topic_name == topic_turn) %>%
     select(topic_name, ID_Art) %>%
-    left_join(networks_top5) %>%
-    add_count(community_name) %>%
+    left_join(mutate(networks_top5, Label_com = ifelse(is.na(Label_com), "Small Communities", Label_com))) %>%
+    add_count(Label_com) %>%
     mutate(percent_community = round((n / n()) * 100, 2)) %>%
-    select(community_name, percent_community) %>%
+    select(Label_com, percent_community) %>%
     unique() %>%
-    slice_max(n = 5, order_by = percent_community)
+    arrange(desc(percent_community)) %>% 
+    filter(percent_community > 5)
 
+  # Looking at institutions
   top_institution <- institutions %>% 
-    filter(topic_name == topic) %>% 
+    filter(topic_name == topic_turn) %>% 
     count(Institution) %>% 
+    filter(n > 1) %>% 
     slice_max(n = 15, order_by = n, with_ties = FALSE)
   
   top_country <- institutions %>% 
-    filter(topic_name == topic) %>% 
+    filter(topic_name == topic_turn) %>% 
     count(Pays) %>% 
+    filter(n > 1) %>% 
     slice_max(n = 10, order_by = n, with_ties = FALSE)
+  
   ################ Beginning of the template ######################
-  cat("## ", topic, "\n")
+  cat("## ", topic_turn, "\n")
 
   cat(paste0("The topic displays a difference of means of Europe-based minus US-based authors of ",
              unique(topic_in_question$diff_affiliation),
@@ -199,57 +301,118 @@ for (topic in unique(topics$topic_name)) {
              " for a total of ",
              unique(topic_in_question$total_diff),
              "\n\n"))
+  cat(paste0("It belongs to the \"",
+             unique(topic_in_question$Com_name),
+             "\" correlation network community. \n\n"))
   
-  cat("###", "Terms:", topic, "\n")
+  cat(paste0("The topic prevalence is ranked ",
+             filter(prevalence_rank, topic_name == topic_turn)$rank_prevalence,
+             " on ",
+             nrow(prevalence_rank),
+             " topics.\n\n"))
+  
+  cat("###", "Terms:", topic_turn, "\n")
   cat("The most common terms according to different indicators:")
   cat("\n\n")
   print(kable(topic_terms) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
-  cat("###", "References:", topic, "\n")
+  
+  cat("###", "References:", topic_turn, "\n")
   cat("The most common references:")
   cat("\n\n")
   print(kable(top_refs) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
-  cat("The most common refs for Europeans publishing in EER:")
+  
+  cat("###", "References:", topic_turn, "\n")
+  cat("The most identifying references (TF-IDF):")
   cat("\n\n")
-  print(kable(top_refs_EER_Europeans) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  print(kable(filter(refs_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
-  cat("###", "Popular Articles:", topic, "\n")
+  
+  cat("The most common refs depending on publication:")
+  cat("\n\n")
+  print(kable(filter(top_refs_journal, journal_type == "EER")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("\n\n")
+  print(kable(filter(top_refs_journal, journal_type == "TOP5")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("The most common refs depending on affiliaton:")
+  cat("\n\n")
+  print(kable(filter(top_refs_affiliation, EU_US_collab == "Europe Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("\n\n")
+  print(kable(filter(top_refs_affiliation, EU_US_collab == "USA Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("###", "Popular Articles:", topic_turn, "\n")
   cat("The most popular articles in the topic:")
   cat("\n\n")
   print(kable(top_cited) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
-  cat("The most popular EER articles in the topic:")
+  
+  cat("The most popular articles in the topic depending on publication:")
   cat("\n\n")
-  print(kable(top_cited_EER) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  print(kable(filter(top_cited_journal, journal_type == "EER")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
-  cat("###", "Recurrent community:", topic, "\n")
+  
+  cat("\n\n")
+  print(kable(filter(top_cited_journal, journal_type == "TOP5")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("The most popular articles in the topic depending on affiliation:")
+  cat("\n\n")
+  print(kable(filter(top_cited_affiliation, journal_type == "Europe Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("\n\n")
+  print(kable(filter(top_cited_affiliation, journal_type == "USA Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("###", "Recurrent community:", topic_turn, "\n")
   cat("The most recurrent bibliometric community in the topic:")
   cat("\n\n")
   print(kable(top_communities) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("###", "Recurrent affiliation:", topic, "\n")
+  cat("###", "Recurrent affiliation:", topic_turn, "\n")
   cat("The most recurrent institutions in the topic:")
   cat("\n\n")
   print(kable(top_institution) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-    cat("The most recurrent countries in the topic:")
+  
+  cat("The most recurrent countries in the topic:")
   cat("\n\n")
   print(kable(top_country) %>%
-    kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("TF-IDF of Institutions:")
+  cat("\n\n")
+  print(kable(filter(institutions_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("TF-IDF of Countries:")
+  cat("\n\n")
+  print(kable(filter(countries_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
 }
 ```

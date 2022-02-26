@@ -229,7 +229,7 @@ Institutions <- Institutions %>%
          EU_US_collab = ifelse(USA == TRUE & EU == FALSE & OTHER == FALSE, "USA Only", EU_US_collab), # Just USA affiliations
          EU_US_collab = ifelse(USA == FALSE & EU == TRUE & OTHER == FALSE, "Europe Only", EU_US_collab), # Just European affiliations
          EU_US_collab = ifelse(USA == TRUE & EU == TRUE & OTHER == FALSE, "Collaboration", EU_US_collab)) %>% 
-  select(-c(type, USA, EU, OTHER)) %>% 
+  select(ID_Art, Institution, Pays, EU_US_collab) %>% 
   data.table
 
 saveRDS(Institutions, here(eer_data,

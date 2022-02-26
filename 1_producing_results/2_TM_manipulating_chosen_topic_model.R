@@ -86,6 +86,7 @@ top_terms <- extract_top_terms(topic_model,
                                nb_terms = 15,
                                frexweight = 0.3)
 
+top_terms %>% filter(measure == "frex", rank < 20) %>% ungroup() %>% distinct(term) %>% View()
 #' We will use this table for exploration
 #' `saveRDS(top_terms, here(eer_data, "3_Topic_modelling", "TM_top_terms.rds"))`
 
@@ -136,11 +137,11 @@ community_name <- tribble(
 #' #### Plotting network with communities
 
 community_name$com_color <- c(scico(n = 10, palette = "hawaii"), "gray")
-topics <- merge(topics, community_name, by = "Com_ID")
+topics_with_com <- merge(topics, community_name, by = "Com_ID")
 network <- topic_corr_network$graph 
 network <- network %>% 
   activate(nodes) %>% 
-  left_join(unique(topics[, c("Com_ID", "Com_name", "com_color")]))
+  left_join(unique(topics_with_com[, c("Com_ID", "Com_name", "com_color")]))
 network <- network %>% # mix color
   activate(edges) %>%
   mutate(color_com_ID_to = .N()$com_color[to], color_com_ID_from = .N()$com_color[from]) %>%
@@ -169,7 +170,7 @@ invisible(dev.off())
 #' or giving to topics the color of their community (identified in the correlation network with 
 #' Leiden algorithm).
 
-topics <- topics %>% 
+topics_with_com <- topics_with_com %>% 
   arrange(Com_ID, id) %>% 
   mutate(new_id = 1:n(),
          color = c(scico(n = nb_topics/2 - 1, begin = 0, end = 0.35, palette = "roma"),
@@ -179,7 +180,7 @@ topics <- topics %>%
 
 top_terms_graph <- top_terms %>%
   filter(measure == "frex") %>% 
-  inner_join(topics[, c("id", "color", "Com_ID", "new_id")], by = c("topic" = "id")) %>% 
+  inner_join(topics_with_com[, c("id", "color", "Com_ID", "new_id")], by = c("topic" = "id")) %>% 
   mutate(topic = paste0("topic ", topic),
          term = reorder_within(term, value, topic)) %>%
   ggplot(aes(value, term)) +
@@ -197,7 +198,7 @@ invisible(dev.off())
 #' We now plot the frequency of each topics:
 #' 
 
-plotting_frequency <- plot_frequency(topics, topic_model, com_color) +
+plotting_frequency <- plot_frequency(topics_with_com, topic_model, com_color) +
   dark_theme_bw()
 
 ragg::agg_png(here(picture_path, "topic_modelling", "TM_topic_prevalence.png"), 
@@ -211,7 +212,7 @@ invisible(dev.off())
 #' We add the frequency value of each topic:
 #' 
 
-topics <- topics %>% 
+topics_complete <- topics_with_com %>% 
   arrange(id) %>% 
   mutate(topic_prevalence = colMeans(topic_model$theta))
 
@@ -227,9 +228,8 @@ topics <- topics %>%
 #' a certain gamma value (a kind of rate of belonging).
 
 topic_gamma <- tidy(topic_model, matrix = "gamma") 
-topic_gamma <- merge(topic_gamma, topics[, c("id","topic_name")], 
-                     by.x = "topic",
-                     by.y = "id") %>% 
+topic_gamma <- topic_gamma %>% 
+  left_join(select(topics_complete, id, topic_name), by = c("topic" = "id")) %>% 
   select(-topic) %>% 
   mutate(topic_name = str_remove_all(str_replace(topic_name, "\\\n", " "), " \\/"))
 
@@ -252,10 +252,10 @@ topic_gamma_attributes <- pivot_longer(topic_gamma_attributes,
                                        values_to = "gamma") %>% 
   as.data.table() %>% 
   mutate(topic = str_extract(topic_name, "Topic \\d+")) %>% 
-  left_join(select(topics, topic, new_id, topic_prevalence)) # we add the id depending of the correlation and the prevalence
+  left_join(select(topics_complete, topic, new_id)) # we add the id depending of the correlation and the prevalence
 
 #' We will use this table for exploration
-#' `saveRDS(topic_gamma_attributes, paste0(eer_data, "3_Topic_modelling", "TM_gamma_values.rds"))`
+#' `saveRDS(topic_gamma_attributes, here(eer_data, "3_Topic_modelling", "TM_gamma_values.rds"))`
 #' `topic_gamma_attributes <- readRDS(paste0(eer_data, "/3_Topic_modelling/topic_model_",id,"-",nb_topics,"_gamma_values.rds"))`
 
 #' ## Differences in terms of journals and affiliations
@@ -281,10 +281,11 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
               values_from = "mean_journal") %>% 
   mutate(diff_affiliation = `Europe Only` - `USA Only`,
          diff_journal = EER - TOP5,
+         total_diff = diff_affiliation + diff_journal,
          id = as.integer(str_extract(topic_name, "[:digit:]{1,2}")),
-         topic_label = str_wrap(topic_name, 15),
-         topic_label_2 = str_wrap(str_remove(topic_name, "Topic [:digit:]{1,2} "), 15)) %>% 
-  left_join(select(topics, id, new_id, Com_name, com_color, topic_prevalence)) %>% 
+         topic_label = str_wrap(str_remove(topic_name, "Topic [:digit:]{1,2} "), 15)) %>% 
+  left_join(select(topics_complete, id, new_id, Com_name, com_color, topic_prevalence)) %>% 
+  select(id, new_id, topic_label, topic_name, Com_name, com_color, diff_affiliation, diff_journal, total_diff, topic_prevalence) %>% 
   as.data.table()
 
 #' We will use this table for exploration
@@ -296,7 +297,7 @@ mean_diff_plot <- ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_
   geom_vline(xintercept = 0, size = 1.5, alpha = 0.9) +
   geom_hline(yintercept = 0, size = 1.5, alpha = 0.5) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_label_repel(aes(label = topic_label_2, 
+  geom_label_repel(aes(label = topic_label, 
                        group = factor(Com_name),
                        color = com_color, 
                        fill = com_color), size = 2, alpha = 0.7, hjust = 0) +
@@ -363,7 +364,7 @@ topic_per_year <- ggplot(tidyprep_year, aes(x = covariate.value, y = estimate,
   theme(strip.text = element_text(size = 3)) +
   dark_theme_bw()
 
-ragg::agg_png(here(picture_path, "topic_modelling", "topic_per_year_.png"), 
+ragg::agg_png(here(picture_path, "topic_modelling", "topic_per_year.png"), 
               width = 50, 
               height = 40, 
               units = "cm", 
