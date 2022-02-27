@@ -83,10 +83,9 @@ topic_model <- stm(stm_data$documents,
 
 top_terms <- extract_top_terms(topic_model,
                                chosen_topic_model$data[[1]],
-                               nb_terms = 15,
+                               nb_terms = 20,
                                frexweight = 0.3)
 
-top_terms %>% filter(measure == "frex", rank < 20) %>% ungroup() %>% distinct(term) %>% View()
 #' We will use this table for exploration
 #' `saveRDS(top_terms, here(eer_data, "3_Topic_modelling", "TM_top_terms.rds"))`
 
@@ -103,9 +102,10 @@ topics <- name_topics(top_terms, method = "frex", nb_word = 4)
 set.seed(1989)
 topic_corr_network <- ggraph_topic_correlation(topic_model, 
                                                nodes = topics,
-                                               method = "simple", 
+                                               method = "huge", 
                                                size_label = 2.5,
-                                               nb_topics = nb_topics) 
+                                               nb_topics = nb_topics,
+                                               resolution = 1.4) 
 
 
 
@@ -121,22 +121,19 @@ topics <- merge(topics, communities, by = "topic") %>%
 
 community_name <- tribble(
   ~Com_ID, ~Com_name,
-  "02", "Agents Behavior & Public Finance Issues",
-  "03", "Business Cycle & Unemployment",
-  "04", "Growth, Consumption & Investment behavior",
-  "05", "Theoretical Macro & Microfoundations",
-  "06", "International Macroeconomics",
-  "07", "Econometrics",
-  "08", "Central Banks & Monetary ölicy",
-  "09", "Demand for Money & Prices",
-  "10", "Finance & Interest Rates",
-  "11", "Economic Activity & Varia",
-  "12", "Credit & Risk"
+  "02", "Public Finance & Agents Behavior",
+  "03", "International Macroeconomics & Growth",
+  "04", "Inflation, Expectations & information",
+  "05", "Theory, Microfoundations & Econometrics",
+  "06", "Monetary & Fiscal Policies",
+  "07", "Business Cycles & Production",
+  "08", "Schools of Thought Debates",
+  "09", "Labor"
 )
 
 #' #### Plotting network with communities
 
-community_name$com_color <- c(scico(n = 10, palette = "hawaii"), "gray")
+community_name$com_color <- c(scico(n = 8, palette = "hawaii"))
 topics_with_com <- merge(topics, community_name, by = "Com_ID")
 network <- topic_corr_network$graph 
 network <- network %>% 
@@ -173,22 +170,22 @@ invisible(dev.off())
 topics_with_com <- topics_with_com %>% 
   arrange(Com_ID, id) %>% 
   mutate(new_id = 1:n(),
-         color = c(scico(n = nb_topics/2 - 1, begin = 0, end = 0.35, palette = "roma"),
-                   scico(n = nb_topics/2 + 1, begin = 0.55, palette = "roma")))
+         color = c(scico(n = (nb_topics)/2 - 1, begin = 0, end = 0.35, palette = "roma"),
+                   scico(n = (nb_topics)/2 + 1, begin = 0.55, palette = "roma")))
 
 #' We plot the terms with the highest FREX value for each topic:
 
 top_terms_graph <- top_terms %>%
   filter(measure == "frex") %>% 
-  inner_join(topics_with_com[, c("id", "color", "Com_ID", "new_id")], by = c("topic" = "id")) %>% 
+  inner_join(topics_with_com[, c("id", "color", "Com_ID", "new_id", "com_color")], by = c("topic" = "id")) %>% 
   mutate(topic = paste0("topic ", topic),
          term = reorder_within(term, value, topic)) %>%
   ggplot(aes(value, term)) +
   scale_fill_identity() +
-  geom_col(aes(fill = color), show.legend = FALSE) +
+  geom_col(aes(fill = com_color), show.legend = FALSE) +
   facet_wrap(~ fct_reorder(topic, new_id), scales = "free") +
   scale_y_reordered() +
-  coord_cartesian(xlim=c(0.93,1))
+  coord_cartesian(xlim=c(0.96,1))
 
 ragg::agg_png(here(picture_path, "topic_modelling", "TM_top_terms.png"),
               width = 50, height = 40, units = "cm", res = 300)
@@ -218,7 +215,21 @@ topics_complete <- topics_with_com %>%
 
 #' We will use this table for exploration
 #' `saveRDS(topics, here(eer_data, "3_Topic_modelling", "TM_topics_summary.rds"))`
+#' 
+#' We also want to save some examples of the topics, by keeping the more representative abstracts.
+#' Some topics are most represented just by title
 
+topic_examples <- topics_complete %>% 
+  select(id) %>% 
+  mutate(examples = map(id, ~findThoughts(topic_model, 
+                                          texts = paste0(metadata$Titre, ": ", metadata$Abstract), 
+                                                              n = 4, 
+                                                              topics = .x)$docs[[1]])) %>% 
+  unnest(examples)
+
+saveRDS(topic_examples, here(eer_data,
+                             "3_Topic_modelling",
+                             "TM_Topic_examples.rds"))
 
 #' # Topics according to our variables of interest
 #' 
@@ -304,8 +315,8 @@ mean_diff_plot <- ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_
   geom_point(aes(group = factor(Com_name),
                  color = com_color, 
                  fill = com_color,
-                 size = topic_prevalence), alpha = 0.8) +
-  scale_size_continuous(range = c(0.2, 30)) %>% 
+                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
   scale_color_identity() +
   scale_fill_identity() +
   labs(title = "Topic Prevalence over journals (Difference of Means method)",
@@ -335,7 +346,7 @@ tidyprep_year <- tidystm::extract.estimateEffect(prep,
                                                  "Year", 
                                                  topic_model, 
                                                  method = "continuous") %>% 
-  left_join(select(topics, id, topic_name, color, new_id), by = c("topic" = "id"))
+  left_join(select(topics_complete, id, topic_name, color, new_id), by = c("topic" = "id"))
 
 slope <- tidyprep_year %>% 
   filter(covariate.value == max(tidyprep_year$covariate.value) |
@@ -349,8 +360,6 @@ slope <- tidyprep_year %>%
 tidyprep_year <- tidyprep_year %>% 
   arrange(new_id) %>% 
   left_join(slope)
-
-tidyprep_year$topic_name <- factor(tidyprep_year$topic_name, levels = tidyprep_year$topic_name)
 
 #' We plot the impact for each topics:
 topic_per_year <- ggplot(tidyprep_year, aes(x = covariate.value, y = estimate,
@@ -377,8 +386,17 @@ invisible(dev.off())
 
 plot(topic_model, 
      type = "perspectives", 
-     topics = 2,
+     topics = 6,
+     covarlevels = c("USA Only", "Europe Only"),
+     n = 60,
+     text.cex = 3.8)
+
+
+plot(topic_model, 
+     type = "perspectives", 
+     topics = 30,
      covarlevels = c("USA Only", "Europe Only"),
      n = 60,
      text.cex = 4)
+
 

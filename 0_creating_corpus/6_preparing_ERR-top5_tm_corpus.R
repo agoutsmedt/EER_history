@@ -30,7 +30,8 @@ source("Script_paths_and_basic_objects_EER.R")
 Corpus <- readRDS(here(eer_data,
                        "1_Corpus_Prepped_and_Merged",
                        "Corpus_Top5_EER.rds")) %>% 
-  filter(jel_id == 1)
+  filter(jel_id == 1,
+         between(Annee_Bibliographique, 1973, 2002))
 
 #' # Creating the corpus for topic-modelling
 #'

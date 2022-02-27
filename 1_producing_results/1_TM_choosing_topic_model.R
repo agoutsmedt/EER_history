@@ -143,8 +143,6 @@ uninformative_words <- c("contribution",
                          "tend")
 remove_expressions <- c("'s", "\\.")
 
-get_stopwords(source = "smart")
-
 term_list <- Corpus_text %>% 
   unnest_tokens(word, All_text, token = "ngrams", n_min = 1, n = 3, drop = FALSE) %>% 
   separate(word, into = c("word_1", "word_2", "word_3"), sep = " ") %>% 
@@ -172,6 +170,7 @@ term_list <- Corpus_text %>%
   anti_join(stop_words, by = c("word_3" = "word")) %>% 
   unite(term, word_1, word_2, word_3, sep = " ") %>% 
   mutate(term = str_trim(term, "both")) %>% 
+  filter(! term %in% uninformative_words) %>% 
   select(-unigram, -bigram) %>% 
   data.table()
 
@@ -183,8 +182,8 @@ saveRDS(term_list, here(eer_data,
 #' 
 hyper_grid <- expand.grid(
   upper_share = c(0.35), # remove a word if it is appearing in more than upper_share% of the docs
-  lower_share = c(0.005, 0.01, 0.02), # remove a word if it is appearing in less than lower_share% of the docs
-  min_word = c(6, 12), # the min number of words in a doc
+  lower_share = c(0.006, 0.008, 0.01), # remove a word if it is appearing in less than lower_share% of the docs
+  min_word = c(8, 12), # the min number of words in a doc
   max_word = Inf, # the max number of words in a doc
   prop_word = 1) # keep the top prop_word% of the words (in terms of occurrence)
 
@@ -260,5 +259,5 @@ plot_topic_models$exclusivity_coherence_mean %>%
 #' gave the best equilibrium between the two indicators.
 #' 
 
-saveRDS(filter(tuning_results, preprocessing_id == 6, K == 70), 
+saveRDS(filter(tuning_results, preprocessing_id == 1, K == 50), 
         here(eer_data, "3_Topic_modelling", "chosen_topic_models.rds"))
