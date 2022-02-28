@@ -1,10 +1,7 @@
 source("Script_paths_and_basic_objects_EER.R")
 source(here("functions", "functions_dynamics_networks_alex.R")) 
 source(here("functions", "functions_networks_alex.R"))
-`%notin%` <- Negate(`%in%`)
-require(RColorBrewer)
-require(viridis)
-require(DescTools)
+
 set.seed(333)
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#

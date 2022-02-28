@@ -152,7 +152,7 @@ graph_plot <- ggraph(network, layout = "manual", x = x, y = y) +
   geom_node_label(aes(label = topic_name, fill = com_color), size = 2.5, alpha = 0.7) +
   dark_theme_bw()
 
-ragg::agg_png(here(picture_path, "topic_modelling", "TM_topic_correlation.png"), 
+ragg::agg_png(here(tm_picture_path, "TM_topic_correlation.png"), 
               width = 40, 
               height = 30, 
               units = "cm", 
@@ -187,7 +187,7 @@ top_terms_graph <- top_terms %>%
   scale_y_reordered() +
   coord_cartesian(xlim=c(0.96,1))
 
-ragg::agg_png(here(picture_path, "topic_modelling", "TM_top_terms.png"),
+ragg::agg_png(here(tm_picture_path, "TM_top_terms.png"),
               width = 50, height = 40, units = "cm", res = 300)
 top_terms_graph
 invisible(dev.off())
@@ -198,7 +198,7 @@ invisible(dev.off())
 plotting_frequency <- plot_frequency(topics_with_com, topic_model, com_color) +
   dark_theme_bw()
 
-ragg::agg_png(here(picture_path, "topic_modelling", "TM_topic_prevalence.png"), 
+ragg::agg_png(here(tm_picture_path, "TM_topic_prevalence.png"), 
               width = 40, 
               height = 40, 
               units = "cm", 
@@ -324,7 +324,7 @@ mean_diff_plot <- ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_
        y = "Top 5 (down) vs. EER (up)") +
   dark_theme_classic()
 
-ragg::agg_png(here(picture_path, "topic_modelling", "mean_diff_plot.png"), 
+ragg::agg_png(here(tm_picture_path, "mean_diff_plot.png"), 
               width = 50, 
               height = 40, 
               units = "cm", 
@@ -373,7 +373,7 @@ topic_per_year <- ggplot(tidyprep_year, aes(x = covariate.value, y = estimate,
   theme(strip.text = element_text(size = 3)) +
   dark_theme_bw()
 
-ragg::agg_png(here(picture_path, "topic_modelling", "topic_per_year.png"), 
+ragg::agg_png(here(tm_picture_path, "topic_per_year.png"), 
               width = 50, 
               height = 40, 
               units = "cm", 

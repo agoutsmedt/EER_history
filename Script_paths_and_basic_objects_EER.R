@@ -23,6 +23,7 @@ package_list <- c("fs",
                   "scales", 
                   "ggrepel",
                   "RColorBrewer",
+                  "viridis",
                   "scico",
                   "ggdark",
                   # "igraph", # No need?
@@ -38,7 +39,7 @@ package_list <- c("fs",
                   "leidenAlg", # Clusterisation but integrated in igraph now? 
                   "biblionetwork",
                   "reshape2",
-                  # "DescTools", # what for?
+                  "DescTools", # what for?
                   "DT", ## Hmtl interactive tools
                   "plotly", 
                   "crosstalk", 
@@ -93,3 +94,7 @@ boards_path <- here(eer_data, "editorial_boards")
 picture_path <- here(eer_data, 
                      "pictures")
 tm_picture_path <- here(picture_path, "topic_modelling")
+
+# Tools 
+
+`%notin%` <- Negate(`%in%`)
