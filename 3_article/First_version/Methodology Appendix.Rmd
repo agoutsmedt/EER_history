@@ -1,0 +1,232 @@
+---
+title: "Methodology"
+author:
+  - name: Aurélien Goutsmedt
+    affiliation: 1
+    footnote: 3
+  - name: Alexandre Truc
+    affiliation: 2
+address:
+  - code: 1
+    address: "UCLouvain, ISPOLE. Collège Jacques Leclercq, Place Montesquieu, 1/L 2.08.07, 1348 - Louvain-la-Neuve."
+  - code: 2
+    address: "CNRS."
+footnote:
+  - code: 3
+    text: "Corresponding Author: aurelien.goutsmedt@uclouvain.be"
+abstract: 
+journal: "European Economic Review"
+date: "`r Sys.Date()`"
+# bibliography: bibliography.bib
+link-citations: yes
+csl: elsevier-harvard.csl
+output: 
+  rticles::elsevier_article:
+    number_sections: true
+    toc: false
+    toc_depth: 3
+header-includes:
+  \renewenvironment{abstract}{}{}
+    
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, eval = TRUE)
+
+package_list <- c("data.table", 
+                  "tidyverse",
+                  "tidygraph",
+                  "ggrepel",
+                  "scico")
+for (p in package_list) {
+  if (p %in% installed.packages() == FALSE) {
+    install.packages(p, dependencies = TRUE)
+  }
+  library(p, character.only = TRUE)
+}
+
+```
+
+```{r loading-data, cache=TRUE, results='hide', , fig.show='hide'}
+data_path <- "/projects/data/macro_AA"
+pic_path <- "/home/alexandre/macro_AA/EER_Paper/Writing/Pictures"
+
+all_EER <- readRDS(here::here(data_path,"EER","1_Corpus_Prepped_and_Merged","Corpus.rds"))
+top5_EER <- readRDS(here::here(data_path,"EER","1_Corpus_Prepped_and_Merged","corpus_top5_ERR.rds"))
+
+dt_Old_JEL_Articles <- readRDS(here::here(data_path,"Corpus_Econlit","dt_Old_JEL_Articles.rds"))
+dt_JEL_Articles <- readRDS(here::here(data_path,"Corpus_Econlit","dt_JEL_Articles.rds"))
+Corpus_econlit <- rbind(dt_Old_JEL_Articles, dt_JEL_Articles)
+
+Corpus2 <- readRDS("/projects/data/macro_AA/Corpus_Econlit_Matched_WoS/JEL_matched_corpus_nodes.rds")
+Corpus3 <- readRDS("/projects/data/macro_AA/Corpus_Econlit_Matched_WoS/Old_JEL_matched_corpus_nodes.rds")
+Corpus_macroAA <- rbind(Corpus2, Corpus3, fill=TRUE) # Remplacer Corpus_macroAA par la version définitive du corpus top5
+
+
+missing_ID_Art_abstracts <- readRDS(here::here(data_path,"EER","1_Corpus_Prepped_and_Merged","abstracts_MS_with_ID_Art.RDS"))
+
+
+# Counting differences between corpora
+# Corpus_econlit[,Annee_Bibliographique:=as.integer(Year.V1)]
+# 
+# 
+# Corpus_macroAA[Annee_Bibliographique<2016 & Code_Revue=="9662"][,.N]
+# Corpus_econlit[Year.V1<2016 & toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY"][,.N]
+# 
+# Corpus_macroAA[Annee_Bibliographique<2016 & Code_Revue=="13694"][,.N]
+# Corpus_econlit[Year.V1<2016 & toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS"][,.N]
+# 
+# Corpus_macroAA[Annee_Bibliographique<2002 & Code_Revue=="758"][,.N,Annee_Bibliographique]
+# Corpus_econlit[Year.V1<2002 & toupper(Journal)=="AMERICAN ECONOMIC REVIEW"][,.N]
+# 
+# AER_econlit_macroAA<- merge(Corpus_macroAA[Annee_Bibliographique<2002 & Code_Revue=="758"][,.N,Annee_Bibliographique], Corpus_econlit[Year.V1<2002 & toupper(Journal)=="AMERICAN ECONOMIC REVIEW"][,.N,Annee_Bibliographique], by="Annee_Bibliographique")
+# AER_econlit_macroAA[,N:=N.y-N.x]
+# 
+# ggplot(AER_econlit_macroAA, aes(x=as.character(Annee_Bibliographique), y=N)) + geom_bar(stat="identity")
+# 
+# all_EER[JEL_id==1][,.N]
+# dt_Old_JEL_Articles[Journal %like% "*European Economic Review*"][,.N] + dt_JEL_Articles[Journal %like% "*European Economic Review*"][,.N]
+
+
+```
+
+# Corpus Creation
+
+For the present study we used two different corpora. The first corpus is composed of all EER articles and allows us to track how publications, citations, references and authors affiliations evolved since the creation of the journal in 1969 up to the early 2000s. The second corpus is composed of all macro articles, identified by JEL codes, published in the top five economics journals and the EER. This is used as a basis for topic modeling and bibliographic coupling analysis to contrast the top macroeconomics publications authored by Europeans and Americans, and/or published in American and European journals.
+
+This comparison allows us to track what subjects are clearly European (authored by European and published in an European journal) vs American, but also to investigate questions that crosses over (European authors publishing in American journals).
+
+The comparison between the EER and the top 5 is based upon two observations. 
+
+First, the EER was created with the intent to establish an elite leading journal for the European community that could, eventually, rival the American top 5 in Europe. Comparing the EER with the top 5 ensure that we are comparing sets of journals with the same strategy and that occupy the same market segment in the economics' publications world. While comparing all American journals with all European journals could also be useful, it might capture a different set of question, namely the opposition between core-periphery journals as most European journals during the period studied only have national reach. By comparing two sets of elite journals with international reach, we hope to capture what best characterize the top selected European publications by European journal vs the top selected American publications by American journals. 
+
+Second, the EER is one of the first and, for a long time, almost only journal with an explicit will to create an European community. Studying the EER is threfore a way to investigate the nature of the European macroeconomics community as opposed to the American community, or the particular national communities in Europe (France, Germany...)
+
+## Corpus 1 – EER Publications
+
+For the creation of the first corpus composed of all EER articles, we used a mix of Web of Science and Scopus. While Web of Science has all articles of the EER between 1969-1970 and 1974-2002, it is missing all articles published between 1971 and 1973. To make up for the missing data, we use Scopus to complete the dataset. This operation required normalization of the Scopus dataset, and manual cleaning of variables that were missing from Scopus compared to Web of Science. This mostly includes cleaning of references to match scopus references with Web of Science references, and manual identification of author's affiliation.
+
+```{r echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 1',fig.pos = "!ht"}
+knitr::include_graphics(here::here(pic_path,"infographics_corpus1.png"))
+
+```
+
+Moreover, given that the size of our corpus is modest, we made an extensive semi-automatic cleaning of references to improve references identification by adding the most commonly cited books, book chapter, articles that are not otherwise identified in Web of Science when possible.
+
+
+## Corpus 2 - EER and Top 5 Macroeconomics Articles
+
+```{r echo=FALSE, results='hide', fig.show='hide'}
+
+n_macro <- Corpus_macroAA[Code_Revue=="9662" | Code_Revue=="13694" | Code_Revue=="4695" | Code_Revue=="13992" | Code_Revue=="758" | Code_Revue=="5200"][,.N]
+
+n_econlit <- Corpus_econlit[toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY" 
+               | toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS" 
+               | toupper(Journal)=="AMERICAN ECONOMIC REVIEW"
+               | toupper(Journal)=="EUROPEAN ECONOMIC REVIEW"
+               | toupper(Journal)=="REVIEW OF ECONOMIC STUDIES"
+               | toupper(Journal)=="ECONOMETRICA"][,.N]
+
+# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT),.N,YEAR], aes(x=as.character(YEAR),y=N)) + geom_bar(stat="identity")
+# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "fixed")
+
+```
+
+The construction of this corpus is made in multiple steps. 
+
+* Identifying macroeconomics articles
+  + We identified all articles published in macroeconomics using econlit from JEL codes. We considered that an article was macroeconomics if it had the following codes:
+    - For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824
+    - For new JEL codes (1991 onward): all E, F3 and F4.
+* Using these JEL codes, we matched econlit articles with WoS articles when (1) they shared the same title and year of publications, and (2) the same journal, pages, volume and year of publications. Out of `r n_econlit` articles we matched `r n_macro` articles.
+* Using this list of articles in Web of Science, we took all articles in macroeconomics in the EER (Corpus 1 improved with Scopus), and in the top five journals (American Economic Review, Econometrica, Review of Economic Studies, Journal of Political Economy, Quarterly Journal of Economics)
+* Finally, we were able to collect abstracts for the EER using scopus, but because neither Web of Science or Scopus have all abstracts for the top five, we used Microsoft Academics to collect the highest number of available abstracts, and matched them on our Web of Science database using journal, pages, volume and year of publications. Out of `r missing_ID_Art_abstracts[!is.na(ABSTRACT),.N]` abstracts collected in our six journals of interest, we matched `r missing_ID_Art_abstracts[!is.na(ID_Art) & !is.na(ABSTRACT),.N,ID_Art][,.N]` in WoS.
+  
+
+```{r echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 2',fig.pos = "!ht"}
+
+
+DiagrammeR::mermaid("
+graph LR
+  A[\"Corpus 1 EER (Scopus + Wos)\"]-->A1[\"Corpus EER & Top 5 macro\"]
+  B-->A1[\"Corpus 1 with only macro articles\"]
+  A1-->A3
+  B[\"Macroeconomics articles from JEL codes (econlit)\"]-->A2[\"Top 5 with only macro articles\"]
+  A2-->A3[\"Top 5 & EER Macro with abstracts\"]
+  C[\"Abstracts EER & Top 5 (Microsoft Academics)\"]-->A3;
+  style A fontsize:2px,fill:lightgrey,stroke:black;
+  style A1 fill:lightgrey,stroke:black;
+  style A2 fill:lightgrey,stroke:black;
+  style A3 fill:lightgrey,stroke:black;
+  style B fill:lightgrey,stroke:black;
+  style C fill:lightgrey,stroke:black;
+", height = '100%', width = '100%')
+
+```
+
+# Variable creation
+
+## Authors' affiliation
+
+Authors' affiliations information were extracted from Web of Science. However, the affiliations are not per author, but instead per institutional departments per paper. For example, in the case of an article with two authors from the same department, the department (and institution or country associated with it) is only counted once. Similarly, a single-authored article where the author has three affiliations can result in one article having three affiliations. While in some cases we can inferred the institutional affiliation for each author (e.g., one institution, multiple authors), in others we can't (e.g., two institutions, three authors). <!-- mostly copy paste -->
+
+We restructure the information in two ways. 
+
+First, for each article, we only kept one occurrence of each unique institutions (university, research institute...) to avoid the multiplication of observations resulting from the variety of departments observed in some institutions. In other words, for each article, authors are group by their institutional affiliation as research team. For example, in an article with two authors from Princeton and one author from Stanford, we only know that the article was written by one team from Princeton and one from Stanford, but not that the individual ratio was two third. 
+
+Second, and more importantly, for the purpose of our analysis, we mostly looked at the share of papers authored by European and American economists. While we do not have individual affiliation, we know with certainty when a paper has only European authors, only American authors, or a mix of the two. 
+
+For this reason, while the share of institutions within the corpus is only an estimation based on the occurences of affiliation, the information generated to identify American authored papers and European authored paper is certain. 
+
+# Analysis
+
+```{r echo=FALSE, results='hide', fig.show='hide'}
+# Variable to add after
+
+n_networks <- "n_networks"
+n_communities_raw <- "n_communities_raw"
+n_communities_grouped <- "n_communities_grouped"
+n_communities_ofinterest <- "n_communities_ofinterest"
+
+```
+
+## Bibliographic Coupling and Cluster Detection
+
+A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of \citet{shenRefinedMethodComputing2019}. This method normalized and weight the strength between articles by taking into account two important elements:
+
+*The size of the bibliography of the two linked articles: common references between two articles with long bibliography are weighted as less significant since the number of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as very significant.
+*The number of occurrences of each reference in the overall corpus: when a reference is shared between two articles, it is weighted as less significant if it is very common across the entire corpus and very significant if it is rare. A very rare common reference points to a higher content similarity between two articles than a highly cited reference. <!-- mostly copy paste -->
+
+For all macroeconomics articles published in the EER and in the top 5, we plotted the networks with 10-year overlapping windows. This results in `r n_networks`.
+
+We used Leiden detection (resolution of 1 and 1000 iterations) algorithm that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. This results in `r n_communities_raw` across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that if at least 55\% of the articles in a community of the first time window where in the same cluster of the second time window, and that cluster was also composed by at least 55\% by articles of the first time window, then it is the same cluster
+
+Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster
+
+This gives us `r n_communities_grouped`, with `r n_communities_ofinterest` that are at least 5\% of a network at any given point and are stable enough to exists for at least two time windows. 
+
+For each of these clusters, we computed the share of articles published in the top 5 journals vs the EER, and the share of articles authored by European vs American for the time window of the cluster We then subtracted the share of articles published in the EER in the cluster with the share of articles published in the EER on the same time period of the cluster to identify over/under representation of the EER. We also subtracted the relative share of European authors to American authors in the cluster to the relative share of European authors to American on the same time period of the cluster to identify over/under representation of European authors in the cluster.
+
+Finally, we plotted the clusters on a scatterplot to identify clusters in which both European authors and the EER are over-represented. 
+
+
+## A - Figures and Tables {.unnumbered}
+
+```{r plot-topic-diff, fig.align="center", out.width="120%"}
+# ggplot(topics_diff, aes(x = diff_affiliation, y = diff_journal)) +
+#   geom_vline(xintercept = 0, size = 1.5, alpha = 0.9) +
+#   geom_hline(yintercept = 0, size = 1.5, alpha = 0.5) +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   ggrepel::geom_label_repel(aes(label = topic_label,
+#                        color = topic_name, fill = topic_name), size = 2.5, alpha = 0.7, hjust = 0) +
+#   geom_point(aes(color = topic_name, fill = topic_name), size = 2, alpha = 0.8) +
+#   labs(title = "Topic Prevalence over journals (Difference of Means method)",
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") + 
+#   theme(legend.position="none")
+
+```
+
+
+## B - Information on the Methods {.unnumbered}
