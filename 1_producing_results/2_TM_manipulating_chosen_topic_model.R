@@ -244,7 +244,8 @@ topic_gamma <- topic_gamma %>%
   select(-topic) %>% 
   mutate(topic_name = str_remove_all(str_replace(topic_name, "\\\n", " "), " \\/"))
 
-topic_gamma <- pivot_wider(topic_gamma,
+
+topic_gamma_widered <- pivot_wider(topic_gamma,
                            names_from = topic_name, 
                            values_from = gamma) %>% 
   mutate(ID_Art = names(stm_data$documents)) %>% 
@@ -252,7 +253,7 @@ topic_gamma <- pivot_wider(topic_gamma,
   select(document, ID_Art, Nom, Annee_Bibliographique, Titre, Revue, journal_type, contains("Topic")) %>% 
   as.data.table()
 
-topic_gamma_attributes <- merge(topic_gamma,
+topic_gamma_attributes <- merge(topic_gamma_widered,
                                 unique(Corpus[, c("ID_Art", "EU_US_collab")]),
                                 by = "ID_Art", all.x = TRUE) %>% 
   mutate(Nom = str_remove_all(as.character(Nom), "c\\(\"|\\)|\""))
@@ -299,8 +300,6 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
   select(id, new_id, topic_label, topic_name, Com_name, com_color, diff_affiliation, diff_journal, total_diff, topic_prevalence) %>% 
   as.data.table()
 
-#' We will use this table for exploration
-#' `saveRDS(topic_diff_summary, here(eer_data, "3_Topic_modelling", "TM_topics_diff.rds"))`
 #' We can now plot the differences in a two-dimensions diagram:
 #' 
 
@@ -331,6 +330,79 @@ ragg::agg_png(here(tm_picture_path, "mean_diff_plot.png"),
               res = 400)
 mean_diff_plot
 invisible(dev.off())
+
+#' We test an alternative method for evaluation the relative share of journals and affiliations
+#' by mimicking the approach used in the bibliometric coupling analysis. We take only the 
+#' articles with a gamma value above 0.1, and we then calculate the share of articles for
+#' each variables
+
+topic_diff_logratio_journal <- copy(topic_gamma_attributes) %>% 
+  filter(gamma > 0.1) %>% 
+  group_by(topic) %>% 
+  add_count(journal_type, name = "percent_journal") %>% 
+  select(topic_name, topic, journal_type, percent_journal) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = journal_type, values_from = percent_journal, values_fill = 0) %>% 
+  mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  mutate(logratio_journal = log(EER/TOP5)) %>% 
+  select(topic_name, topic, logratio_journal)
+
+topic_diff_logratio_affiliation <- copy(topic_gamma_attributes) %>% 
+  filter(gamma > 0.1) %>% 
+  group_by(topic) %>% 
+  add_count(EU_US_collab, name = "percent_affiliation") %>% 
+  select(topic, EU_US_collab, percent_affiliation) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = EU_US_collab, values_from = percent_affiliation, values_fill = 0) %>% 
+  mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  mutate(logratio_affiliation = log(`Europe Only`/`USA Only`)) %>% 
+  select(topic, logratio_affiliation)
+
+topic_diff_logratio <- topic_diff_logratio_journal %>% 
+  left_join(topic_diff_logratio_affiliation) %>% 
+  mutate(id = as.integer(str_extract(topic_name, "[:digit:]{1,2}")),
+         topic_label = str_wrap(str_remove(topic_name, "Topic [:digit:]{1,2} "), 15)) %>% 
+  left_join(select(topics_complete, id, new_id, Com_name, com_color, topic_prevalence)) %>% 
+  select(id, new_id, topic_label, topic_name, Com_name, com_color, logratio_affiliation, logratio_journal, topic_prevalence) %>% 
+  as.data.table()
+  
+topic_diff_summary <- topic_diff_summary %>% 
+  left_join(select(topic_diff_logratio, id, logratio_affiliation, logratio_journal))
+
+#' We will use this table for exploration
+#' `saveRDS(topic_diff_summary, here(eer_data, "3_Topic_modelling", "TM_topics_diff.rds"))`  
+#' We can now plot in two dimensions:
+
+logratio_diff_plot <- ggplot(topic_diff_logratio, aes(x = logratio_affiliation, y = logratio_journal)) +
+  geom_vline(xintercept = 0, size = 1.5, alpha = 0.9) +
+  geom_hline(yintercept = 0, size = 1.5, alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_label_repel(aes(label = topic_label, 
+                       group = factor(Com_name),
+                       color = com_color, 
+                       fill = com_color), size = 2, alpha = 0.7, hjust = 0) +
+  geom_point(aes(group = factor(Com_name),
+                 color = com_color, 
+                 fill = com_color,
+                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  scale_color_identity() +
+  scale_fill_identity() +
+  labs(title = "Topic Prevalence over journals (Difference of Logratio method)",
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  dark_theme_classic()
+
+ragg::agg_png(here(tm_picture_path, "logratio_diff_plot.png"), 
+              width = 50, 
+              height = 40, 
+              units = "cm", 
+              res = 400)
+logratio_diff_plot
+invisible(dev.off())
+  
 
 #' ## Using covariates for year distribution and topic content per affiliation
 #' 

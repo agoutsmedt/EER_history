@@ -99,11 +99,15 @@ topics <- readRDS(here(eer_data,
   filter(gamma > 0.1) %>%
   left_join(topic_diff) %>%
   mutate(
+    gamma = round(gamma, 2),
     diff_affiliation = round(diff_affiliation, 3),
     diff_journal = round(diff_journal, 3),
+    logratio_affiliation = round(logratio_affiliation, 3),
+    logratio_journal = round(logratio_journal, 3),
+    sum_logratio = logratio_journal + logratio_affiliation,
     total_diff = diff_affiliation + diff_journal
   ) %>%
-  arrange(desc(total_diff)) %>%
+  arrange(desc(sum_logratio)) %>%
   as.data.table()
 
 prevalence_rank <- topics %>% 
@@ -160,7 +164,8 @@ ref_topics <- topics %>%
 cited_corpus <- topics %>% 
   left_join(Corpus) %>% 
   left_join(count(Direct_citations, ItemID_Ref)) %>% 
-  rename(nb_cit = n)
+  rename(nb_cit = n) %>% 
+  mutate(nb_cit = ifelse(is.na(nb_cit), 0, nb_cit))
 
 # tf-idf of refs
 refs_tf_idf <-  ref_topics %>% 
@@ -199,9 +204,18 @@ countries_tf_idf <-  institutions %>%
 
 # General difference in affiliations and journals
 
+If we look at the distribution of topics by gamma mean depending on affiliations and journals:
+
 ```{r}
 knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
 ```
+
+If we look at the distribution of topics only for highest gamma, using the logratio for affiliations and jourals:
+
+```{r}
+knitr::include_graphics(here(picture_path, "topic_modelling", "logratio_diff_plot.png"))
+```
+
 
 ```{r}
 knitr::include_graphics(here(picture_path, "topic_modelling", "topic_per_year.png"))
@@ -307,21 +321,36 @@ for (topic_turn in unique(topics$topic_name)) {
 # Most cited document of the topic
   cited <- cited_corpus %>% 
     filter(topic_name == topic_turn,
-           ! is.na(nb_cit),
-           nb_cit > 1) %>% 
-    select(ID_Art, Nom, Annee_Bibliographique, Titre, Revue, journal_type, EU_US_collab, nb_cit)
+           ! is.na(nb_cit)) %>% 
+    select(ID_Art, Nom, Annee_Bibliographique, Titre, Revue, journal_type, EU_US_collab, nb_cit, gamma)
   
   top_cited <- cited %>%
+    filter(nb_cit > 1) %>% 
     slice_max(order_by = nb_cit, n = 15, with_ties = FALSE)
   
   top_cited_journal <- cited %>%
+    filter(nb_cit > 1) %>% 
     group_by(journal_type) %>%
     slice_max(order_by = nb_cit, n = 10, with_ties = FALSE)
   
   top_cited_affiliation <- cited %>%
-    filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
+    filter(EU_US_collab %in% c("USA Only", "Europe Only"),
+           nb_cit > 1) %>% 
     group_by(EU_US_collab) %>%
     slice_max(order_by = nb_cit, n = 10, with_ties = FALSE)
+  
+# Most representative article of the topic
+  top_gamma <- cited %>%
+    slice_max(order_by = gamma, n = 15, with_ties = FALSE)
+  
+  top_gamma_journal <- cited %>%
+    group_by(journal_type) %>%
+    slice_max(order_by = gamma, n = 10, with_ties = FALSE)
+  
+  top_gamma_affiliation <- cited %>%
+    filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
+    group_by(EU_US_collab) %>%
+    slice_max(order_by = gamma, n = 10, with_ties = FALSE)
 
 # Looking at links between topics and communities
   top_communities <- topics %>%
@@ -357,16 +386,27 @@ for (topic_turn in unique(topics$topic_name)) {
              unique(topic_in_question$diff_journal),
              " for a total of ",
              unique(topic_in_question$total_diff),
+             ". It displays a difference of logratio of  Europe-based minus US-based authors of ",
+             unique(topic_in_question$logratio_affiliation ),
+             " and of EER minus top 5 of ",
+             unique(topic_in_question$logratio_journal),
+             " for a total of ",
+             unique(topic_in_question$sum_logratio),
              "\n\n"))
   cat(paste0("It belongs to the \"",
              unique(topic_in_question$Com_name),
-             "\" correlation network community. \n\n"))
+             "\" correlation network community.",
+             "\n\n"))
   
   cat(paste0("The topic prevalence is ranked ",
              filter(prevalence_rank, topic_name == topic_turn)$rank_prevalence,
              " on ",
              nrow(prevalence_rank),
              " topics.\n\n"))
+  
+    cat(paste0("We have ",
+             nrow(topic_in_question),
+             " articles with a gamma value above 0.01 for this topic.\n\n"))
   
   cat("###", "Describing Topics \n\n")
   cat("The most common terms according to different indicators:")
@@ -467,6 +507,39 @@ for (topic_turn in unique(topics$topic_name)) {
   cat("#####", "USA Only")
   cat("\n\n")
   print(kable(filter(top_cited_affiliation, EU_US_collab == "USA Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("###", "Most representative articles of the topic \n\n")
+  cat("The most popular articles in the topic:")
+  cat("\n\n")
+  print(kable(top_gamma) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "The most representative articles in the topic depending on publication and affiliations {.tabset}")
+  cat("\n\n")
+  cat("#####", "EER")
+  cat("\n\n")
+  print(kable(filter(top_gamma_journal, journal_type == "EER")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("#####", "TOP5")
+  cat("\n\n")
+  print(kable(filter(top_gamma_journal, journal_type == "TOP5")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("#####", "Europe Only")
+  cat("\n\n")
+  print(kable(filter(top_gamma_affiliation, EU_US_collab == "Europe Only")) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("#####", "USA Only")
+  cat("\n\n")
+  print(kable(filter(top_gamma_affiliation, EU_US_collab == "USA Only")) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
