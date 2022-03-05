@@ -79,6 +79,10 @@ alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
 alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
 tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
 
+
+topics <- readRDS(here(eer_data, 
+                           "3_Topic_modelling",
+                           "TM_gamma_values.rds")) %>% filter(gamma > 0.1)
 #################### Replace communities with new name ####################
 # 
 # community_name <- tribble(
@@ -470,6 +474,9 @@ tf_idf_results$plot
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 institutions <- institutions_unique
+community_name <- alluv_dt_as_nodes[,head(.SD,1),.(Label_com,new_Id_com)][,.(Label_com,new_Id_com)][order(Label_com)]
+
+
 
 nb_cit <- Refs[, .N, ItemID_Ref]
 colnames(nb_cit)[colnames(nb_cit) == "N"] <- "size"
@@ -479,28 +486,19 @@ nb_cit_all[is.na(size),size:=0]
 alluv_dt_as_nodes <- copy(alluv_dt_graph)
 alluv_dt_as_nodes[,nodes_n_time_com := .N, .(new_Id_com,Id)]
 alluv_dt_as_nodes <- merge(alluv_dt_as_nodes, nb_cit_all[,.(size, Id, Annee_Bibliographique, Label, Revue)], by="Id", all.x = TRUE)
-alluv_dt_as_nodes[,Id:=as.character(Id)]
 
 most_influential_nodes <- copy(alluv_dt_as_nodes)
 most_influential_nodes[,weighted_size:=size*nodes_n_time_com]
 most_influential_nodes <- most_influential_nodes[, head(.SD, 1), .(new_Id_com,Id)]
 most_influential_nodes <- most_influential_nodes[order(-weighted_size)]
 
-
-most_influential_nodes <- merge(most_influential_nodes,Authors[Ordre==1,.(Nom,ID_Art)],by.x="Id",by.y="ID_Art", all.X=TRUE)
-# Label column
-most_influential_nodes <- most_influential_nodes[, name_short:=  gsub("-.*","",Nom)]
-most_influential_nodes$name_short <- toupper(most_influential_nodes$name_short)
-most_influential_nodes <- most_influential_nodes[,Label:=paste0(name_short,",",Annee_Bibliographique)]
-most_influential_nodes[, c("name_short"):=NULL]
-
-com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>= min_leiden_max & n_years>=min_n_years, .N, Label_com][order(-N)]$Label_com
+com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>=min_leiden_max & n_years>=min_n_years, .N, new_Id_com][order(-N)]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
 euro_com_stat_list <- list()
 
 for (com in com_to_inspect) {
-  alluv_com  <- alluv_dt_as_nodes[Label_com==paste0(com)]
+  alluv_com  <- alluv_dt_as_nodes[new_Id_com==paste0(com)]
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window))) + (time_window - 1)))
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window)))))
   
@@ -576,17 +574,20 @@ diff_stat_euro_com[,com_name:=new_Id_com]
 com_to_inspect <- diff_stat_euro_com[order(-sum_diff), .N, new_Id_com]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
+
 new_Id_com_size <- alluv_dt_as_nodes[,.N,new_Id_com][order(-N)] # size of dots
 new_Id_com_size <-  new_Id_com_size %>% rename(new_Id_com_size = N)
-diff_stat_euro_com <- merge(diff_stat_euro_com, new_Id_com_size, by="new_Id_com", all.x = TRUE)
 
+diff_stat_euro_com <- merge(diff_stat_euro_com, new_Id_com_size, by="new_Id_com", all.x = TRUE) # size dot
+diff_stat_euro_com <- merge(diff_stat_euro_com, community_name, by="new_Id_com",all.x=TRUE)#label name
 
 # diff_stat_euro_com[new_Id_com %notin% community_name$community_name,new_Id_com:=NA]
+
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.4) +
   geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  ggrepel::geom_text_repel(aes(label = as.character(new_Id_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
+  ggrepel::geom_text_repel(aes(label = as.character(Label_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
   geom_point(aes(size = new_Id_com_size), alpha = 0.8) +
   scale_color_identity() +
   scale_fill_identity() +
@@ -594,7 +595,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_minimal() 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw_test.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw.png"), width=35, height=20, units = "cm")
 
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
@@ -602,15 +603,16 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
-                           aes(label = as.character(new_Id_com)), size = 2.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.11, 1.2), labels = c("Less European", "More European")) +
+                           aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-0.35, 0.65), labels = c("Less European", "More European")) +
   labs(title = "",
        color = "",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
-  theme(legend.position = "bottom")
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_test.png"), width=35, height=20, units = "cm")
+  theme(legend.position = "bottom") +
+  guides(size = "none") 
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=35, height=20, units = "cm")
 
 ```
 
@@ -649,6 +651,12 @@ for (com in com_to_inspect) {
   most_influential_noidrefs_com[,n_nodes:=n_nodes_com]
   most_influential_noidrefs_com[,share:=n_cit_ref/n_nodes*100]
   most_influential_noidrefs_com <- most_influential_noidrefs_com[order(-share), head(.SD, 1), .(Label_Target)]
+  
+  most_common_topic <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
+  most_common_topic <- most_common_topic[,.N,.(topic_name)][,perc:=100*N/sum(N)][order(-perc)]
+
+  most_common_topic_gamma <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
+  most_common_topic_gamma <- most_common_topic_gamma[,sum(gamma),.(topic_name)][,sum_gamma:=V1][,V1:=NULL][order(-sum_gamma)]
   
   most_productive_authors <- merge(alluv_com[,.(Id)], Authors, by.x= "Id", by.y= "ID_Art")
   most_productive_authors <- most_productive_authors[,.N, Nom]
@@ -763,6 +771,18 @@ for (com in com_to_inspect) {
   cat("\n\n")
   cat("During this period there was a difference of european authors of", diff_stat_euro_com[new_Id_com==com]$europeans_authors_diff, "points and of EER pub of", diff_stat_euro_com[new_Id_com==com]$EER_articles_diff,"points. For a total of ", diff_stat_euro_com[new_Id_com==com]$sum_diff)
   cat("\n\n")
+  
+  cat("###","The most common topic of the community (occurence and sum of gamma):", "\n")
+  cat("\n\n")
+  print(kable(most_common_topic[1:10]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+    cat("\n\n")
+  print(kable(most_common_topic_gamma[1:10]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
   
   cat("###","The most influential nodes of the community:", "\n")
   cat("\n\n")
