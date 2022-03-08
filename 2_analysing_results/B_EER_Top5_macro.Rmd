@@ -16,18 +16,18 @@ script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
 ```
 
 ```{js zoom-jquery, echo = FALSE}
- $(document).ready(function() {
-    $('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
-    // onClick function for all plots (img's)
-    $('img:not(.zoomImg)').click(function() {
-      $('.zoomImg').attr('src', $(this).attr('src')).css({width: '100%'});
-      $('.zoomDiv').css({opacity: '1', width: 'auto', border: '1px solid white', borderRadius: '5px', position: 'fixed', top: '50%', left: '50%', marginRight: '-50%', transform: 'translate(-50%, -50%)', boxShadow: '0px 0px 50px #888888', zIndex: '50', overflow: 'auto', maxHeight: '100%'});
-    });
-    // onClick function for zoomImg
-    $('img.zoomImg').click(function() {
-      $('.zoomDiv').css({opacity: '0', width: '0%'}); 
-    });
-  });
+$(document).ready(function() {
+$('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
+// onClick function for all plots (img's)
+$('img:not(.zoomImg)').click(function() {
+$('.zoomImg').attr('src', $(this).attr('src')).css({width: '100%'});
+$('.zoomDiv').css({opacity: '1', width: 'auto', border: '1px solid white', borderRadius: '5px', position: 'fixed', top: '50%', left: '50%', marginRight: '-50%', transform: 'translate(-50%, -50%)', boxShadow: '0px 0px 50px #888888', zIndex: '50', overflow: 'auto', maxHeight: '100%'});
+});
+// onClick function for zoomImg
+$('img.zoomImg').click(function() {
+$('.zoomDiv').css({opacity: '0', width: '0%'}); 
+});
+});
 ```
 
 ```{r, include=FALSE, set.seed(333)}
@@ -36,6 +36,7 @@ setwd("D:/Dropbox/8-Projets Quanti/1-R_Projects/Home/EER_history")
 source("Script_paths_and_basic_objects_EER.R")
 source(here("functions", "functions_dynamics_networks_alex.R")) 
 source(here("functions", "functions_networks_alex.R"))
+`%notlike%` <- Negate(`%like%`)
 
 require(rmdformats)
 require(kableExtra)
@@ -48,9 +49,9 @@ set.seed(333)
 #################### General Corpus ####################
 
 all_macro <- readRDS(here(data_path,
-                       "macro_AA",
-                       "2_Matched_data",
-                       "Econlit_matched_ID_Art.RDS"))
+                          "macro_AA",
+                          "2_Matched_data",
+                          "Econlit_matched_ID_Art.RDS"))
 
 Corpus <- readRDS(here(eer_data,
                        "1_Corpus_Prepped_and_Merged",
@@ -61,17 +62,17 @@ Refs <- readRDS(here(eer_data,
                      "Direct_citations_top5_EER.RDS"))
 
 Refs_info <- readRDS(here(eer_data, 
-                     "1_Corpus_Prepped_and_Merged",
-                     "References_top5_EER.rds"))
+                          "1_Corpus_Prepped_and_Merged",
+                          "References_top5_EER.rds"))
 
 Institution <- readRDS(here(eer_data, 
-                     "1_Corpus_Prepped_and_Merged",
-                     "Institutions_top5_EER.RDS"))
+                            "1_Corpus_Prepped_and_Merged",
+                            "Institutions_top5_EER.RDS"))
 Institution <- merge(Institution,Corpus[,.(Annee_Bibliographique,ID_Art)],by="ID_Art",all.x=TRUE)
 
 Authors <- readRDS(here(eer_data, 
-                     "1_Corpus_Prepped_and_Merged",
-                     "Authors_Top5_EER.RDS"))
+                        "1_Corpus_Prepped_and_Merged",
+                        "Authors_Top5_EER.RDS"))
 Authors[,Nom_ISI:=Nom]
 
 tf_idf_results <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "tf_idf.RDS"))
@@ -79,6 +80,10 @@ alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
 alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
 tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
 
+
+topics <- readRDS(here(eer_data, 
+                       "3_Topic_modelling",
+                       "TM_gamma_values.rds")) %>% filter(gamma > 0.1)
 #################### Replace communities with new name ####################
 # 
 # community_name <- tribble(
@@ -200,7 +205,7 @@ min_leiden_max <- 0.04
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 
-datatable(Corpus_all_EER, rownames = FALSE, class = 'cell-border stripe')
+datatable(Corpus_all_EER[,.(Nom,Annee_Bibliographique,Titre,Revue,EU_US_collab)], rownames = FALSE, class = 'cell-border stripe')
 
 ```
 
@@ -277,7 +282,7 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
   coord_cartesian(xlim = c(NA, 2010)) 
-  ggsave(here(eer_data,"pictures","Graphs","Collab_strict.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Collab_strict.png"), width=35, height=20, units = "cm")
 
 
 ```
@@ -286,15 +291,15 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 bridges_collab <- institutions_unique[EU_US_collab== "Collaboration"][,list(Target = rep(Institution[1:(length(Institution)-1)],(length(Institution)-1):1),
-                                                                             Source = rev(Institution)[sequence((length(Institution)-1):1)]),
-                                                                       by= ID_Art]
+                                                                            Source = rev(Institution)[sequence((length(Institution)-1):1)]),
+                                                                      by= ID_Art]
 bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(Source, Target)] # exchanging
 bridges_collab[Target!=Source,.N,.(Target,Source)][order(-N)] %>% top_n(20)
 
 bridges_collab <- institutions_unique[EU_US_collab== "Collaboration"][,list(Target =
-                                                                               rep(Pays[1:(length(Pays)-1)],(length(Pays)-1):1),
-                                                                             Source = rev(Pays)[sequence((length(Pays)-1):1)]),
-                                                                       by= ID_Art]
+                                                                              rep(Pays[1:(length(Pays)-1)],(length(Pays)-1):1),
+                                                                            Source = rev(Pays)[sequence((length(Pays)-1):1)]),
+                                                                      by= ID_Art]
 bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(Source, Target)] # exchanging
 
 kable(bridges_collab[Target!=Source,.N,.(Target,Source)][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F))
@@ -330,25 +335,25 @@ journal_name <- tribble(
 
 
 if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))==FALSE)
-  {
-liste_code_revue <- c("5200","14501","4713","13992","4719","12488","16273")
-ID_art_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% liste_code_revue]
-citations_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  .[ItemID_Ref %in% ID_art_journals[ItemID_Ref!=0]$ItemID_Ref]
-info_citing <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[ID_Art %in% citations_journals$ID_Art]
-
-citations_journals <- merge(citations_journals, info_citing[,.(ID_Art,Annee_Bibliographique)], by="ID_Art",all.x=TRUE) # add year of publications of the article citing
-citations_journals <- merge(citations_journals, ID_art_journals[,.(ItemID_Ref,Code_Revue)], by="ItemID_Ref",all.x=TRUE) # add year of publications of the article citing
-
-ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0,.N,.(Annee_Bibliographique)]
-
-citations_journals <- merge(citations_journals, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
-citations_journals <- citations_journals %>% rename(n_refs_tot = N)
-citations_journals[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
-citations_journals[,share:=n_refs_journal/n_refs_tot*100]
-saveRDS(citations_journals, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))
+{
+  liste_code_revue <- c("5200","14501","4713","13992","4719","12488","16273")
+  ID_art_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% liste_code_revue]
+  citations_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  .[ItemID_Ref %in% ID_art_journals[ItemID_Ref!=0]$ItemID_Ref]
+  info_citing <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[ID_Art %in% citations_journals$ID_Art]
+  
+  citations_journals <- merge(citations_journals, info_citing[,.(ID_Art,Annee_Bibliographique)], by="ID_Art",all.x=TRUE) # add year of publications of the article citing
+  citations_journals <- merge(citations_journals, ID_art_journals[,.(ItemID_Ref,Code_Revue)], by="ItemID_Ref",all.x=TRUE) # add year of publications of the article citing
+  
+  ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0,.N,.(Annee_Bibliographique)]
+  
+  citations_journals <- merge(citations_journals, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
+  citations_journals <- citations_journals %>% rename(n_refs_tot = N)
+  citations_journals[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
+  citations_journals[,share:=n_refs_journal/n_refs_tot*100]
+  saveRDS(citations_journals, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))
 }else
-  {
+{
   citations_journals <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))
 }
 count <- citations_journals[,.N,.(Annee_Bibliographique,Code_Revue,share)]
@@ -372,21 +377,21 @@ ggsave(here(eer_data,"pictures","Graphs","EER_importance.png"), width=35, height
 #################### All econ ####################
 
 if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_econ.RDS"))==FALSE)
-  {
-ID_art_econ <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% econ_journals$Code_Revue]
-
-ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_econ$ID_Art,.N,.(Annee_Bibliographique)]
-
-citations_journals_econ <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
-citations_journals_econ[,n_refs_tot:=NULL]
-citations_journals_econ <- merge(citations_journals_econ, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
-citations_journals_econ <- citations_journals_econ %>% rename(n_refs_tot = N)
-citations_journals_econ[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
-citations_journals_econ[,share:=n_refs_journal/n_refs_tot*100]
-saveRDS(citations_journals_econ, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_econ.RDS"))
+{
+  ID_art_econ <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% econ_journals$Code_Revue]
+  
+  ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_econ$ID_Art,.N,.(Annee_Bibliographique)]
+  
+  citations_journals_econ <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
+  citations_journals_econ[,n_refs_tot:=NULL]
+  citations_journals_econ <- merge(citations_journals_econ, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
+  citations_journals_econ <- citations_journals_econ %>% rename(n_refs_tot = N)
+  citations_journals_econ[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
+  citations_journals_econ[,share:=n_refs_journal/n_refs_tot*100]
+  saveRDS(citations_journals_econ, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_econ.RDS"))
 }else
-  {
+{
   citations_journals_econ <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_econ.RDS"))
 }
 count <- citations_journals_econ[,.N,.(Annee_Bibliographique,Code_Revue,share)]
@@ -408,22 +413,22 @@ ggsave(here(eer_data,"pictures","Graphs","EER_importance_econ.png"), width=35, h
 #################### All  macro ####################
 
 if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.RDS"))==FALSE)
-  {
-
-ID_art_macro <- all_macro
-
-ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art,.N,.(Annee_Bibliographique)]
-
-citations_journals_macro <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
-citations_journals_macro[,n_refs_tot:=NULL]
-citations_journals_macro <- merge(citations_journals_macro, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
-citations_journals_macro <- citations_journals_macro %>% rename(n_refs_tot = N)
-citations_journals_macro[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
-citations_journals_macro[,share:=n_refs_journal/n_refs_tot*100]
-saveRDS(citations_journals_macro, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.RDS"))
+{
+  
+  ID_art_macro <- all_macro
+  
+  ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art,.N,.(Annee_Bibliographique)]
+  
+  citations_journals_macro <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
+  citations_journals_macro[,n_refs_tot:=NULL]
+  citations_journals_macro <- merge(citations_journals_macro, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
+  citations_journals_macro <- citations_journals_macro %>% rename(n_refs_tot = N)
+  citations_journals_macro[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
+  citations_journals_macro[,share:=n_refs_journal/n_refs_tot*100]
+  saveRDS(citations_journals_macro, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.RDS"))
 }else
-  {
+{
   citations_journals_macro <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.RDS"))
 }
 count <- citations_journals_macro[,.N,.(Annee_Bibliographique,Code_Revue,share)]
@@ -466,7 +471,7 @@ tf_idf_results$plot
 
 ```
 
-## EU/US
+## Preparing community inspections and EU/US comparison
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 institutions <- institutions_unique
@@ -475,32 +480,31 @@ nb_cit <- Refs[, .N, ItemID_Ref]
 colnames(nb_cit)[colnames(nb_cit) == "N"] <- "size"
 nb_cit_all <- merge(Corpus, nb_cit, by.x = "ItemID_Ref", by.y = "ItemID_Ref", all.x = TRUE)
 nb_cit_all[is.na(size),size:=0]
+# Label column
+nb_cit_all <- nb_cit_all[, name_short:=  gsub("-.*","",Nom)]
+nb_cit_all$name_short <- toupper(nb_cit_all$name_short)
+nb_cit_all <- nb_cit_all[,Label:=paste0(name_short,",",Annee_Bibliographique)]
+nb_cit_all[, c("name_short"):=NULL]
+
 
 alluv_dt_as_nodes <- copy(alluv_dt_graph)
 alluv_dt_as_nodes[,nodes_n_time_com := .N, .(new_Id_com,Id)]
 alluv_dt_as_nodes <- merge(alluv_dt_as_nodes, nb_cit_all[,.(size, Id, Annee_Bibliographique, Label, Revue)], by="Id", all.x = TRUE)
-alluv_dt_as_nodes[,Id:=as.character(Id)]
+
+community_name <- alluv_dt_as_nodes[,head(.SD,1),.(Label_com,new_Id_com)][,.(Label_com,new_Id_com)][order(Label_com)]
 
 most_influential_nodes <- copy(alluv_dt_as_nodes)
 most_influential_nodes[,weighted_size:=size*nodes_n_time_com]
 most_influential_nodes <- most_influential_nodes[, head(.SD, 1), .(new_Id_com,Id)]
 most_influential_nodes <- most_influential_nodes[order(-weighted_size)]
 
-
-most_influential_nodes <- merge(most_influential_nodes,Authors[Ordre==1,.(Nom,ID_Art)],by.x="Id",by.y="ID_Art", all.X=TRUE)
-# Label column
-most_influential_nodes <- most_influential_nodes[, name_short:=  gsub("-.*","",Nom)]
-most_influential_nodes$name_short <- toupper(most_influential_nodes$name_short)
-most_influential_nodes <- most_influential_nodes[,Label:=paste0(name_short,",",Annee_Bibliographique)]
-most_influential_nodes[, c("name_short"):=NULL]
-
-com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>= min_leiden_max & n_years>=min_n_years, .N, Label_com][order(-N)]$Label_com
+com_to_inspect <- alluv_dt_as_nodes[share_leiden_max>=min_leiden_max & n_years>=min_n_years, .N, new_Id_com][order(-N)]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
 euro_com_stat_list <- list()
 
 for (com in com_to_inspect) {
-  alluv_com  <- alluv_dt_as_nodes[Label_com==paste0(com)]
+  alluv_com  <- alluv_dt_as_nodes[new_Id_com==paste0(com)]
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window))) + (time_window - 1)))
   # window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window)))))
   
@@ -576,17 +580,20 @@ diff_stat_euro_com[,com_name:=new_Id_com]
 com_to_inspect <- diff_stat_euro_com[order(-sum_diff), .N, new_Id_com]$new_Id_com
 com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
+
 new_Id_com_size <- alluv_dt_as_nodes[,.N,new_Id_com][order(-N)] # size of dots
 new_Id_com_size <-  new_Id_com_size %>% rename(new_Id_com_size = N)
-diff_stat_euro_com <- merge(diff_stat_euro_com, new_Id_com_size, by="new_Id_com", all.x = TRUE)
 
+diff_stat_euro_com <- merge(diff_stat_euro_com, new_Id_com_size, by="new_Id_com", all.x = TRUE) # size dot
+diff_stat_euro_com <- merge(diff_stat_euro_com, community_name, by="new_Id_com",all.x=TRUE)#label name
 
 # diff_stat_euro_com[new_Id_com %notin% community_name$community_name,new_Id_com:=NA]
+
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.4) +
   geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  ggrepel::geom_text_repel(aes(label = as.character(new_Id_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
+  ggrepel::geom_text_repel(aes(label = as.character(Label_com)), data = diff_stat_euro_com, min.segment.length = 0, alpha = 0.7) +
   geom_point(aes(size = new_Id_com_size), alpha = 0.8) +
   scale_color_identity() +
   scale_fill_identity() +
@@ -594,7 +601,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_minimal() 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw_test.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw.png"), width=35, height=20, units = "cm")
 
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
@@ -602,15 +609,16 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
-                           aes(label = as.character(new_Id_com)), size = 2.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.11, 1.2), labels = c("Less European", "More European")) +
+                           aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-0.35, 0.65), labels = c("Less European", "More European")) +
   labs(title = "",
        color = "",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
-  theme(legend.position = "bottom")
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_test.png"), width=35, height=20, units = "cm")
+  theme(legend.position = "bottom") +
+  guides(size = "none") 
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=35, height=20, units = "cm")
 
 ```
 
@@ -627,12 +635,13 @@ for (com in com_to_inspect) {
   ####################### Preparing the data to put in the template
   # time_window <- 7
   # restricting alluv_dt to the community at stake
-  alluv_com  <- alluv_dt_as_nodes[Label_com %like% paste0(com)]
+  alluv_com  <- alluv_dt_as_nodes[new_Id_com  %like% paste0(com)]
+  com_name  <- alluv_dt_as_nodes[new_Id_com  %like% paste0(com)][["Label_com"]][1]
   
-  most_influential_nodes_com  <- most_influential_nodes[Label_com %like% paste0(com)][order(-weighted_size)]
+  most_influential_nodes_com  <- most_influential_nodes[new_Id_com %like% paste0(com)][order(-weighted_size)]
   
   most_productive_journals <- most_influential_nodes_com[,.N,Revue][order(-N)]
-
+  
   
   n_nodes_com <- most_influential_nodes_com[,.N]
   
@@ -643,12 +652,34 @@ for (com in com_to_inspect) {
   most_influential_refs_com[,share:=n_cit_ref/n_nodes*100]
   most_influential_refs_com <- most_influential_refs_com[order(-share), head(.SD, 1), .(ItemID_Ref)]
   
+  most_influential_refs_EER <- merge(most_influential_nodes_com[Revue %like% "EUROPEAN%",.(Id, Revue, weighted_size)], Refs, by="Id")
+  most_influential_refs_EER <- most_influential_refs_EER[ItemID_Ref!="NULL" & ItemID_Ref!=0,.N,.(ItemID_Ref)][,perc:=100*N/(most_influential_nodes_com[Revue %like% "EUROPEAN%",.N])][order(-perc)]
+  most_influential_refs_EER <- merge(most_influential_refs_EER, Refs[,head(.SD, 1), .(ItemID_Ref)][,.(Label_Target,Titre, Revue_Abbrege,ItemID_Ref)], by="ItemID_Ref",all.x = TRUE) %>% .[order(-perc)]
+  
+  most_influential_refs_top5 <- merge(most_influential_nodes_com[Revue %notlike% "EUROPEAN%",.(Id, Revue, weighted_size)], Refs, by="Id")
+  most_influential_refs_top5 <- most_influential_refs_top5[ItemID_Ref!="NULL" & ItemID_Ref!=0,.N,.(ItemID_Ref)][,perc:=100*N/(most_influential_nodes_com[Revue %notlike% "EUROPEAN%",.N])][order(-perc)]
+  most_influential_refs_top5 <- merge(most_influential_refs_top5, Refs[,head(.SD, 1), .(ItemID_Ref)][,.(Label_Target,Titre, Revue_Abbrege,ItemID_Ref)], by="ItemID_Ref",all.x = TRUE) %>% .[order(-perc)]
+  
+  most_influential_refs_USA <- merge(most_influential_nodes_com[EU_US_collab=="USA Only",.(Id, Revue, weighted_size)], Refs, by="Id")
+  most_influential_refs_USA <- most_influential_refs_USA[ItemID_Ref!="NULL" & ItemID_Ref!=0,.N,.(ItemID_Ref)][,perc:=100*N/(most_influential_nodes_com[EU_US_collab=="USA Only",.N])][order(-perc)]
+  most_influential_refs_USA <- merge(most_influential_refs_USA, Refs[,head(.SD, 1), .(ItemID_Ref)][,.(Label_Target,Titre, Revue_Abbrege,ItemID_Ref)], by="ItemID_Ref",all.x = TRUE) %>% .[order(-perc)]
+  
+  most_influential_refs_EU<- merge(most_influential_nodes_com[EU_US_collab=="Europe Only",.(Id, Revue, weighted_size)], Refs, by="Id")
+  most_influential_refs_EU <- most_influential_refs_EU[ItemID_Ref!="NULL" & ItemID_Ref!=0,.N,.(ItemID_Ref)][,perc:=100*N/(most_influential_nodes_com[EU_US_collab=="Europe Only",.N])][order(-perc)]
+  most_influential_refs_EU <- merge(most_influential_refs_EU, Refs[,head(.SD, 1), .(ItemID_Ref)][,.(Label_Target,Titre, Revue_Abbrege,ItemID_Ref)], by="ItemID_Ref",all.x = TRUE) %>% .[order(-perc)]
+  
   most_influential_noidrefs_com <- merge(most_influential_nodes_com[,.(Id, Revue, weighted_size)], Refs_item0, by.x="Id",by.y="ID_Art")
   most_influential_noidrefs_com <- most_influential_noidrefs_com
   most_influential_noidrefs_com[,n_cit_ref:=.N, Label_Target]
   most_influential_noidrefs_com[,n_nodes:=n_nodes_com]
   most_influential_noidrefs_com[,share:=n_cit_ref/n_nodes*100]
   most_influential_noidrefs_com <- most_influential_noidrefs_com[order(-share), head(.SD, 1), .(Label_Target)]
+  
+  most_common_topic <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
+  most_common_topic <- most_common_topic[,.N,.(topic_name)][,perc:=100*N/sum(N)][order(-perc)]
+  
+  most_common_topic_gamma <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
+  most_common_topic_gamma <- most_common_topic_gamma[,sum(gamma),.(topic_name)][,sum_gamma:=V1][,V1:=NULL][order(-sum_gamma)]
   
   most_productive_authors <- merge(alluv_com[,.(Id)], Authors, by.x= "Id", by.y= "ID_Art")
   most_productive_authors <- most_productive_authors[,.N, Nom]
@@ -658,13 +689,43 @@ for (com in com_to_inspect) {
   most_productive_institutions <- most_productive_institutions[,.N, Institution]
   most_productive_institutions <- most_productive_institutions[order(-N)]
   
+  most_productive_institutions_odds <- merge(alluv_com[,.(Id,EU_US_collab,Revue)], institutions[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
+  most_productive_institutions_odds <- merge(most_productive_institutions_odds, Corpus[,.(ID_Art, journal_type)], by.x= "Id", by.y= "ID_Art",all.x=TRUE)
+
+  # if(nrow(filter(refs_td_idf, EER_pub_bin == "EER")) > 0 &
+  #    nrow(filter(refs_td_idf, EER_pub_bin == "TOP5")) > 0){
+  #   
+  #   ref_ratios <- refs_td_idf %>%
+  #     count(ItemID_Ref, EER_pub_bin) %>%
+  #     group_by(ItemID_Ref) %>%
+  #     filter(sum(n) >= 4) %>%
+  #     ungroup() %>%
+  #     pivot_wider(names_from = EER_pub_bin, values_from = n, values_fill = 0) %>%
+  #     mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
+  #     mutate(logratio = log(EER / TOP5)) %>%
+  #     arrange(desc(logratio))
+  #   
+  #   ref_ratios <- merge(ref_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE) %>% arrange(-logratio)
+  #   
+  #   EER_ratio_plot <- ref_ratios %>%
+  #     group_by(logratio < 0) %>%
+  #     slice_max(abs(logratio), n = 10) %>%
+  #     ungroup() %>%
+  #     mutate(Label_Target = reorder(Label_Target, logratio)) %>% 
+  #     as.data.table() %>% 
+  #     .[order(-logratio),.(Label_Target,logratio,EER, TOP5,N)]
+  #   
+  # } else {
+  #   EER_ratio_plot <- data.frame(message = "Nothing to display")
+  # }
+  
+
   most_productive_countries <- merge(alluv_com[,.(Id)], institutions[,.(ID_Art, Pays)], by.x= "Id", by.y= "ID_Art")
   most_productive_countries <- most_productive_countries[,.N, Pays]
   most_productive_countries <- most_productive_countries[order(-N)]
-
   
-  refs_td_idf <- merge(most_influential_nodes_com[,.(Id, Revue)], Refs, by="Id")
-  refs_td_idf <- merge(refs_td_idf, institutions_unique[,head(.SD, 1),.(ID_Art,EU_US_collab)][,.(ID_Art,EU_US_collab)],by="ID_Art",all.x = TRUE)
+  
+  refs_td_idf <- merge(most_influential_nodes_com[,.(Id, Revue,EU_US_collab)], Refs[,!c("Revue")], by="Id")
 
   refs_td_idf <- refs_td_idf[ItemID_Ref!="NULL" & ItemID_Ref!=0]
   refs_td_idf[ID_Art %in% Corpus[journal_type=="EER"]$ID_Art,EER_pub_bin:="EER"]
@@ -680,10 +741,9 @@ for (com in com_to_inspect) {
   
   refs_td_idf[,nb_doc_citing:=length(unique(ID_Art)),.(EER_pub_bin)]
   refs_td_idf[,share:=n_ref_journals/nb_doc_citing*100]
-
   
-  refs_td_idf_collab <- merge(most_influential_nodes_com[,.(Id, Revue)], Refs, by="Id")
-  refs_td_idf_collab <- merge(refs_td_idf_collab, institutions_unique[,head(.SD, 1),.(ID_Art,EU_US_collab)][,.(ID_Art,EU_US_collab)],by="ID_Art",all.x = TRUE)
+  
+  refs_td_idf_collab <- merge(most_influential_nodes_com[,.(Id, Revue,EU_US_collab)], Refs[,!c("Revue")], by="Id")
 
   refs_td_idf_collab <- refs_td_idf_collab[ItemID_Ref!="NULL" & ItemID_Ref!=0]
   refs_td_idf_collab[,n_totref_journals:=.N,.(EU_US_collab)]
@@ -698,55 +758,134 @@ for (com in com_to_inspect) {
   refs_td_idf_collab[,nb_doc_citing:=length(unique(ID_Art)),.(EU_US_collab)]
   refs_td_idf_collab[,share:=n_ref_journals/nb_doc_citing*100]
   
- #  if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
- #    
- #  word_ratios <- refs_td_idf %>%
- #    count(ItemID_Ref, EER_pub_bin) %>%
- #    group_by(ItemID_Ref) %>%
- #    filter(sum(n) >= 5) %>%
- #    ungroup() %>%
- #    pivot_wider(names_from = EER_pub_bin, values_from = n, values_fill = 0) %>%
- #    mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
- #    mutate(logratio = log(EER / TOP5)) %>%
- #    arrange(desc(logratio))
- #  
- #  word_ratios <- merge(word_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE)
- #  EER_ratio_plot <- word_ratios %>%
- #    group_by(logratio < 0) %>%
- #    slice_max(abs(logratio), n = 20) %>% 
- #    ungroup() %>%
- #    mutate(Label_Target = reorder(Label_Target, logratio)) %>%
- #    ggplot(aes(Label_Target, logratio, fill = logratio < 0)) +
- #    geom_col(show.legend = FALSE) +
- #    coord_flip() +
- #    ylab("log odds ratio (EER/TOP5)") +
- #    scale_fill_discrete(name = "", labels = c("EER", "TOP5")) +
- #    theme_minimal()
- #    
- #  word_ratios <- refs_td_idf %>%
- #    count(ItemID_Ref, EU_US_collab) %>%
- #    group_by(ItemID_Ref) %>%
- #    filter(sum(n) >= 5) %>%
- #    ungroup() %>%
- #    pivot_wider(names_from = EU_US_collab, values_from = n, values_fill = 0) %>%
- #    mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
- #    mutate(logratio = log(`Europe Only` / `USA Only`)) %>%
- #    arrange(desc(logratio))
- #  word_ratios <- merge(word_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE)
- # 
- # Europeans_ratio_plot <- word_ratios %>%
- #    group_by(logratio < 0) %>%
- #    slice_max(abs(logratio), n = 20) %>% 
- #    ungroup() %>%
- #    mutate(Label_Target = reorder(Label_Target, logratio)) %>%
- #    ggplot(aes(Label_Target, logratio, fill = logratio < 0)) +
- #    geom_col(show.legend = FALSE) +
- #    coord_flip() +
- #    ylab("log odds ratio (Europe Only /USA Only)") +
- #    scale_fill_discrete(name = "", labels = c("Europe Only", "USA Only")) +
- #    theme_minimal()
- #  }
+  if(nrow(filter(refs_td_idf, EER_pub_bin == "EER")) > 0 &
+     nrow(filter(refs_td_idf, EER_pub_bin == "TOP5")) > 0){
+    
+    ref_ratios <- refs_td_idf %>%
+      count(ItemID_Ref, EER_pub_bin) %>%
+      group_by(ItemID_Ref) %>%
+      filter(sum(n) >= 4) %>%
+      ungroup() %>%
+      pivot_wider(names_from = EER_pub_bin, values_from = n, values_fill = 0) %>%
+      mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
+      mutate(logratio = log(EER / TOP5)) %>%
+      arrange(desc(logratio))
+    
+    ref_ratios <- merge(ref_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE) %>% arrange(-logratio)
+    
+    EER_ratio_plot <- ref_ratios %>%
+      group_by(logratio < 0) %>%
+      slice_max(abs(logratio), n = 10) %>%
+      ungroup() %>%
+      mutate(Label_Target = reorder(Label_Target, logratio)) %>% 
+      as.data.table() %>% 
+      .[order(-logratio),.(Label_Target,logratio,EER, TOP5,N)]
+    
+  } else {
+    EER_ratio_plot <- data.frame(message = "Nothing to display")
+  }
   
+  if(nrow(filter(refs_td_idf, EU_US_collab == "Europe Only")) > 0 &
+     nrow(filter(refs_td_idf, EU_US_collab == "USA Only")) > 0){
+    
+    ref_ratios <- refs_td_idf %>%
+      count(ItemID_Ref, EU_US_collab) %>%
+      group_by(ItemID_Ref) %>%
+      filter(sum(n) >= 4) %>%
+      ungroup() %>%
+      pivot_wider(names_from = EU_US_collab, values_from = n, values_fill = 0) %>%
+      mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
+      mutate(logratio = log(`Europe Only` / `USA Only`)) %>%
+      arrange(desc(logratio))
+    
+    ref_ratios <- merge(ref_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE)
+    
+    Europeans_ratio_plot <- ref_ratios %>%
+      group_by(logratio < 0) %>%
+      slice_max(abs(logratio), n = 10) %>%
+      ungroup() %>%
+      mutate(Label_Target = reorder(Label_Target, logratio)) %>% 
+      as.data.table() %>% 
+      .[order(-logratio),.(Label_Target,logratio,`Europe Only`, `USA Only`,N)]
+    
+  } else {
+    Europeans_ratio_plot <- data.frame(message = "Nothing to display")
+  }
+  
+  
+  # refs_td_idf <- refs_td_idf %>% 
+  #   select(ID_Art, topic, topic_name, journal_type, EU_US_collab) %>% 
+  #   inner_join(Direct_citations) %>% # we don't want doc without references
+  #   .[, nb_cit_topic := .N, by = c("topic", "id_clean")] %>% 
+  #   .[, nb_cit_journal := .N, by = c("topic", "id_clean", "journal_type")] %>%
+  #   .[, nb_cit_affiliation := .N, by = c("topic", "id_clean", "EU_US_collab")] %>% 
+  #   select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, topic_name, journal_type, EU_US_collab, nb_cit_topic, nb_cit_journal, nb_cit_affiliation) %>%
+  #   unique()
+  # 
+  #   top_refs_journal <- refs_td_idf %>%
+  #     select(ItemID_Ref, Nom, Annee, Titre, Revue, Revue_Abbrege, EER_pub_bin, nb_cit_journal) %>%
+  #     unique() %>%
+  #     group_by(EER_pub_bin ) %>% 
+  #     slice_max(order_by = nb_cit_journal, n = 15, with_ties = FALSE) %>% 
+  #     filter(nb_cit_journal > 1) %>% 
+  #     select(-ItemID_Ref)
+  #   
+  #   top_refs_affiliation <- refs_td_idf %>%
+  #     filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
+  #     select(ItemID_Ref, Nom, Annee, Titre, Revue, Revue_Abbrege, EU_US_collab, nb_cit_affiliation) %>%
+  #     unique() %>%
+  #     group_by(EU_US_collab) %>% 
+  #     slice_max(order_by = nb_cit_affiliation, n = 15, with_ties = FALSE) %>% 
+  #     select(-ItemID_Ref) %>% 
+  #     filter(nb_cit_affiliation > 1)
+  #   
+  #   # Calculating log odds
+  #   logratio_ref_affiliation <- refs_td_idf %>% 
+  #     filter(nb_cit_topic > 2) %>% 
+  #     select(-c(EER_pub_bin , nb_cit_journal, nb_cit_topic)) %>% 
+  #     unique
+  #   
+  #   if(nrow(filter(logratio_ref_affiliation, EU_US_collab == "Europe Only")) > 0 &
+  #      nrow(filter(logratio_ref_affiliation, EU_US_collab == "USA Only")) > 0){
+  #     logratio_ref_affiliation <- logratio_ref_affiliation %>% 
+  #       pivot_wider(names_from = EU_US_collab, values_from = nb_cit_affiliation, values_fill = 0) %>% 
+  #       mutate(Annee = as.character(Annee)) %>% 
+  #       mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  #       mutate(logratio = log(`Europe Only`/`USA Only`)) %>% 
+  #       select(Nom, Annee, Titre, Revue, Revue_Abbrege, logratio)
+  #     
+  #     top_logratio_ref_affiliation <- logratio_ref_affiliation %>% 
+  #       slice_max(n = 10, order_by = logratio, with_ties = FALSE) %>% 
+  #       bind_rows(logratio_ref_affiliation %>% 
+  #                   slice_min(n = 10, order_by = logratio, with_ties = FALSE)) %>% 
+  #       arrange(desc(logratio))
+  #   } else {
+  #     top_logratio_ref_affiliation <- data.frame(message = "Nothing to display")
+  #   }
+  #   
+  #   logratio_ref_journal <- refs_td_idf %>% 
+  #     filter(nb_cit_topic > 2) %>% 
+  #     select(-c(EU_US_collab, nb_cit_affiliation, nb_cit_topic)) %>% 
+  #     unique 
+  #   
+  #   if(nrow(filter(logratio_ref_journal, EER_pub_bin  == "EER")) > 0 &
+  #      nrow(filter(logratio_ref_journal, EER_pub_bin  == "TOP5")) > 0){
+  #     logratio_ref_journal <- logratio_ref_journal %>%
+  #       pivot_wider(names_from = EER_pub_bin , values_from = nb_cit_journal, values_fill = 0) %>% 
+  #       mutate(Annee = as.character(Annee)) %>% 
+  #       mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  #       mutate(logratio = log(EER/TOP5)) %>% 
+  #       select(Nom, Annee, Titre, Revue, Revue_Abbrege, logratio)
+  #     
+  #     top_logratio_ref_journal <- logratio_ref_journal %>% 
+  #       slice_max(n = 10, order_by = logratio, with_ties = FALSE) %>% 
+  #       bind_rows(logratio_ref_journal %>% 
+  #                   slice_min(n = 10, order_by = logratio, with_ties = FALSE)) %>% 
+  #       arrange(desc(logratio))
+  #   } else {
+  #     top_logratio_ref_journal <- data.frame(message = "Nothing to display")
+  #   }
+  #   
   # extracting the first year and last year of the community
   window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window))) + (time_window - 1)))
   window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window)))))
@@ -754,7 +893,7 @@ for (com in com_to_inspect) {
   
   ################ Beginning of the template ######################
   cat("\n\n")
-  cat("##","Community:", com, "\n")
+  cat("##","Community:", com_name, "\n")
   cat("\n\n")
   
   cat(paste0("  \nThe community exists from ", window[1]," to ", window[2],". \n"))
@@ -764,19 +903,53 @@ for (com in com_to_inspect) {
   cat("During this period there was a difference of european authors of", diff_stat_euro_com[new_Id_com==com]$europeans_authors_diff, "points and of EER pub of", diff_stat_euro_com[new_Id_com==com]$EER_articles_diff,"points. For a total of ", diff_stat_euro_com[new_Id_com==com]$sum_diff)
   cat("\n\n")
   
-  cat("###","The most influential nodes of the community:", "\n")
+  
+  cat("###","The most common topic of the community:{.tabset}", "\n")
+  cat("\n\n")
+  cat("####", "Occurences")
+  cat("\n\n")
+  print(kable(most_common_topic[1:10]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  cat("####", "Sum of gamma")
+  cat("\n\n")
+  print(kable(most_common_topic_gamma[1:10]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  
+  cat("###","The most influential nodes of the community:{.tabset}", "\n")
+  cat("\n\n")
+  cat("####", "Overall")
   cat("\n\n")
   print(kable(most_influential_nodes_com[,.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 30)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
   cat("\n\n")
-  print(kable(most_influential_nodes_com[EU_US_collab=="Europe Only",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 8)]) %>% 
+  cat("####", "European Authors")
+  cat("\n\n")
+  print(kable(most_influential_nodes_com[EU_US_collab=="Europe Only",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 10)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "US Authors")
+  cat("\n\n")
+  print(kable(most_influential_nodes_com[EU_US_collab=="USA Only",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 10)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
   cat("\n\n")
-  print(kable(most_influential_nodes_com[Revue %like% "EUROPEAN%",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 8)]) %>% 
+  cat("####", "Published in the EER")
+  cat("\n\n")
+  print(kable(most_influential_nodes_com[Revue %like% "EUROPEAN%",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 10)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("\n\n")
+  cat("####", "Published in the top 5")
+  cat("\n\n")
+  print(kable(most_influential_nodes_com[Revue %notlike% "EUROPEAN%",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 10)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
@@ -790,66 +963,56 @@ for (com in com_to_inspect) {
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-  cat("###","The references:", "\n")
-  cat("The most common refs:")
+  cat("###","The references (unique nodes):{.tabset}", "\n")
+  cat("####", "Overall")
   cat("\n\n")
   print(kable(most_influential_refs_com[,.(Label_Target,Titre, Revue_Abbrege, share)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-  cat("The most common refs (new_id2 without ItemID_Ref):")
+  cat("####", "Refs EER")
   cat("\n\n")
-  print(kable(most_influential_noidrefs_com[,.(Label_Target, Revue_Abbrege, share)][, head(.SD, 20)]) %>% 
+  print(kable(most_influential_refs_EER[,.(Label_Target,Titre, Revue_Abbrege, perc)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-
-  cat("###","Authors and Institutions:", "\n")
-  cat("The most productive authors of the community:")
+  cat("####", "Refs top5")
   cat("\n\n")
-  print(kable(most_productive_authors[,.(Nom, N)][, head(.SD, 20)]) %>% 
+  print(kable(most_influential_refs_top5[,.(Label_Target,Titre, Revue_Abbrege, perc)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-  cat("The most productive Institutions of the community:")
+  cat("####", "Refs EU Authors")
   cat("\n\n")
-  print(kable(most_productive_institutions[,.(Institution, N)][, head(.SD, 20)]) %>% 
+  print(kable(most_influential_refs_EU[,.(Label_Target,Titre, Revue_Abbrege, perc)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("The most productive Countries of the community:")
+  cat("####", "Refs USA Authors")
   cat("\n\n")
-  print(kable(most_productive_countries[,.(Pays, N)][, head(.SD, 10)]) %>% 
+  print(kable(most_influential_refs_USA[,.(Label_Target,Titre, Revue_Abbrege, perc)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-  cat("###","Distinctiveness EU/US:", "\n")
+  cat("####", "EER/TOP5 Odds ratio")
+  cat("\n\n")
+  print(kable(EER_ratio_plot) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "EU/US Authors Odds ratio")
+  cat("\n\n")
+  print(kable(Europeans_ratio_plot) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  # cat("####", "Refs Top5")
   # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # plot(EER_ratio_plot)
-  #   }
+  # print(kable(refs_td_idf[order(-tf_idf)][EER_pub_bin=="TOP5", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
+  #         kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   # cat("\n\n")
-  # 
-  # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # plot(Europeans_ratio_plot)
-  #   }
-  # cat("\n\n")
-
   
-  cat("Most distinctive refs EER:")
-  cat("\n\n")
-  print(kable(refs_td_idf[order(-tf_idf)][EER_pub_bin=="EER", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
-          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
-  cat("\n\n")
-  
-  cat("Most distinctive refs TOP5:")
-  cat("\n\n")
-  print(kable(refs_td_idf[order(-tf_idf)][EER_pub_bin=="TOP5", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
-          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
-  cat("\n\n")
-  
-  cat("Most distinctive refs Europeans:")
+  # cat("Most distinctive refs Europeans:")
   # cat("\n\n")
   # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
   # print(kable(refs_td_idf_collab[order(-tf_idf)][EU_US_collab=="Europe Only", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
@@ -865,20 +1028,49 @@ for (com in com_to_inspect) {
   # }
   # cat("\n\n")
   
-
-  cat("Temporal Differences first 5 years vs last 5 years:")
+  cat("###","Authors and Institutions:{.tabset}", "\n")
+  cat("####", "Most productive authors")
+  cat("\n\n")
+  print(kable(most_productive_authors[,.(Nom, N)][, head(.SD, 20)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most productive institutions")
+  cat("\n\n")
+  print(kable(most_productive_institutions[,.(Institution, N)][, head(.SD, 20)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most productive countries")
+  cat("\n\n")
+  print(kable(most_productive_countries[,.(Pays, N)][, head(.SD, 10)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("###","First 5 years vs last 5 years{.tabset}", "\n")
+  cat("####", "Most cited articles first 5 years")
   cat("\n\n")
   print(kable(most_influential_nodes_com[Annee_Bibliographique<=(min(most_influential_nodes_com$Annee_Bibliographique)+5),.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
-  
+  cat("####", "Most cited articles last 5 years")
   cat("\n\n")
   print(kable(most_influential_nodes_com[Annee_Bibliographique>=(max(most_influential_nodes_com$Annee_Bibliographique)-5),.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 20)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
   cat("  \n")
-  
+  # cat("\n\n")
+  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
+  # plot(EER_ratio_plot)
+  #   }
+  # cat("\n\n")
+  # 
+  # cat("\n\n")
+  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
+  # plot(Europeans_ratio_plot)
+  #   }
+  # cat("\n\n")
 }
 
 ```
