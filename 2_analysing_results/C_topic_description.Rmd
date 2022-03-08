@@ -153,12 +153,17 @@ Direct_citations <- readRDS(here(eer_data,
   
 
 ref_topics <- topics %>% 
-  select(ID_Art, topic, topic_name, journal_type, EU_US_collab) %>% 
+  group_by(topic) %>% 
+  mutate(early_ref = Annee_Bibliographique <= quantile(Annee_Bibliographique, 0.3),
+         late_ref = Annee_Bibliographique >= quantile(Annee_Bibliographique, 0.7)) %>%
+  ungroup() %>%
+  data.table() %>% 
+  select(ID_Art, topic, topic_name, journal_type, EU_US_collab, early_ref, late_ref) %>% 
   inner_join(Direct_citations) %>% # we don't want doc without references
   .[, nb_cit_topic := .N, by = c("topic", "id_clean")] %>% 
   .[, nb_cit_journal := .N, by = c("topic", "id_clean", "journal_type")] %>%
   .[, nb_cit_affiliation := .N, by = c("topic", "id_clean", "EU_US_collab")] %>% 
-  select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, topic_name, journal_type, EU_US_collab, nb_cit_topic, nb_cit_journal, nb_cit_affiliation) %>%
+  select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, topic_name, journal_type, EU_US_collab, nb_cit_topic, nb_cit_journal, nb_cit_affiliation, early_ref, late_ref) %>%
   unique()
 
 cited_corpus <- topics %>% 
@@ -270,6 +275,22 @@ for (topic_turn in unique(topics$topic_name)) {
     slice_max(order_by = nb_cit_affiliation, n = 15, with_ties = FALSE) %>% 
     select(-id_clean) %>% 
     filter(nb_cit_affiliation > 1)
+  
+  top_early_refs <- refs %>%
+    filter(early_ref == TRUE,
+           nb_cit_topic > 1) %>% 
+    select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>%
+    unique() %>%
+    slice_max(order_by = nb_cit_topic, n = 10, with_ties = FALSE) %>% 
+    select(-id_clean)
+  
+  top_late_refs <- refs %>%
+    filter(late_ref == TRUE,
+           nb_cit_topic > 1) %>% 
+    select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>%
+    unique() %>%
+    slice_max(order_by = nb_cit_topic, n = 10, with_ties = FALSE) %>% 
+    select(-id_clean)
   
   # Calculating log odds
   logratio_ref_affiliation <- refs %>% 
@@ -433,6 +454,18 @@ for (topic_turn in unique(topics$topic_name)) {
   cat("#####", "Top references by TF-IDF")
   cat("\n\n")
   print(kable(filter(refs_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+    cat("#####", "Early references (3 first deciles)")
+  cat("\n\n")
+  print(kable(top_early_refs) %>%
+          kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+    cat("#####", "Late references (3 last deciles)")
+  cat("\n\n")
+  print(kable(top_late_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
