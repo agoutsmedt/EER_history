@@ -474,7 +474,7 @@ tf_idf_results$plot
 ## Preparing community inspections and EU/US comparison
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
-institutions <- institutions_unique
+institutions <- Institution
 
 nb_cit <- Refs[, .N, ItemID_Ref]
 colnames(nb_cit)[colnames(nb_cit) == "N"] <- "size"
@@ -626,7 +626,29 @@ ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.pn
 
 ```{r,results = "asis", eval=TRUE, echo=FALSE}
 
+# tf-idf of institutions
+alluv_dt_institutions <- merge(alluv_dt[,.(Id,new_Id_com)], Institution[,.(ID_Art, Institution,Pays)], by.x= "Id", by.y= "ID_Art", all.x = TRUE, allow.cartesian=TRUE)
+institutions_tf_idf <-  alluv_dt_institutions %>% 
+  group_by(new_Id_com) %>% 
+  add_count(Institution) %>% 
+  filter(n > 2) %>% 
+  select(-c(Id, Pays)) %>% 
+  unique() %>% 
+  bind_tf_idf(Institution, new_Id_com, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(new_Id_com, Institution, n, tf_idf) %>% 
+  ungroup() %>% as.data.table()
 
+countries_tf_idf <-  alluv_dt_institutions %>% 
+  group_by(new_Id_com) %>% 
+  add_count(Pays) %>% 
+  filter(n > 3) %>% 
+  select(-c(Id, Institution)) %>% 
+  unique() %>% 
+  bind_tf_idf(Pays, new_Id_com, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(new_Id_com, Pays, n, tf_idf) %>% 
+  ungroup() %>% as.data.table()
 # com_to_inspect <- diff_stat_euro_com[order(-sum_diff), .N, new_Id_com]$new_Id_com
 # com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
@@ -685,42 +707,14 @@ for (com in com_to_inspect) {
   most_productive_authors <- most_productive_authors[,.N, Nom]
   most_productive_authors <- most_productive_authors[order(-N)]
   
-  most_productive_institutions <- merge(alluv_com[,.(Id)], institutions[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
+  most_productive_institutions <- merge(alluv_com[,.(Id)], Institution[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
   most_productive_institutions <- most_productive_institutions[,.N, Institution]
   most_productive_institutions <- most_productive_institutions[order(-N)]
   
-  most_productive_institutions_odds <- merge(alluv_com[,.(Id,EU_US_collab,Revue)], institutions[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
-  most_productive_institutions_odds <- merge(most_productive_institutions_odds, Corpus[,.(ID_Art, journal_type)], by.x= "Id", by.y= "ID_Art",all.x=TRUE)
+  most_productive_institutions_tfidf <- institutions_tf_idf[new_Id_com %like% paste0(com)]
+  most_productive_countires_tfidf <- countries_tf_idf[new_Id_com %like% paste0(com)]
 
-  # if(nrow(filter(refs_td_idf, EER_pub_bin == "EER")) > 0 &
-  #    nrow(filter(refs_td_idf, EER_pub_bin == "TOP5")) > 0){
-  #   
-  #   ref_ratios <- refs_td_idf %>%
-  #     count(ItemID_Ref, EER_pub_bin) %>%
-  #     group_by(ItemID_Ref) %>%
-  #     filter(sum(n) >= 4) %>%
-  #     ungroup() %>%
-  #     pivot_wider(names_from = EER_pub_bin, values_from = n, values_fill = 0) %>%
-  #     mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
-  #     mutate(logratio = log(EER / TOP5)) %>%
-  #     arrange(desc(logratio))
-  #   
-  #   ref_ratios <- merge(ref_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE) %>% arrange(-logratio)
-  #   
-  #   EER_ratio_plot <- ref_ratios %>%
-  #     group_by(logratio < 0) %>%
-  #     slice_max(abs(logratio), n = 10) %>%
-  #     ungroup() %>%
-  #     mutate(Label_Target = reorder(Label_Target, logratio)) %>% 
-  #     as.data.table() %>% 
-  #     .[order(-logratio),.(Label_Target,logratio,EER, TOP5,N)]
-  #   
-  # } else {
-  #   EER_ratio_plot <- data.frame(message = "Nothing to display")
-  # }
-  
-
-  most_productive_countries <- merge(alluv_com[,.(Id)], institutions[,.(ID_Art, Pays)], by.x= "Id", by.y= "ID_Art")
+  most_productive_countries <- merge(alluv_com[,.(Id)], Institution[,.(ID_Art, Pays)], by.x= "Id", by.y= "ID_Art")
   most_productive_countries <- most_productive_countries[,.N, Pays]
   most_productive_countries <- most_productive_countries[order(-N)]
   
@@ -1044,6 +1038,18 @@ for (com in com_to_inspect) {
   cat("####", "Most productive countries")
   cat("\n\n")
   print(kable(most_productive_countries[,.(Pays, N)][, head(.SD, 10)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most distinctive institutions (tfidf)")
+  cat("\n\n")
+  print(kable(most_productive_institutions_tfidf) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most distinctive countries (tfidf)")
+  cat("\n\n")
+  print(kable(most_productive_countires_tfidf) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
