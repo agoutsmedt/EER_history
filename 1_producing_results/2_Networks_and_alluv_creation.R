@@ -101,22 +101,22 @@ community_name <- tribble(
   "Mgz4J8yL", "International Macroeconomics & Target Zone",
   "CQpUqaZS", "Disequilibrium & Keynesian Macro",
   "Pnz6WX4w", "Modeling Consumption & Production",
-  "piySoCVv", "Optimal Taxation \\(1\\)",
+  "piySoCVv", "Optimal Taxation 1",
   "Ezhslxbw", "Political Economics of Central Banks",
   "JAqUI5vj", "Target Zone & Currency Crises",
-  "SMwcTgPW", "Optimal Taxation \\(2\\)",
+  "SMwcTgPW", "Optimal Taxation 2",
   "kthrIEeL", "Exchange Rate Dynamics",
   "5LSPOQtk", "Theory of Unemployment & Job Dynamics",
   "RL0j0Wjd", "Capital & Income Taxation",
   "BW7MeofH", "Taxation, Tobin's Q & Monetarism",
-  "8ljfcYnr", "Coordination & Sunspots \\(2\\)",
-  "mFfXMCSH", "Coordination & Sunspots \\(1\\)",
-  "Th6dCLZm", "Monetary Policy, Financial Transmission & Cycles \\(2\\)",
+  "8ljfcYnr", "Coordination & Sunspots 2",
+  "mFfXMCSH", "Coordination & Sunspots 1",
+  "Th6dCLZm", "Monetary Policy, Financial Transmission & Cycles 2",
   "vpvjT1UD", "Business Cycles, Cointegration & Trends",
   "rabMUXQL", "Terms of Trade & Devaluation",
   "OwqYJU4A", "Taxation, Debt & Growth",
   "5tcMbr61", "Endogenous Growth",
-  "QLir0DCu", "Monetary Policy, Financial Transmission & Cycles \\(1\\)",
+  "QLir0DCu", "Monetary Policy, Financial Transmission & Cycles 1",
   "slbs4yZO", "RBC",
   "oWvS0ZKo", "Exchange Rate Dynamics & Expectations",
   "ZfbnKTMy", "Monetary Approach of Balance of Payments",
@@ -184,14 +184,19 @@ alluv_dt_graph[color_with_grey=="grey",Label_com_unique:=NA]
 # Reorder using the order variable
 alluv_dt_graph$new_Id_com <- fct_reorder(alluv_dt_graph$new_Id_com, alluv_dt_graph$order,min, .desc = TRUE)
 
-ggplot(alluv_dt_graph, aes(x = Window, y=share, stratum = new_Id_com, alluvium = Id, fill = color_with_grey, label = new_Id_com)) +
+# Name windows as overlapping
+alluv_dt_graph[,Window_label:=paste0(Window,"\n-",(as.numeric(Window)+time_window-1))]
+
+ggplot(alluv_dt_graph, aes(x = Window_label, y=share, stratum = new_Id_com, alluvium = Id, fill = color_with_grey, label = new_Id_com)) +
   geom_stratum(alpha =1, size=1/10) +
   geom_flow() +
   theme(legend.position = "none") +
   theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_fill_identity() +
   ggtitle("") +
-  geom_label_repel(stat = "stratum", size = 5, aes(label = Label_com_unique))
+  geom_label_repel(stat = "stratum", size = 5, aes(label = Label_com_unique)) +
+  labs(y = "Share of Clusters in the Networks", x = "Time Windows of Networks")
 ggsave(here(eer_data,"pictures","Graphs","Intertemporal_communities.png"), width=35, height=20, units = "cm")
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
@@ -333,7 +338,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_minimal() 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw_notlog.png"), width=35, height=20, units = "cm")
 
 ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
@@ -350,7 +355,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   theme_classic(base_size = 9) +
   theme(legend.position = "bottom") +
   guides(size = "none") 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_notlog.png"), width=35, height=20, units = "cm")
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#

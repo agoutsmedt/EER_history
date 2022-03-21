@@ -1,0 +1,412 @@
+\documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
+%%% Begin My package additions %%%%%%%%%%%%%%%%%%%
+
+\usepackage[hyphens]{url}
+
+  \journal{European Economic Review} % Sets Journal name
+
+\usepackage{lineno} % add
+
+\usepackage{graphicx}
+%%%%%%%%%%%%%%%% end my additions to header
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Methodology},
+            colorlinks=false,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+\setcounter{secnumdepth}{5}
+% Pandoc toggle for numbering sections (defaults to be off)
+
+
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+\renewenvironment{abstract}{}{}
+
+
+
+\begin{document}
+
+
+\begin{frontmatter}
+
+  \title{Methodology}
+    \author[1]{Aurélien Goutsmedt%
+  %
+  \fnref{3}}
+  
+    \author[2]{Alexandre Truc}
+  
+      \affiliation[1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place
+Montesquieu, 1/L 2.08.07, 1348 - Louvain-la-Neuve.}
+    \affiliation[2]{CNRS.}
+    \cortext[cor1]{Corresponding author}
+    \fntext[3]{Corresponding Author: aurelien.goutsmedt@uclouvain.be}
+  
+  \begin{abstract}
+  
+  \end{abstract}
+  
+ \end{frontmatter}
+
+\hypertarget{corpus}{%
+\subsubsection*{B.1. Corpus Creation}\label{corpus}}
+\addcontentsline{toc}{subsubsection}{B.1. Corpus Creation}
+
+For the present study we used two different corpora. The first corpus is
+composed of all EER articles and allows us to track how publications,
+citations, references and authors affiliations evolved since the
+creation of the journal in 1969 up to the 2002. The second corpus is
+composed of all macroeconomic articles published in the top five
+economics journals and the EER. Macroeconomic articles are identified
+thanks to the former and new classification of the JEL codes
+\citep{jel1991}.\footnote{See \ref{eer-top5-macro} for the list of JEL
+  codes used.} This is used as the basis for topic modeling and
+bibliographic coupling analysis to contrast the top macroeconomics
+publications authored by European-based and US-based authors, and/or
+published in top 5 journals and in the EER.
+
+\hypertarget{eer-publications}{%
+\paragraph*{EER Publications}\label{eer-publications}}
+\addcontentsline{toc}{paragraph}{EER Publications}
+
+For the creation of the first corpus composed of all EER articles, we
+used a mix of \emph{Web of Science} (WoS) and \emph{Scopus}. While WoS
+has all articles of the EER between 1969-1970 and 1974-2002, it is
+missing most articles published between 1971 and 1973. To make up for
+the missing data, we use Scopus to complete the dataset. This operation
+required normalization of the Scopus dataset, and manual cleaning of
+variables that were missing from Scopus compared to WoS. This mostly
+includes cleaning the references to match \emph{Scopus} references with
+WoS ones, and identification of author's affiliation.
+
+Moreover, given that the size of our corpus is modest, we made an
+extensive semi-automatic cleaning of references to improve references
+identification by adding the most commonly cited books, book chapter,
+and articles that are not otherwise identified in WoS when possible.
+
+\hypertarget{eer-top5-macro}{%
+\paragraph*{EER and Top 5 Macroeconomics
+Articles}\label{eer-top5-macro}}
+\addcontentsline{toc}{paragraph}{EER and Top 5 Macroeconomics Articles}
+
+The construction of this corpus is made in multiple steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Identifying macroeconomics articles
+
+  \begin{itemize}
+  \item
+    We identified all articles published in macroeconomics using JEL
+    codes related to macroeconomics (we get JEL codes of Top 5 and EER
+    articles thanks to the Econlit database). We consider that an
+    article is a macroeconomics article if it has one of the following
+    codes:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311,
+      313, 321, 431, 813, 824.
+    \item
+      For new JEL codes (1991 onward): all E, F3 and F4.\footnote{The
+        new classification has a clear categorisation of Macroeconomics
+        (the letter `E'), but we had F3 and F4 as they deal with
+        international macroeconomics. For the older JEL codes, we use
+        the table of correspondence produce by the \emph{Journal of
+        Economic Literature} itself \citep{jel1991}.}.
+    \end{itemize}
+  \end{itemize}
+\item
+  Using these JEL codes, we match econlit articles with WoS articles
+  when they shared the same:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Journal, Volume, First Page
+  \item
+    Year, Journal, First Page, Last Page
+  \item
+    Year, Volume, First Page, Last Page
+  \item
+    First Author, Year, Volume, First Page
+  \item
+    First Author, Title, Year
+  \item
+    Title, Year, First Page
+  \end{itemize}
+\end{enumerate}
+
+Out of the 3592 articles we get in econlit, we matched 3428 of them in
+WoS.\footnote{Most of the unmatched articles are not `articles' properly
+  speaking: they often are reply and comments on other published
+  articles. (Investigate this deeper)}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Using this list of articles in WoS, we took all articles in
+  macroeconomics published in the EER (Corpus 1 improved with Scopus)
+  and in the top five journals (\emph{American Economic Review},
+  Econometrica, \emph{Review of Economic Studies}, \emph{Journal of
+  Political Economy}, \emph{Quarterly Journal of Economics}).
+\item
+  Finally, we were able to collect abstracts:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    using \emph{Scopus} for the EER. All abstracts have been matched
+    with the EER corpus.
+  \item
+    using \emph{Microsoft Academics} to collect the highest number of
+    available abstracts for the Top 5 as too many abstracts were missing
+    in WoS or \emph{Scopus}. The abstracts extracted from this database
+    are matched with our WoS Top 5 corpus using
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{b.2.-variable-creation}{%
+\subsubsection*{B.2. Variable creation}\label{b.2.-variable-creation}}
+\addcontentsline{toc}{subsubsection}{B.2. Variable creation}
+
+\hypertarget{author-affiliation}{%
+\paragraph*{Authors' affiliation}\label{author-affiliation}}
+\addcontentsline{toc}{paragraph}{Authors' affiliation}
+
+Authors' affiliations information were extracted from WoS. However, the
+affiliations are not per author, but instead per institutional
+departments per paper. For example, in the case of an article with two
+authors from the same department, the department (and institution or
+country associated with it) is only counted once. Similarly, a
+single-authored article where the author has three affiliations can
+result in one article having three affiliations. While in some cases we
+can inferred the institutional affiliation for each author (e.g., one
+institution, multiple authors), in others we cannot (e.g., two
+institutions, three authors). For example, in an article with two
+authors from Princeton and one author from Stanford, we only know that
+the article was written by at least one author from Princeton and at
+least one from Stanford, but not that the individual ratio was two
+third.
+
+We restructure the information in two ways.
+
+First, for each article, we only kept one occurrence of each unique
+institutions (university, research institutes\ldots) to avoid the
+multiplication of observations resulting from the variety of departments
+observed in some institutions. In other words, for each article, authors
+are group by their institutional affiliation not by their department or
+research team.
+
+Second, and more importantly, for the purpose of our analysis, we mostly
+looked at the share of papers authored by European-based and US-based
+economists. While we do not have individual affiliation, we know with
+certainty when a paper has only European authors, only American authors,
+or a mix of the two. For this reason, while the share of institutions
+within the corpus is only an estimation based on the occurrences of
+affiliation, the information generated to identify US authored papers
+and European authored paper is certain.
+
+\hypertarget{network}{%
+\subsubsection*{B.3. Bibliographic Coupling and Cluster
+Detection}\label{network}}
+\addcontentsline{toc}{subsubsection}{B.3. Bibliographic Coupling and
+Cluster Detection}
+
+A first way to identify potential differences between European and
+American macroeconomics is to find articles written by Europeans and
+published in European journals, resembling each others but dissimilar to
+American articles. To do that, we used bibliographic coupling
+techniques. In a bibliographic coupling network, a link is created
+between two articles when they have one or more references in common.
+The more references that two articles have in common, the stronger the
+link. Bibliographic coupling is one way to measure how similar two
+articles are in a corpus. To normalize and weight the link between two
+articles, we used the refined bibliographic coupling strength of
+\citet{shen2019}. This method normalized and weight the strength between
+articles by taking into account two important elements
+
+\begin{verbatim}
+-   The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
+-   The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
+\end{verbatim}
+
+For all macroeconomics articles published in the EER and in the Top 5,
+we build the networks with \texttt{time\_window}-year overlapping
+windows. This results in 23.
+
+We used Leiden detection algorithm \citep{traag2019} that optimize the
+modularity on each network to identify groups of articles that are
+similar to each others and dissimilar to the rest of the network. We use
+a resolution of 1 with 1000 iterations. This results in 466 across all
+networks. Because networks have a lot of overlaps, many clusters between
+two periods are composed of the same articles. To identify these
+clusters that are very similar between two time windows, we considered
+that \emph{(i)} if at least 55\% of the articles in a community of the
+first time window where in the same cluster in the second time window,
+and that \emph{(ii)} if the cluster was also composed by at least 55\%
+of articles of the first time window, \emph{then} it is the same cluster
+
+Simply put, if two clusters share a high number of articles, and are
+both mostly composed by these shared articles, they are considered the
+same cluster.
+
+This gives us 154, with 33 that are at least 0.04\% of a network at any
+given point and are stable enough to exists for at least 2 time windows.
+
+For each clusters, we identified the American or European oriented
+nature of its publications and authors. A first measure we used is the
+over/under representation of European/American authors in the cluster.
+For each cluster, we subtracted the relative share of European authors
+to American authors in the cluster, to the relative share of European
+authors to American on the same time window of the cluster leading us to
+the first index:
+
+\(\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})\)
+
+We then use a second similar index for the publication venue of the
+articles in the cluster. For each cluster, we subtracted the relative
+share of EER publications to Top 5 publications in the cluster, to the
+relative share of EER publications to Top 5 publications on the same
+time window of the cluster:
+
+\(\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})\)
+
+To get an overall index score of the European/US orientation of
+clusters, we simply sum the two previous index:
+
+\(\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}\)
+
+Finally, clusters are placed on a scatterplot with the Y-axis for the
+EER vs Top 5 score, and the X-Axis for the American vs European authors
+score. The size of the points captures the size of the cluster with the
+number of articles that are in it, and the color of the cluster is
+simply the sum of the two Y and X scores.
+
+\hypertarget{topic}{%
+\subsubsection*{B.4. Topic Modelling}\label{topic}}
+\addcontentsline{toc}{subsubsection}{B.4. Topic Modelling}
+
+\hypertarget{preprocessing}{%
+\paragraph*{Preprocessing}\label{preprocessing}}
+\addcontentsline{toc}{paragraph}{Preprocessing}
+
+We have several steps to clean our texts before running our topic
+models:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Once we have our corpus, we merge titles and abstracts together for
+  all EER and Top 5 articles.
+\item
+  We use the \emph{tidytext} and \emph{tokenizers} R packages to
+  `tokenise' the resulting texts (when there is no abstract, only the
+  title if thus tokenise)?\footnote{See Silge J, Robinson D (2016).
+    ``tidytext: Text Mining and Analysis Using Tidy Data Principles in
+    R.'' \emph{JOSS}, \emph{1}(3) and Lincoln A. Mullen et al., ``Fast,
+    Consistent Tokenization of Natural Language Text,'' Journal of Open
+    Source Software 3, no.23 (2018): 655.} Tokenisation is the process
+  of transforming human-readable text into machine readable objects.
+  Here, the text is split in unique words (unigrams), bigrams (pair of
+  words) and trigrams. In other words, to each article is now associated
+  a list of unigrams, bigrams and trigrams, some appearing several times
+  in the same title + abstract.
+\item
+  Stop words are removed using the \emph{Snowball}
+  dictionary.\footnote{See
+    http://snowball.tartarus.org/algorithms/english/stop.txt.} We add to
+  this dictionary some current verbs in abstract like ``demonstrate'',
+  ``show'', ``explain''. Such verbs are likely to be randomly
+  distributed in abstracts, but we want to limit the noise as much as
+  possible.
+\item
+  We lemmatise the words using the \emph{textstem} package.\footnote{Rinker,
+    T. W. (2018). textstem: Tools for stemming and lemmatizing text
+    version 0.1.4. Buffalo, New York.} The lemmatisation is the process
+  of grouping words together according to their ``lemma'' which depends
+  on the context. For instance, different form of a verb are reduced to
+  its infinitive form. The plural of nouns are reduced to the singular.
+\end{enumerate}
+
+\hypertarget{choosing-the-number-of-topics}{%
+\paragraph*{Choosing the number of
+topics}\label{choosing-the-number-of-topics}}
+\addcontentsline{toc}{paragraph}{Choosing the number of topics}
+
+We use the Correlated Topic Model \citep{blei2007} method implemented in
+the \emph{STM} R package.\footnote{Roberts ME, Stewart BM, Tingley D
+  (2019). ``stm: An R Package for Structural Topic Models.''
+  \emph{Journal of Statistical Software}, \emph{91}(2), 1-40.}
+
+From the list of words we have tokenised, cleaned and lemmatised, we
+test different thresholds and choices by running different models:
+
+\begin{itemize}
+\tightlist
+\item
+  by exluding trigrams or not;
+\item
+  by removing the terms that are present in less than 0.5\% of the
+  Corpus (), 1\% () and 2\% ();
+\item
+  by removing articles with less than 6 words or with less than 12
+  words.\footnote{Here, only articles with no abstract are impacted.}
+\end{itemize}
+
+Crossing all these criteria, we thus have 12 different possible
+combinations. For each of these 12 different combinations, we have run
+topic models for different number of topics from 20 to 110 with a gap of
+5. The chosen model integrates trigram, removes only terms that appear
+in less than 0,5\% of the documents and keep all articles if they have
+more than 6 words in their title + abstract. We choose to keep the model
+with 55 topics.
+
+We have chosen the criteria and the number of topics by comparing the
+performance of the different models in terms of the FREX value
+\citep{bischof2012}.
+
+
+\end{document}
