@@ -10,6 +10,11 @@ output:
     code_folding: hide
 ---
 
+<style>
+body {
+text-align: justify}
+</style>
+
 ```{css zoom-lib-src, echo = FALSE}
 # Follows the css and js script used for allow zooming in graphs
 script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
@@ -29,6 +34,14 @@ $('.zoomDiv').css({opacity: '0', width: '0%'});
 });
 });
 ```
+
+# Introduction
+
+In the section [EER Bibliographic Information] of this appendix, we compiled bibliographic information related to all articles published in the European Economic Review (EER). The goal of this section is to provide general information about the journal, to contextualize the following network analysis. Users can explore information about the most cited references, the most productive authors in the journal, or the type of collaboration between American and European economists in the journal.
+
+In the section [Dynamics Networks], we propose a network analysis of all macro articles, identified by JEL codes, published in the top five economics journals and the EER. In this section, we explore the structure of macroeconomics publications in these journals by identifying clusters of articles that tackle similar subjects using their bibliography. From these clusters, we identify clusters that are more European-oriented (research published in the EER and/or written by European authors) from clusters that are more American-oriented.
+
+Finally, in section [A Look at Dynamic Communities] users can explore information about the individual clusters identified in the previous section. For example, we produced a variety of table to explore the most cited references of the cluster or its most distinctive words/institutions compared to the overall corpus. In addition, users can also find some intra-clusters information about how the cluster evolved overtime, or the differences in the clusters between European/American authors and/or venues of publications.
 
 ```{r, include=FALSE, set.seed(333)}
 knitr::opts_knit$set(root.dir = "D:/Dropbox/8-Projets Quanti/1-R_Projects/Home/EER_history")
@@ -169,6 +182,8 @@ who_cites <- who_cites %>% mutate(nb_cit_wos = ifelse(is.na(N)==TRUE,0,N))
 #################### Macro EER_TOP5 ####################
 
 Corpus<- Corpus[jel_id==1]
+Corpus <- Corpus[Annee_Bibliographique>=1973]
+
 Refs <- Refs[ID_Art %in% Corpus$ID_Art]
 Institution <- Institution[ID_Art %in% Corpus$ID_Art]
 Authors <- Authors[ID_Art %in% Corpus$ID_Art]
@@ -182,11 +197,11 @@ Refs_item0 <- copy(Refs[ItemID_Ref==0])
 # Refs_top5 <- Refs[ID_Art %in% Corpus_top5$ID_Art]
 # Refs_EER <- Refs[ID_Art %in% Corpus_EER$ID_Art]
 
-#################### Configuration for  ####################
+#################### Configuration for individual networks in case ####################
 time_window <- 8
 first_year <- Corpus[order(Annee_Bibliographique), head(.SD, 1)]$Annee_Bibliographique
 last_year <- (as.numeric(Corpus[order(-Annee_Bibliographique), head(.SD, 1)]$Annee_Bibliographique) - time_window + 1) # +1 to get the very last year in the window
-last_year <- 1990
+last_year <- 2002
 all_years <- first_year:last_year
 all_years <- c(1975,1980,1985,1990) # do FA2 on some years rather than all
 
@@ -197,11 +212,13 @@ min_leiden_max <- 0.04
 
 ```
 
+# EER Bibliographic Information
 
+In this section we briefly explore some of the information compiled about the EER, its relationship to macro and the importance of the EER in the overall landscape of economics.
 
-# Analysis EER
+## All articles in the EER
 
-## Exploring the Corpus
+In the following table, all articles published in the EER used for this section are available to explore:
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 
@@ -217,17 +234,19 @@ ggplot(Corpus_all_EER, aes(as.numeric(Annee_Bibliographique))) +
 
 ```
 
-## Most Influential Articles
+<!-- ## Most Influential Articles -->
 
+<!-- The following table lists the top 50 articles published in the EER that have the highest number of citations in Web of Science overall: -->
 
-```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
 
-kable(who_cites[order(-nb_cit_wos)][, head(.SD, 1), .(ID_Art)][,.(Nom, Annee_Bibliographique, Titre, nb_cit_wos)] %>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F))
+<!-- kable(who_cites[order(-nb_cit_wos)][, head(.SD, 1), .(ID_Art)][,.(Nom, Annee_Bibliographique, Titre, nb_cit_wos)] %>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
 
-```
-
+<!-- ``` -->
 
 ## Share Macro
+
+For each year, we calculated the share of articles published in the EER that matched macroeconomics JEL codes to get get an idea of the changing importance of macroeconomics in the journal:
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 mean_jel <- Corpus_all_EER[,mean(jel_id),Annee_Bibliographique]
@@ -239,25 +258,32 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
   scale_x_continuous("Years") +
   scale_y_continuous("Share of Macro_JEL") +
   coord_cartesian(ylim = c(0,1)) +
-  theme_minimal() 
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA))
 ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=35, height=20, units = "cm")
 
 ```
 
+<!-- ## Most Productive authors -->
 
-## Most Productive authors
+<!-- The following table lists the 20 most occurring author in the EER: -->
 
-```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
-Authors_EER[,.N,Nom_ISI][order(-N)] %>% top_n(20)
-```
+<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
+<!-- kable(Authors_EER[,.N,Nom_ISI][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
+<!-- ``` -->
 
-## Most Productive Institutions and Countries
+<!-- ## Most Productive Institutions and Countries -->
 
-```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
-Institutions_all_EER[,.N,Pays][order(-N)] %>% top_n(20)
-Institutions_all_EER[,.N,Institution][order(-N)] %>% top_n(20)
-```
+<!-- The two following tables lists the 20 most occurring institutions and countries in the EER: -->
 
+<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
+<!-- kable(Institutions_all_EER[,.N,Pays][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
+<!-- kable(Institutions_all_EER[,.N,Institution][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
+<!-- ``` -->
+
+## Collaborations between Europeans and Americans in the EER
+
+The two following tables lists the 20 most occurring institutions and countries in the EER:
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 #### Collaborations ####
@@ -278,6 +304,7 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   scale_x_continuous("Years") +
   scale_y_continuous("Share of Papers Authored by European and American Economists", limits = c(0, 0.8), breaks = seq(0,.8,0.2)) +
   theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_fill_manual(values = c(rev(brewer.pal(n = 9, name = "Paired")))) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
@@ -287,9 +314,15 @@ ggsave(here(eer_data,"pictures","Graphs","Collab_strict.png"), width=35, height=
 
 ```
 
-## Most common collaborations
+The following graph informs us about the collaborations between American and European authors in the EER:
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Collab_strict.png"))
+
+```
+
+```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 bridges_collab <- institutions_unique[EU_US_collab== "Collaboration"][,list(Target = rep(Institution[1:(length(Institution)-1)],(length(Institution)-1):1),
                                                                             Source = rev(Institution)[sequence((length(Institution)-1):1)]),
                                                                       by= ID_Art]
@@ -302,22 +335,31 @@ bridges_collab <- institutions_unique[EU_US_collab== "Collaboration"][,list(Targ
                                                                       by= ID_Art]
 bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(Source, Target)] # exchanging
 
-kable(bridges_collab[Target!=Source,.N,.(Target,Source)][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F))
 
 
 ```
 
-## Refs: top journals
+<!-- The following table lists the 20 most occurring pairs of countries in articles that are in the category "collaboration" between American and European economists: -->
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+<!-- ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'} -->
 
-kable(Refs_all_EER[,.N, Revue][order(-N)]%>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F))
+<!-- kable(bridges_collab[Target!=Source,.N,.(Target,Source)][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
 
-```
+<!-- ``` -->
 
+<!-- ## Refs: top journals -->
 
-## EER Popularity overall
+<!-- The following table lists the 50 most occurring journals in references of articles in the EER: -->
 
+<!-- ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'} -->
+
+<!-- kable(Refs_all_EER[!is.na(Revue),.N, Revue][order(-N)]%>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
+
+<!-- ``` -->
+
+## EER Relative Importance
+
+The three following graph informs us about the share of 7 economics journals in the references of (1) all articles in social sciences, (2) all articles in economics, and (3) all articles in macroeconomics. The complete list of journal is the *European Economic Review* (EER), *The Scandinavian Journal of Economics* (Scandinavian), *The Economic Journal*, the *Review of Economic Studies, Economica*, *Oxford Economic Papers*, and the *Weltwirtschaftliches Archiv*. We use these journals as benchmark to measure the changing relative importance of the EER in the landscape of economics when compared to other European and American journals.
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 #################### All social sciences ####################
@@ -362,14 +404,15 @@ count <- count %>% left_join(journal_name)
 
 ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=Annee_Bibliographique , y=share,color=Journal_label)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
-  geom_point(alpha=0.2) +
+  geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
   scale_x_continuous("Years") +
   scale_y_continuous("Share of EER in Social Sciences Refs", labels = scales::percent_format(scale=1)) +
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
-  theme_minimal() 
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA))
 ggsave(here(eer_data,"pictures","Graphs","EER_importance.png"), width=35, height=20, units = "cm")
 
 
@@ -407,7 +450,8 @@ ggplot(count[Annee_Bibliographique>1970  & Annee_Bibliographique<=2002], aes(x=A
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
-  theme_minimal() 
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA))
 ggsave(here(eer_data,"pictures","Graphs","EER_importance_econ.png"), width=35, height=20, units = "cm")
 
 #################### All  macro ####################
@@ -444,18 +488,40 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=An
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
-  theme_minimal() 
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = 'white', colour = NA))
 ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro.png"), width=35, height=20, units = "cm")
 
 
 ```
 
+EER importance in all articles in social sciences:
 
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance.png"))
+```
+
+EER importance in all articles in economics:
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_econ.png"))
+```
+
+EER importance in all articles in macroeconomic:
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_macro.png"))
+```
 
 # Dynamics Networks
 
+For all macroeconomics articles published in the EER and in the Top 5, we build the networks with 8-year overlapping windows.
+
+We used Leiden detection algorithm that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network.Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster.
+
 ## Alluvial
 
+The following plot is a way to represent these networks and communities as an alluvial that tracks how nodes that exists across multiple overlapping windows change or stay in the same communities:
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 
@@ -463,18 +529,28 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","Intertemporal_communi
 
 ```
 
-## tf_idf
+## European/American identity of clusters
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:
 
-tf_idf_results$plot
+$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$
 
-```
+We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:
 
-## Preparing community inspections and EU/US comparison
+$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$
 
-```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
-institutions <- institutions_unique
+To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:
+
+
+$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$
+
+
+In the following graph, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores:
+
+
+```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+
+institutions <- Institution
 
 nb_cit <- Refs[, .N, ItemID_Ref]
 colnames(nb_cit)[colnames(nb_cit) == "N"] <- "size"
@@ -551,9 +627,9 @@ for (com in com_to_inspect) {
     .[,freq]
   
   
-  europeans_authors_diff <- share_europeans_authors_cluster/share_US_authors_cluster-share_europeans_authors/share_US_authors
+  europeans_authors_diff <- log(share_europeans_authors_cluster/share_US_authors_cluster)-log(share_europeans_authors/share_US_authors)
   EER_articles_diff <- share_EER_articles_cluster-share_EER_articles
-  EER_articles_diff <- (share_EER_articles_cluster/(1-share_EER_articles_cluster))-(share_EER_articles/(1-share_EER_articles))
+  EER_articles_diff <- log((share_EER_articles_cluster/(1-share_EER_articles_cluster)))-log((share_EER_articles/(1-share_EER_articles)))
   
   
   euro_com_stat <- data.table(
@@ -610,7 +686,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
                            aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.35, 0.65), labels = c("Less European", "More European")) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-1, 1), labels = c("Less European", "More European")) +
   labs(title = "",
        color = "",
        x = "US Only (left) vs. European Only (right)",
@@ -622,11 +698,43 @@ ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.pn
 
 ```
 
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"))
+
+```
+
 # A Look at Dynamic Communities
+
+We printed a variety of table too explore the content of content of the clusters identified in with the dynamic network analysis. In each subsections of this section, users can explore individual clusters and find out the most cited references of each clusters, the nodes with the highest number of citations, the most productive authors or the most distinctive words, institutions and countries.
+
+We also cross-checked our topic analysis with our network analysis by assigning topics to individual articles clusters when the topics of the article had a $\gamma > 0.1$. The share in the Occurrences table of topics is interpreted as the share of articles in the cluster that have a given topic. Another available index is the sum of gamma in the cluster which weight the occurrence of topics with the probability of articles to belong to particular topics.
 
 ```{r,results = "asis", eval=TRUE, echo=FALSE}
 
+# tf-idf of institutions
+alluv_dt_institutions <- merge(alluv_dt[,.(Id,new_Id_com)], Institution[,.(ID_Art, Institution,Pays)], by.x= "Id", by.y= "ID_Art", all.x = TRUE, allow.cartesian=TRUE)
+institutions_tf_idf <-  alluv_dt_institutions %>% 
+  group_by(new_Id_com) %>% 
+  add_count(Institution) %>% 
+  filter(n > 2) %>% 
+  select(-c(Id, Pays)) %>% 
+  unique() %>% 
+  bind_tf_idf(Institution, new_Id_com, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(new_Id_com, Institution, n, tf_idf) %>% 
+  ungroup() %>% as.data.table()
 
+countries_tf_idf <-  alluv_dt_institutions %>% 
+  group_by(new_Id_com) %>% 
+  add_count(Pays) %>% 
+  filter(n > 3) %>% 
+  select(-c(Id, Institution)) %>% 
+  unique() %>% 
+  bind_tf_idf(Pays, new_Id_com, n)%>% 
+  slice_max(n = 10, order_by = tf_idf, with_ties = FALSE) %>% 
+  select(new_Id_com, Pays, n, tf_idf) %>% 
+  ungroup() %>% as.data.table()
 # com_to_inspect <- diff_stat_euro_com[order(-sum_diff), .N, new_Id_com]$new_Id_com
 # com_to_inspect <- gsub("([()])","\\\\\\1", com_to_inspect)
 
@@ -637,6 +745,7 @@ for (com in com_to_inspect) {
   # restricting alluv_dt to the community at stake
   alluv_com  <- alluv_dt_as_nodes[new_Id_com  %like% paste0(com)]
   com_name  <- alluv_dt_as_nodes[new_Id_com  %like% paste0(com)][["Label_com"]][1]
+  alt_com_name  <- community_name[new_Id_com  %like% paste0(com)]$Label_com
   
   most_influential_nodes_com  <- most_influential_nodes[new_Id_com %like% paste0(com)][order(-weighted_size)]
   
@@ -676,7 +785,8 @@ for (com in com_to_inspect) {
   most_influential_noidrefs_com <- most_influential_noidrefs_com[order(-share), head(.SD, 1), .(Label_Target)]
   
   most_common_topic <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
-  most_common_topic <- most_common_topic[,.N,.(topic_name)][,perc:=100*N/sum(N)][order(-perc)]
+  n_art_topic <- alluv_com[Id %in% topics$ID_Art,.N]
+  most_common_topic <- most_common_topic[,.N,.(topic_name)][,perc:=100*N/n_art_topic][order(-perc)]
   
   most_common_topic_gamma <- merge(alluv_com[,.(Id)], topics, by.x= "Id", by.y= "ID_Art")
   most_common_topic_gamma <- most_common_topic_gamma[,sum(gamma),.(topic_name)][,sum_gamma:=V1][,V1:=NULL][order(-sum_gamma)]
@@ -685,42 +795,14 @@ for (com in com_to_inspect) {
   most_productive_authors <- most_productive_authors[,.N, Nom]
   most_productive_authors <- most_productive_authors[order(-N)]
   
-  most_productive_institutions <- merge(alluv_com[,.(Id)], institutions[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
+  most_productive_institutions <- merge(alluv_com[,.(Id)], Institution[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
   most_productive_institutions <- most_productive_institutions[,.N, Institution]
   most_productive_institutions <- most_productive_institutions[order(-N)]
   
-  most_productive_institutions_odds <- merge(alluv_com[,.(Id,EU_US_collab,Revue)], institutions[,.(ID_Art, Institution)], by.x= "Id", by.y= "ID_Art")
-  most_productive_institutions_odds <- merge(most_productive_institutions_odds, Corpus[,.(ID_Art, journal_type)], by.x= "Id", by.y= "ID_Art",all.x=TRUE)
+  most_productive_institutions_tfidf <- institutions_tf_idf[new_Id_com %like% paste0(com)]
+  most_productive_countires_tfidf <- countries_tf_idf[new_Id_com %like% paste0(com)]
 
-  # if(nrow(filter(refs_td_idf, EER_pub_bin == "EER")) > 0 &
-  #    nrow(filter(refs_td_idf, EER_pub_bin == "TOP5")) > 0){
-  #   
-  #   ref_ratios <- refs_td_idf %>%
-  #     count(ItemID_Ref, EER_pub_bin) %>%
-  #     group_by(ItemID_Ref) %>%
-  #     filter(sum(n) >= 4) %>%
-  #     ungroup() %>%
-  #     pivot_wider(names_from = EER_pub_bin, values_from = n, values_fill = 0) %>%
-  #     mutate_if(is.numeric, list(~(. + 1) / (sum(.) + 1))) %>%
-  #     mutate(logratio = log(EER / TOP5)) %>%
-  #     arrange(desc(logratio))
-  #   
-  #   ref_ratios <- merge(ref_ratios,refs_td_idf[,.N,.(ItemID_Ref,Label_Target)][order(-N),head(.SD,1),.(ItemID_Ref)],by="ItemID_Ref",all.x = TRUE) %>% arrange(-logratio)
-  #   
-  #   EER_ratio_plot <- ref_ratios %>%
-  #     group_by(logratio < 0) %>%
-  #     slice_max(abs(logratio), n = 10) %>%
-  #     ungroup() %>%
-  #     mutate(Label_Target = reorder(Label_Target, logratio)) %>% 
-  #     as.data.table() %>% 
-  #     .[order(-logratio),.(Label_Target,logratio,EER, TOP5,N)]
-  #   
-  # } else {
-  #   EER_ratio_plot <- data.frame(message = "Nothing to display")
-  # }
-  
-
-  most_productive_countries <- merge(alluv_com[,.(Id)], institutions[,.(ID_Art, Pays)], by.x= "Id", by.y= "ID_Art")
+  most_productive_countries <- merge(alluv_com[,.(Id)], Institution[,.(ID_Art, Pays)], by.x= "Id", by.y= "ID_Art")
   most_productive_countries <- most_productive_countries[,.N, Pays]
   most_productive_countries <- most_productive_countries[order(-N)]
   
@@ -897,7 +979,7 @@ for (com in com_to_inspect) {
   cat("\n\n")
   
   cat(paste0("  \nThe community exists from ", window[1]," to ", window[2],". \n"))
-  cat("It's most distinctive words are: ",tf_idf_results$list_words[Leiden1 %like% paste0(com)]$term)
+  cat("It's most distinctive words are: ",tf_idf_results$list_words[Leiden1 %like% paste0(alt_com_name)]$term)
   
   cat("\n\n")
   cat("During this period there was a difference of european authors of", diff_stat_euro_com[new_Id_com==com]$europeans_authors_diff, "points and of EER pub of", diff_stat_euro_com[new_Id_com==com]$EER_articles_diff,"points. For a total of ", diff_stat_euro_com[new_Id_com==com]$sum_diff)
@@ -1044,6 +1126,18 @@ for (com in com_to_inspect) {
   cat("####", "Most productive countries")
   cat("\n\n")
   print(kable(most_productive_countries[,.(Pays, N)][, head(.SD, 10)]) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most distinctive institutions (tfidf)")
+  cat("\n\n")
+  print(kable(most_productive_institutions_tfidf) %>% 
+          kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
+  cat("\n\n")
+  
+  cat("####", "Most distinctive countries (tfidf)")
+  cat("\n\n")
+  print(kable(most_productive_countires_tfidf) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
   

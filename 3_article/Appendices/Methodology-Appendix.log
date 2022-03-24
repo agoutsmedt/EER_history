@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  21 MAR 2022 13:04
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./Methodology-Appendix.tex
+(Methodology-Appendix.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-02-24>
+
+! Sorry, but C:\Users\alex7\AppData\Local\Programs\MiKTeX\miktex\bin\x64\pdflatex.exe did not succeed.
+
+! The log file hopefully contains the information to get MiKTeX going again:
+
+!   C:\Users\alex7\AppData\Local\MiKTeX\miktex\log\pdflatex.log
