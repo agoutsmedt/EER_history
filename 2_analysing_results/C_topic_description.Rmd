@@ -154,8 +154,8 @@ Direct_citations <- readRDS(here(eer_data,
 
 ref_topics <- topics %>% 
   group_by(topic) %>% 
-  mutate(early_ref = Annee_Bibliographique <= quantile(Annee_Bibliographique, 0.3),
-         late_ref = Annee_Bibliographique >= quantile(Annee_Bibliographique, 0.7)) %>%
+  mutate(early_ref = Annee_Bibliographique <= quantile(Annee_Bibliographique, 0.25),
+         late_ref = Annee_Bibliographique >= quantile(Annee_Bibliographique, 0.75)) %>%
   ungroup() %>%
   data.table() %>% 
   select(ID_Art, topic, topic_name, journal_type, EU_US_collab, early_ref, late_ref) %>% 
@@ -291,7 +291,7 @@ for (topic_turn in unique(topics$topic_name)) {
            nb_cit_topic > 1) %>% 
     select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>%
     unique() %>%
-    slice_max(order_by = nb_cit_topic, n = 10, with_ties = FALSE) %>% 
+    slice_max(order_by = nb_cit_topic, n = 15, with_ties = FALSE) %>% 
     select(-id_clean)
   
   top_late_refs <- refs %>%
@@ -299,7 +299,7 @@ for (topic_turn in unique(topics$topic_name)) {
            nb_cit_topic > 1) %>% 
     select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, nb_cit_topic) %>%
     unique() %>%
-    slice_max(order_by = nb_cit_topic, n = 10, with_ties = FALSE) %>% 
+    slice_max(order_by = nb_cit_topic, n = 15, with_ties = FALSE) %>% 
     select(-id_clean)
   
   # Calculating log odds
@@ -353,7 +353,7 @@ for (topic_turn in unique(topics$topic_name)) {
   cited <- cited_corpus %>% 
     filter(topic_name == topic_turn,
            ! is.na(nb_cit)) %>% 
-    select(ID_Art, Nom, Annee_Bibliographique, Titre, Revue, journal_type, EU_US_collab, nb_cit, gamma)
+    select(Nom, Annee_Bibliographique, Titre, Revue, journal_type, EU_US_collab, nb_cit, gamma)
   
   top_cited <- cited %>%
     filter(nb_cit > 1) %>% 
@@ -467,13 +467,13 @@ for (topic_turn in unique(topics$topic_name)) {
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("#####", "Early references (3 first deciles)")
+    cat("#####", "Early references (first quartile)")
   cat("\n\n")
   print(kable(top_early_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("#####", "Late references (3 last deciles)")
+    cat("#####", "Late references (last quartile)")
   cat("\n\n")
   print(kable(top_late_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
