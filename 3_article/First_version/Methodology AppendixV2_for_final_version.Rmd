@@ -1,23 +1,10 @@
 ---
-title: "Methodology"
+title: "An Independent European Macro? A History of European Macroeconomics through the Lens of the European Economic Review"
 author:
-  - name: Aurélien Goutsmedt
-    affiliation: 1
-    footnote: 3
-  - name: Alexandre Truc
-    affiliation: 2
-address:
-  - code: 1
-    address: "UCLouvain, ISPOLE. Collège Jacques Leclercq, Place Montesquieu, 1/L 2.08.07, 1348 - Louvain-la-Neuve."
-  - code: 2
-    address: "CNRS."
-footnote:
-  - code: 3
-    text: "Corresponding Author: aurelien.goutsmedt@uclouvain.be"
-abstract: 
+
 journal: "European Economic Review"
 date: "`r Sys.Date()`"
-# bibliography: bibliography.bib
+bibliography: bibliography.bib
 link-citations: yes
 csl: elsevier-harvard.csl
 output: 
@@ -25,21 +12,29 @@ output:
     number_sections: true
     toc: false
     toc_depth: 3
-header-includes:
-  \renewenvironment{abstract}{}{}
-    
+    extra_dependencies: ["float"]
 ---
 
 ```{r setup, include = FALSE}
 
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, eval = TRUE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE, 
+                      eval = TRUE, 
+                      cache = TRUE,
+                      fig.align = "center",
+                      fig.pos = "h")
 
 package_list <- c("data.table", 
                   "tidyverse",
                   "tidygraph",
                   "ggrepel",
-                  "scico",
-                  "here")
+                  "scico", "see",
+                  "googledrive",
+                  "here",
+                  "kableExtra",
+                  "DiagrammeR",
+                  "webshot")
 for (p in package_list) {
   if (p %in% installed.packages() == FALSE) {
     install.packages(p, dependencies = TRUE)
@@ -86,9 +81,83 @@ Corpus <- Corpus[Annee_Bibliographique>=1973]
 alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
 alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
 tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
+communities <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "euro_vs_us_communities.rds")) %>% arrange(desc(sum_diff))
+
+# Topic modelling data
+topic_diff <- readRDS(here(eer_data, 
+                           "3_Topic_modelling",
+                           "TM_topics_diff.rds")) %>% 
+  mutate(total_diff = diff_affiliation + diff_journal,
+         topic = as.integer(str_extract(topic_name, "[:digit:]+")))
+
+top_terms <- readRDS(here(eer_data,
+                          "3_Topic_modelling",
+                          "TM_top_terms.rds")) %>% 
+  left_join(select(topic_diff, topic, total_diff))
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
+```
+
+\newpage
+
+# Appendices {.unnumbered}
+
+## A - Summary Tables {.unnumbered}
+
+Here are the tables listing the different clusters and topics, with their synthetic indicator of how much they are "European".
+
+```{r summary-communities}
+communities_table <- communities %>% select(Label_com, sum_diff) %>% arrange(desc(sum_diff))
+
+communities_table %>%
+  kbl(caption="Summary of Bibliographic Communities",
+      booktabs = TRUE,
+      longtable = FALSE,
+      col.names =c("Communities", "Differences"),
+      format= "latex",
+      align="lr") %>%
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
+                font_size = 9)
+```
+
+\newpage
+
+```{r summary-topics}
+topics_summary <- top_terms %>%
+  filter(measure == "frex") %>%
+  group_by(topic) %>%
+  slice_max(value, n = 6) %>%
+  mutate(topic = paste("Topic", topic),
+         top_terms = str_wrap(paste0(term, collapse = "; "), 0),
+         total_diff = round(total_diff, 3)) %>%
+  select(topic, total_diff, top_terms) %>%
+  unique %>%
+  arrange(desc(total_diff))
+
+
+topics_summary %>% 
+  kbl(caption="Summary of Topics",
+      booktabs = TRUE,
+      longtable = TRUE,
+      format= "latex",
+      col.names = c("Topics", "Differences", "Terms with the highest frex value"),
+      align="lrl") %>%
+  column_spec(1, latex_valign = "m") %>%
+  column_spec(2, latex_valign = "m") %>%
+  column_spec(3, width = "25em", latex_valign = "m") %>%
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
+                font_size = 9) %>%
+  footnote(general = "Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors",
+           threeparttable = TRUE)
 
 ```
 
+\newpage
+
+## B - Information on the Methods {#appendix .unnumbered}
 
 ### B.1. Corpus Creation {#corpus .unnumbered}
 
@@ -174,7 +243,6 @@ Second, and more importantly, for the purpose of our analysis, we mostly looked 
 ### B.3. Bibliographic Coupling and Cluster Detection {#network .unnumbered}
 
 ```{r}
-# Variable to add after
 network_raw_com <- lapply(tbl_coup_list,function(x) x %>% activate(nodes) %>% as.data.table %>% .[,.N,Leiden1])
 network_raw_com <- rbindlist(network_raw_com,fill = TRUE)
 n_communities_raw <- network_raw_com[,.N]
@@ -182,6 +250,7 @@ n_communities_raw <- network_raw_com[,.N]
 n_communities_alluv <- alluv_dt_graph[,.N,new_Id_com][,.N]
 n_communities_of_interest <- alluv_dt_graph[,.N,Label_com][!is.na(Label_com),.N]
 n_windows <- alluv_dt_graph[,.N,Window][,.N]
+meta_group <- alluv_dt_graph[!is.na(Label_com),.N,meta_group]
 
 time_window <- 8
 min_n_years <- 2
@@ -191,8 +260,8 @@ min_leiden_max <- 0.04
 
 A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
 
-    -   The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
-    -   The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
+1. The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
+2. The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
 
 For all macroeconomics articles published in the EER and in the Top 5, we build the networks with `time_window`-year overlapping windows. This results in `r n_windows`.
 
@@ -202,17 +271,17 @@ Simply put, if two clusters share a high number of articles, and are both mostly
 
 This gives us `r n_communities_alluv`, with `r n_communities_of_interest` that are at least `r min_leiden_max`% of a network at any given point and are stable enough to exists for at least `r min_n_years` time windows.
 
-For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:
+For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:\newline
 
-$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$
+$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$\newline
 
-We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:
+We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:\newline
 
-$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$
+$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$\newline
 
-To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:
+To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:\newline
 
-$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$
+$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$\newline
 
 Finally, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores.
 
@@ -229,8 +298,7 @@ We have several steps to clean our texts before running our topic models:
 
 #### Choosing the number of topics {.unnumbered}
 
-We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R package.^[Roberts ME, Stewart BM, Tingley D (2019). “stm: An R Package for Structural Topic Models.” _Journal of Statistical Software_,
-*91*(2), 1-40.] 
+We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R package.^[Roberts ME, Stewart BM, Tingley D (2019). “stm: An R Package for Structural Topic Models.” _Journal of Statistical Software_, *91*(2), 1-40.]
 
 From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
 
