@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 15:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 15:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1011,76 +1011,74 @@ Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/topic_modelling/logratio_diff_plot.png  used on input 
 line 533.
 (pdftex.def)             Requested size: 345.0pt x 275.99077pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: Reference `understanding-specialities' on page 10 undefined on i
-nput line 544.
-
-
-Package natbib Warning: Citation `friedman1957' on page 10 undefined on input l
-ine 553.
-
-
-Package natbib Warning: Citation `hall1978b' on page 10 undefined on input line
- 553.
-
-
-Package natbib Warning: Citation `diamond1965' on page 10 undefined on input li
-ne 555.
-
-
-Package natbib Warning: Citation `barro1974' on page 10 undefined on input line
- 556.
-
-
-Package natbib Warning: Citation `blanchard1985' on page 10 undefined on input 
-line 557.
-
-
-LaTeX Warning: Reference `tab:summary-communities' on page 10 undefined on inpu
-t line 563.
-
 [10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.568 
-       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/Communities_europeanisation_colored.png>]
+l.538 \end{figure}
+                   <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN
+5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png>]
 
 LaTeX Warning: Reference `understanding-specialities' on page 11 undefined on i
-nput line 570.
+nput line 544.
 
 
-LaTeX Warning: Reference `central-banking' on page 11 undefined on input line 5
-75.
+Package natbib Warning: Citation `friedman1957' on page 11 undefined on input l
+ine 553.
 
 
-LaTeX Warning: Reference `international-macro' on page 11 undefined on input li
-ne 584.
+Package natbib Warning: Citation `hall1978b' on page 11 undefined on input line
+ 553.
 
 
-Package natbib Warning: Citation `portes1987' on page 11 undefined on input lin
-e 588.
+Package natbib Warning: Citation `diamond1965' on page 11 undefined on input li
+ne 555.
 
 
-Package natbib Warning: Citation `goutsmedt2021' on page 11 undefined on input 
-line 589.
+Package natbib Warning: Citation `barro1974' on page 11 undefined on input line
+ 556.
 
 
-LaTeX Warning: Reference `rigidities' on page 11 undefined on input line 592.
+Package natbib Warning: Citation `blanchard1985' on page 11 undefined on input 
+line 557.
+
+
+LaTeX Warning: Reference `tab:summary-communities' on page 11 undefined on inpu
+t line 563.
 
 [11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.593 
-       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/topic_modelling/logratio_diff_plot.png>]
+l.569 W
+       e will focus on several results in the Section <G:/.shortcut-targets-by-
+id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/topic_modelling/logratio
+_diff_plot.png>]
+
+LaTeX Warning: Reference `understanding-specialities' on page 12 undefined on i
+nput line 570.
+
+
+LaTeX Warning: Reference `central-banking' on page 12 undefined on input line 5
+75.
+
+
+LaTeX Warning: Reference `international-macro' on page 12 undefined on input li
+ne 584.
+
+
+Package natbib Warning: Citation `portes1987' on page 12 undefined on input lin
+e 588.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 12 undefined on input 
+line 589.
+
+
+LaTeX Warning: Reference `rigidities' on page 12 undefined on input line 592.
+
 
 Package natbib Warning: Citation `pissarides1990' on page 12 undefined on input
  line 596.
@@ -1367,7 +1365,7 @@ Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/alex7/AppData/L
 ocal/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alex7/AppData/Loc
 al/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on First_version_new_temp.pdf (22 pages, 3433885 bytes).
+Output written on First_version_new_temp.pdf (22 pages, 3503702 bytes).
 PDF statistics:
  360 PDF objects out of 1000 (max. 8388607)
  122 named destinations out of 1000 (max. 500000)

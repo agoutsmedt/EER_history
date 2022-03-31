@@ -864,7 +864,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
-                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=1) +
+                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=1.7) +
   scico::scale_color_scico(palette = "roma", breaks = c(-2.2, 1), labels = c("Less European", "More European")) +
   labs(title = NULL,
        color = NULL,
