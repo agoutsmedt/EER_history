@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 12:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 13:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -830,369 +830,447 @@ LaTeX Warning: Reference `fig:plot-authors' on page 4 undefined on input line 2
 LaTeX Warning: Reference `fig:plot-boards' on page 4 undefined on input line 29
 9.
 
+<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
+/Graphs/EER_affiliations.png, id=49, 995.6397pt x 569.0058pt>
+File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
+tures/Graphs/EER_affiliations.png Graphic file (type png)
+<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
+ures/Graphs/EER_affiliations.png>
+Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
+o_dkN5/data/EER/pictures/Graphs/EER_affiliations.png  used on input line 303.
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
 
 Package natbib Warning: Citation `goutsmedt2021' on page 4 undefined on input l
-ine 303.
+ine 312.
+
+[4
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.315 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/EER_affiliations.png>]
+<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
+/Graphs/Board_affiliations.png, id=58, 995.6397pt x 569.0058pt>
+File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
+tures/Graphs/Board_affiliations.png Graphic file (type png)
+<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
+ures/Graphs/Board_affiliations.png>
+Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
+o_dkN5/data/EER/pictures/Graphs/Board_affiliations.png  used on input line 318.
+
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+
+LaTeX Warning: Reference `fig:plot-authors' on page 5 undefined on input line 3
+41.
 
 
-LaTeX Warning: Reference `fig:plot-authors' on page 4 undefined on input line 3
-23.
-
-
-LaTeX Warning: Reference `fig:plot-collabs' on page 4 undefined on input line 3
-27.
-
-[4]
-
-LaTeX Warning: Reference `fig:plot-eer-importance' on page 5 undefined on input
- line 336.
+LaTeX Warning: Reference `fig:plot-collabs' on page 5 undefined on input line 3
+45.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_Importance.png, id=58, 995.6397pt x 569.0058pt>
+/Graphs/EER_collab_stack_density.png, id=59, 995.6397pt x 569.0058pt>
+File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
+tures/Graphs/EER_collab_stack_density.png Graphic file (type png)
+<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
+ures/Graphs/EER_collab_stack_density.png>
+Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
+o_dkN5/data/EER/pictures/Graphs/EER_collab_stack_density.png  used on input lin
+e 351.
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
+/Graphs/Collab_strict.png, id=60, 995.6397pt x 569.0058pt>
+File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
+tures/Graphs/Collab_strict.png Graphic file (type png)
+<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
+ures/Graphs/Collab_strict.png>
+Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
+o_dkN5/data/EER/pictures/Graphs/Collab_strict.png  used on input line 360.
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `fig:plot-eer-importance' on page 5 undefined on input
+ line 372.
+
+<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
+/Graphs/EER_Importance.png, id=61, 995.6397pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/EER_Importance.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/EER_Importance.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/EER_Importance.png  used on input line 340.
+o_dkN5/data/EER/pictures/Graphs/EER_Importance.png  used on input line 376.
 (pdftex.def)             Requested size: 345.0pt x 197.16676pt.
-
-Package natbib Warning: Citation `jel1991' on page 5 undefined on input line 37
-2.
-
 [5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.385 
+l.381 \end{figure}
+                   <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN
+5/data/EER/pictures/Graphs/Board_affiliations.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `jel1991' on page 6 undefined on input line 40
+8.
+
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.421 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/EER_collab_stack_density.png>]
+
+Package natbib Warning: Citation `traag2019' on page 7 undefined on input line 
+436.
+
+
+Package natbib Warning: Citation `claveau2016' on page 7 undefined on input lin
+e 441.
+
+
+Package natbib Warning: Citation `truc2021' on page 7 undefined on input line 4
+41.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 7 undefined on input l
+ine 441.
+
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.448 T
+       his process allows us to obtain dynamic clusters Indeed, citation <G:/.s
+hortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/Graph
+s/Collab_strict.png>]
+
+LaTeX Warning: Reference `fig:plot-community-diff' on page 8 undefined on input
+ line 477.
+
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.480 
        <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
 ictures/Graphs/EER_Importance.png>]
-
-Package natbib Warning: Citation `traag2019' on page 6 undefined on input line 
-400.
-
-
-Package natbib Warning: Citation `claveau2016' on page 6 undefined on input lin
-e 405.
-
-
-Package natbib Warning: Citation `truc2021' on page 6 undefined on input line 4
-05.
-
-
-Package natbib Warning: Citation `goutsmedt2021' on page 6 undefined on input l
-ine 405.
-
-
-LaTeX Warning: Reference `fig:plot-community-diff' on page 6 undefined on input
- line 441.
-
-[6]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Communities_europeanisation_colored.png, id=92, 995.6397pt x 569.0058pt
->
+/Graphs/Communities_europeanisation_colored.png, id=110, 995.6397pt x 569.0058p
+t>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/Communities_europeanisation_colored.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/Communities_europeanisation_colored.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png  used o
-n input line 447.
+n input line 483.
 (pdftex.def)             Requested size: 345.0pt x 197.16676pt.
 
-Package natbib Warning: Citation `blei2007' on page 7 undefined on input line 4
-66.
+Package natbib Warning: Citation `blei2007' on page 9 undefined on input line 5
+02.
 
 
-Package natbib Warning: Citation `bischof2012' on page 7 undefined on input lin
-e 472.
+Package natbib Warning: Citation `bischof2012' on page 9 undefined on input lin
+e 508.
 
 
-LaTeX Warning: Reference `tab:summary-topics' on page 7 undefined on input line
- 479.
+LaTeX Warning: Reference `tab:summary-topics' on page 9 undefined on input line
+ 515.
 
-[7
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+
+LaTeX Warning: Reference `fig:plot-topic-diff' on page 9 undefined on input lin
+e 527.
+
+[9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.481 
+l.530 
        <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
 ictures/Graphs/Communities_europeanisation_colored.png>]
-
-LaTeX Warning: Reference `fig:plot-topic-diff' on page 8 undefined on input lin
-e 491.
-
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/topic_modelling/logratio_diff_plot.png, id=110, 1422.63495pt x 1138.07182pt>
+/topic_modelling/logratio_diff_plot.png, id=127, 1422.63495pt x 1138.07182pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/topic_modelling/logratio_diff_plot.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/topic_modelling/logratio_diff_plot.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/topic_modelling/logratio_diff_plot.png  used on input 
-line 497.
+line 533.
 (pdftex.def)             Requested size: 345.0pt x 275.99077pt.
 
-LaTeX Warning: Reference `understanding-specialities' on page 8 undefined on in
-put line 508.
-
-[8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.512 
-       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/topic_modelling/logratio_diff_plot.png>]
-
-Package natbib Warning: Citation `friedman1957' on page 9 undefined on input li
-ne 517.
+LaTeX Warning: Reference `understanding-specialities' on page 10 undefined on i
+nput line 544.
 
 
-Package natbib Warning: Citation `hall1978b' on page 9 undefined on input line 
-517.
-
-
-Package natbib Warning: Citation `diamond1965' on page 9 undefined on input lin
-e 519.
-
-
-Package natbib Warning: Citation `barro1974' on page 9 undefined on input line 
-520.
-
-
-Package natbib Warning: Citation `blanchard1985' on page 9 undefined on input l
-ine 521.
-
-
-LaTeX Warning: Reference `tab:summary-communities' on page 9 undefined on input
- line 527.
-
-
-LaTeX Warning: Reference `understanding-specialities' on page 9 undefined on in
-put line 534.
-
-
-LaTeX Warning: Reference `central-banking' on page 9 undefined on input line 53
-9.
-
-
-LaTeX Warning: Reference `international-macro' on page 9 undefined on input lin
-e 548.
-
-
-Package natbib Warning: Citation `portes1987' on page 9 undefined on input line
- 552.
-
-
-Package natbib Warning: Citation `goutsmedt2021' on page 9 undefined on input l
+Package natbib Warning: Citation `friedman1957' on page 10 undefined on input l
 ine 553.
 
 
-LaTeX Warning: Reference `rigidities' on page 9 undefined on input line 556.
+Package natbib Warning: Citation `hall1978b' on page 10 undefined on input line
+ 553.
 
 
-Package natbib Warning: Citation `pissarides1990' on page 9 undefined on input 
-line 560.
+Package natbib Warning: Citation `diamond1965' on page 10 undefined on input li
+ne 555.
 
 
-Package natbib Warning: Citation `mortensen1994' on page 9 undefined on input l
-ine 560.
+Package natbib Warning: Citation `barro1974' on page 10 undefined on input line
+ 556.
 
 
-Package natbib Warning: Citation `layard1991a' on page 9 undefined on input lin
-e 560.
+Package natbib Warning: Citation `blanchard1985' on page 10 undefined on input 
+line 557.
 
-[9] [10] [11]
+
+LaTeX Warning: Reference `tab:summary-communities' on page 10 undefined on inpu
+t line 563.
+
+[10
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.568 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/topic_modelling/logratio_diff_plot.png>]
+
+LaTeX Warning: Reference `understanding-specialities' on page 11 undefined on i
+nput line 570.
+
+
+LaTeX Warning: Reference `central-banking' on page 11 undefined on input line 5
+75.
+
+
+LaTeX Warning: Reference `international-macro' on page 11 undefined on input li
+ne 584.
+
+
+Package natbib Warning: Citation `portes1987' on page 11 undefined on input lin
+e 588.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 11 undefined on input 
+line 589.
+
+
+LaTeX Warning: Reference `rigidities' on page 11 undefined on input line 592.
+
+
+Package natbib Warning: Citation `pissarides1990' on page 11 undefined on input
+ line 596.
+
+
+Package natbib Warning: Citation `mortensen1994' on page 11 undefined on input 
+line 596.
+
+
+Package natbib Warning: Citation `layard1991a' on page 11 undefined on input li
+ne 596.
+
+[11] [12]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 612.
-[12
+(Font)              <9> on input line 648.
+[13
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.659 \newpage
+l.695 \newpage
               ]
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 []
  []
 
 
-Overfull \hbox (19.88797pt too wide) in paragraph at lines 682--682
+Overfull \hbox (19.88797pt too wide) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (-20) Differences
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) val-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) ues
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) are
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) sum
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 682--682
+Underfull \hbox (badness 1231) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) of (i)
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) dif-fer-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) ence
  []
 
 
-Overfull \hbox (5.58037pt too wide) in paragraph at lines 682--682
+Overfull \hbox (5.58037pt too wide) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (-20) gamma
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) mean
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) be-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) EER
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) Top
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) same
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) dif-fer-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) ence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) but
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) be-
  []
 
 
-Overfull \hbox (16.5292pt too wide) in paragraph at lines 682--682
+Overfull \hbox (16.5292pt too wide) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (-20) European-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) based
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) US-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) based
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 682--682
+Underfull \hbox (badness 10000) in paragraph at lines 718--718
 \T1/lmr/m/n/9 (+20) au-
  []
 
 
-Overfull \hbox (0.82571pt too wide) in alignment at lines 683--1089
+Overfull \hbox (0.82571pt too wide) in alignment at lines 719--1125
  [] [] [] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 1089.
+(longtable)                in table 2 on input line 1125.
 
-[13] [14] [15]
+[14] [15] [16]
 
-Package natbib Warning: Citation `jel1991' on page 16 undefined on input line 1
-110.
+Package natbib Warning: Citation `jel1991' on page 17 undefined on input line 1
+146.
 
 
-LaTeX Warning: Reference `eer-top5-macro' on page 16 undefined on input line 11
-11.
+LaTeX Warning: Reference `eer-top5-macro' on page 17 undefined on input line 11
+47.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-149.
+185.
 (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-Package natbib Warning: Citation `jel1991' on page 16 undefined on input line 1
-166.
+Package natbib Warning: Citation `jel1991' on page 17 undefined on input line 1
+202.
 
-[16] [17]
+[17] [18]
 
-Package natbib Warning: Citation `shen2019' on page 18 undefined on input line 
-1277.
+Package natbib Warning: Citation `shen2019' on page 19 undefined on input line 
+1313.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-299.
+335.
 (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1201,63 +1279,63 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Package natbib Warning: Citation `traag2019' on page 18 undefined on input line
- 1302.
+Package natbib Warning: Citation `traag2019' on page 19 undefined on input line
+ 1338.
 
-[18]
-Underfull \hbox (badness 10000) in paragraph at lines 1321--1328
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 1357--1364
 
  []
 
 
-Overfull \hbox (20.86574pt too wide) in paragraph at lines 1329--1330
+Overfull \hbox (20.86574pt too wide) in paragraph at lines 1365--1366
 []$[] \OT1/lmr/m/n/10 (-20) = []([]) \OMS/lmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1329--1330
+Underfull \hbox (badness 10000) in paragraph at lines 1365--1366
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1331--1336
+Underfull \hbox (badness 10000) in paragraph at lines 1367--1372
 
  []
 
 
-Overfull \hbox (184.42068pt too wide) in paragraph at lines 1337--1338
+Overfull \hbox (184.42068pt too wide) in paragraph at lines 1373--1374
 []$[] \OT1/lmr/m/n/10 (-20) = []([]) \OMS/lmsy/m/n/10 ^^@ []\OT1/lmr/m/n/10 (-2
 0) ([])$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1337--1338
+Underfull \hbox (badness 10000) in paragraph at lines 1373--1374
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1339--1341
+Underfull \hbox (badness 10000) in paragraph at lines 1375--1377
 
  []
 
 
-Overfull \hbox (54.57907pt too wide) in paragraph at lines 1342--1343
+Overfull \hbox (54.57907pt too wide) in paragraph at lines 1378--1379
 []$[] \OT1/lmr/m/n/10 (-20) = [] + []$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1342--1343
+Underfull \hbox (badness 10000) in paragraph at lines 1378--1379
 
  []
 
-[19]
+[20]
 
-Package natbib Warning: Citation `blei2007' on page 20 undefined on input line 
-1402.
+Package natbib Warning: Citation `blei2007' on page 21 undefined on input line 
+1438.
 
 
-Package natbib Warning: Citation `bischof2012' on page 20 undefined on input li
-ne 1432.
+Package natbib Warning: Citation `bischof2012' on page 21 undefined on input li
+ne 1468.
 
 No file First_version_new_temp.bbl.
 
@@ -1266,7 +1344,7 @@ Package natbib Warning: There were undefined citations.
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
-[20] (First_version_new_temp.aux)
+[21] (First_version_new_temp.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1283,10 +1361,10 @@ Package rerunfilecheck Info: Checksums for `First_version_new_temp.out':
 (rerunfilecheck)             After:  547F8B6B1C7ABC71D6B654D2BF5F14E2;4150.
  ) 
 Here is how much of TeX's memory you used:
- 15538 strings out of 478582
- 252003 string characters out of 2844344
+ 15588 strings out of 478582
+ 256646 string characters out of 2844344
  585100 words of memory out of 3000000
- 33041 multiletter control sequences out of 15000+600000
+ 33082 multiletter control sequences out of 15000+600000
  547577 words of font info for 206 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,11n,76p,1021b,541s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -1309,9 +1387,9 @@ a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alex7/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alex7/AppData/
 Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on First_version_new_temp.pdf (20 pages, 2084426 bytes).
+Output written on First_version_new_temp.pdf (21 pages, 3241574 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 116 named destinations out of 1000 (max. 500000)
- 39445 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 349 PDF objects out of 1000 (max. 8388607)
+ 121 named destinations out of 1000 (max. 500000)
+ 39465 words of extra memory for PDF output out of 42996 (max. 10000000)
 

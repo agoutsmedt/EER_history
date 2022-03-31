@@ -97,6 +97,11 @@ tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_lis
 topics <- readRDS(here(eer_data, 
                        "3_Topic_modelling",
                        "TM_gamma_values.rds")) %>% filter(gamma > 0.1)
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
 #################### Replace communities with new name ####################
 # 
 # community_name <- tribble(
@@ -358,6 +363,128 @@ bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(
 <!-- kable(Refs_all_EER[!is.na(Revue),.N, Revue][order(-N)]%>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
 
 <!-- ``` -->
+
+## Occurence of Institutions and Countries
+
+The following graphs informs us about the occurences of particular institutions and countries in our Corpus:
+
+```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+country_eer_colors <- Institutions_all_EER %>%
+  filter(ID_Art %in% filter(Corpus_all_EER, Annee_Bibliographique <= 2002)$ID_Art) %>%
+  mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES", "UNITED KINGDOM"), "UK", Pays)) %>%
+  count(Pays) %>%
+  slice_max(n, n = 10) %>%
+  select(Pays)
+
+country_boards_color <- boards %>%
+  filter(Year <= 2002) %>%
+  count(Country) %>%
+  slice_max(n, n = 10) %>%
+  rename("Pays" = Country) %>%
+  select(Pays)
+
+country_colors <- rbind(country_eer_colors, country_boards_color,data.frame(Pays="Other")) %>% unique() %>% rbind()
+country_colors[order(Pays),color:= see::see_colors()[1:country_colors[,.N]]]
+country_colors[Pays=="Other",color:="grey"]
+
+main_institutions <- Institutions_all_EER %>%
+  filter(ID_Art %in% filter(Corpus_all_EER, Annee_Bibliographique <= 2002)$ID_Art) %>%
+  mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES", "UNITED KINGDOM"), "UK", Pays),
+         Pays = fct_lump(Pays, n = 10)) %>%
+  left_join(country_colors) %>%
+  mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+
+levels <- tibble("Pays" = levels(fct_lump(main_institutions$Pays, n = 10))) %>%
+  filter(Pays != "OTHER") %>%
+  rbind("OTHER") %>%
+  mutate(rank = 1:n())
+
+main_institutions <- main_institutions %>%
+  left_join(levels) %>%
+  arrange(rank)
+
+ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+  geom_density(position = "fill", show.legend = TRUE) +
+  labs(fill = "",
+       title = "",
+       x = "",
+       y = "") +
+  scale_fill_identity(guide = "legend",
+                      labels = unique(main_institutions$Pays),
+                      breaks = unique(main_institutions$color)) +
+  #see::scale_fill_metro_d(reverse = TRUE, palette = "rainbow") +
+#  scico::scale_color_scico_d(palette = "hawai") +
+  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_classic() +
+  theme(legend.position = "bottom")  +
+  guides(fill = guide_legend(nrow = 4))
+ggsave(here(eer_data,"pictures","Graphs","EER_affiliations.png"), width=35, height=20, units = "cm")
+
+```
+
+```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+main_boards <- boards %>%
+  filter(Year <= 2002) %>%
+  rename("Pays" = Country) %>%
+  mutate(Pays = fct_lump(Pays, n = 10)) %>%
+  left_join(country_colors) %>%
+  mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+
+levels <- tibble("Pays" = levels(fct_lump(main_boards$Pays, n = 10))) %>%
+  filter(Pays != "OTHER") %>%
+  rbind("OTHER") %>%
+  mutate(rank = 1:n())
+
+main_boards <- main_boards %>%
+  left_join(levels) %>%
+  arrange(rank)
+
+ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+  geom_density(position = "fill") +
+  labs(fill = "",
+       title = "",
+       x = "",
+       y = "") +
+  scale_fill_identity(guide = "legend",
+                      labels = unique(main_boards$Pays),
+                      breaks = unique(main_boards$color)) +
+  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_classic() +
+  theme(legend.position = "bottom")  +
+  guides(fill = guide_legend(nrow = 4))
+ggsave(here(eer_data,"pictures","Graphs","Board_affiliations.png"), width=35, height=20, units = "cm")
+
+```
+
+```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+levels <- tibble("EU_US_collab" = c("Europe Only", "USA Only", "Collaboration", "Neither"),
+                 "rank" = 1:4)
+
+collabs_eer <- Institutions_all_EER %>%
+  # left_join(collabs) %>%
+  filter(Annee_Bibliographique <= 2002,
+         ! is.na(EU_US_collab)) %>%
+  select(ID_Art, EU_US_collab, Annee_Bibliographique) %>%
+  unique() %>%
+  left_join(levels)
+
+ggplot(collabs_eer, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(EU_US_collab, rank), fill = fct_reorder(EU_US_collab, rank))) +
+  geom_density(position = "fill") +
+  labs(fill = "",
+       title = "",
+       x = "",
+       y = "") +
+  see::scale_fill_see_d(reverse = TRUE, palette = "contrast") +
+  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_classic() +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 2))
+ggsave(here(eer_data,"pictures","Graphs","EER_collab_stack_density.png"), width=35, height=20, units = "cm")
+
+```
 
 ## EER Relative Importance
 

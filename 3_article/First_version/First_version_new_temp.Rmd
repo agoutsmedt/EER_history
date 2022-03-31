@@ -230,7 +230,10 @@ This context made of the EER a Belgian-centred initiative in the first years. Be
 
 [^6]: This is an approximation, as the affiliation per author is not available in our corpus and we only have the affiliations per article (see [Appendix B.2.](#author-affiliation) for more details).
 
-```{r plot-authors, fig.dim=c(5,5), fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
+```{r plot-authors, out.width = '100%', fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_affiliations.png"))
+
+
 # country_eer_colors <- institutions_eer %>%
 #   filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
 #   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays)) %>%
@@ -289,7 +292,9 @@ This context made of the EER a Belgian-centred initiative in the first years. Be
 
 The EER was one of these important initiatives that contributed to the development of intellectual exchanges between European based economists [@goutsmedt2021]. The centrality of the journal was strengthened in 1984 when the European Economic Association was created, and the EER established as the official journal of the new association.
 
-```{r plot-boards, fig.dim=c(5,5), fig.cap="Share of countries in EER editorial boards (Top 10)"}
+```{r plot-boards, out.width = '100%', fig.cap="Share of countries in EER editorial boards (Top 10)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Board_affiliations.png"))
+
 # main_boards <- boards %>% 
 #   filter(Year <= 2002) %>% 
 #   rename("Pays" = Country) %>% 
@@ -328,7 +333,9 @@ Outside of offering a common platform for European economists, the journal initi
 
 The share of US-based authors publishing in the journal grew steadily in the 1970s and reached a third of all affiliations in the early 1980s (Figure \ref{fig:plot-authors}). The increase of US economists participation to the EER does not mean uniquely that more articles were published by US authors, but also that number of collaborations between US- and European-based economists increased (Figure \ref{fig:plot-collabs}). While there was no collaboration in the first year of the journal, 10 percent of the articles published in 1980 mixed institutions from the US and Europe.
 
-```{r plot-collabs, fig.dim=c(4.5,4), fig.cap="Patterns of collaboration between the United States and European countries in EER"}
+```{r plot-collabs, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_collab_stack_density.png"))
+
 # levels <- tibble("EU_US_collab" = c("Europe Only", "USA Only", "Collaboration", "Neither"),
 #                  "rank" = 1:4)
 # 
@@ -353,6 +360,10 @@ The share of US-based authors publishing in the journal grew steadily in the 197
 #   theme(legend.position = "bottom") +
 #   guides(fill = guide_legend(nrow = 2))
 
+```
+
+```{r plot-collabs2, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER (noodle version)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Collab_strict.png"))
 ```
 
 In the mid-1980s, the journal was thus a symbol of a more integrated European economics, inspired by the US standards, as well as it was attracting many US economists to publish in it. Its intellectual influence similarly expanded and it became a major economic journal, overcoming other important European journals in terms of bibliographic citations (Figure \ref{fig:plot-eer-importance}).
