@@ -730,7 +730,7 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeani
 
 # A Look at Dynamic Communities
 
-We printed a variety of table too explore the content of content of the clusters identified in with the dynamic network analysis. In each subsections of this section, users can explore individual clusters and find out the most cited references of each clusters, the nodes with the highest number of citations, the most productive authors or the most distinctive words, institutions and countries.
+We printed a variety of tables to explore the content of the clusters identified in with the dynamic network analysis. In each subsections of this section, users can explore individual clusters and find out the most cited references of each clusters, the nodes with the highest number of citations, the most productive authors or the most distinctive words, institutions and countries.
 
 We also cross-checked our topic analysis with our network analysis by assigning topics to individual articles clusters when the topics of the article had a $\gamma > 0.1$. The share in the Occurrences table of topics is interpreted as the share of articles in the cluster that have a given topic. Another available index is the sum of gamma in the cluster which weight the occurrence of topics with the probability of articles to belong to particular topics.
 
