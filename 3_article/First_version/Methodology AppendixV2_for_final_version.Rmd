@@ -300,6 +300,11 @@ We have several steps to clean our texts before running our topic models:
 
 We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R package.^[Roberts ME, Stewart BM, Tingley D (2019). “stm: An R Package for Structural Topic Models.” _Journal of Statistical Software_, *91*(2), 1-40.]
 
+```{r}
+# I am not sure it should be Copurs in the `r trunc(0.005 * nrow(corpus), 1)` part
+
+```
+
 From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
 
 - by exluding trigrams or not;
