@@ -37,11 +37,11 @@ $('.zoomDiv').css({opacity: '0', width: '0%'});
 
 # Introduction
 
-In the section [EER Bibliographic Information] of this appendix, we compiled bibliographic information related to all articles published in the European Economic Review (EER). The goal of this section is to provide general information about the journal, to contextualize the following network analysis. Users can explore information about the most cited references, the most productive authors in the journal, or the type of collaboration between American and European economists in the journal.
+In the section [EER Bibliographic Information] of this appendix, we compiled bibliographic information related to all articles published in the European Economic Review (EER). The goal of this section is to provide general information about the journal, to contextualize the following network analysis. Users can explore information about the most cited references, the most productive authors in the journal, or the type of collaboration between US and European economists in the journal.
 
-In the section [Dynamics Networks], we propose a network analysis of all macro articles, identified by JEL codes, published in the top five economics journals and the EER. In this section, we explore the structure of macroeconomics publications in these journals by identifying clusters of articles that tackle similar subjects using their bibliography. From these clusters, we identify clusters that are more European-oriented (research published in the EER and/or written by European authors) from clusters that are more American-oriented.
+In the section [Dynamics Networks], we propose a network analysis of all macro articles, identified by JEL codes, published in the top five economics journals and the EER. In this section, we explore the structure of macroeconomics publications in these journals by identifying clusters of articles that tackle similar subjects using their bibliography. From these clusters, we identify clusters that are more European-oriented (research published in the EER and/or written by European authors) from clusters that are more US-oriented.
 
-Finally, in section [A Look at Dynamic Communities] users can explore information about the individual clusters identified in the previous section. For example, we produced a variety of tables to explore the most cited references of the cluster or its most distinctive words/institutions compared to the overall corpus. In addition, users can also find some intra-clusters information about how the cluster evolved overtime, or the differences in the clusters between European/American authors and/or venues of publications.
+Finally, in section [A Look at Dynamic Communities] users can explore information about the individual clusters identified in the previous section. For example, we produced a variety of tables to explore the most cited references of the cluster or its most distinctive words/institutions compared to the overall corpus. In addition, users can also find some intra-clusters information about how the cluster evolved overtime, or the differences in the clusters between European/US authors and/or venues of publications.
 
 ```{r, include=FALSE, set.seed(333)}
 knitr::opts_knit$set(root.dir = "D:/Dropbox/8-Projets Quanti/1-R_Projects/Home/EER_history")
@@ -53,6 +53,8 @@ source(here("functions", "functions_networks_alex.R"))
 
 require(rmdformats)
 require(kableExtra)
+require(see)
+require(ragg)
 set.seed(333)
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
@@ -260,14 +262,20 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75,color="black")+
   geom_point(alpha=0.2)+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  labs(x = "",
-       y = "") +
+  labs(x = NULL,
+       y = NULL) +
   scale_y_continuous(labels = scales::label_percent()) +
   scale_x_continuous() +
   coord_cartesian(ylim = c(0,1)) +
-  theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA))
-ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=35, height=20, units = "cm")
+  theme_minimal() 
+  # theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=30, height=20, units = "cm", scaling = 1.7)
+
+# ragg::agg_png(here(eer_data,"pictures","Graphs","ragg.png"), width = 30, height = 20, units = "cm", res = 300, scaling = 2)
+
+
+
+
 
 ```
 
@@ -288,9 +296,7 @@ ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=35, height=20, u
 <!-- kable(Institutions_all_EER[,.N,Institution][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
 <!-- ``` -->
 
-## Collaborations between Europeans and Americans in the EER
-
-The two following tables lists the 20 most occurring institutions and countries in the EER:
+## Collaborations between Europeans and US in the EER
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 #### Collaborations ####
@@ -308,20 +314,20 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   geom_point(alpha=0.2) +
   labs(fill = "Countries (Top 7)") +
-  scale_x_continuous("Years") +
-  scale_y_continuous("Share of Papers Authored by European and American Economists", limits = c(0, 0.8), breaks = seq(0,.8,0.2)) +
+  scale_x_continuous(NULL) +
+  scale_y_continuous("Share of Papers Authored by Affiliations", limits = c(0, 0.8), breaks = seq(0,.8,0.2)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_fill_manual(values = c(rev(brewer.pal(n = 9, name = "Paired")))) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
-  coord_cartesian(xlim = c(NA, 2010)) 
-ggsave(here(eer_data,"pictures","Graphs","Collab_strict.png"), width=35, height=20, units = "cm")
+  coord_cartesian(xlim = c(NA, 2010))
+ggsave(here(eer_data,"pictures","Graphs","Collab_strict.png"), width=30, height=20, units = "cm", scaling = 1.7)
 
 
 ```
 
-The following graph informs us about the collaborations between American and European authors in the EER:
+The following graph informs us about the collaborations between US and European authors in the EER:
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 
@@ -405,10 +411,10 @@ main_institutions <- main_institutions %>%
 
 ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
   geom_density(position = "fill", show.legend = TRUE) +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
+  labs(fill = NULL,
+       title = NULL,
+       x = NULL,
+       y = NULL) +
   scale_fill_identity(guide = "legend",
                       labels = unique(main_institutions$Pays),
                       breaks = unique(main_institutions$color)) +
@@ -418,8 +424,8 @@ ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(coun
   scale_x_continuous(expand = c(0,0)) +
   theme_classic() +
   theme(legend.position = "bottom")  +
-  guides(fill = guide_legend(nrow = 4))
-ggsave(here(eer_data,"pictures","Graphs","EER_affiliations.png"), width=35, height=20, units = "cm")
+  guides(fill = guide_legend(nrow = 4)) 
+ggsave(here(eer_data,"pictures","Graphs","EER_affiliations.png"), width=30, height=20, units = "cm", scaling = 1.7)
 
 ```
 
@@ -442,10 +448,10 @@ main_boards <- main_boards %>%
 
 ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
   geom_density(position = "fill") +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
+  labs(fill = NULL,
+       title = NULL,
+       x = NULL,
+       y = NULL) +
   scale_fill_identity(guide = "legend",
                       labels = unique(main_boards$Pays),
                       breaks = unique(main_boards$color)) +
@@ -454,7 +460,7 @@ ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank)
   theme_classic() +
   theme(legend.position = "bottom")  +
   guides(fill = guide_legend(nrow = 4))
-ggsave(here(eer_data,"pictures","Graphs","Board_affiliations.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Board_affiliations.png"), width=30, height=20, units = "cm", scaling = 1.7)
 
 ```
 
@@ -472,23 +478,23 @@ collabs_eer <- Institutions_all_EER %>%
 
 ggplot(collabs_eer, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(EU_US_collab, rank), fill = fct_reorder(EU_US_collab, rank))) +
   geom_density(position = "fill") +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
+  labs(fill = NULL,
+       title = NULL,
+       x = NULL,
+       y = NULL) +
   see::scale_fill_see_d(reverse = TRUE, palette = "contrast") +
   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
   scale_x_continuous(expand = c(0,0)) +
   theme_classic() +
   theme(legend.position = "bottom") +
   guides(fill = guide_legend(nrow = 2))
-ggsave(here(eer_data,"pictures","Graphs","EER_collab_stack_density.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","EER_collab_stack_density.png"), width=30, height=20, units = "cm", scaling = 1.7)
 
 ```
 
 ## EER Relative Importance
 
-The three following graph informs us about the share of 7 economics journals in the references of (1) all articles in social sciences, (2) all articles in economics, and (3) all articles in macroeconomics. The complete list of journal is the *European Economic Review* (EER), *The Scandinavian Journal of Economics* (Scandinavian), *The Economic Journal*, the *Review of Economic Studies, Economica*, *Oxford Economic Papers*, and the *Weltwirtschaftliches Archiv*. We use these journals as benchmark to measure the changing relative importance of the EER in the landscape of economics when compared to other European and American journals.
+The three following graph informs us about the share of 7 economics journals in the references of (1) all articles in social sciences, (2) all articles in economics, and (3) all articles in macroeconomics. The complete list of journal is the *European Economic Review* (EER), *The Scandinavian Journal of Economics* (Scandinavian), *The Economic Journal*, the *Review of Economic Studies, Economica*, *Oxford Economic Papers*, and the *Weltwirtschaftliches Archiv*. We use these journals as benchmark to measure the changing relative importance of the EER in the landscape of economics when compared to other European and US journals.
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 #################### All social sciences ####################
@@ -537,12 +543,12 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=An
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
   scale_x_continuous("Years") +
   scale_y_continuous("Share of EER in Social Sciences Refs", labels = scales::percent_format(scale=1)) +
-  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
+  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
-  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
+  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA))
-ggsave(here(eer_data,"pictures","Graphs","EER_importance.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","EER_importance.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
 
 
@@ -576,12 +582,12 @@ ggplot(count[Annee_Bibliographique>1970  & Annee_Bibliographique<=2002], aes(x=A
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
   scale_x_continuous("Years") +
   scale_y_continuous("Share of EER in All Economics Refs", labels = scales::percent_format(scale=1)) +
-  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
+  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
-  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
+  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA))
-ggsave(here(eer_data,"pictures","Graphs","EER_importance_econ.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","EER_importance_econ.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
 #################### All  macro ####################
 
@@ -613,13 +619,13 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=An
   geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
   scale_x_continuous("Years") +
-  scale_y_continuous("Share of EER in All Economics Refs", labels = scales::percent_format(scale=1)) +
-  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2006)) +
+  scale_y_continuous("Share of EER in All Macroeconomics Refs", labels = scales::percent_format(scale=1)) +
+  coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
-  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
+  ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA))
-ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
 
 ```
@@ -681,7 +687,7 @@ min_leiden_max <- 0.04
 
 ```
 
-A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
+A first way to identify potential differences between European and US macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to US articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
 
     -   The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
     -   The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
@@ -702,23 +708,23 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","Intertemporal_communi
 
 ```
 
-## European/American identity of clusters
+## European/US identity of clusters
 
-For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:
+For each clusters, we identified the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each cluster, we subtracted the relative share of European authors to US authors in the cluster, to the relative share of European authors to US authors on the same time window of the cluster leading us to the first index:
 
-$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$
+${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of US Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of US Authored Articles In The Time Window}})}$
 
 We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:
 
-$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$
+${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})}$
 
 To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:
 
 
-$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$
+${\scriptstyle \text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}}$
 
 
-In the following graph, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores:
+In the following graph, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the US vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores:
 
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
@@ -858,16 +864,16 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
-                           aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
+                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=1) +
   scico::scale_color_scico(palette = "roma", breaks = c(-2.2, 1), labels = c("Less European", "More European")) +
-  labs(title = "",
-       color = "",
+  labs(title = NULL,
+       color = NULL,
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
   theme(legend.position = "bottom") +
   guides(size = "none") 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=35, height=20, units = "cm")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=30, height=20, units = "cm", scaling = 1.7)
 
 saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_communities.rds"))
 ```

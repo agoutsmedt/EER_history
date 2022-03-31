@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 13:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 15:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -785,14 +785,14 @@ LaTeX Warning: Reference `methods' on page 2 undefined on input line 237.
 
 [2]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/mean_jel.png, id=34, 995.6397pt x 569.0058pt>
+/Graphs/mean_jel.png, id=34, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/mean_jel.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/mean_jel.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/mean_jel.png  used on input line 243.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
 Package natbib Warning: Citation `waelbroeck1969' on page 3 undefined on input 
 line 264.
@@ -802,10 +802,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.271 T
-       he fact that such a project was born in Belgium is not a coincidence. <G
-:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/G
-raphs/mean_jel.png>]
+l.270 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/mean_jel.png>]
 
 Package natbib Warning: Citation `duppe2017' on page 4 undefined on input line 
 277.
@@ -831,28 +830,23 @@ LaTeX Warning: Reference `fig:plot-boards' on page 4 undefined on input line 29
 9.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_affiliations.png, id=49, 995.6397pt x 569.0058pt>
+/Graphs/EER_affiliations.png, id=51, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/EER_affiliations.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/EER_affiliations.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/EER_affiliations.png  used on input line 303.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 Package natbib Warning: Citation `goutsmedt2021' on page 4 undefined on input l
 ine 312.
 
-[4
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.315 
-       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/EER_affiliations.png>]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Board_affiliations.png, id=58, 995.6397pt x 569.0058pt>
+/Graphs/Board_affiliations.png, id=52, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/Board_affiliations.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -860,17 +854,21 @@ ures/Graphs/Board_affiliations.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/Board_affiliations.png  used on input line 318.
 
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
-LaTeX Warning: Reference `fig:plot-authors' on page 5 undefined on input line 3
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: Reference `fig:plot-authors' on page 4 undefined on input line 3
 41.
 
 
-LaTeX Warning: Reference `fig:plot-collabs' on page 5 undefined on input line 3
+LaTeX Warning: Reference `fig:plot-collabs' on page 4 undefined on input line 3
 45.
 
+[4]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_collab_stack_density.png, id=59, 995.6397pt x 569.0058pt>
+/Graphs/EER_collab_stack_density.png, id=62, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/EER_collab_stack_density.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -878,19 +876,19 @@ ures/Graphs/EER_collab_stack_density.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/EER_collab_stack_density.png  used on input lin
 e 351.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Collab_strict.png, id=60, 995.6397pt x 569.0058pt>
+/Graphs/Collab_strict.png, id=63, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/Collab_strict.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/Collab_strict.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/Collab_strict.png  used on input line 360.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -899,76 +897,66 @@ LaTeX Warning: Reference `fig:plot-eer-importance' on page 5 undefined on input
  line 372.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_Importance.png, id=61, 995.6397pt x 569.0058pt>
+/Graphs/EER_Importance.png, id=64, 853.5087pt x 853.5087pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/EER_Importance.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
 ures/Graphs/EER_Importance.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/EER_Importance.png  used on input line 376.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
-[5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.381 \end{figure}
-                   <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN
-5/data/EER/pictures/Graphs/Board_affiliations.png>]
+(pdftex.def)             Requested size: 345.0pt x 344.99191pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.406 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/EER_affiliations.png>]
 
 Package natbib Warning: Citation `jel1991' on page 6 undefined on input line 40
 8.
 
+
+Package natbib Warning: Citation `traag2019' on page 6 undefined on input line 
+436.
+
+
+Package natbib Warning: Citation `claveau2016' on page 6 undefined on input lin
+e 441.
+
+
+Package natbib Warning: Citation `truc2021' on page 6 undefined on input line 4
+41.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 6 undefined on input l
+ine 441.
+
 [6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.447 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/Board_affiliations.png>] [7
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.421 
+l.462 
        <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
 ictures/Graphs/EER_collab_stack_density.png>]
-
-Package natbib Warning: Citation `traag2019' on page 7 undefined on input line 
-436.
-
-
-Package natbib Warning: Citation `claveau2016' on page 7 undefined on input lin
-e 441.
-
-
-Package natbib Warning: Citation `truc2021' on page 7 undefined on input line 4
-41.
-
-
-Package natbib Warning: Citation `goutsmedt2021' on page 7 undefined on input l
-ine 441.
-
-[7
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.448 T
-       his process allows us to obtain dynamic clusters Indeed, citation <G:/.s
-hortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/Graph
-s/Collab_strict.png>]
 
 LaTeX Warning: Reference `fig:plot-community-diff' on page 8 undefined on input
  line 477.
 
-[8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.480 
-       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/EER_Importance.png>]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Communities_europeanisation_colored.png, id=110, 995.6397pt x 569.0058p
+/Graphs/Communities_europeanisation_colored.png, id=105, 853.5087pt x 569.0058p
 t>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/Communities_europeanisation_colored.png Graphic file (type png)
@@ -977,33 +965,44 @@ ures/Graphs/Communities_europeanisation_colored.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png  used o
 n input line 483.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
-Package natbib Warning: Citation `blei2007' on page 9 undefined on input line 5
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `blei2007' on page 8 undefined on input line 5
 02.
 
 
-Package natbib Warning: Citation `bischof2012' on page 9 undefined on input lin
+Package natbib Warning: Citation `bischof2012' on page 8 undefined on input lin
 e 508.
 
 
-LaTeX Warning: Reference `tab:summary-topics' on page 9 undefined on input line
+LaTeX Warning: Reference `tab:summary-topics' on page 8 undefined on input line
  515.
 
-
-LaTeX Warning: Reference `fig:plot-topic-diff' on page 9 undefined on input lin
-e 527.
-
-[9
-pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.530 
+l.517 
        <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/Communities_europeanisation_colored.png>]
+ictures/Graphs/Collab_strict.png>] [9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.518 S
+       imilarly to what we do for bibliometric coupling, we are interested in <
+G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/
+Graphs/EER_Importance.png>]
+
+LaTeX Warning: Reference `fig:plot-topic-diff' on page 10 undefined on input li
+ne 527.
+
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/topic_modelling/logratio_diff_plot.png, id=127, 1422.63495pt x 1138.07182pt>
+/topic_modelling/logratio_diff_plot.png, id=128, 1422.63495pt x 1138.07182pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/topic_modelling/logratio_diff_plot.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -1012,6 +1011,9 @@ Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/topic_modelling/logratio_diff_plot.png  used on input 
 line 533.
 (pdftex.def)             Requested size: 345.0pt x 275.99077pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 LaTeX Warning: Reference `understanding-specialities' on page 10 undefined on i
 nput line 544.
@@ -1041,13 +1043,13 @@ LaTeX Warning: Reference `tab:summary-communities' on page 10 undefined on inpu
 t line 563.
 
 [10
-pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.568 
        <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/topic_modelling/logratio_diff_plot.png>]
+ictures/Graphs/Communities_europeanisation_colored.png>]
 
 LaTeX Warning: Reference `understanding-specialities' on page 11 undefined on i
 nput line 570.
@@ -1071,22 +1073,30 @@ line 589.
 
 LaTeX Warning: Reference `rigidities' on page 11 undefined on input line 592.
 
+[11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.593 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/topic_modelling/logratio_diff_plot.png>]
 
-Package natbib Warning: Citation `pissarides1990' on page 11 undefined on input
+Package natbib Warning: Citation `pissarides1990' on page 12 undefined on input
  line 596.
 
 
-Package natbib Warning: Citation `mortensen1994' on page 11 undefined on input 
+Package natbib Warning: Citation `mortensen1994' on page 12 undefined on input 
 line 596.
 
 
-Package natbib Warning: Citation `layard1991a' on page 11 undefined on input li
+Package natbib Warning: Citation `layard1991a' on page 12 undefined on input li
 ne 596.
 
-[11] [12]
+[12] [13]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 648.
-[13
+[14
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1246,13 +1256,13 @@ Overfull \hbox (0.82571pt too wide) in alignment at lines 719--1125
 Package longtable Warning: Column widths have changed
 (longtable)                in table 2 on input line 1125.
 
-[14] [15] [16]
+[15] [16] [17]
 
-Package natbib Warning: Citation `jel1991' on page 17 undefined on input line 1
+Package natbib Warning: Citation `jel1991' on page 18 undefined on input line 1
 146.
 
 
-LaTeX Warning: Reference `eer-top5-macro' on page 17 undefined on input line 11
+LaTeX Warning: Reference `eer-top5-macro' on page 18 undefined on input line 11
 47.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
@@ -1261,12 +1271,12 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-Package natbib Warning: Citation `jel1991' on page 17 undefined on input line 1
+Package natbib Warning: Citation `jel1991' on page 18 undefined on input line 1
 202.
 
-[17] [18]
+[18] [19]
 
-Package natbib Warning: Citation `shen2019' on page 19 undefined on input line 
+Package natbib Warning: Citation `shen2019' on page 20 undefined on input line 
 1313.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
@@ -1279,62 +1289,31 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Package natbib Warning: Citation `traag2019' on page 19 undefined on input line
+Package natbib Warning: Citation `traag2019' on page 20 undefined on input line
  1338.
 
-[19]
+[20]
 Underfull \hbox (badness 10000) in paragraph at lines 1357--1364
 
  []
 
 
-Overfull \hbox (20.86574pt too wide) in paragraph at lines 1365--1366
-[]$[] \OT1/lmr/m/n/10 (-20) = []([]) \OMS/lmsy/m/n/10 ^^@
+Overfull \hbox (154.61893pt too wide) in paragraph at lines 1365--1366
+[]$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1365--1366
-
+Overfull \hbox (94.88841pt too wide) in paragraph at lines 1373--1374
+[]$[]$ 
  []
 
+[21]
 
-Underfull \hbox (badness 10000) in paragraph at lines 1367--1372
-
- []
-
-
-Overfull \hbox (184.42068pt too wide) in paragraph at lines 1373--1374
-[]$[] \OT1/lmr/m/n/10 (-20) = []([]) \OMS/lmsy/m/n/10 ^^@ []\OT1/lmr/m/n/10 (-2
-0) ([])$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1373--1374
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1375--1377
-
- []
-
-
-Overfull \hbox (54.57907pt too wide) in paragraph at lines 1378--1379
-[]$[] \OT1/lmr/m/n/10 (-20) = [] + []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1378--1379
-
- []
-
-[20]
-
-Package natbib Warning: Citation `blei2007' on page 21 undefined on input line 
+Package natbib Warning: Citation `blei2007' on page 22 undefined on input line 
 1438.
 
 
-Package natbib Warning: Citation `bischof2012' on page 21 undefined on input li
+Package natbib Warning: Citation `bischof2012' on page 22 undefined on input li
 ne 1468.
 
 No file First_version_new_temp.bbl.
@@ -1344,7 +1323,7 @@ Package natbib Warning: There were undefined citations.
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
-[21] (First_version_new_temp.aux)
+[22] (First_version_new_temp.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1361,8 +1340,8 @@ Package rerunfilecheck Info: Checksums for `First_version_new_temp.out':
 (rerunfilecheck)             After:  547F8B6B1C7ABC71D6B654D2BF5F14E2;4150.
  ) 
 Here is how much of TeX's memory you used:
- 15588 strings out of 478582
- 256646 string characters out of 2844344
+ 15589 strings out of 478582
+ 256653 string characters out of 2844344
  585100 words of memory out of 3000000
  33082 multiletter control sequences out of 15000+600000
  547577 words of font info for 206 fonts, out of 8000000 for 9000
@@ -1376,20 +1355,21 @@ ers/alex7/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Users
 /alex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/
 alex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/a
 lex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/al
-ex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/alex
-7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alex7/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alex7/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alex7/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alex7/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alex7/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri9.pfb><C:/Users/alex7/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alex7/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alex7/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on First_version_new_temp.pdf (21 pages, 3241574 bytes).
+ex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/alex
+7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/alex7/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alex7/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alex7/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alex7/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alex7/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alex7/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri9.pfb><C:/Users/alex7/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/alex7/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alex7/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
+Output written on First_version_new_temp.pdf (22 pages, 3433885 bytes).
 PDF statistics:
- 349 PDF objects out of 1000 (max. 8388607)
- 121 named destinations out of 1000 (max. 500000)
+ 360 PDF objects out of 1000 (max. 8388607)
+ 122 named destinations out of 1000 (max. 500000)
  39465 words of extra memory for PDF output out of 42996 (max. 10000000)
 

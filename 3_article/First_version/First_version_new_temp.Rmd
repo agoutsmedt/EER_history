@@ -593,15 +593,16 @@ This gives us `r n_communities_alluv`, with `r n_communities_of_interest` that a
 
 For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:\newline
 
-$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$\newline
+${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of US Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of US Authored Articles In The Time Window}})}$
 
-We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:\newline
+We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:
 
-$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$\newline
+${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})}$
 
-To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:\newline
+To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:
 
-$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$\newline
+
+${\scriptstyle \text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}}$
 
 Finally, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores.
 
