@@ -611,6 +611,11 @@ We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R 
 
 From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
 
+```{r}
+# I am not sure it should be Copurs in the `r trunc(0.005 * nrow(corpus), 1)` part
+
+```
+
 - by exluding trigrams or not;
 - by removing the terms that are present in less than 0.5% of the Corpus (`r trunc(0.005 * nrow(Corpus), 1)`), 1% (`r trunc(0.01 * nrow(Corpus), 1)`) and 2% (`r trunc(0.02 * nrow(Corpus), 1)`);
 - by removing articles with less than 6 words or with less than 12 words.^[Here, only articles with no abstract are impacted.]
