@@ -513,6 +513,27 @@ EER importance in all articles in macroeconomic:
 knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_macro.png"))
 ```
 
+# Specific Informations
+
+```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
+#Kydland, F. E., & Prescott, E. C. (1977), ID_Art = 41840190, ItemID_Ref = 927846
+#Barro, R. J., & Gordon, D. B. (1983a) JME, ID_Art = 3123492, ItemID_Ref = 975989
+#Barro, R. J., & Gordon, D. B. (1983b) JPE, ID_Art = 3126115, ItemID_Ref = 927415
+#Rogoff, K. (1985), ID_Art = 4712441, ItemID_Ref = 2077024
+
+#Lucas Jr, R. E. (1972), ID_Art = 39162373, ItemID_Ref = 214939
+#Barro, R. J. (1974), ID_Art = 40437669, ItemID_Ref = 1398019
+#Sargent, T. J., & Wallace, N. (1975), ID_Art = 41031764, ItemID_Ref = 1406834
+#Kydland, F. E., & Prescott, E. C. (1982), ID_Art = 2064938, ItemID_Ref = 181884
+#RLucas, R. E. (1973), ID_Art = 39714648, ItemID_Ref = 804988
+
+all_art <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet"))
+
+
+citations_journals_econ
+
+```
+
 # Dynamics Networks
 
 ```{r}

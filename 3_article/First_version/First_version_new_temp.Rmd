@@ -1,0 +1,620 @@
+---
+title: "An Independent European Macro? A History of European Macroeconomics through the Lens of the European Economic Review"
+# author:
+#   - name: Aurélien Goutsmedt
+#     affiliation: 1
+#     footnote: 3
+#   - name: Alexandre Truc
+#     affiliation: 2
+# address:
+#   - code: 1
+#     address: "UCLouvain, ISPOLE. Collège Jacques Leclercq, Place Montesquieu, 1/L 2.08.07, 1348 - Louvain-la-Neuve."
+#   - code: 2
+#     address: "Université Côte d’Azur, CNRS GREDEG France."
+# footnote:
+#   - code: 3
+#     text: "Corresponding Author: aurelien.goutsmedt@uclouvain.be"
+# abstract: |
+#   Economics in Europe has encountered a process of internationalisation since the 1970s. To a certain extent, this internationalisation is also an 'Americanisation' and many European departments and economics have adopted the standards of US economics, notably mathematical modelling, the use of econometrics, and the neoclassical theory as a modelling benchmark. Regarding this process, we can wonder if European economics has just been mimicking US economics since the 1970s, or if some European specialities have survived or emerged.
+# 
+#   In this article, we use topic modelling and bibliometric coupling to identify what have been some European specialities between 1969 and 2002. We focus on one economics sub-discipline, macroeconomics, and we use the articles published in the European Economic Review and compare their bibliographic references and content to what has been published in the top 5 journals.  
+# 
+# journal: "European Economic Review"
+date: "`r Sys.Date()`"
+bibliography: bibliography.bib
+link-citations: yes
+csl: elsevier-harvard.csl
+output: 
+  rticles::elsevier_article:
+    number_sections: true
+    toc: false
+    toc_depth: 3
+    extra_dependencies: ["float"]
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE, 
+                      eval = TRUE, 
+                      cache = TRUE,
+                      fig.align = "center",
+                      fig.pos = "h")
+
+package_list <- c("data.table", 
+                  "tidyverse",
+                  "tidygraph",
+                  "ggrepel",
+                  "scico", "see",
+                  "googledrive",
+                  "here",
+                  "kableExtra",
+                  "DiagrammeR",
+                  "webshot")
+for (p in package_list) {
+  if (p %in% installed.packages() == FALSE) {
+    install.packages(p, dependencies = TRUE)
+  }
+  library(p, character.only = TRUE)
+}
+
+```
+
+```{r loading-data, cache=TRUE}
+
+# Paths
+if (str_detect(getwd(), "goutsmedt")) {
+  data_path <- "C:/Users/goutsmedt/Mon Drive/data"
+} else {
+  if (str_detect(getwd(), "Dropbox")) {
+    data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
+  } else {
+    data_path <- "/projects/data/macro_AA"
+  }
+}
+source(here("Script_paths_and_basic_objects_EER.R"))
+
+
+# Loading Corpus and filter it to have to good corpus EER, and macroEER/Top 5
+
+all_macro <- readRDS(here(data_path,
+                          "macro_AA",
+                          "2_Matched_data",
+                          "Econlit_matched_ID_Art.RDS"))
+
+Corpus <- readRDS(here(eer_data,
+                       "1_Corpus_Prepped_and_Merged",
+                       "Corpus_top5_EER.RDS"))
+
+Refs <- readRDS(here(eer_data, 
+                     "1_Corpus_Prepped_and_Merged",
+                     "Direct_citations_top5_EER.RDS"))
+
+Refs_info <- readRDS(here(eer_data, 
+                          "1_Corpus_Prepped_and_Merged",
+                          "References_top5_EER.rds"))
+
+Institution <- readRDS(here(eer_data, 
+                            "1_Corpus_Prepped_and_Merged",
+                            "Institutions_top5_EER.RDS"))
+Institution <- merge(Institution,Corpus[,.(Annee_Bibliographique,ID_Art)],by="ID_Art",all.x=TRUE)
+
+Authors <- readRDS(here(eer_data, 
+                        "1_Corpus_Prepped_and_Merged",
+                        "Authors_Top5_EER.RDS"))
+Authors[,Nom_ISI:=Nom]
+
+# Corpus econlit
+econlit_new <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_JEL_Articles.rds"))
+econlit_old <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_Old_JEL_Articles.rds"))
+econlit_art <- rbind(econlit_old, econlit_new)
+
+# Corpus alluvial and network
+alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
+alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
+tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
+communities <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "euro_vs_us_communities.rds")) %>% arrange(desc(sum_diff))
+
+# Corpus EER
+Corpus_all_EER <- Corpus[journal_type=="EER"] 
+Refs_all_EER <- Refs[ID_Art %in% Corpus_all_EER$ID_Art]
+Institutions_all_EER <- Institution[ID_Art %in% Corpus_all_EER$ID_Art]
+Authors_EER <- Authors[ID_Art %in% Corpus_all_EER$ID_Art]
+
+# Corpus macro EER/Top5
+Corpus <- Corpus[jel_id==1]
+Corpus <- Corpus[Annee_Bibliographique>=1973]
+Refs <- Refs[ID_Art %in% Corpus$ID_Art]
+Institution <- Institution[ID_Art %in% Corpus$ID_Art]
+Authors <- Authors[ID_Art %in% Corpus$ID_Art]
+
+# Topic modelling data
+topic_diff <- readRDS(here(eer_data, 
+                           "3_Topic_modelling",
+                           "TM_topics_diff.rds")) %>% 
+  mutate(total_diff = diff_affiliation + diff_journal,
+         topic = as.integer(str_extract(topic_name, "[:digit:]+")))
+
+top_terms <- readRDS(here(eer_data,
+                          "3_Topic_modelling",
+                          "TM_top_terms.rds")) %>% 
+  left_join(select(topic_diff, topic, total_diff))
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
+
+# Bibliometric coupling data
+# networks_top5 <- readRDS(here(eer_data, 
+#                               "2_raw_Networks_and_Alluv",
+#                               "list_networks_EER_Top5_Macro.rds")) %>%
+#   lapply(function(tbl) (tbl %>% activate(nodes) %>% as.data.table())) %>%
+#   rbindlist(idcol = "window", fill = TRUE) %>%
+#   mutate(window = paste0(window, "-", as.integer(window) + 9)) %>%
+#   select(ID_Art, new_Id_com, window, color, Leiden1) %>%
+#   unique()
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
+
+```
+
+```{r}
+n_corpus <- Corpus[,.N]
+
+n_econlit <- econlit_art[toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY" 
+               | toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS" 
+               | toupper(Journal)=="AMERICAN ECONOMIC REVIEW"
+               | toupper(Journal)=="EUROPEAN ECONOMIC REVIEW"
+               | toupper(Journal)=="REVIEW OF ECONOMIC STUDIES"
+               | toupper(Journal)=="ECONOMETRICA"][Year.V1>=1973 & Year.V1<=2002][,.N]
+
+network_raw_com <- lapply(tbl_coup_list,function(x) x %>% activate(nodes) %>% as.data.table %>% .[,.N,Leiden1])
+network_raw_com <- rbindlist(network_raw_com,fill = TRUE)
+n_communities_raw <- network_raw_com[,.N]
+
+n_communities_alluv <- alluv_dt_graph[,.N,new_Id_com][,.N]
+n_communities_of_interest <- alluv_dt_graph[,.N,Label_com][!is.na(Label_com),.N]
+n_windows <- alluv_dt_graph[,.N,Window][,.N]
+meta_group <- alluv_dt_graph[!is.na(Label_com),.N,meta_group]
+
+time_window <- 8
+min_n_years <- 2
+min_leiden_max <- 0.04
+
+```
+
+# Introduction
+
+In 1987, the then director of the Centre for Economic Policy Research, Richard Portes, attempted to assess the "state and status of economics in Europe" in the *European Economic Review*. He regarded "the standard of comparison [as] obvious: the United States, by far the dominant producer" [@portes1987, 1329]. He thus asked "whether there is now any economics outside and independent of the United States." (1330) He gave a list of the many indices testifying of the US domination, ending it by the fact that "the leaders of the economics profession in Europe were trained as postgraduates in the United States. Many take from the US their professional standards, their views of what are the interesting problems, and their approaches to them". (*ibid.*)
+
+Indeed, since the early 1970s, economics in many Western European countries had entered in a process of internationalisation [@fourcade2006; @fourcade2009, chapters 3 and 4]. On a large extent, such process was also a form of "Americanisation" [@coats1996; @goutsmedt2021]: professional and intellectual standards were progressively adopted in European countries, mimicking the functioning of the US academic field. English gradually spread as the dominant language in economics [@sandelin1997] and publications in peer-review journals became the norm for assessing research productivity. The organisation of international events were encouraged to boost research centres visibility [@goutsmedt2021]. In terms of content, the Americanisation of the discipline in Europe favoured the intellectual standards that had become widespread in the US in the postwar era [@morgan1998]: the use of mathematical economics and econometrics, and the reliance on neoclassical theory as a benchmark for modelling.[^1]
+
+[^1]: Of course, this process of Americanisation did not go without conflicts: many "local conflicts" emerged between more "nationally-trained" economists (generally locally trained) and "internationally-trained economists" who had been often trained in the US [@fourcade2006]. These conflicts involved intellectual matters (for instance around the relevance of the neoclassical theory) as well as institutional issues, like the criteria to assess the quality of economists' work and thus to determine hiring and promotion.
+
+In parallel to this Americanisation, we can observe a process of 'Europeanisation': many initiatives from the creation of the *European Economic Review* (EER)in 1969 to the creation of the *Economic European Association* (EEA) in 1984 promoted the development of intellectual exchanges between European economists---while obviously keeping US economics as a model. The simultaneous spreading of US standards in Europe after the 1970s and the promotion of a European economics transcending national traditions bring us back to Portes's 1987 question: was there a possibility after the 1970s for the existence of a European tradition of economics, relatively autonomous from the US profession?
+
+Portes distinguished European "comparative advantages" [@portes1987, 1332] even if some of these European specialities had been pioneered by US economics. He highlighted the dynamism in Europe of "general equilibrium theory[,] social choice, duality, and the analysis of repeated games", "international macroeconomic policy coordination" or "Non-Walrasian macroeconomics" (*ibid*.). [@goutsmedt2021] have also highlighted that within the *International Seminar on Macroeconomics* (ISoM), whose proceedings were published annually in the EER, disequilibrium or Non-Walrasian macroeconomics and large-scale macroeconometric modelling constituted important rallying points until the mid-1980s for the European economists involved in the ISoM.
+
+The purpose of our article is to investigate this issue systematically and quantitatively. Regarding the history of the EER and its importance in the promotion of a European economics (see section \ref{EER-creation}), we think that it constitutes a good proxy for observing the emergence of 'European specialities'. We define as widespread research topics *(i)* distinct from what US-based economists were doing, *(ii)* adopted by many European-based economists in different European countries, and *(iii)* bringing collaboration between different universities. Using bibliometric coupling and topic modelling joined to qualitative content analysis, we identify European specialities from 1973 to 2002 (section \ref{european-specialities}).[^2]
+
+[^2]: [Could be revised depending on our final choices] The corpus we use (see section \ref{methods}) has very few abstracts between 1969 (the date of the creation of the EER) and 1972. Besides, there is no JEL code for EER articles before 1973, preventing us for identifying macroeconomics articles. After 2002 and the creation of the [*Journal of the European Economic Association*](https://academic.oup.com/jeea)*,* the EER was not the official journal of the EEA any more.
+
+The history of recent economics has mimicked the hierarchy of the discipline by focusing mainly on US economists (and their ideas) or institutions. Of course, some history of economics articles have dealt with the peculiarities of economics in some European countries since the 1970s or with important European economists [@maes2005; @benest2019]. However, our goal here is to investigate this issue at the European level and to understand if the internationalisation of the discipline since the 1970s have been accompanied by the emergence of European specialities, relatively independent of the US main topics and overcoming mere national traditions. Besides, we use quantitative methods, as we think that the latter are useful to get a general picture while limiting biased choices and focus.[^3]
+
+[^3]: Indeed, it could be easy and tempting to pick such or such areas of study and find one or two important European economists working on it, to make it a European speciality. Even if they involve choices and interpretations, we think that the methods we use limit this risk
+
+However, we are focusing only on macroeconomics articles, mainly because we think that such an investigation involved in-depth qualitative *and* qualitative analyses of these specialities and a relatively good knowledge of the literature. A similar investigation on the whole economic field would have been beyond our analytical capabilities. Besides, macroeconomics constituted a substantial part of EER publications, even representing almost half of all the articles in the early 1980s (Figure \ref{fig:plot-jel}). Macroeconomics was also instrumental in fostering collaborations between European economists as the "International Seminar on Macroeconomics" testifies (see Section \ref{rising-journal}). This article also relies on a unique dataset, which has been constituted by merging the content of four different institutional databases (see Section \ref{methods}).[^4]
+
+[^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix).
+
+```{r plot-jel, fig.cap="Share of Articles with at least one macroeconomics JEL code", fig.dim=c(4,3)}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
+```
+
+# The Creation of the EER {#EER-creation}
+
+## A European project with US influence
+
+In 1969, Jean Waelbroeck and Herbert Glejser, both from the *Université Libre de Bruxelles* (ULB), launched the *European Economic Review*. The new review was planned to be the official journal of the European Scientific Association of Applied Economics (ASEPELT), which had been created in 1961 by Waelbroeck and another ULB economist: Etienne Kirschen. Before 1969, the association published in English a bulletin gathering research in econometrics and mathematical economics [@waelbroeck1969, 4]. The EER took up this torch by advertising and publishing the same type of research. Articles in the EER had to be published in English, the new "*lingua franca* of economics" triggering the process of "internationalisation of our science" as Waelbroeck and Glejser polemically stated in the introduction of the first issue (*ibid.*).
+
+The fact that such a project was born in Belgium is not a coincidence. Indeed, the country displayed a high effervescence regarding the internationalization of the discipline. In 1966, Jacques Drèze established the Center for Operations Research and Econometrics (CORE) at the *Katholieke Universiteit Leuven* (before its split), on the model of the Cowles Commission and the Carnegie Institute of Technology, which Drèze had visited in the 1950s [@duppe2017].[^5] The CORE developed a research program around econometrics and macroeconomic modelling and quickly stimulated the establishment of a European research network of economists, notably through its large visiting programme [@maes2005; @duppe2017]. Encouraged by Waelbroeck, the ULB department of economics joined the CORE in its first years of existence [@maes2005, 79].
+
+[^5]: KU Leuven was split in 1968 between a Flamish and a French-speaking part, the latter giving birth to the *Université Catholique de Louvain* at Louvain-La-Neuve, where the CORE eventually moved in the mid-1970s.
+
+This context made of the EER a Belgian-centred initiative in the first years. Belgian institutions represented one fourth of authors' affiliations in EER articles in the first years (Figure \ref{fig:plot-authors}).[^6] Nonetheless, the EER authorship became increasingly diverse in the 1970s in terms of geographic affiliation. We observe the same for the editorial boards that, from the beginning, displayed an equilibrium between several Western European countries (Figure \ref{fig:plot-boards}).
+
+[^6]: This is an approximation, as the affiliation per author is not available in our corpus and we only have the affiliations per article (see [Appendix B.2.](#author-affiliation) for more details).
+
+```{r plot-authors, fig.dim=c(5,5), fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
+# country_eer_colors <- institutions_eer %>%
+#   filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
+#   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays)) %>%
+#   count(Pays) %>%
+#   slice_max(n, n = 10) %>%
+#   select(Pays)
+# 
+# country_boards_color <- boards %>%
+#   filter(Year <= 2002) %>%
+#   count(Country) %>%
+#   slice_max(n, n = 10) %>%
+#   rename("Pays" = Country) %>%
+#   select(Pays)
+# 
+# country_colors <- union(country_eer_colors, country_boards_color) %>%
+#   arrange(Pays) %>%
+#   mutate(color = see::see_colors()[1:n()]) %>%
+#  # mutate(color = see::see_colors()[1:n()]) %>%
+# #  mutate(color = scico::scico(n = n(), palette = "hawai")) %>%
+#   rbind(c("Other", "gray"))
+# 
+# 
+# main_institutions <- institutions_eer %>%
+#   filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
+#   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays),
+#          Pays = fct_lump(Pays, n = 10)) %>%
+#   left_join(country_colors) %>%
+#   mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+# 
+# levels <- tibble("Pays" = levels(fct_lump(main_institutions$Pays, n = 10))) %>%
+#   filter(Pays != "OTHER") %>%
+#   rbind("OTHER") %>%
+#   mutate(rank = 1:n())
+# 
+# main_institutions <- main_institutions %>%
+#   left_join(levels) %>%
+#   arrange(rank)
+# 
+# ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+#   geom_density(position = "fill", show.legend = TRUE) +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   scale_fill_identity(guide = "legend",
+#                       labels = unique(main_institutions$Pays),
+#                       breaks = unique(main_institutions$color)) +
+#   #see::scale_fill_metro_d(reverse = TRUE, palette = "rainbow") +
+# #  scico::scale_color_scico_d(palette = "hawai") +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom")  +
+#   guides(fill = guide_legend(nrow = 4))
+```
+
+The EER was one of these important initiatives that contributed to the development of intellectual exchanges between European based economists [@goutsmedt2021]. The centrality of the journal was strengthened in 1984 when the European Economic Association was created, and the EER established as the official journal of the new association.
+
+```{r plot-boards, fig.dim=c(5,5), fig.cap="Share of countries in EER editorial boards (Top 10)"}
+# main_boards <- boards %>% 
+#   filter(Year <= 2002) %>% 
+#   rename("Pays" = Country) %>% 
+#   mutate(Pays = fct_lump(Pays, n = 10)) %>% 
+#   left_join(country_colors) %>% 
+#   mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+# 
+# levels <- tibble("Pays" = levels(fct_lump(main_boards$Pays, n = 10))) %>% 
+#   filter(Pays != "OTHER") %>% 
+#   rbind("OTHER") %>% 
+#   mutate(rank = 1:n())
+# 
+# main_boards <- main_boards %>% 
+#   left_join(levels) %>% 
+#   arrange(rank)
+# 
+# ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+#   geom_density(position = "fill") +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   scale_fill_identity(guide = "legend",
+#                       labels = unique(main_boards$Pays),
+#                       breaks = unique(main_boards$color)) +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom")  +
+#   guides(fill = guide_legend(nrow = 4))
+```
+
+## A Rising European Journal {#rising-journal}
+
+Outside of offering a common platform for European economists, the journal initial goal was also to encourage the promotion of a US style of doing economics. An important dimension of the journal was thus the progressive integration of US-based economists. The "International Seminar on Macroeconomics," co-organized by the French *Ecole des Hautes Etudes en Sciences Sociales* and the US National Bureau of Economic Research, played a key role in that integration of US economists, as the conference papers were published each year in a special issue. It also likely contributed to make the journal known on the other side of the Atlantic.
+
+The share of US-based authors publishing in the journal grew steadily in the 1970s and reached a third of all affiliations in the early 1980s (Figure \ref{fig:plot-authors}). The increase of US economists participation to the EER does not mean uniquely that more articles were published by US authors, but also that number of collaborations between US- and European-based economists increased (Figure \ref{fig:plot-collabs}). While there was no collaboration in the first year of the journal, 10 percent of the articles published in 1980 mixed institutions from the US and Europe.
+
+```{r plot-collabs, fig.dim=c(4.5,4), fig.cap="Patterns of collaboration between the United States and European countries in EER"}
+# levels <- tibble("EU_US_collab" = c("Europe Only", "USA Only", "Collaboration", "Neither"),
+#                  "rank" = 1:4)
+# 
+# collabs_eer <- articles_eer %>% 
+#   left_join(collabs) %>% 
+#   filter(Annee_Bibliographique <= 2002,
+#          ! is.na(EU_US_collab)) %>% 
+#   select(ID_Art, EU_US_collab, Annee_Bibliographique) %>% 
+#   unique() %>% 
+#   left_join(levels)
+# 
+# ggplot(collabs_eer, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(EU_US_collab, rank), fill = fct_reorder(EU_US_collab, rank))) +
+#   geom_density(position = "fill") +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   see::scale_fill_see_d(reverse = TRUE, palette = "contrast") +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom") +
+#   guides(fill = guide_legend(nrow = 2))
+
+```
+
+In the mid-1980s, the journal was thus a symbol of a more integrated European economics, inspired by the US standards, as well as it was attracting many US economists to publish in it. Its intellectual influence similarly expanded and it became a major economic journal, overcoming other important European journals in terms of bibliographic citations (Figure \ref{fig:plot-eer-importance}).
+
+```{r plot-eer-importance, out.width="100%", fig.cap="Share of total citations going to EER"}
+
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_Importance.png"))
+
+```
+
+But has this whole process led to the total standardisation of a European economics on the US model, or has it led to the development (or persistence) of proper European specialities?
+
+# Identifying European Specialities {#european-specialities}
+
+## Methods {#methods}
+
+The first step was to build our dataset. To identify European specialities, we compare macroeconomics articles published in EER and in the Top-5 journals, that is the *American Economic Review*, the *Journal of Political Economy*, *Econometrica*, the *Quarterly Journal of Economics* and the *Review of Economic Studies*. Focusing on the Top 5 allows us to only get the most popular and dominant trends in macroeconomics and thus to draw clearer comparisons with what is published in the EER. Besides, the EER was created with the intent to establish an elite leading journal for the European community that would imitate the standards of US major journal. The Top 5 journals thus seem an adequate benchmark to compare the EER to.
+
+We identify macroeconomics articles by using the former and new JEL code classification [@jel1991].[^7] Outside of JEL codes data, we have used three different databases to collect different types of information: outside of basic metadata (year of publication, title, authors, *etc.*), we have collected the list of bibliographic references of EER and Top-5 articles, the abstracts, and authors affiliations.[^8] Then, we have conducted two different types of analysis to identify European specialities.
+
+[^7]: See the complete list of all the JEL codes we have used in [Appendix B.1.](#eer-top5-macro).
+
+[^8]: Crossing databases has been necessary due to missing years and information in the different databases we have used (Web of Science, Scopus and Microsoft Academic Premier). See the [Appendix B.1.](#corpus) for more details on the building of our dataset.
+
+### Bibliographic coupling
+
+Bibliographic coupling connects articles together depending on the bibliographic references they share. We build different networks of EER and Top-5 articles (the nodes of the network), connected together by a weighted edge, depending ib the number of references two articles share together.[^9] We build networks on a moving eight-year window (depending on the year of publication of the articles). We thus have `r n_windows` networks from the 1973-1982 period, through 1974-1983, 1975-1984, *etc.*, to the 1993-2002 period.[Due to missing JEL codes for EER before 1973, we are forced to begin with the 1973-1982 window.] For each network, we use the Leiden algorithm [@traag2019] to identify bibliographic clusters, that is groups of articles that share many references in common, and few with articles outside their cluster. Articles which belongs to the same cluster are more likely to share cognitive content (e.g., sharing objects of study, methods, results or theory) even if disagreeing [@claveau2016; @truc2021; @goutsmedt2021]. Finally, we test the similarity of the clusters two by two for successive time windows, and merge clusters from different windows together when they are sufficiently close.[^10]
+
+[^9]: For more details on the measure of weights, see the [Appendix B.3.](#network).
+
+[^10]: See the [Appendix B.3.](#network) for details on the merging criteria.
+
+This process allows us to obtain dynamic clusters Indeed, citation patterns are highly dependent of the date of publication of an article: scholars tend to cite more recent works. Consequently, for large time window, clusters would likely be determined mainly by the publication year, rather than by what they are talking about.[^11] By taking small time windows and then by merging communities in different windows together, we avoid this problem and are able to identify communities over longer period of time. We identify a total of `r n_communities_alluv` communities but only `r n_communities_of_interest` are *(i)* present in at least `r min_n_years` networks (i.e. two time windows) and *(ii)* represent more than `r min_leiden_max` percent of the nodes of at least one of the network they belong.
+
+[^11]: In other words, articles would be grouped together depending on the year of their publication and the clusterisation of the network would not say much of the economic content articles grouped together would share.
+
+A set of indicators allows us to understand what these clusters are about---e.g. the words used in abstracts and titles, the recurrent authors and the most cited references. These indicators help us to name the clusters. For each cluster, we calculate the difference between the mean of the cluster articles published in the EER and the same mean for the Top 5. We do the same for the articles published by European-based economists only, and those published by US-based economists only. These two differences inform us on what are the most 'Europeans' clusters, meaning those where relatively more articles are published in the EER by European-based economists.[^12] The figure \ref{fig:plot-community-diff} display the position of each cluster relatively to these two differences. When we sum the two differences, we have a synthetic indicator of how much a cluster is European.
+
+[^12]: Our assumption is that the content of articles published in the Top 5 by European economists could be more largely influenced by the standards of Top 5 journals and of US macroeconomics, and thus could be less representative of European economics than the articles published in the EER.
+
+```{r plot-community-diff, fig.dim=c(6,5), fig.cap="The most European communities"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"))
+```
+
+### Topic Modelling
+
+Topic modelling is a non-supervised machine learning method which associates *(i)* the *ngrams* contained in a corpus to *k* topics and *(ii)* the documents of the corpus to the same *k* topics.[^13] We have used a variant of the Latent Dirichlet Allocation model with the Correlated Topic Model [@blei2007]. The number of topics *k* is chosen by the modellers: after assessing quantitatively and qualitatively different models, we choose to run the model with `r topic_diff$topic_name %>% unique %>% length` topics.[^14] For each topic, we can look at the word with the highest 'FREX' value [@bischof2012].[^15] The Table \ref{tab:summary-topics} displays the words with the highest FREX value for each topic.
+
+[^13]: From the documents of our corpus, we extract (or 'tokenise') unique words (or unigrams), bigrams and trigrams. Stop words are excluded and all words are 'lemmatised'. See the [Appendix B.4.](#topic) for more details on the preprocessing steps we use.
+
+[^14]: The [Appendix B.4.](#topic) gives more details on the different models we have tested and how we have set the number of topics.
+
+[^15]: FREX is the weighted harmonic mean of the terms' rank regarding exclusivity and frequency scores. Exclusivity is a measure of how much a term is frequent in a topic in comparison to its frequency in others. In other words, a good topic model is a model where the words in topics are frequently used, but each topic can be easily dinstinguished from others, for the words associated to this topic are scarce in other topics.
+
+Similarly to what we do for bibliometric coupling, we are interested in the topics characteristics regarding the publications (EER *vs.* Top 5) and the countries of affiliations of the authors (the US *vs.* European countries). As each article has a 'rate of belonging' to each topic (the *gamma* value), we are able, for each topic, to compute the difference in the means of *gamma* values for (i) articles published in the EER and articles published in the Top 5 and (ii) articles written by US-based authors and those written by European-based authors. The resulting two differences are the coordinates of the `r topic_diff$topic_name %>% unique %>% length` topics in Figure \ref{fig:plot-topic-diff}. When we sum the two differences, we have an indicator of how much a topic is a European topic.
+
+```{r plot-topic-diff, fig.dim=c(6,5), fig.cap="Topic Prevalence over journals (Difference of Means)"}
+knitr::include_graphics(here(eer_data,"pictures","topic_modelling","logratio_diff_plot.png"))
+```
+
+## A Broad Picture of European Specialities?
+
+In Section \ref{understanding-specialities}, we describe more in-depth what we consider as three major European specialities. However, in a first step, we can sketch a more general assessment of the peculiarities of European macroeconomics.
+
+First, topic modelling and bibliometric coupling allow us to understand what European macroeconomics *is not*. One of the first consistent findings between the two methods is that the literature about the life cycles and permanent income hypotheses, influenced by @friedman1957 and @hall1978b, was far from popular for European economists. Close to this, the issue of debt, deficits and agents' horizon stemming from Diamond's [-@diamond1965], Barro's [-@barro1974], and Blanchard's [-@blanchard1985] seminal papers, was also an unpopular issue in Europe: topic 45 and the cluster "Debts & Deficits" were among the less European topics and clusters. Also, it took some time for Real Business Cycles (RBC) to find the favours of European economists: the first bibliographic cluster (going from the 1979-1988 window to the 1984-1993 window), "RBC, fluctuations & time series" (see Table \ref{tab:summary-communities}), was mostly a Top 5 / US-based community. We find that the topic 14 on RBC was also clearly not European.[^16]
+
+[^16]: The bibliometric analysis shows us that things have changed a bit after the mid-1990s, as a community on RBC (from 1985-1994 to 1993-2002) was slightly European.
+
+We will focus on several results in the Section \ref{understanding-specialities}. First, as exemplified by topics 21 and 51 (and perhaps also 24) as well as by the clusters "Political Economy of Central Banks" and "Monetary Policy & Channels of Transmission", monetary policy and the role of central Banks represent a central issue for European-based economists and for the EER (Section \ref{central-banking}). Second, international macroeconomics seems more represented in the European side (above all for topic-modelling). We will focus on the topic 24 on the European Monetary system, which is strongly linked with the clusters "Exchange Rate Determination" and "Political Economy of Central Banks".[^17] The question is to understand if the concrete economic situation of European countries as pushed European-based economists to investigate the issue differently than their US colleagues (Section \ref{international-macro}). Finally, we will investigate and clarfiy a strange paradox in our results. The cluster on disequilibrium theory, imperfect competition and contracts is by far the most European cluster, echoing Portes's [-@portes1987] assessment as well as [-@goutsmedt2021]. Nonetheless, there is no equivalent topic and the same literature is split between several ones (topics 39, 53 and 47) which are not as "European" as the bibliographic cluster (Section \ref{rigidities}).
+
+[^17]: For each topic, we can check to which clusters are belonging the articles with the highest *gamma* value for this topic.
+
+Outside of the points cited above, it is worth noting the importance of the issue of the explanation of unemployment, relying notably on @pissarides1990, @mortensen1994 and @layard1991a. As for the most European topic (38), it seems not to form a really consistent topic, but rather results from the aggregation of articles using OECD data and comparing different countries notably by using cross-country estimations. The conclusion we can draw from it is that European-based economists and the EER appear more likely to welcome this type of study.
+
+# Understanding the European Specialities {#understanding-specialities}
+
+## A European Political Economy of Central Banking? {#central-banking}
+
+## A European International Macroeconomics? {#international-macro}
+
+## The many faces of microfoundations and rigidities {#rigidities}
+
+\newpage
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
+
+\newpage
+
+# Appendices {.unnumbered}
+
+## A - Summary Tables {.unnumbered}
+
+Here are the tables listing the different clusters and topics, with their synthetic indicator of how much they are "European".
+
+```{r summary-communities}
+communities_table <- communities %>% select(Label_com, sum_diff) %>% arrange(desc(sum_diff))
+
+communities_table %>%
+  kbl(caption="Summary of Bibliographic Communities",
+      booktabs = TRUE,
+      longtable = FALSE,
+      col.names =c("Communities", "Differences"),
+      format= "latex",
+      align="lr") %>%
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
+                font_size = 9)
+```
+
+\newpage
+
+```{r summary-topics}
+topics_summary <- top_terms %>%
+  filter(measure == "frex") %>%
+  group_by(topic) %>%
+  slice_max(value, n = 6) %>%
+  mutate(topic = paste("Topic", topic),
+         top_terms = str_wrap(paste0(term, collapse = "; "), 0),
+         total_diff = round(total_diff, 3)) %>%
+  select(topic, total_diff, top_terms) %>%
+  unique %>%
+  arrange(desc(total_diff))
+
+
+topics_summary %>% 
+  kbl(caption="Summary of Topics",
+      booktabs = TRUE,
+      longtable = TRUE,
+      format= "latex",
+      col.names = c("Topics", "Differences", "Terms with the highest frex value"),
+      align="lrl") %>%
+  column_spec(1, latex_valign = "m") %>%
+  column_spec(2, latex_valign = "m") %>%
+  column_spec(3, width = "25em", latex_valign = "m") %>%
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
+                font_size = 9) %>%
+  footnote(general = "Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors",
+           threeparttable = TRUE)
+
+```
+
+\newpage
+
+## B - Information on the Methods {#appendix .unnumbered}
+
+### B.1. Corpus Creation {#corpus .unnumbered}
+
+For the present study we used two different corpora. The first corpus is composed of all EER articles and allows us to track how publications, citations, references and authors affiliations evolved since the creation of the journal in 1969 up to the 2002. The second corpus is composed of all macroeconomic articles published in the top five economics journals and the EER. Macroeconomic articles are identified thanks to the former and new classification of the JEL codes [@jel1991].[^18] This is used as the basis for topic modeling and bibliographic coupling analysis to contrast the top macroeconomics publications authored by European-based and US-based authors, and/or published in top 5 journals and in the EER.
+
+[^18]: See \ref{eer-top5-macro} for the list of JEL codes used.
+
+#### EER Publications {.unnumbered}
+
+For the creation of the first corpus composed of all EER articles, we used a mix of *Web of Science* (WoS) and *Scopus*. While WoS has all articles of the EER between 1969-1970 and 1974-2002, it is missing most articles published between 1971 and 1973. To make up for the missing data, we use Scopus to complete the dataset. This operation required normalization of the Scopus dataset, and manual cleaning of variables that were missing from Scopus compared to WoS. This mostly includes cleaning the references to match *Scopus* references with WoS ones, and identification of author's affiliation.
+
+```{r echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 1',fig.pos = "!ht"}
+# drive_download("Pictures/infographics_corpus1.png",
+#                overwrite = TRUE)
+
+# knitr::include_graphics("Pictures/infographics_corpus1.png")
+
+```
+
+Moreover, given that the size of our corpus is modest, we made an extensive semi-automatic cleaning of references to improve references identification by adding the most commonly cited books, book chapter, and articles that are not otherwise identified in WoS when possible.
+
+#### EER and Top 5 Macroeconomics Articles {#eer-top5-macro .unnumbered}
+
+The construction of this corpus is made in multiple steps:
+
+1.  Identifying macroeconomics articles
+
+    -   We identified all articles published in macroeconomics using JEL codes related to macroeconomics (we get JEL codes of Top 5 and EER articles thanks to the Econlit database). We consider that an article is a macroeconomics article if it has one of the following codes:
+
+        -   For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824.
+        -   For new JEL codes (1991 onward): all E, F3 and F4.[^19].
+
+2.  Using these JEL codes, we match econlit articles with WoS articles when they shared the same:
+
+    -   Journal, Volume, First Page
+    -   Year, Journal, First Page, Last Page
+    -   Year, Volume, First Page, Last Page
+    -   First Author, Year, Volume, First Page
+    -   First Author, Title, Year
+    -   Title, Year, First Page
+
+Out of the `r n_econlit` articles we get in econlit, we matched `r n_corpus` of them in WoS.[^20]
+
+3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, Econometrica, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
+
+4.  Finally, we were able to collect abstracts:
+
+    -   using *Scopus* for the EER. All abstracts have been matched with the EER corpus.
+    -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using
+
+[^19]: The new classification has a clear categorisation of Macroeconomics (the letter 'E'), but we had F3 and F4 as they deal with international macroeconomics. For the older JEL codes, we use the table of correspondence produce by the *Journal of Economic Literature* itself [@jel1991].
+
+[^20]: Most of the unmatched articles are not 'articles' properly speaking: they often are reply and comments on other published articles. (Investigate this deeper)
+
+### B.2. Variable creation {.unnumbered}
+
+#### Authors' affiliation {#author-affiliation .unnumbered}
+
+Authors' affiliations information were extracted from WoS. However, the affiliations are not per author, but instead per institutional departments per paper. For example, in the case of an article with two authors from the same department, the department (and institution or country associated with it) is only counted once. Similarly, a single-authored article where the author has three affiliations can result in one article having three affiliations. While in some cases we can inferred the institutional affiliation for each author (e.g., one institution, multiple authors), in others we cannot (e.g., two institutions, three authors). For example, in an article with two authors from Princeton and one author from Stanford, we only know that the article was written by at least one author from Princeton and at least one from Stanford, but not that the individual ratio was two third.
+
+We restructure the information in two ways.
+
+First, for each article, we only kept one occurrence of each unique institutions (university, research institutes...) to avoid the multiplication of observations resulting from the variety of departments observed in some institutions. In other words, for each article, authors are group by their institutional affiliation not by their department or research team.
+
+Second, and more importantly, for the purpose of our analysis, we mostly looked at the share of papers authored by European-based and US-based economists. While we do not have individual affiliation, we know with certainty when a paper has only European authors, only American authors, or a mix of the two. For this reason, while the share of institutions within the corpus is only an estimation based on the occurrences of affiliation, the information generated to identify US authored papers and European authored paper is certain.
+
+### B.3. Bibliographic Coupling and Cluster Detection {#network .unnumbered}
+
+A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
+
+1. The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
+2. The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
+
+For all macroeconomics articles published in the EER and in the Top 5, we build the networks with `time_window`-year overlapping windows. This results in `r n_windows`.
+
+We used Leiden detection algorithm [@traag2019] that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in `r n_communities_raw` across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster
+
+Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster.
+
+This gives us `r n_communities_alluv`, with `r n_communities_of_interest` that are at least `r min_leiden_max`% of a network at any given point and are stable enough to exists for at least `r min_n_years` time windows.
+
+For each clusters, we identified the American or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/American authors in the cluster. For each cluster, we subtracted the relative share of European authors to American authors in the cluster, to the relative share of European authors to American on the same time window of the cluster leading us to the first index:\newline
+
+$\text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of American Authored Articles In The Cluster}})-\log(\frac{\text{Share Of European Authored Articles In The Time Window}}{\text{Share Of American Authored Articles In The Time Window}})$\newline
+
+We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:\newline
+
+$\text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{(1-\text{Share Of EER Articles In The Cluster})})-\log(\frac{\text{Share Of EER Articles In The Time Window}}{(1-\text{Share Of EER Articles In The Time Window})})$\newline
+
+To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:\newline
+
+$\text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}$\newline
+
+Finally, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores.
+
+### B.4. Topic Modelling {#topic .unnumbered}
+
+#### Preprocessing {.unnumbered}
+
+We have several steps to clean our texts before running our topic models:
+
+1. Once we have our corpus, we merge titles and abstracts together for all EER and Top 5 articles. 
+2. We use the *tidytext* and *tokenizers* R packages to 'tokenise' the resulting texts (when there is no abstract, only the title if thus tokenise)?^[See Silge J, Robinson D (2016). “tidytext: Text Mining and Analysis Using Tidy Data Principles in R.” _JOSS_, *1*(3) and Lincoln A. Mullen et al., "Fast, Consistent Tokenization of Natural Language Text," Journal of Open Source Software 3, no.23 (2018): 655.] Tokenisation is the process of transforming human-readable text into machine readable objects. Here, the text is split in unique words (unigrams), bigrams (pair of words) and trigrams. In other words, to each article is now associated a list of unigrams, bigrams and trigrams, some appearing several times in the same title + abstract.
+3. Stop words are removed using the *Snowball* dictionary.^[See http://snowball.tartarus.org/algorithms/english/stop.txt.] We add to this dictionary some current verbs in abstract like "demonstrate", "show", "explain". Such verbs are likely to be randomly distributed in abstracts, but we want to limit the noise as much as possible.
+4. We lemmatise the words using the *textstem* package.^[Rinker, T. W. (2018). textstem: Tools for stemming and lemmatizing text version 0.1.4. Buffalo, New York.] The lemmatisation is the process of grouping words together according to their "lemma" which depends on the context. For instance, different form of a verb are reduced to its infinitive form. The plural of nouns are reduced to the singular.  
+
+#### Choosing the number of topics {.unnumbered}
+
+We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R package.^[Roberts ME, Stewart BM, Tingley D (2019). “stm: An R Package for Structural Topic Models.” _Journal of Statistical Software_, *91*(2), 1-40.]
+
+From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
+
+- by exluding trigrams or not;
+- by removing the terms that are present in less than 0.5% of the Corpus (`r trunc(0.005 * nrow(corpus), 1)`), 1% (`r trunc(0.01 * nrow(corpus), 1)`) and 2% (`r trunc(0.02 * nrow(corpus), 1)`);
+- by removing articles with less than 6 words or with less than 12 words.^[Here, only articles with no abstract are impacted.]
+
+Crossing all these criteria, we thus have 12 different possible combinations. For each of these 12 different combinations, we have run topic models for different number of topics from 20 to 110 with a gap of 5. The chosen model integrates trigram, removes only terms that appear in less than 0,5% of the documents and keep all articles if they have more than 6 words in their title + abstract. We choose to keep the model with 55 topics.
+
+We have chosen the criteria and the number of topics by comparing the performance of the different models in terms of the FREX value [@bischof2012].
