@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 12:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  31 MAR 2022 12:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -74,7 +74,8 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@enLab=\toks18
 \@sep=\skip49
 \@@sep=\skip50
-(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
+(First_version_new_temp.spl) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/
+latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip51
 \bibsep=\skip52
@@ -791,47 +792,44 @@ tures/Graphs/mean_jel.png Graphic file (type png)
 ures/Graphs/mean_jel.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/mean_jel.png  used on input line 243.
-(pdftex.def)             Requested size: 4148.29755pt x 2371.06297pt.
-
-Overfull \hbox (3803.29755pt too wide) in paragraph at lines 243--244
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 1842.11853pt on input line 248.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
 
 Package natbib Warning: Citation `waelbroeck1969' on page 3 undefined on input 
 line 264.
 
+[3
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.271 T
+       he fact that such a project was born in Belgium is not a coincidence. <G
+:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/G
+raphs/mean_jel.png>]
 
-Package natbib Warning: Citation `duppe2017' on page 3 undefined on input line 
+Package natbib Warning: Citation `duppe2017' on page 4 undefined on input line 
 277.
 
 
-Package natbib Warning: Citation `maes2005' on page 3 undefined on input line 2
+Package natbib Warning: Citation `maes2005' on page 4 undefined on input line 2
 84.
 
 
-Package natbib Warning: Citation `duppe2017' on page 3 undefined on input line 
+Package natbib Warning: Citation `duppe2017' on page 4 undefined on input line 
 284.
 
 
-Package natbib Warning: Citation `maes2005' on page 3 undefined on input line 2
+Package natbib Warning: Citation `maes2005' on page 4 undefined on input line 2
 86.
 
 
-LaTeX Warning: Reference `fig:plot-authors' on page 3 undefined on input line 2
+LaTeX Warning: Reference `fig:plot-authors' on page 4 undefined on input line 2
 91.
 
 
-LaTeX Warning: Reference `fig:plot-boards' on page 3 undefined on input line 29
+LaTeX Warning: Reference `fig:plot-boards' on page 4 undefined on input line 29
 9.
 
-[3]
 
 Package natbib Warning: Citation `goutsmedt2021' on page 4 undefined on input l
 ine 303.
@@ -844,12 +842,13 @@ LaTeX Warning: Reference `fig:plot-authors' on page 4 undefined on input line 3
 LaTeX Warning: Reference `fig:plot-collabs' on page 4 undefined on input line 3
 27.
 
+[4]
 
-LaTeX Warning: Reference `fig:plot-eer-importance' on page 4 undefined on input
+LaTeX Warning: Reference `fig:plot-eer-importance' on page 5 undefined on input
  line 336.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_Importance.png, id=51, 995.6397pt x 569.0058pt>
+/Graphs/EER_Importance.png, id=58, 995.6397pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/EER_Importance.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -858,36 +857,40 @@ Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/EER_Importance.png  used on input line 340.
 (pdftex.def)             Requested size: 345.0pt x 197.16676pt.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4]
-
 Package natbib Warning: Citation `jel1991' on page 5 undefined on input line 37
 2.
 
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.385 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/EER_Importance.png>]
 
-Package natbib Warning: Citation `traag2019' on page 5 undefined on input line 
+Package natbib Warning: Citation `traag2019' on page 6 undefined on input line 
 400.
 
 
-Package natbib Warning: Citation `claveau2016' on page 5 undefined on input lin
+Package natbib Warning: Citation `claveau2016' on page 6 undefined on input lin
 e 405.
 
 
-Package natbib Warning: Citation `truc2021' on page 5 undefined on input line 4
+Package natbib Warning: Citation `truc2021' on page 6 undefined on input line 4
 05.
 
 
-Package natbib Warning: Citation `goutsmedt2021' on page 5 undefined on input l
+Package natbib Warning: Citation `goutsmedt2021' on page 6 undefined on input l
 ine 405.
 
 
-LaTeX Warning: Reference `fig:plot-community-diff' on page 5 undefined on input
+LaTeX Warning: Reference `fig:plot-community-diff' on page 6 undefined on input
  line 441.
 
-[5]
+[6]
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Communities_europeanisation_colored.png, id=86, 995.6397pt x 569.0058pt
+/Graphs/Communities_europeanisation_colored.png, id=92, 995.6397pt x 569.0058pt
 >
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/Communities_europeanisation_colored.png Graphic file (type png)
@@ -896,36 +899,33 @@ ures/Graphs/Communities_europeanisation_colored.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png  used o
 n input line 447.
-(pdftex.def)             Requested size: 4148.29755pt x 2371.06297pt.
+(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
 
-Overfull \hbox (3803.29755pt too wide) in paragraph at lines 447--448
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 1842.11853pt on input line 452.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package natbib Warning: Citation `blei2007' on page 6 undefined on input line 4
+Package natbib Warning: Citation `blei2007' on page 7 undefined on input line 4
 66.
 
 
-Package natbib Warning: Citation `bischof2012' on page 6 undefined on input lin
+Package natbib Warning: Citation `bischof2012' on page 7 undefined on input lin
 e 472.
 
 
-LaTeX Warning: Reference `tab:summary-topics' on page 6 undefined on input line
+LaTeX Warning: Reference `tab:summary-topics' on page 7 undefined on input line
  479.
 
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.481 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/Graphs/Communities_europeanisation_colored.png>]
 
-LaTeX Warning: Reference `fig:plot-topic-diff' on page 6 undefined on input lin
+LaTeX Warning: Reference `fig:plot-topic-diff' on page 8 undefined on input lin
 e 491.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/topic_modelling/logratio_diff_plot.png, id=92, 1422.63495pt x 1138.07182pt>
+/topic_modelling/logratio_diff_plot.png, id=110, 1422.63495pt x 1138.07182pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/topic_modelling/logratio_diff_plot.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -933,86 +933,82 @@ ures/topic_modelling/logratio_diff_plot.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/topic_modelling/logratio_diff_plot.png  used on input 
 line 497.
-(pdftex.def)             Requested size: 7903.44724pt x 6323.1287pt.
+(pdftex.def)             Requested size: 345.0pt x 275.99077pt.
 
-Overfull \hbox (7558.44724pt too wide) in paragraph at lines 497--498
- [][] 
- []
-
-
-LaTeX Warning: Float too large for page by 5794.6287pt on input line 502.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: Reference `understanding-specialities' on page 6 undefined on in
+LaTeX Warning: Reference `understanding-specialities' on page 8 undefined on in
 put line 508.
 
-[6]
+[8
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.512 
+       <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
+ictures/topic_modelling/logratio_diff_plot.png>]
 
-Package natbib Warning: Citation `friedman1957' on page 7 undefined on input li
+Package natbib Warning: Citation `friedman1957' on page 9 undefined on input li
 ne 517.
 
 
-Package natbib Warning: Citation `hall1978b' on page 7 undefined on input line 
+Package natbib Warning: Citation `hall1978b' on page 9 undefined on input line 
 517.
 
 
-Package natbib Warning: Citation `diamond1965' on page 7 undefined on input lin
+Package natbib Warning: Citation `diamond1965' on page 9 undefined on input lin
 e 519.
 
 
-Package natbib Warning: Citation `barro1974' on page 7 undefined on input line 
+Package natbib Warning: Citation `barro1974' on page 9 undefined on input line 
 520.
 
 
-Package natbib Warning: Citation `blanchard1985' on page 7 undefined on input l
+Package natbib Warning: Citation `blanchard1985' on page 9 undefined on input l
 ine 521.
 
 
-LaTeX Warning: Reference `tab:summary-communities' on page 7 undefined on input
+LaTeX Warning: Reference `tab:summary-communities' on page 9 undefined on input
  line 527.
 
 
-LaTeX Warning: Reference `understanding-specialities' on page 7 undefined on in
+LaTeX Warning: Reference `understanding-specialities' on page 9 undefined on in
 put line 534.
 
 
-LaTeX Warning: Reference `central-banking' on page 7 undefined on input line 53
+LaTeX Warning: Reference `central-banking' on page 9 undefined on input line 53
 9.
 
 
-LaTeX Warning: Reference `international-macro' on page 7 undefined on input lin
+LaTeX Warning: Reference `international-macro' on page 9 undefined on input lin
 e 548.
 
 
-Package natbib Warning: Citation `portes1987' on page 7 undefined on input line
+Package natbib Warning: Citation `portes1987' on page 9 undefined on input line
  552.
 
 
-Package natbib Warning: Citation `goutsmedt2021' on page 7 undefined on input l
+Package natbib Warning: Citation `goutsmedt2021' on page 9 undefined on input l
 ine 553.
 
 
-LaTeX Warning: Reference `rigidities' on page 7 undefined on input line 556.
+LaTeX Warning: Reference `rigidities' on page 9 undefined on input line 556.
 
 
-Package natbib Warning: Citation `pissarides1990' on page 7 undefined on input 
+Package natbib Warning: Citation `pissarides1990' on page 9 undefined on input 
 line 560.
 
 
-Package natbib Warning: Citation `mortensen1994' on page 7 undefined on input l
+Package natbib Warning: Citation `mortensen1994' on page 9 undefined on input l
 ine 560.
 
 
-Package natbib Warning: Citation `layard1991a' on page 7 undefined on input lin
+Package natbib Warning: Citation `layard1991a' on page 9 undefined on input lin
 e 560.
 
-[7] [8] [9]
+[9] [10] [11]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 612.
-[10
+[12
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -1172,13 +1168,13 @@ Overfull \hbox (0.82571pt too wide) in alignment at lines 683--1089
 Package longtable Warning: Column widths have changed
 (longtable)                in table 2 on input line 1089.
 
-[11] [12] [13]
+[13] [14] [15]
 
-Package natbib Warning: Citation `jel1991' on page 14 undefined on input line 1
+Package natbib Warning: Citation `jel1991' on page 16 undefined on input line 1
 110.
 
 
-LaTeX Warning: Reference `eer-top5-macro' on page 14 undefined on input line 11
+LaTeX Warning: Reference `eer-top5-macro' on page 16 undefined on input line 11
 11.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
@@ -1187,12 +1183,12 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-Package natbib Warning: Citation `jel1991' on page 14 undefined on input line 1
+Package natbib Warning: Citation `jel1991' on page 16 undefined on input line 1
 166.
 
-[14] [15]
+[16] [17]
 
-Package natbib Warning: Citation `shen2019' on page 16 undefined on input line 
+Package natbib Warning: Citation `shen2019' on page 18 undefined on input line 
 1277.
 
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
@@ -1205,10 +1201,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Package natbib Warning: Citation `traag2019' on page 16 undefined on input line
+Package natbib Warning: Citation `traag2019' on page 18 undefined on input line
  1302.
 
-[16]
+[18]
 Underfull \hbox (badness 10000) in paragraph at lines 1321--1328
 
  []
@@ -1254,13 +1250,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 1342--1343
 
  []
 
-[17]
+[19]
 
-Package natbib Warning: Citation `blei2007' on page 18 undefined on input line 
+Package natbib Warning: Citation `blei2007' on page 20 undefined on input line 
 1402.
 
 
-Package natbib Warning: Citation `bischof2012' on page 18 undefined on input li
+Package natbib Warning: Citation `bischof2012' on page 20 undefined on input li
 ne 1432.
 
 No file First_version_new_temp.bbl.
@@ -1270,36 +1266,7 @@ Package natbib Warning: There were undefined citations.
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
-[18] [19
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1437 \end{document}
-                      <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/mean_jel.png>] [20
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1437 \end{document}
-                      <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/EER_Importance.png>] [21
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1437 \end{document}
-                      <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png>] [22
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1437 \end{document}
-                      <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/topic_modelling/logratio_diff_plot.png>] (First_version_
-new_temp.aux)
+[20] (First_version_new_temp.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1317,8 +1284,8 @@ Package rerunfilecheck Info: Checksums for `First_version_new_temp.out':
  ) 
 Here is how much of TeX's memory you used:
  15538 strings out of 478582
- 251883 string characters out of 2844344
- 586073 words of memory out of 3000000
+ 252003 string characters out of 2844344
+ 585100 words of memory out of 3000000
  33041 multiletter control sequences out of 15000+600000
  547577 words of font info for 206 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1342,9 +1309,9 @@ a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alex7/AppDat
 a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alex7/AppData/
 Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on First_version_new_temp.pdf (22 pages, 2096580 bytes).
+Output written on First_version_new_temp.pdf (20 pages, 2084426 bytes).
 PDF statistics:
- 344 PDF objects out of 1000 (max. 8388607)
- 118 named destinations out of 1000 (max. 500000)
+ 336 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
  39445 words of extra memory for PDF output out of 42996 (max. 10000000)
 

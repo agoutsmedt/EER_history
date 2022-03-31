@@ -252,11 +252,13 @@ For each year, we calculated the share of articles published in the EER that mat
 mean_jel <- Corpus_all_EER[,mean(jel_id),Annee_Bibliographique]
 
 ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_Bibliographique), y=V1)) +
-  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.8,color="black")+
+  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75,color="black")+
   geom_point(alpha=0.2)+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  scale_x_continuous("Years") +
-  scale_y_continuous("Share of Macro_JEL") +
+  labs(x = "",
+       y = "") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_x_continuous() +
   coord_cartesian(ylim = c(0,1)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA))
@@ -527,10 +529,10 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_macro.
 #Kydland, F. E., & Prescott, E. C. (1982), ID_Art = 2064938, ItemID_Ref = 181884
 #RLucas, R. E. (1973), ID_Art = 39714648, ItemID_Ref = 804988
 
-all_art <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet"))
+# all_art <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet"))
 
 
-citations_journals_econ
+# citations_journals_econ
 
 ```
 
@@ -730,7 +732,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012), 
                            aes(label = as.character(Label_com)), size = 2.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-1, 1), labels = c("Less European", "More European")) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-2.2, 1), labels = c("Less European", "More European")) +
   labs(title = "",
        color = "",
        x = "US Only (left) vs. European Only (right)",
