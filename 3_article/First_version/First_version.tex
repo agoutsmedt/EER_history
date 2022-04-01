@@ -268,7 +268,7 @@ institutional databases (see Section \ref{methods}).\footnote{The
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-jel-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean_jel} 
 
 }
 
@@ -332,7 +332,7 @@ between several Western European countries (Figure
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-authors-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_affiliations} 
 
 }
 
@@ -348,7 +348,7 @@ official journal of the new association.
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-boards-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Board_affiliations} 
 
 }
 
@@ -381,11 +381,20 @@ institutions from the US and Europe.
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-collabs-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_collab_stack_density} 
 
 }
 
 \caption{Patterns of collaboration between the United States and European countries in EER}\label{fig:plot-collabs}
+\end{figure}
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict} 
+
+}
+
+\caption{Patterns of collaboration between the United States and European countries in EER (noodle version)}\label{fig:plot-collabs2}
 \end{figure}
 
 In the mid-1980s, the journal was thus a symbol of a more integrated
@@ -397,7 +406,7 @@ citations (Figure \ref{fig:plot-eer-importance}).
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{EER_Importance} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_Importance} 
 
 }
 
@@ -453,13 +462,13 @@ weighted edge, depending ib the number of references two articles share
 together.\footnote{For more details on the measure of weights, see the
   \protect\hyperlink{network}{Appendix B.3.}.} We build networks on a
 moving ten-year window (depending on the year of publication of the
-articles). We thus have 21 networks from the 1973-1982 period, through
-1974-1983, 1975-1984, \emph{etc.}, to the 1993-2002 period.{[}Due to
-missing JEL codes for EER before 1973, we are forced to begin with the
-1973-1982 window.{]} For each network, we use the Leiden algorithm
-(\protect\hyperlink{ref-traag2019}{Traag et al., 2019}) to identify
-bibliographic clusters, that is groups of articles that share many
-references in common, and few with articles outside their cluster.
+articles). We thus have ALEX TO DO networks from the 1973-1982 period,
+through 1974-1983, 1975-1984, \emph{etc.}, to the 1993-2002
+period.{[}Due to missing JEL codes for EER before 1973, we are forced to
+begin with the 1973-1982 window.{]} For each network, we use the Leiden
+algorithm (\protect\hyperlink{ref-traag2019}{Traag et al., 2019}) to
+identify bibliographic clusters, that is groups of articles that share
+many references in common, and few with articles outside their cluster.
 Articles which belongs to the same cluster are more likely to share
 cognitive content (e.g., sharing objects of study, methods, results or
 theory) even if disagreeing (\protect\hyperlink{ref-claveau2016}{Claveau
@@ -482,9 +491,10 @@ year, rather than by what they are talking about.\footnote{In other
 By taking small time windows and then by merging communities in
 different windows together, we avoid this problem and are able to
 identify communities over longer period of time. We identify a total of
-136 communities but only 26 are \emph{(i)} present in at least two
-networks (i.e.~two time windows) and \emph{(ii)} represent more than 5
-percent of the nodes of at least one of the network they belong.
+ALEX TO DO communities but only ALEX TO DO are \emph{(i)} present in at
+least two networks (i.e.~two time windows) and \emph{(ii)} represent
+more than 5 percent of the nodes of at least one of the network they
+belong.
 
 A set of indicators allows us to understand what these clusters are
 about---e.g.~the words used in abstracts and titles, the recurrent
@@ -506,7 +516,7 @@ have a synthetic indicator of how much a cluster is European.
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-community-diff-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation_colored} 
 
 }
 
@@ -528,7 +538,7 @@ Dirichlet Allocation model with the Correlated Topic Model
 (\protect\hyperlink{ref-blei2007}{Blei and Lafferty, 2007}). The number
 of topics \emph{k} is chosen by the modellers: after assessing
 quantitatively and qualitatively different models, we choose to run the
-model with 55 topics.\footnote{The \protect\hyperlink{topic}{Appendix
+model with 50 topics.\footnote{The \protect\hyperlink{topic}{Appendix
   B.4.} gives more details on the different models we have tested and
   how we have set the number of topics.} For each topic, we can look at
 the word with the highest `FREX' value
@@ -551,13 +561,13 @@ topic, to compute the difference in the means of \emph{gamma} values for
 (i) articles published in the EER and articles published in the Top 5
 and (ii) articles written by US-based authors and those written by
 European-based authors. The resulting two differences are the
-coordinates of the 55 topics in Figure \ref{fig:plot-topic-diff}. When
+coordinates of the 50 topics in Figure \ref{fig:plot-topic-diff}. When
 we sum the two differences, we have an indicator of how much a topic is
 a European topic.
 
 \begin{figure}[h]
 
-{\centering \includegraphics{First_version_files/figure-latex/plot-topic-diff-1} 
+{\centering \includegraphics[width=1\linewidth]{C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_modelling/logratio_diff_plot} 
 
 }
 
@@ -798,54 +808,54 @@ their synthetic indicator of how much they are ``European''.
 
 \begin{table}[!h]
 
-\caption{\label{tab:summary-communities}Summary of bibliographic communities}
+\caption{\label{tab:summary-communities}Summary of Bibliographic Communities}
 \centering
-\fontsize{5}{7}\selectfont
-\begin{threeparttable}
+\fontsize{9}{11}\selectfont
 \begin{tabular}[t]{lr}
 \toprule
 Communities & Differences\\
 \midrule
-\cellcolor{gray!6}{Keynesian Economics, Disequilibrium, Imperfect Competition \& Contracts} & \cellcolor{gray!6}{1.4535925}\\
-Public Finance: Optimal Taxation & 0.6364527\\
-\cellcolor{gray!6}{Political Economy of Central Banks} & \cellcolor{gray!6}{0.3725850}\\
-Monetary Policy \& Channels of Transmission & 0.2985522\\
-\cellcolor{gray!6}{New Keynesian Rigidities} & \cellcolor{gray!6}{0.2672452}\\
+\cellcolor{gray!6}{Modeling Consumption \& Production} & \cellcolor{gray!6}{2.0986873}\\
+Disequilibrium \& Keynesian Macro & 2.0014930\\
+\cellcolor{gray!6}{International Macroeconomics \& Target Zone} & \cellcolor{gray!6}{1.3359739}\\
+Optimal Taxation 1 & 1.3235057\\
+\cellcolor{gray!6}{Political Economics of Central Banks} & \cellcolor{gray!6}{1.0265264}\\
 \addlinespace
-Theory \& Measure of Unemployment & 0.2668192\\
-\cellcolor{gray!6}{Macro Time Series: Trends, Disturbances \& Cycles} & \cellcolor{gray!6}{0.2484878}\\
-Sunspots \& Coordination & 0.1630441\\
-\cellcolor{gray!6}{Exchange Rate Determination} & \cellcolor{gray!6}{0.1458576}\\
-Goht2842 & 0.0822594\\
+Exchange Rate Dynamics & 0.7201769\\
+\cellcolor{gray!6}{Taxation, Tobin's Q \& Monetarism} & \cellcolor{gray!6}{0.6388438}\\
+Theory of Unemployment \& Job Dynamics & 0.5181369\\
+\cellcolor{gray!6}{Capital \& Income Taxation} & \cellcolor{gray!6}{0.4078902}\\
+Target Zone \& Currency Crises & 0.4058932\\
 \addlinespace
-\cellcolor{gray!6}{Real Business Cycles} & \cellcolor{gray!6}{0.0700440}\\
-(Hyper)inflation \& Money Growth & 0.0528815\\
-\cellcolor{gray!6}{l1heQmqF} & \cellcolor{gray!6}{0.0256046}\\
-poAkzBqE & 0.0166330\\
-\cellcolor{gray!6}{Balance of Payments, Exchange Rate \& Interdependence} & \cellcolor{gray!6}{0.0002376}\\
+\cellcolor{gray!6}{Coordination \& Sunspots 2} & \cellcolor{gray!6}{0.3465849}\\
+Optimal Taxation 2 & 0.2787993\\
+\cellcolor{gray!6}{Monetary Policy, Financial Transmission \& Cycles 2} & \cellcolor{gray!6}{0.2314883}\\
+Business Cycles, Cointegration \& Trends & 0.2154401\\
+\cellcolor{gray!6}{Taxation, Debt \& Growth} & \cellcolor{gray!6}{-0.0067936}\\
 \addlinespace
-Imperfect Information \& Credit Rationing & -0.0368178\\
-\cellcolor{gray!6}{piySoCVv} & \cellcolor{gray!6}{-0.0424615}\\
-VcbF4o2X & -0.0667948\\
-\cellcolor{gray!6}{oZLXQ5FE} & \cellcolor{gray!6}{-0.0962882}\\
-RBC, fluctuations \& time series & -0.1064392\\
+Terms of Trade \& Devaluation & -0.0817679\\
+\cellcolor{gray!6}{Endogenous Growth} & \cellcolor{gray!6}{-0.1105033}\\
+RBC & -0.2094801\\
+\cellcolor{gray!6}{Monetary Policy, Financial Transmission \& Cycles 1} & \cellcolor{gray!6}{-0.2379855}\\
+Coordination \& Sunspots 1 & -0.3313256\\
 \addlinespace
-\cellcolor{gray!6}{Inflation, Expectations \& Interest Rates} & \cellcolor{gray!6}{-0.1072751}\\
-Monetary Policy, Credit Conditions, Financial Market \& Business Cycles & -0.1400571\\
-\cellcolor{gray!6}{Demand for Money} & \cellcolor{gray!6}{-0.1564841}\\
-Theoretical Functions of Money & -0.2334912\\
-\cellcolor{gray!6}{New theoretical approaches of Money: search, random-matching} & \cellcolor{gray!6}{-0.2425576}\\
+\cellcolor{gray!6}{Exchange Rate Dynamics \& Expectations} & \cellcolor{gray!6}{-0.4273431}\\
+Monetary Policy, Target \& Output Gap & -0.6211658\\
+\cellcolor{gray!6}{REH, Monetary Policy \& Business Cycles} & \cellcolor{gray!6}{-0.6758668}\\
+Inflation, Interest Rates \& Expectations & -0.7403062\\
+\cellcolor{gray!6}{Monetary Approach of Balance of Payments} & \cellcolor{gray!6}{-0.7658536}\\
 \addlinespace
-Debts \& Deficits & -0.2450905\\
-\cellcolor{gray!6}{Consumption: intertemporal substitution \& permanent income} & \cellcolor{gray!6}{-0.2639163}\\
-Sticky Prices, Search Models \& Inflation & -0.3129429\\
+Credit Rationing, Rational Expectations \& Imperfect Information & -0.8270409\\
+\cellcolor{gray!6}{Inflation \& Rigidities} & \cellcolor{gray!6}{-0.8396888}\\
+Demand for Money & -0.8564033\\
+\cellcolor{gray!6}{New Theory of Money: Search, Bargaining...} & \cellcolor{gray!6}{-1.2139877}\\
+Permanent Income Hypothesis \& Life-Cycle & -1.4920219\\
+\addlinespace
+\cellcolor{gray!6}{Monetary Economics \& Demand for Money} & \cellcolor{gray!6}{-1.6768415}\\
+Intergenerational Model, Savings and Consumption & -3.2194818\\
+\cellcolor{gray!6}{Marginal Taxation} & \cellcolor{gray!6}{-3.3179236}\\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}
-\item \textit{Note: } 
-\item Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors
-\end{tablenotes}
-\end{threeparttable}
 \end{table}
 
 \begin{table}[!h]
@@ -1045,14 +1055,7 @@ variables that were missing from Scopus compared to WoS. This mostly
 includes cleaning the references to match \emph{Scopus} references with
 WoS ones, and identification of author's affiliation.
 
-\begin{figure}[!ht]
-
-{\centering \includegraphics[width=1\linewidth]{Pictures/infographics_corpus1} 
-
-}
-
-\caption{Construction of Corpus 1}\label{fig:unnamed-chunk-1}
-\end{figure}
+INFOGRAPHICS TO DO ALEX
 
 Moreover, given that the size of our corpus is modest, we made an
 extensive semi-automatic cleaning of references to improve references
@@ -1099,8 +1102,8 @@ The construction of this corpus is made in multiple steps (see Figure
   Using these JEL codes, we match econlit articles with WoS articles
   when (1) they shared the same title and year of publications, and (2)
   the same journal, pages, volume and year of publications. Out of the
-  5548 articles we get in econlit, we matched 4909 of them in
-  WoS.\footnote{Most of the unmatched articles are not `articles'
+  TO DO ALEX articles we get in econlit, we matched TO DO ALEX of them
+  in WoS.\footnote{Most of the unmatched articles are not `articles'
     properly speaking: they often are reply and comments on other
     published articles. (Investigate this deeper)}
 \item
@@ -1122,8 +1125,8 @@ The construction of this corpus is made in multiple steps (see Figure
     available abstracts for the Top 5 as too many abstracts were missing
     in WoS or \emph{Scopus}. The abstracts extracted from this database
     are matched with our WoS Top 5 corpus using journal, pages, volume
-    and year of publications. Out of 9390 abstracts collected in the Top
-    5 journals, we match 8360 in WoS.
+    and year of publications. Out of TO DO ALEX abstracts collected in
+    the Top 5 journals, we match TO DO ALEX in WoS.
   \end{itemize}
 \end{enumerate}
 
@@ -1215,29 +1218,29 @@ important elements:
 
 For all macroeconomics articles published in the EER and in the Top 5,
 we build the networks with 10-year overlapping windows. This results in
-21.
+TO DO ALEX.
 
 We used Leiden detection algorithm
 (\protect\hyperlink{ref-traag2019}{Traag et al., 2019}) that optimize
 the modularity on each network to identify groups of articles that are
 similar to each others and dissimilar to the rest of the network. We use
-a resolution of 1 with 1000 iterations. This results in
-n\_communities\_raw across all networks. Because networks have a lot of
-overlaps, many clusters between two periods are composed of the same
-articles. To identify these clusters that are very similar between two
-time windows, we considered that \emph{(i)} if at least 55\% of the
-articles in a community of the first time window where in the same
-cluster in the second time window, and that \emph{(ii)} if the cluster
-was also composed by at least 55\% of articles of the first time window,
+a resolution of 1 with 1000 iterations. This results in TO DO ALEX
+across all networks. Because networks have a lot of overlaps, many
+clusters between two periods are composed of the same articles. To
+identify these clusters that are very similar between two time windows,
+we considered that \emph{(i)} if at least 55\% of the articles in a
+community of the first time window where in the same cluster in the
+second time window, and that \emph{(ii)} if the cluster was also
+composed by at least 55\% of articles of the first time window,
 \emph{then} it is the same cluster
 
 Simply put, if two clusters share a high number of articles, and are
 both mostly composed by these shared articles, they are considered the
 same cluster.
 
-This gives us 136, with 26 that are at least 5\% of a network at any
-given point and are stable enough to exists for at least two time
-windows.
+This gives us TO DO ALEX, with TO DO ALEX that are at least 5\% of a
+network at any given point and are stable enough to exists for at least
+two time windows.
 
 For each of these clusters, we computed the share of articles published
 in the top 5 journals vs the EER, and the share of articles authored by
@@ -1320,7 +1323,7 @@ test different thresholds and choices by running different models:
   by exluding trigrams or not;
 \item
   by removing the terms that are present in less than 0.5\% of the
-  Corpus (15), 1\% (31) and 2\% (63);
+  Corpus (), 1\% () and 2\% ();
 \item
   by removing articles with less than 6 words or with less than 12
   words.\footnote{Here, only articles with no abstract are impacted.}

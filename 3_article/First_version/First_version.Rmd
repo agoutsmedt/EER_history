@@ -58,89 +58,131 @@ for (p in package_list) {
   }
   library(p, character.only = TRUE)
 }
-
-drive_ls("Macro_History/EER/EER_article/First_version/") 
 ```
 
 ```{r loading-data, cache=TRUE}
-
 # Paths
-if(str_detect(here(), "goutsmedt")){
-  data_path <- path.expand("~/data/Macro_AA")
+if (str_detect(getwd(), "goutsmedt")) {
+  data_path <- "C:/Users/goutsmedt/Mon Drive/data"
 } else {
-data_path <- "/projects/data/macro_AA"
+  if (str_detect(getwd(), "Dropbox")) {
+    data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
+  } else {
+    data_path <- "/projects/data/macro_AA"
+  }
 }
-
-eer_data <- here(data_path, "EER")
-# Loading the corpus
-articles_eer <- readRDS(here(eer_data, 
-                             "1_Corpus_Prepped_and_Merged",
-                             "Corpus.rds"))
-
-top5_EER <- readRDS(here::here(data_path,"EER","1_Corpus_Prepped_and_Merged","corpus_top5_ERR.rds"))
-
-dt_Old_JEL_Articles <- readRDS(here::here(data_path,"Corpus_Econlit","dt_Old_JEL_Articles.rds"))
-dt_JEL_Articles <- readRDS(here::here(data_path,"Corpus_Econlit","dt_JEL_Articles.rds"))
-Corpus_econlit <- rbind(dt_Old_JEL_Articles, dt_JEL_Articles)
-
-Corpus2 <- readRDS(here::here(data_path, 
-                              "Corpus_Econlit_Matched_WoS",
-                              "JEL_matched_corpus_nodes.rds"))
-Corpus3 <- readRDS(here::here(data_path, 
-                              "Corpus_Econlit_Matched_WoS",
-                              "Old_JEL_matched_corpus_nodes.rds"))
-Corpus_macroAA <- rbind(Corpus2, Corpus3, fill=TRUE) # Remplacer Corpus_macroAA par la version définitive du corpus top5
+source(here("Script_paths_and_basic_objects_EER.R"))
 
 
-missing_ID_Art_abstracts <- readRDS(here::here(eer_data,
-                                               "1_Corpus_Prepped_and_Merged",
-                                               "abstracts_MS_with_ID_Art.RDS")) %>% 
-  filter(between(YEAR, 1969, 2002))
+# Loading Corpus and filter it to have to good corpus EER, and macroEER/Top 5
 
-institutions_eer <- readRDS(here(eer_data, 
-                        "1_Corpus_Prepped_and_Merged", 
-                        "Institutions_cleaned.rds"))
-collabs <- readRDS(here(eer_data, 
-                        "1_Corpus_Prepped_and_Merged", 
-                        "Institutions_cleaned.rds"))
+all_macro <- readRDS(here(data_path,
+                          "macro_AA",
+                          "2_Matched_data",
+                          "Econlit_matched_ID_Art.RDS"))
+
+Corpus <- readRDS(here(eer_data,
+                       "1_Corpus_Prepped_and_Merged",
+                       "Corpus_top5_EER.RDS"))
+
+Refs <- readRDS(here(eer_data, 
+                     "1_Corpus_Prepped_and_Merged",
+                     "Direct_citations_top5_EER.RDS"))
+
+Refs_info <- readRDS(here(eer_data, 
+                          "1_Corpus_Prepped_and_Merged",
+                          "References_top5_EER.rds"))
+
+Institution <- readRDS(here(eer_data, 
+                            "1_Corpus_Prepped_and_Merged",
+                            "Institutions_top5_EER.RDS"))
+Institution <- merge(Institution,Corpus[,.(Annee_Bibliographique,ID_Art)],by="ID_Art",all.x=TRUE)
+
+Authors <- readRDS(here(eer_data, 
+                        "1_Corpus_Prepped_and_Merged",
+                        "Authors_Top5_EER.RDS"))
+Authors[,Nom_ISI:=Nom]
+
+# Corpus econlit
+econlit_new <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_JEL_Articles.rds"))
+econlit_old <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_Old_JEL_Articles.rds"))
+econlit_art <- rbind(econlit_old, econlit_new)
+
+# Corpus alluvial and network
+alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
+alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
+tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
+communities <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "euro_vs_us_communities.rds")) %>% arrange(desc(sum_diff))
+
+# Corpus EER
+Corpus_all_EER <- Corpus[journal_type=="EER"] 
+Refs_all_EER <- Refs[ID_Art %in% Corpus_all_EER$ID_Art]
+Institutions_all_EER <- Institution[ID_Art %in% Corpus_all_EER$ID_Art]
+Authors_EER <- Authors[ID_Art %in% Corpus_all_EER$ID_Art]
+
+# Corpus macro EER/Top5
+Corpus <- Corpus[jel_id==1]
+Corpus <- Corpus[Annee_Bibliographique>=1973]
+Refs <- Refs[ID_Art %in% Corpus$ID_Art]
+Institution <- Institution[ID_Art %in% Corpus$ID_Art]
+Authors <- Authors[ID_Art %in% Corpus$ID_Art]
 
 # Topic modelling data
-corpus <- readRDS(here(eer_data, 
-                       "1_Corpus_Prepped_and_Merged",
-                       "corpus_top5_ERR.rds"))
-
-
 topic_diff <- readRDS(here(eer_data, 
                            "3_Topic_modelling",
-                           "topic_model_7-55_topics_diff.rds")) %>% 
+                           "TM_topics_diff.rds")) %>% 
   mutate(total_diff = diff_affiliation + diff_journal,
          topic = as.integer(str_extract(topic_name, "[:digit:]+")))
 
 top_terms <- readRDS(here(eer_data,
                           "3_Topic_modelling",
-                          "topic_model_7-55_top_terms.rds")) %>% 
+                          "TM_top_terms.rds")) %>% 
   left_join(select(topic_diff, topic, total_diff))
-
-# Bibliometric coupling data
-networks_top5 <- readRDS(here(eer_data, 
-                              "2_raw_Networks_and_Alluv",
-                              "list_networks_EER_Top5_Macro.rds")) %>%
-  lapply(function(tbl) (tbl %>% activate(nodes) %>% as.data.table())) %>%
-  rbindlist(idcol = "window", fill = TRUE) %>%
-  mutate(window = paste0(window, "-", as.integer(window) + 9)) %>%
-  select(ID_Art, new_Id_com, window, color, Leiden1) %>%
-  unique()
-
-communities <- readRDS(here(eer_data,
-                            "2_Raw_Networks_and_Alluv",
-                            "euro_vs_us_communities.rds")) %>% 
-  arrange(desc(sum_diff))
 
 # Loading boards
 boards <- read_csv(here(eer_data,
                         "editorial_boards", 
                         "Members_EB_by_year.csv"))
 
+# Bibliometric coupling data
+# networks_top5 <- readRDS(here(eer_data, 
+#                               "2_raw_Networks_and_Alluv",
+#                               "list_networks_EER_Top5_Macro.rds")) %>%
+#   lapply(function(tbl) (tbl %>% activate(nodes) %>% as.data.table())) %>%
+#   rbindlist(idcol = "window", fill = TRUE) %>%
+#   mutate(window = paste0(window, "-", as.integer(window) + 9)) %>%
+#   select(ID_Art, new_Id_com, window, color, Leiden1) %>%
+#   unique()
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
+
+```
+
+```{r}
+n_corpus <- Corpus[,.N]
+
+n_econlit <- econlit_art[toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY" 
+               | toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS" 
+               | toupper(Journal)=="AMERICAN ECONOMIC REVIEW"
+               | toupper(Journal)=="EUROPEAN ECONOMIC REVIEW"
+               | toupper(Journal)=="REVIEW OF ECONOMIC STUDIES"
+               | toupper(Journal)=="ECONOMETRICA"][Year.V1>=1973 & Year.V1<=2002][,.N]
+
+network_raw_com <- lapply(tbl_coup_list,function(x) x %>% activate(nodes) %>% as.data.table %>% .[,.N,Leiden1])
+network_raw_com <- rbindlist(network_raw_com,fill = TRUE)
+n_communities_raw <- network_raw_com[,.N]
+
+n_communities_alluv <- alluv_dt_graph[,.N,new_Id_com][,.N]
+n_communities_of_interest <- alluv_dt_graph[,.N,Label_com][!is.na(Label_com),.N]
+n_windows <- alluv_dt_graph[,.N,Window][,.N]
+meta_group <- alluv_dt_graph[!is.na(Label_com),.N,meta_group]
+
+time_window <- 8
+min_n_years <- 2
+min_leiden_max <- 0.04
 ```
 
 # Introduction
@@ -167,27 +209,8 @@ However, we are focusing only on macroeconomics articles, mainly because we thin
 
 [^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix).
 
-```{r plot-jel, fig.cap="Share of Articles with at least one macroeconomics JEL code", fig.dim=c(4,3)}
-mean_jel <- articles_eer %>% 
-  group_by(Annee_Bibliographique) %>% 
-  mutate(mean = mean(JEL_id)) %>% 
-  filter(between(Annee_Bibliographique, 1973, 2002),
-         JEL_id == 1) %>% 
-  select(Annee_Bibliographique, mean) %>% 
-  unique
-
-ggplot(mean_jel, aes(x = as.integer(Annee_Bibliographique), y = mean)) +
-  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
-  geom_point()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-  labs(x = "",
-       y = "") +
-  scale_y_continuous(limits = c(0,0.6),
-                     breaks = c(0.10, 0.20, 0.30, 0.40, 0.50, 0.60),
-                     labels = scales::label_percent()) +
-  scale_x_continuous(breaks = c(1973, 1980, 1985, 1990, 1995, 2002)) +
-  theme_classic()
-
+```{r plot-jel, fig.cap="Share of Articles with at least one macroeconomics JEL code", out.width = '100%'}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
 ```
 
 # The Creation of the EER {#EER-creation}
@@ -204,96 +227,101 @@ This context made of the EER a Belgian-centred initiative in the first years. Be
 
 [^6]: This is an approximation, as the affiliation per author is not available in our corpus and we only have the affiliations per article (see [Appendix B.2.](#author-affiliation) for more details).
 
-```{r plot-authors, fig.dim=c(5,5), fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
-country_eer_colors <- institutions_eer %>%
-  filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
-  mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays)) %>%
-  count(Pays) %>% 
-  slice_max(n, n = 10) %>% 
-  select(Pays)
+```{r plot-authors, out.width = '100%', fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_affiliations.png"))
 
-country_boards_color <- boards %>% 
-  filter(Year <= 2002) %>% 
-  count(Country) %>% 
-  slice_max(n, n = 10) %>% 
-  rename("Pays" = Country) %>% 
-  select(Pays)
 
-country_colors <- union(country_eer_colors, country_boards_color) %>% 
-  arrange(Pays) %>% 
-  mutate(color = see::see_colors()[1:n()]) %>% 
- # mutate(color = see::see_colors()[1:n()]) %>% 
-#  mutate(color = scico::scico(n = n(), palette = "hawai")) %>% 
-  rbind(c("Other", "gray")) 
-  
-
-main_institutions <- institutions_eer %>% 
-  filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
-  mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays),
-         Pays = fct_lump(Pays, n = 10)) %>% 
-  left_join(country_colors) %>% 
-  mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
-
-levels <- tibble("Pays" = levels(fct_lump(main_institutions$Pays, n = 10))) %>% 
-  filter(Pays != "OTHER") %>% 
-  rbind("OTHER") %>% 
-  mutate(rank = 1:n())
-
-main_institutions <- main_institutions %>% 
-  left_join(levels) %>% 
-  arrange(rank)
-
-ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
-  geom_density(position = "fill", show.legend = TRUE) +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
-  scale_fill_identity(guide = "legend",
-                      labels = unique(main_institutions$Pays),
-                      breaks = unique(main_institutions$color)) +
-  #see::scale_fill_metro_d(reverse = TRUE, palette = "rainbow") +
-#  scico::scale_color_scico_d(palette = "hawai") +
-  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
-  scale_x_continuous(expand = c(0,0)) +
-  theme_classic() +
-  theme(legend.position = "bottom")  +
-  guides(fill = guide_legend(nrow = 4))
+# country_eer_colors <- institutions_eer %>%
+#   filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
+#   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays)) %>%
+#   count(Pays) %>%
+#   slice_max(n, n = 10) %>%
+#   select(Pays)
+# 
+# country_boards_color <- boards %>%
+#   filter(Year <= 2002) %>%
+#   count(Country) %>%
+#   slice_max(n, n = 10) %>%
+#   rename("Pays" = Country) %>%
+#   select(Pays)
+# 
+# country_colors <- union(country_eer_colors, country_boards_color) %>%
+#   arrange(Pays) %>%
+#   mutate(color = see::see_colors()[1:n()]) %>%
+#  # mutate(color = see::see_colors()[1:n()]) %>%
+# #  mutate(color = scico::scico(n = n(), palette = "hawai")) %>%
+#   rbind(c("Other", "gray"))
+# 
+# 
+# main_institutions <- institutions_eer %>%
+#   filter(ID_Art %in% filter(articles_eer, Annee_Bibliographique <= 2002)$ID_Art) %>%
+#   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES"), "UK", Pays),
+#          Pays = fct_lump(Pays, n = 10)) %>%
+#   left_join(country_colors) %>%
+#   mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+# 
+# levels <- tibble("Pays" = levels(fct_lump(main_institutions$Pays, n = 10))) %>%
+#   filter(Pays != "OTHER") %>%
+#   rbind("OTHER") %>%
+#   mutate(rank = 1:n())
+# 
+# main_institutions <- main_institutions %>%
+#   left_join(levels) %>%
+#   arrange(rank)
+# 
+# ggplot(main_institutions, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+#   geom_density(position = "fill", show.legend = TRUE) +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   scale_fill_identity(guide = "legend",
+#                       labels = unique(main_institutions$Pays),
+#                       breaks = unique(main_institutions$color)) +
+#   #see::scale_fill_metro_d(reverse = TRUE, palette = "rainbow") +
+# #  scico::scale_color_scico_d(palette = "hawai") +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom")  +
+#   guides(fill = guide_legend(nrow = 4))
 ```
 
 The EER was one of these important initiatives that contributed to the development of intellectual exchanges between European based economists [@goutsmedt2021]. The centrality of the journal was strengthened in 1984 when the European Economic Association was created, and the EER established as the official journal of the new association.
 
-```{r plot-boards, fig.dim=c(5,5), fig.cap="Share of countries in EER editorial boards (Top 10)"}
-main_boards <- boards %>% 
-  filter(Year <= 2002) %>% 
-  rename("Pays" = Country) %>% 
-  mutate(Pays = fct_lump(Pays, n = 10)) %>% 
-  left_join(country_colors) %>% 
-  mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+```{r plot-boards, out.width = '100%', fig.cap="Share of countries in EER editorial boards (Top 10)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Board_affiliations.png"))
 
-levels <- tibble("Pays" = levels(fct_lump(main_boards$Pays, n = 10))) %>% 
-  filter(Pays != "OTHER") %>% 
-  rbind("OTHER") %>% 
-  mutate(rank = 1:n())
-
-main_boards <- main_boards %>% 
-  left_join(levels) %>% 
-  arrange(rank)
-
-ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
-  geom_density(position = "fill") +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
-  scale_fill_identity(guide = "legend",
-                      labels = unique(main_boards$Pays),
-                      breaks = unique(main_boards$color)) +
-  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
-  scale_x_continuous(expand = c(0,0)) +
-  theme_classic() +
-  theme(legend.position = "bottom")  +
-  guides(fill = guide_legend(nrow = 4))
+# main_boards <- boards %>% 
+#   filter(Year <= 2002) %>% 
+#   rename("Pays" = Country) %>% 
+#   mutate(Pays = fct_lump(Pays, n = 10)) %>% 
+#   left_join(country_colors) %>% 
+#   mutate(Pays = ifelse(Pays == "Other", "OTHER", Pays))
+# 
+# levels <- tibble("Pays" = levels(fct_lump(main_boards$Pays, n = 10))) %>% 
+#   filter(Pays != "OTHER") %>% 
+#   rbind("OTHER") %>% 
+#   mutate(rank = 1:n())
+# 
+# main_boards <- main_boards %>% 
+#   left_join(levels) %>% 
+#   arrange(rank)
+# 
+# ggplot(main_boards, aes(Year, after_stat(count), group = fct_reorder(Pays, rank), fill = color)) +
+#   geom_density(position = "fill") +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   scale_fill_identity(guide = "legend",
+#                       labels = unique(main_boards$Pays),
+#                       breaks = unique(main_boards$color)) +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom")  +
+#   guides(fill = guide_legend(nrow = 4))
 ```
 
 ## A Rising European Journal {#rising-journal}
@@ -302,40 +330,45 @@ Outside of offering a common platform for European economists, the journal initi
 
 The share of US-based authors publishing in the journal grew steadily in the 1970s and reached a third of all affiliations in the early 1980s (Figure \ref{fig:plot-authors}). The increase of US economists participation to the EER does not mean uniquely that more articles were published by US authors, but also that number of collaborations between US- and European-based economists increased (Figure \ref{fig:plot-collabs}). While there was no collaboration in the first year of the journal, 10 percent of the articles published in 1980 mixed institutions from the US and Europe.
 
-```{r plot-collabs, fig.dim=c(4.5,4), fig.cap="Patterns of collaboration between the United States and European countries in EER"}
-levels <- tibble("EU_US_collab" = c("Europe Only", "USA Only", "Collaboration", "Neither"),
-                 "rank" = 1:4)
+```{r plot-collabs, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER", echo = FALSE}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_collab_stack_density.png"))
 
-collabs_eer <- articles_eer %>% 
-  left_join(collabs) %>% 
-  filter(Annee_Bibliographique <= 2002,
-         ! is.na(EU_US_collab)) %>% 
-  select(ID_Art, EU_US_collab, Annee_Bibliographique) %>% 
-  unique() %>% 
-  left_join(levels)
+# levels <- tibble("EU_US_collab" = c("Europe Only", "USA Only", "Collaboration", "Neither"),
+#                  "rank" = 1:4)
+# 
+# collabs_eer <- articles_eer %>% 
+#   left_join(collabs) %>% 
+#   filter(Annee_Bibliographique <= 2002,
+#          ! is.na(EU_US_collab)) %>% 
+#   select(ID_Art, EU_US_collab, Annee_Bibliographique) %>% 
+#   unique() %>% 
+#   left_join(levels)
+# 
+# ggplot(collabs_eer, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(EU_US_collab, rank), fill = fct_reorder(EU_US_collab, rank))) +
+#   geom_density(position = "fill") +
+#   labs(fill = "",
+#        title = "",
+#        x = "",
+#        y = "") +
+#   see::scale_fill_see_d(reverse = TRUE, palette = "contrast") +
+#   scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
+#   scale_x_continuous(expand = c(0,0)) +
+#   theme_classic() +
+#   theme(legend.position = "bottom") +
+#   guides(fill = guide_legend(nrow = 2))
 
-ggplot(collabs_eer, aes(as.integer(Annee_Bibliographique), after_stat(count), group = fct_reorder(EU_US_collab, rank), fill = fct_reorder(EU_US_collab, rank))) +
-  geom_density(position = "fill") +
-  labs(fill = "",
-       title = "",
-       x = "",
-       y = "") +
-  see::scale_fill_see_d(reverse = TRUE, palette = "contrast") +
-  scale_y_continuous(labels = scales::label_percent(), expand = c(0,0)) +
-  scale_x_continuous(expand = c(0,0)) +
-  theme_classic() +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend(nrow = 2))
+```
 
+```{r plot-collabs2, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER (noodle version)"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Collab_strict.png"))
 ```
 
 In the mid-1980s, the journal was thus a symbol of a more integrated European economics, inspired by the US standards, as well as it was attracting many US economists to publish in it. Its intellectual influence similarly expanded and it became a major economic journal, overcoming other important European journals in terms of bibliographic citations (Figure \ref{fig:plot-eer-importance}).
 
 ```{r plot-eer-importance, out.width="100%", fig.cap="Share of total citations going to EER"}
 
-drive_download("Pictures/EER_Importance.png",
-               overwrite = TRUE)
-knitr::include_graphics("EER_Importance.png")
+knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_Importance.png"))
+
 ```
 
 But has this whole process led to the total standardisation of a European economics on the US model, or has it led to the development (or persistence) of proper European specialities?
@@ -354,13 +387,13 @@ We identify macroeconomics articles by using the former and new JEL code classif
 
 ### Bibliographic coupling
 
-Bibliographic coupling connects articles together depending on the bibliographic references they share. We build different networks of EER and Top-5 articles (the nodes of the network), connected together by a weighted edge, depending ib the number of references two articles share together.[^9] We build networks on a moving ten-year window (depending on the year of publication of the articles). We thus have `r length(networks_top5$window %>% unique)` networks from the 1973-1982 period, through 1974-1983, 1975-1984, *etc.*, to the 1993-2002 period.[Due to missing JEL codes for EER before 1973, we are forced to begin with the 1973-1982 window.] For each network, we use the Leiden algorithm [@traag2019] to identify bibliographic clusters, that is groups of articles that share many references in common, and few with articles outside their cluster. Articles which belongs to the same cluster are more likely to share cognitive content (e.g., sharing objects of study, methods, results or theory) even if disagreeing [@claveau2016; @truc2021; @goutsmedt2021]. Finally, we test the similarity of the clusters two by two for successive time windows, and merge clusters from different windows together when they are sufficiently close.[^10]
+Bibliographic coupling connects articles together depending on the bibliographic references they share. We build different networks of EER and Top-5 articles (the nodes of the network), connected together by a weighted edge, depending ib the number of references two articles share together.[^9] We build networks on a moving ten-year window (depending on the year of publication of the articles). We thus have ALEX TO DO networks from the 1973-1982 period, through 1974-1983, 1975-1984, *etc.*, to the 1993-2002 period.[Due to missing JEL codes for EER before 1973, we are forced to begin with the 1973-1982 window.] For each network, we use the Leiden algorithm [@traag2019] to identify bibliographic clusters, that is groups of articles that share many references in common, and few with articles outside their cluster. Articles which belongs to the same cluster are more likely to share cognitive content (e.g., sharing objects of study, methods, results or theory) even if disagreeing [@claveau2016; @truc2021; @goutsmedt2021]. Finally, we test the similarity of the clusters two by two for successive time windows, and merge clusters from different windows together when they are sufficiently close.[^10]
 
 [^9]: For more details on the measure of weights, see the [Appendix B.3.](#network).
 
 [^10]: See the [Appendix B.3.](#network) for details on the merging criteria.
 
-This process allows us to obtain dynamic clusters Indeed, citation patterns are highly dependent of the date of publication of an article: scholars tend to cite more recent works. Consequently, for large time window, clusters would likely be determined mainly by the publication year, rather than by what they are talking about.[^11] By taking small time windows and then by merging communities in different windows together, we avoid this problem and are able to identify communities over longer period of time. We identify a total of `r length(networks_top5$new_Id_com %>% unique)` communities but only `r length(networks_top5$color %>% unique)` are *(i)* present in at least two networks (i.e. two time windows) and *(ii)* represent more than 5 percent of the nodes of at least one of the network they belong.
+This process allows us to obtain dynamic clusters Indeed, citation patterns are highly dependent of the date of publication of an article: scholars tend to cite more recent works. Consequently, for large time window, clusters would likely be determined mainly by the publication year, rather than by what they are talking about.[^11] By taking small time windows and then by merging communities in different windows together, we avoid this problem and are able to identify communities over longer period of time. We identify a total of ALEX TO DO communities but only ALEX TO DO are *(i)* present in at least two networks (i.e. two time windows) and *(ii)* represent more than 5 percent of the nodes of at least one of the network they belong.
 
 [^11]: In other words, articles would be grouped together depending on the year of their publication and the clusterisation of the network would not say much of the economic content articles grouped together would share.
 
@@ -368,43 +401,8 @@ A set of indicators allows us to understand what these clusters are about---e.g.
 
 [^12]: Our assumption is that the content of articles published in the Top 5 by European economists could be more largely influenced by the standards of Top 5 journals and of US macroeconomics, and thus could be less representative of European economics than the articles published in the EER.
 
-```{r plot-community-diff, fig.dim=c(6,5), fig.cap="The most European communities"}
-com_names <- tribble(
-  ~new_Id_com, ~new_name,
-  "Keynesian Economics & Disequilibrium", "Keynesian Economics, Disequilibrium, Imperfect Competition & Contracts",
-  "Financial Intermediation & Monetary Policy", "Monetary Policy & Channels of Transmission",
-  "ztGPr6dZ", "Exchange Rate Determination",
-  "sJsEI5yo", "Real Business Cycles",
-  "wfIMtg7O", "(Hyper)inflation & Money Growth",
-  "FbeuSKRj", "Theory & Measure of Unemployment",
-  "ZfbnKTMy", "Balance of Payments, Exchange Rate & Interdependence",
-  "Indexation & Monopolistic Competition", "New Keynesian Rigidities",
-  "jdEPLz4v", "Sticky Prices, Search Models & Inflation",
-  "Mgz4J8yL", "Theoretical Functions of Money",
-  "kzbbQ3OB", "Debts & Deficits",
-  "FWP20e5i", "Imperfect Information & Credit Rationing",
-  "igSukGRR", "Inflation, Expectations & Interest Rates",
-  "luJ6jBle", "Monetary Policy, Credit Conditions, Financial Market & Business Cycles"
-)
-
-communities <- communities %>% 
-  left_join(com_names) %>% 
-  mutate(new_name = ifelse(is.na(new_name), new_Id_com, new_name))
-
-ggplot(communities, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
-  geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
-  geom_hline(yintercept = 0, size = 1, alpha = 0.3) +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(color = sum_diff), size = 2, alpha = 0.8) +
-  ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.1 | sum_diff < -0.15), 
-                           aes(label = str_wrap(new_name, 25)), size = 1.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.11, 1.2), labels = c("Less European", "More European")) +
-  labs(title = "",
-       color = "",
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") + 
-  theme_classic(base_size = 9) +
-  theme(legend.position = "bottom")
+```{r plot-community-diff, out.width = '100%', fig.cap="The most European communities"}
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"))
 ```
 
 ### Topic Modelling
@@ -419,25 +417,8 @@ Topic modelling is a non-supervised machine learning method which associates *(i
 
 Similarly to what we do for bibliometric coupling, we are interested in the topics characteristics regarding the publications (EER *vs.* Top 5) and the countries of affiliations of the authors (the US *vs.* European countries). As each article has a 'rate of belonging' to each topic (the *gamma* value), we are able, for each topic, to compute the difference in the means of *gamma* values for (i) articles published in the EER and articles published in the Top 5 and (ii) articles written by US-based authors and those written by European-based authors. The resulting two differences are the coordinates of the `r topic_diff$topic_name %>% unique %>% length` topics in Figure \ref{fig:plot-topic-diff}. When we sum the two differences, we have an indicator of how much a topic is a European topic.
 
-```{r plot-topic-diff, fig.dim=c(6,5), fig.cap="Topic Prevalence over journals (Difference of Means)"}
-
-topic_diff %>% 
-  mutate(topic_label = str_wrap(str_remove(topic_name, "^Topic "), 20)) %>% 
-ggplot(aes(x = diff_affiliation, y = diff_journal)) +
-  geom_vline(xintercept = 0, size = 1, alpha = 0.3) +
-  geom_hline(yintercept = 0, size = 1, alpha = 0.3) +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(color = total_diff), size = 2, alpha = 0.8) +
-  ggrepel::geom_text_repel(data = . %>% filter(total_diff > 0.01 | total_diff < -0.012), 
-                           aes(label = topic_label), size = 1.5, alpha = 1, hjust = 0) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-0.02, 0.04), labels = c("Less European", "More European")) +
-  labs(title = "",
-       color = "",
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") + 
-  theme_classic(base_size = 9) +
-  theme(legend.position = "bottom")
-
+```{r plot-topic-diff, out.width = '100%', fig.cap="Topic Prevalence over journals (Difference of Means)"}
+knitr::include_graphics(here(eer_data,"pictures","topic_modelling","logratio_diff_plot.png"))
 ```
 
 ## A Broad Picture of European Specialities?
@@ -477,21 +458,21 @@ Outside of the points cited above, it is worth noting the importance of the issu
 
 Here are the tables listing the different clusters and topics, with their synthetic indicator of how much they are "European".
 
-```{r summary-communities, fig.dim=c(7, 8), fig.pos = "b"}
-communities <- communities %>% 
-  select(new_name, sum_diff) %>% 
-  arrange(desc(sum_diff))
+```{r summary-communities}
+communities_table <- communities %>% select(Label_com, sum_diff) %>% arrange(desc(sum_diff))
 
-kable(communities,
-      "latex",
-      caption = "Summary of bibliographic communities",
-    booktabs = TRUE,
-    longtable = FALSE,
-    col.names =c("Communities", "Differences")) %>%
-kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
-              font_size = 5) %>% 
-  footnote(general = "Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors",
-           threeparttable = TRUE)
+communities_table %>%
+  kbl(caption="Summary of Bibliographic Communities",
+      booktabs = TRUE,
+      longtable = FALSE,
+      col.names =c("Communities", "Differences"),
+      format= "latex",
+      align="lr") %>%
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
+                font_size = 9)
+
+# footnote(general = "Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors",
+#           threeparttable = TRUE)
 ```
 
 ```{r summary-topics, fig.dim=c(7, 8)}
@@ -532,33 +513,12 @@ For the present study we used two different corpora. The first corpus is compose
 
 For the creation of the first corpus composed of all EER articles, we used a mix of *Web of Science* (WoS) and *Scopus*. While WoS has all articles of the EER between 1969-1970 and 1974-2002, it is missing most articles published between 1971 and 1973. To make up for the missing data, we use Scopus to complete the dataset. This operation required normalization of the Scopus dataset, and manual cleaning of variables that were missing from Scopus compared to WoS. This mostly includes cleaning the references to match *Scopus* references with WoS ones, and identification of author's affiliation.
 
-```{r echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 1',fig.pos = "!ht"}
-drive_download("Pictures/infographics_corpus1.png",
-               overwrite = TRUE)
-
-knitr::include_graphics("Pictures/infographics_corpus1.png")
-
-```
+INFOGRAPHICS TO DO ALEX
 
 Moreover, given that the size of our corpus is modest, we made an extensive semi-automatic cleaning of references to improve references identification by adding the most commonly cited books, book chapter, articles that are not otherwise identified in WoS when possible.
 
 #### EER and Top 5 Macroeconomics Articles {#eer-top5-macro .unnumbered}
 
-```{r}
-
-n_macro <- Corpus_macroAA[Code_Revue=="9662" | Code_Revue=="13694" | Code_Revue=="4695" | Code_Revue=="13992" | Code_Revue=="758" | Code_Revue=="5200"][,.N]
-
-n_econlit <- Corpus_econlit[toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY" 
-               | toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS" 
-               | toupper(Journal)=="AMERICAN ECONOMIC REVIEW"
-               | toupper(Journal)=="EUROPEAN ECONOMIC REVIEW"
-               | toupper(Journal)=="REVIEW OF ECONOMIC STUDIES"
-               | toupper(Journal)=="ECONOMETRICA"][,.N]
-
-# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT),.N,YEAR], aes(x=as.character(YEAR),y=N)) + geom_bar(stat="identity")
-# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "fixed")
-
-```
 
 The construction of this corpus is made in multiple steps (see Figure \ref{fig:plot-diagram-corpus} for an illustration):
 
@@ -569,20 +529,20 @@ The construction of this corpus is made in multiple steps (see Figure \ref{fig:p
         -   For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824.
         -   For new JEL codes (1991 onward): all E, F3 and F4.[^19].
 
-2.  Using these JEL codes, we match econlit articles with WoS articles when (1) they shared the same title and year of publications, and (2) the same journal, pages, volume and year of publications. Out of the `r n_econlit` articles we get in econlit, we matched `r n_macro` of them in WoS.[^20]
+2.  Using these JEL codes, we match econlit articles with WoS articles when (1) they shared the same title and year of publications, and (2) the same journal, pages, volume and year of publications. Out of the TO DO ALEX articles we get in econlit, we matched TO DO ALEX of them in WoS.[^20]
 
 3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, Econometrica, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
 
 4.  Finally, we were able to collect abstracts:
 
     -   using *Scopus* for the EER. All abstracts have been matched with the EER corpus.
-    -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using journal, pages, volume and year of publications. Out of `r missing_ID_Art_abstracts[!is.na(ABSTRACT),.N]` abstracts collected in the Top 5 journals, we match `r missing_ID_Art_abstracts[!is.na(ID_Art) & !is.na(ABSTRACT),.N,ID_Art][,.N]` in WoS.
+    -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using journal, pages, volume and year of publications. Out of TO DO ALEX abstracts collected in the Top 5 journals, we match TO DO ALEX in WoS.
 
 [^19]: The new classification has a clear categorisation of Macroeconomics (the letter 'E'), but we had F3 and F4 as they deal with international macroeconomics. For the older JEL codes, we use the table of correspondence produce by the *Journal of Economic Literature* itself [@jel1991].
 
 [^20]: Most of the unmatched articles are not 'articles' properly speaking: they often are reply and comments on other published articles. (Investigate this deeper)
 
-```{r plot-diagram-corpus, echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 2',fig.pos = "!ht"}
+```{r plot-diagram-corpus, echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 2',fig.pos = "!ht", echo = FALSE}
 
 diagram_corpus <- DiagrammeR::mermaid("
 graph LR
@@ -620,7 +580,7 @@ Second, and more importantly, for the purpose of our analysis, we mostly looked 
 
 ### B.3. Bibliographic Coupling and Cluster Detection {#network .unnumbered}
 
-```{r}
+```{r, echo = FALSE}
 # Variable to add after
 
 n_communities_raw <- "n_communities_raw"
@@ -633,13 +593,13 @@ A first way to identify potential differences between European and American macr
 
 -   the number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
 
-For all macroeconomics articles published in the EER and in the Top 5, we build the networks with 10-year overlapping windows. This results in `r length(networks_top5$window %>% unique)`.
+For all macroeconomics articles published in the EER and in the Top 5, we build the networks with 10-year overlapping windows. This results in TO DO ALEX.
 
-We used Leiden detection algorithm [@traag2019] that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in `r n_communities_raw` across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster
+We used Leiden detection algorithm [@traag2019] that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in TO DO ALEX across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster
 
 Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster.
 
-This gives us `r length(networks_top5$new_Id_com %>% unique)`, with `r length(networks_top5$color %>% unique)` that are at least 5% of a network at any given point and are stable enough to exists for at least two time windows.
+This gives us TO DO ALEX, with TO DO ALEX that are at least 5% of a network at any given point and are stable enough to exists for at least two time windows.
 
 For each of these clusters, we computed the share of articles published in the top 5 journals vs the EER, and the share of articles authored by European vs American for the time window of the cluster We then subtracted the share of articles published in the EER in the cluster with the share of articles published in the EER on the same time period of the cluster to identify over/under representation of the EER. We also subtracted the relative share of European authors to American authors in the cluster to the relative share of European authors to American on the same time period of the cluster to identify over/under representation of European authors in the cluster.
 
