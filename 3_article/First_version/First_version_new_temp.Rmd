@@ -382,7 +382,34 @@ But has this whole process led to the total standardisation of a European econom
 
 The first step was to build our dataset. To identify European specialities, we compare macroeconomics articles published in EER and in the Top-5 journals, that is the *American Economic Review*, the *Journal of Political Economy*, *Econometrica*, the *Quarterly Journal of Economics* and the *Review of Economic Studies*. Focusing on the Top 5 allows us to only get the most popular and dominant trends in macroeconomics and thus to draw clearer comparisons with what is published in the EER. Besides, the EER was created with the intent to establish an elite leading journal for the European community that would imitate the standards of US major journal. The Top 5 journals thus seem an adequate benchmark to compare the EER to.
 
-We identify macroeconomics articles by using the former and new JEL code classification [@jel1991].[^7] Outside of JEL codes data, we have used three different databases to collect different types of information: outside of basic metadata (year of publication, title, authors, *etc.*), we have collected the list of bibliographic references of EER and Top-5 articles, the abstracts, and authors affiliations.[^8] Then, we have conducted two different types of analysis to identify European specialities.
+We identify macroeconomics articles by using the former and new JEL code classification [@jel1991].[^7] Outside of JEL codes data, we have used three different databases to collect different types of information: outside of basic metadata (year of publication, title, authors, *etc.*), we have collected the list of bibliographic references of EER and Top-5 articles, the abstracts, and authors affiliations.[^8]
+
+To identifies specialties in a corpus, the existing literature usually use bibliographic information and network analysis (topology-based approach) or textual information and topic modeling (topic-based approach). In the first case, articles that share the same bibliographic informations (e.g., same references) are considered similar and part of the same specialties [@claveau2016]. In the second case, using abstracts or full-text, topics are assigned to individual articles, and specialties are derived from these topics [@ambrosino2018]. These two approaches use very different information (bibliographic information vs text), and very different techniques (network analysis and cluster detection vs probabilistic natural language processing).
+
+In the informetrics literature, one can find some attempts to combine both approaches [@ding2011; @li2012; @yan2012; @mao2017], but it has never been done in the economics literature. For the present article, we propose to do so by using the two types of analysis jointly to identify European specialties. The heterogeneous nature of both approaches provide different advantages when used together. 
+
+First, both approaches give different information and are complementary. Topology-based approach generally identify communities, while topic-based approached identify topics. Communities and topics are often considered intertwined: a community can have multiple topics, and a given topic can be tackled by different communities [@ding2011; @yan2012]. For example, a community of co-authors can cover different topics (e.g., a tight network of microeconomists discussing health and education) while different communities can cover similar topics (e.g., sociologists and economists discussing health but never co-authoring papers). Topic modeling can reveal heterogeneity of topics in a given community, while network analysis can reveal the bibliographic or co-authoring network that structure the same research topic. Using both approaches give a more exhaustive picture of the forces that structure economics research. Inversely, using both methods that can also reveal homogeneity, when communities and topics overlaps, then it sends a stronger signal that a community has a specific identity, is tightly knit and well-recognized.
+
+A second advantage of using both methods is that they use different techniques and data sources. Bibliographic and textual data from scientific publications have imperfections. Publications before the 1970s do not always have abstracts, and authors can make mistakes when referencing articles that lead to imperfect identification of bibliographic data. Similarly, from a technical point of view, both approaches are relatively recent, and the best algorithms/models used suffer from analytical limits and are evolving very rapidly (e.g., see @zhang2020 for community detection). Using both approaches jointly can help triangulate results and both methods can compensate for some of the weaknesses of the other.
+
+
+
+
+
+and these relatively recent techniques suffer from 
+
+Using both approaches jointly allows to triangulate the results of 
+
+
+
+and reinforced results from the other method. When some communities and topics very much overlaps [@yan2012]
+
+
+
+ Using both methods 
+
+It is only recently that we find 
+
 
 [^7]: See the complete list of all the JEL codes we have used in [Appendix B.1.](#eer-top5-macro).
 
