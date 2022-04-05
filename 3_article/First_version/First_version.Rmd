@@ -375,8 +375,6 @@ But has this whole process led to the total standardisation of a European econom
 
 # Identifying European Specialities {#european-specialities}
 
-## Methods {#methods}
-
 The first step was to build our dataset. To identify European specialities, we compare macroeconomics articles published in EER and in the Top-5 journals, that is the *American Economic Review*, the *Journal of Political Economy*, *Econometrica*, the *Quarterly Journal of Economics* and the *Review of Economic Studies*. Focusing on the Top 5 allows us to only get the most popular and dominant trends in macroeconomics and thus to draw clearer comparisons with what is published in the EER. Besides, the EER was created with the intent to establish an elite leading journal for the European community that would imitate the standards of US major journal. The Top 5 journals thus seem an adequate benchmark to compare the EER to.
 
 We identify macroeconomics articles by using the former and new JEL code classification [@jel1991].[^7] Outside of JEL codes data, we have used three different databases to collect different types of information: outside of basic metadata (year of publication, title, authors, *etc.*), we have collected the list of bibliographic references of EER and Top-5 articles, the abstracts, and authors affiliations.[^8] Then, we have conducted two different types of analysis to identify European specialities.
@@ -385,7 +383,7 @@ We identify macroeconomics articles by using the former and new JEL code classif
 
 [^8]: Crossing databases has been necessary due to missing years and information in the different databases we have used (Web of Science, Scopus and Microsoft Academic Premier). See the [Appendix B.1.](#corpus) for more details on the building of our dataset.
 
-### Bibliographic coupling
+## Bibliographic coupling
 
 Bibliographic coupling connects articles together depending on the bibliographic references they share. We build different networks of EER and Top-5 articles (the nodes of the network), connected together by a weighted edge, depending ib the number of references two articles share together.[^9] We build networks on a moving ten-year window (depending on the year of publication of the articles). We thus have ALEX TO DO networks from the 1973-1982 period, through 1974-1983, 1975-1984, *etc.*, to the 1993-2002 period.[Due to missing JEL codes for EER before 1973, we are forced to begin with the 1973-1982 window.] For each network, we use the Leiden algorithm [@traag2019] to identify bibliographic clusters, that is groups of articles that share many references in common, and few with articles outside their cluster. Articles which belongs to the same cluster are more likely to share cognitive content (e.g., sharing objects of study, methods, results or theory) even if disagreeing [@claveau2016; @truc2021; @goutsmedt2021]. Finally, we test the similarity of the clusters two by two for successive time windows, and merge clusters from different windows together when they are sufficiently close.[^10]
 
@@ -405,7 +403,7 @@ A set of indicators allows us to understand what these clusters are about---e.g.
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"))
 ```
 
-### Topic Modelling
+## Topic Modelling
 
 Topic modelling is a non-supervised machine learning method which associates *(i)* the *ngrams* contained in a corpus to *k* topics and *(ii)* the documents of the corpus to the same *k* topics.[^13] We have used a variant of the Latent Dirichlet Allocation model with the Correlated Topic Model [@blei2007]. The number of topics *k* is chosen by the modellers: after assessing quantitatively and qualitatively different models, we choose to run the model with `r topic_diff$topic_name %>% unique %>% length` topics.[^14] For each topic, we can look at the word with the highest 'FREX' value [@bischof2012].[^15] The Table \ref{tab:summary-topics} displays the words with the highest FREX value for each topic.
 
@@ -421,11 +419,15 @@ Similarly to what we do for bibliometric coupling, we are interested in the topi
 knitr::include_graphics(here(eer_data,"pictures","topic_modelling","logratio_diff_plot.png"))
 ```
 
-## A Broad Picture of European Specialities?
+## Why mixing the two methods?
 
-In Section \ref{understanding-specialities}, we describe more in-depth what we consider as three major European specialities. However, in a first step, we can sketch a more general assessment of the peculiarities of European macroeconomics.
+# A Broad Picture of European Specialities
 
-First, topic modelling and bibliometric coupling allow us to understand what European macroeconomics *is not*. One of the first consistent findings between the two methods is that the literature about the life cycles and permanent income hypotheses, influenced by @friedman1957 and @hall1978b, was far from popular for European economists. Close to this, the issue of debt, deficits and agents' horizon stemming from Diamond's [-@diamond1965], Barro's [-@barro1974], and Blanchard's [-@blanchard1985] seminal papers, was also an unpopular issue in Europe: topic 45 and the cluster "Debts & Deficits" were among the less European topics and clusters. Also, it took some time for Real Business Cycles (RBC) to find the favours of European economists: the first bibliographic cluster (going from the 1979-1988 window to the 1984-1993 window), "RBC, fluctuations & time series" (see Table \ref{tab:summary-communities}), was mostly a Top 5 / US-based community. We find that the topic 14 on RBC was also clearly not European.[^16]
+The purpose of our method is to identify different types of literature that are in average more associated to the EER and to articles written by European-based authors. In this section, we will get a general idea of the different specialities emerging from bibliometric coupling and topic modelling. In the two next sessions, we will sketch a more encompassing portrait of the evolution of European macroeconomis from the late 1970s to the late 1990s, while leaving aside some of the specialities identified. 
+
+First, topic modelling and bibliometric coupling allow us to understand what European macroeconomics *is not*. One of the first consistent findings between the two methods is that the literature about the life cycles and permanent income hypotheses, influenced by @friedman1957 and @hall1978b, was far from popular for European economists.^[See communities "Intergenerational model, Savings & Consumption" and "Permanent Income and Life-Cycle Hypotheses", as well as topics 12 and 14.] Heterogeneity was a central issue for this literature (see Cherrier et al, this issue). Also less European are the contributions on the demand for money (for which @baumol1952 and @friedman1963 were central references) as well as the "new classical monetary theory" [@hoover1988, chapter 6] of the 1970s inspired by Sargent's, Bryant's and Wallace's works (see for instance @bryant1979 or @sargent1982) or the more recent "New Monetarist Economics" [see @frasser2020, chapter 2, for an historical reconstruction of this literature] of @kiyotaki1989, @kiyotaki1993, and @trejos1995.^[See communities "Monetary Economics & Demand for Money" and "New Theory of Money: Search, Bargaining...", and, even if it is not as "non-European" as the two others, the community "Demand for Money". For topics, see topic 2 on the demand for money and money supply, which is one of the most non-European topic, but also topic 19 on demand for money and term structure of interest rates, influenced notably by [@fama1975].] The new classical monetary theory of the 1970s is described by Hoover [-@hoover1988, 111] as the research for "microfoundations for the theory of money conistent with general equilibrium and individual optimization" promoted by new classical economists (Lucas, Sargent, Wallace, etc.) to monetary theory and its integration to value theory. More generally, it appears that the works of new classical economists that contributed to reshaping macroeconomics in the late 1970s and early 1980s, and that are so central in many history of macroeconomics [@devroey2016] were less influential in Europe. Articles like @lucas1972, @lucas1973, @barro1974, @sargent1975, @sargent1976 or @barro1976 were constantly undercited by European-based macroeconomists in comparison to US economists in the 1970s and 1980s (REF HERE TO NEW GRAPH ON NEW CLASSICAL ECO). This is highly consistent with the fact that European macroeconomists favoured an alternative "microfoundational programme" [@hoover2012] with disequilibrium theory and non-walrasian macroeconomics (see section \ref{disequilibrium}).
+
+Close to this, the issue of debt, deficits and agents' horizon stemming from Diamond's [-@diamond1965], Barro's [-@barro1974], and Blanchard's [-@blanchard1985] seminal papers, was also an unpopular issue in Europe: topic 45 and the cluster "Debts & Deficits" were among the less European topics and clusters. Also, it took some time for Real Business Cycles (RBC) to find the favours of European economists: the first bibliographic cluster (going from the 1979-1988 window to the 1984-1993 window), "RBC, fluctuations & time series" (see Table \ref{tab:summary-communities}), was mostly a Top 5 / US-based community. We find that the topic 14 on RBC was also clearly not European.[^16]
 
 [^16]: The bibliometric analysis shows us that things have changed a bit after the mid-1990s, as a community on RBC (from 1985-1994 to 1993-2002) was slightly European.
 
@@ -435,13 +437,9 @@ We will focus on several results in the Section \ref{understanding-specialities}
 
 Outside of the points cited above, it is worth noting the importance of the issue of the explanation of unemployment, relying notably on @pissarides1990, @mortensen1994 and @layard1991a. As for the most European topic (38), it seems not to form a really consistent topic, but rather results from the aggregation of articles using OECD data and comparing different countries notably by using cross-country estimations. The conclusion we can draw from it is that European-based economists and the EER appear more likely to welcome this type of study.
 
-# Understanding the European Specialities {#understanding-specialities}
+# Disequilibrium theory as a landmark for European macroeconomics {#disequilibrium}
 
-## A European Political Economy of Central Banking? {#central-banking}
-
-## A European International Macroeconomics? {#international-macro}
-
-## The many faces of microfoundations and rigidities {#rigidities}
+# A new unifying language: political economics
 
 \newpage
 
@@ -624,7 +622,7 @@ We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R 
 From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
 
 - by exluding trigrams or not;
-- by removing the terms that are present in less than 0.5% of the Corpus (`r trunc(0.005 * nrow(corpus), 1)`), 1% (`r trunc(0.01 * nrow(corpus), 1)`) and 2% (`r trunc(0.02 * nrow(corpus), 1)`);
+- by removing the terms that are present in less than 0.5% of the Corpus (`r trunc(0.005 * nrow(Corpus), 1)`), 1% (`r trunc(0.01 * nrow(Corpus), 1)`) and 2% (`r trunc(0.02 * nrow(Corpus), 1)`);
 - by removing articles with less than 6 words or with less than 12 words.^[Here, only articles with no abstract are impacted.]
 
 Crossing all these criteria, we thus have 12 different possible combinations. For each of these 12 different combinations, we have run topic models for different number of topics from 20 to 110 with a gap of 5. The chosen model integrates trigram, removes only terms that appear in less than 0,5% of the documents and keep all articles if they have more than 6 words in their title + abstract. We choose to keep the model with 55 topics.

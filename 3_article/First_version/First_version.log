@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  1 APR 2022 15:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  2 APR 2022 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -667,8 +667,15 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 [1
 
 
-{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=149, 99
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Reference `methods' on page 2 undefined on input line 232.
+
+[2]
+
+LaTeX Warning: Reference `methods' on page 3 undefined on input line 265.
+
+<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=140, 99
 5.6397pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean_jel.png Graphi
 c file (type png)
@@ -681,7 +688,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3]
 <C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_affiliations.png, id
-=174, 853.5087pt x 569.0058pt>
+=165, 853.5087pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_affiliations.pn
 g Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_affiliations.png
@@ -699,7 +706,7 @@ has been already used, duplicate ignored
 l.348 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean_jel.png>]
 <C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Board_affiliations.png, 
-id=190, 853.5087pt x 569.0058pt>
+id=181, 853.5087pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Board_affiliations.
 png Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Board_affiliations.p
@@ -711,7 +718,7 @@ Board_affiliations.png  used on input line 351.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_collab_stack_density
-.png, id=193, 853.5087pt x 569.0058pt>
+.png, id=184, 853.5087pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_collab_stack_de
 nsity.png Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_collab_stack_den
@@ -722,8 +729,8 @@ EER_collab_stack_density.png  used on input line 384.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png, id=19
-4, 853.5087pt x 569.0058pt>
+<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png, id=18
+5, 853.5087pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png G
 raphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png>
@@ -740,8 +747,8 @@ has been already used, duplicate ignored
 l.406 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_affiliations.
 png>]
-<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_Importance.png, id=2
-03, 853.5087pt x 853.5087pt>
+<C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_Importance.png, id=1
+94, 853.5087pt x 853.5087pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_Importance.png 
 Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_Importance.png>
@@ -755,136 +762,153 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.454 
+l.451 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Board_affiliation
 s.png>] [7pdfTeX warning (ext4): destination with the same identifier (name{fig
 ure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.482 
+l.479 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_collab_stack_
 density.png>] [8pdfTeX warning (ext4): destination with the same identifier (na
 me{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.499 A
-        set of indicators allows us to understand what these clusters are <c:/U
-sers/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png>] [9pdfTeX 
-warning (ext4): destination with the same identifier (name{figure.6}) has been 
-already used, duplicate ignored
+l.513 
+       <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Collab_strict.png
+>] [9pdfTeX warning (ext4): destination with the same identifier (name{figure.6
+}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.516 
+l.513 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_importance.pn
 g>]
 <C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_europeanisat
-ion_colored.png, id=257, 853.5087pt x 569.0058pt>
+ion_colored.png, id=247, 1138.0116pt x 569.0058pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_europea
 nisation_colored.png Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_european
 isation_colored.png>
 Package pdftex.def Info: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/
-Communities_europeanisation_colored.png  used on input line 519.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
+Communities_europeanisation_colored.png  used on input line 516.
+(pdftex.def)             Requested size: 345.0pt x 172.50029pt.
 [10pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.555 S
-       imilarly to what we do for bibliometric coupling, we are interested in <
-c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_europeanisati
-on_colored.png>]
+l.564 
+       <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Communities_europ
+eanisation_colored.png>]
 <C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_modelling/logratio_diff_p
-lot.png, id=280, 1422.63495pt x 1138.07182pt>
+lot.png, id=270, 1422.63495pt x 1138.07182pt>
 File: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_modelling/logratio_d
 iff_plot.png Graphic file (type png)
 <use C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_modelling/logratio_di
 ff_plot.png>
 Package pdftex.def Info: C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_m
-odelling/logratio_diff_plot.png  used on input line 570.
+odelling/logratio_diff_plot.png  used on input line 567.
 (pdftex.def)             Requested size: 345.0pt x 275.99077pt.
 [11pdfTeX warning (ext4): destination with the same identifier (name{figure.8})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.607 
+l.645 
        <c:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_modelling/logratio
-_diff_plot.png>] [12] [13] [14]
-Overfull \hbox (51.03685pt too wide) in paragraph at lines 784--788
+_diff_plot.png>]
+
+LaTeX Warning: Reference `understanding-specialities' on page 12 undefined on i
+nput line 662.
+
+
+LaTeX Warning: Reference `central-banking' on page 12 undefined on input line 6
+67.
+
+
+LaTeX Warning: Reference `international-macro' on page 12 undefined on input li
+ne 676.
+
+
+LaTeX Warning: Reference `rigidities' on page 12 undefined on input line 684.
+
+[12] [13] [14] [15]
+Overfull \hbox (51.03685pt too wide) in paragraph at lines 909--913
 \T1/lmr/m/n/10 (-20) per-spec-tive. Jour-nal of Eco-nomic Method-ol-ogy 1--12. 
 doi:[]10.1080/1350178X.2020.1868774[] 
  []
 
-[15]
+[16]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 814.
+(Font)              <9> on input line 939.
 
-Overfull \hbox (106.30634pt too wide) in paragraph at lines 867--1019
+Overfull \hbox (106.30634pt too wide) in paragraph at lines 992--1144
  [] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[16pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+[17pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1021 \newpage
-               ] [17pdfTeX warning (ext4): destination with the same identifier
+l.1146 \newpage
+               ] [18pdfTeX warning (ext4): destination with the same identifier
  (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1043 
+l.1168 
        ]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-080.
+205.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [18]
-<First_version_files/figure-latex/plot-diagram-corpus-1.pdf, id=387, 401.5pt x 
+) [19]
+<First_version_files/figure-latex/plot-diagram-corpus-1.pdf, id=426, 401.5pt x 
 386.44376pt>
 File: First_version_files/figure-latex/plot-diagram-corpus-1.pdf Graphic file (
 type pdf)
 <use First_version_files/figure-latex/plot-diagram-corpus-1.pdf>
 Package pdftex.def Info: First_version_files/figure-latex/plot-diagram-corpus-1
-.pdf  used on input line 1135.
+.pdf  used on input line 1260.
 (pdftex.def)             Requested size: 345.0pt x 332.0875pt.
-[19] [20pdfTeX warning (ext4): destination with the same identifier (name{figur
+[20] [21pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1202 
-        <./First_version_files/figure-latex/plot-diagram-corpus-1.pdf>] [21] [2
-2] [23] (./First_version.aux)
+l.1327 
+        <./First_version_files/figure-latex/plot-diagram-corpus-1.pdf>] [22] [2
+3] [24] (./First_version.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `First_version.out' has not changed.
-(rerunfilecheck)             Checksum: 547F8B6B1C7ABC71D6B654D2BF5F14E2;4150.
+(rerunfilecheck)             Checksum: 95EE0374F5E2BD12F8797081B32CF6E5;3730.
  ) 
 Here is how much of TeX's memory you used:
- 15609 strings out of 478278
- 249827 string characters out of 5850546
- 585825 words of memory out of 5000000
- 33130 multiletter control sequences out of 15000+600000
- 546696 words of font info for 185 fonts, out of 8000000 for 9000
+ 15637 strings out of 478278
+ 250224 string characters out of 5850546
+ 585654 words of memory out of 5000000
+ 33133 multiletter control sequences out of 15000+600000
+ 550042 words of font info for 190 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,11n,76p,1010b,455s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/te
 xmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvi
 ps/lm/lm-mathsy.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pf
-b><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/
-texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/ty
-pe1/public/lm/lmr5.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.p
-fb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/
-texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/typ
-e1/public/lm/lmr9.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10.
-pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texlive/202
-1/texmf-dist/fonts/type1/public/lm/lmri8.pfb><c:/texlive/2021/texmf-dist/fonts/
-type1/public/lm/lmsy6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
-y7.pfb>
-Output written on First_version.pdf (23 pages, 3436160 bytes).
+b><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx8.pfb><c:/texlive/2021/
+texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/ty
+pe1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr5.
+pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2021
+/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/texmf-dist/fonts/ty
+pe1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr9.p
+fb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/202
+1/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texlive/2021/texmf-dist/fonts/
+type1/public/lm/lmri8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
+y6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
+Output written on First_version.pdf (24 pages, 3441694 bytes).
 PDF statistics:
- 542 PDF objects out of 1000 (max. 8388607)
- 473 compressed objects within 5 object streams
- 150 named destinations out of 1000 (max. 500000)
- 39126 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 515 compressed objects within 6 object streams
+ 166 named destinations out of 1000 (max. 500000)
+ 41158 words of extra memory for PDF output out of 42996 (max. 10000000)
 
