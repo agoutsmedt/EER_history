@@ -24,7 +24,7 @@ knitr::opts_chunk$set(eval = FALSE)
 #' # Loading packages, paths and data
 #' 
 #' 
-source("Script_paths_and_basic_objects_EER.R")
+source(here::here("Script_paths_and_basic_objects_EER.R"))
 source(here("functions", 
             "functions_for_topic_modelling.R"))
 
@@ -212,6 +212,10 @@ invisible(dev.off())
 topics_complete <- topics_with_com %>% 
   arrange(id) %>% 
   mutate(topic_prevalence = colMeans(topic_model$theta))
+saveRDS(topics_complete, here(eer_data,
+                             "3_Topic_modelling",
+                             "topics_complete.RDS"))
+
 
 #' We will use this table for exploration
 #' `saveRDS(topics, here(eer_data, "3_Topic_modelling", "TM_topics_summary.rds"))`
