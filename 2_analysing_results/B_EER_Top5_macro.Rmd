@@ -229,7 +229,7 @@ In the following table, all articles published in the EER used for this section 
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 
-datatable(Corpus_all_EER[,.(Nom,Annee_Bibliographique,Titre,Revue,EU_US_collab)], rownames = FALSE, class = 'cell-border stripe')
+# datatable(Corpus_all_EER[,.(Nom,Annee_Bibliographique,Titre,Revue,EU_US_collab)], rownames = FALSE, class = 'cell-border stripe')
 
 ```
 
