@@ -376,7 +376,7 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
                  color = com_color, 
                  fill = com_color,
                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
+  geom_text_repel(data= topic_diff_summary[topic_prevalence>0.01], aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
                   segment.linetype=	"dashed", 
                   segment.size = 0.3,) +
   labs(title = NULL,
