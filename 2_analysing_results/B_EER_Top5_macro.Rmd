@@ -222,11 +222,15 @@ min_leiden_max <- 0.04
 
 In this section we briefly explore some of the information compiled about the EER, its relationship to macro and the importance of the EER in the overall landscape of economics.
 
-## Distribution of Corpus
+## Distribution of EER Articles
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 ggplot(Corpus_all_EER, aes(as.numeric(Annee_Bibliographique))) + 
-  geom_bar()
+  geom_bar() +
+  labs(x = NULL,
+       y = "Number of Articles") +
+  theme_minimal() 
+
 
 ```
 
@@ -248,7 +252,7 @@ For each year, we calculated the share of articles published in the EER that mat
 mean_jel <- Corpus_all_EER[,mean(jel_id),Annee_Bibliographique]
 
 ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_Bibliographique), y=V1)) +
-  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75,color="black")+
+  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75,color="black", linetype = "dashed")+
   geom_point(alpha=0.2)+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
   labs(x = NULL,
@@ -305,7 +309,7 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   geom_point(alpha=0.2) +
   labs(fill = "Countries (Top 7)") +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Authored by Affiliations", limits = c(0, 0.8), breaks = seq(0,.8,0.2)) +
+  scale_y_continuous("Share of Papers Authored by Affiliations", limits = c(0, 0.8), breaks = seq(0,.8,0.2), labels = scales::percent_format(scale=1)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_fill_manual(values = c(rev(brewer.pal(n = 9, name = "Paired")))) +
@@ -531,14 +535,15 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=An
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
   geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_x_continuous("Years") +
-  scale_y_continuous("Share of Journals in Social Sciences Refs", labels = scales::percent_format(scale=1)) +
+  scale_y_continuous("Share of Journals in Social Sciences References", labels = scales::percent_format(scale=1)) +
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  scale_color_brewer(palette = "Dark2", guide = "none")
+  scale_color_brewer(palette = "Dark2", guide = "none") +
+  labs(title = NULL,
+       x = NULL) 
 ggsave(here(eer_data,"pictures","Graphs","EER_importance.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
 
@@ -571,14 +576,15 @@ ggplot(count[Annee_Bibliographique>1970  & Annee_Bibliographique<=2002], aes(x=A
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
   geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_x_continuous("Years") +
-  scale_y_continuous("Share of Journals in All Economics Refs", labels = scales::percent_format(scale=1)) +
+  scale_y_continuous("Share of Journals in All Economics References", labels = scales::percent_format(scale=1)) +
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  scale_color_brewer(palette = "Dark2", guide = "none")
+  scale_color_brewer(palette = "Dark2", guide = "none") +
+  labs(title = NULL,
+       x = NULL) 
 
 ggsave(here(eer_data,"pictures","Graphs","EER_importance_econ.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
@@ -611,14 +617,15 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002], aes(x=An
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
   geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_x_continuous("Years") +
-  scale_y_continuous("Share of Journals in All Macroeconomics Refs", labels = scales::percent_format(scale=1)) +
+  scale_y_continuous("Share of Journals in All Macroeconomics References", labels = scales::percent_format(scale=1)) +
   coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
   scale_color_discrete(guide = FALSE) +
   ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  scale_color_brewer(palette = "Dark2", guide = "none")
+  scale_color_brewer(palette = "Dark2", guide = "none") +
+  labs(title = NULL,
+       x = NULL) 
 ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro.png"), width=30, height=30, units = "cm", scaling = 1.7)
 
 
@@ -700,7 +707,6 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_x_continuous("Years") +
   scale_y_continuous("Share of Articles in Corpus References", labels = scales::percent_format(scale=1), limits=c(0,NA)) +
   coord_cartesian(xlim = c(NA, 2010)) +
   scale_color_discrete(guide = "none") +
@@ -708,7 +714,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_colour_identity()
-ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
 
 # share of EU/US
 g1_citation <- copy(Refs)
@@ -750,18 +756,18 @@ obs_th_comparison <- merge(obs_th_comparison, color_g1, by="ItemID_Ref", all.x =
 ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color=color, group=color)) +
   geom_point(alpha=1) +
   # geom_line() +
-  geom_hline(yintercept = 0, size = 1, alpha = 1, linetype = "dashed") +
+  geom_hline(yintercept = 0, size = 1, alpha = 0.8, linetype = "dashed") +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.2)+
   labs(title = NULL,
        color = NULL,
        x = NULL) + 
-  scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
+  scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)", labels = scales::percent_format(scale=1)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3) +
   coord_cartesian(xlim = c(NA, 2005), ylim = c(-0.1,NA)) +
   scale_colour_identity()
-ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
 
 
 g2_citation <- copy(Refs)
@@ -782,7 +788,6 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique , y
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_x_continuous("Years") +
   scale_y_continuous("Share of Articles in Corpus Citing References", labels = scales::percent_format(scale=1), limits=c(0,NA)) +
   coord_cartesian(xlim = c(NA, 2000)) +
   scale_color_discrete(guide = "none") +
@@ -790,7 +795,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique , y
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_colour_identity()
-ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
 
 # share of EU/US
 g2_citation <- copy(Refs)
@@ -831,18 +836,18 @@ obs_th_comparison <- merge(obs_th_comparison, color_g2, by="ItemID_Ref", all.x =
 ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_Bibliographique , y=-1*y, color=color, group=color)) +
   geom_point(alpha=1) +
   # geom_line() +
-  geom_hline(yintercept = 0, size = 1, alpha = 1, linetype = "dashed") +
+  geom_hline(yintercept = 0, size = 1, alpha = 0.8, linetype = "dashed") +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.25)+
   labs(title = NULL,
        color = NULL,
        x = NULL) + 
-  scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
+  scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)", labels = scales::percent_format(scale=1)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3) +
   coord_cartesian(xlim = c(NA, 1995)) +
   scale_colour_identity()
-ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
 
 
 
@@ -869,7 +874,7 @@ ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, hei
 
 ## Relative importance of particular articles in the corpus measured by citations
 
-We measured the relative importance of particular articles in the corpus by computing the share of articles in the corpus citing these particular references:
+We measured the relative importance of particular articles in the corpus by computing the share of articles in the corpus citing these particular references (7 years moving average):
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 
@@ -885,9 +890,9 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","g2_citations.png"))
 
 ## Over and under citations by European and American economists of particular articles
 
-We measured the over and under citations by European and American economists of particular references by calcuting the log ratio of the share of european and american economists citing particular articles on the share of overall citations by european and american economists in the corpus with right aligned moving average on 8 years:
+We measured the over and under citations by European and American economists of particular references by calcuting the log ratio of the share of european and american economists citing particular articles on the share of overall citations by european and american economists in the corpus (Citations are computed on 7 years moving average):
 
-${\scriptstyle \text{EU/US Over-citations}=\log(\frac{\text{Share of American Citing Reference}}{\text{Overall Share of American Citing}})}$
+${\displaystyle\text{EU/US Over-citations}= -1 \times\log(\frac{\text{Share of Specific Citations from American Articles}}{\text{Share of Citations from American Articles}})}$
 
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
@@ -1124,11 +1129,13 @@ plot_odds <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds, y =
   geom_hline(aes(yintercept = yintercept), size = 1, alpha = 0.3) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff_odds, size = new_Id_com_size), alpha = 0.8) +
-  ggrepel::geom_text_repel(data = . %>% filter(sum_diff_odds > 0.01 | sum_diff_odds < -0.012),
+  ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012),
                            aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
-                           min.segment.length = 0.03, 
+                           min.segment.length = 0.07, 
+                           segment.linetype=	"dashed",
                            segment.size = 0.3,
-                           box.padding=0.15) +
+                           box.padding=0.15,
+                           max.overlaps = 8) +
   scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.38), labels = c("Less European", "More European")) +
   labs(title = NULL,
        color = NULL,
@@ -1136,7 +1143,7 @@ plot_odds <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds, y =
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
   guides(size = "none") + theme(legend.position = "bottom")
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_odds.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_odds.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(data=diff_stat_euro_com[mask==0], aes(xintercept = xintercept), size = 1, alpha = 0.3) +
@@ -1148,10 +1155,11 @@ plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_artic
   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) +
   ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012),
                            aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
-                           min.segment.length = 0.1, 
+                           min.segment.length = 0.07, 
                            segment.linetype=	"dashed",
                            segment.size = 0.3,
-                           box.padding=0.15) +
+                           box.padding=0.15,
+                           max.overlaps = 8) +
   scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.38), labels = c("Less European", "More European")) +
   labs(title = NULL,
        color = NULL,
@@ -1162,7 +1170,7 @@ plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_artic
 
 plot2 <- plot + facet_grid(mask ~ ., scales="free", space="free") + scale_y_continuous(breaks=c(0.2,0,-0.2,-0.4,-0.7,-0.77,-0.92, -1)) +
   theme(legend.position = "bottom", strip.background = element_blank(), strip.text.y = element_blank()) 
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 
 
