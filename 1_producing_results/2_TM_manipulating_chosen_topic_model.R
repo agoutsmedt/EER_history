@@ -214,7 +214,7 @@ topics_complete <- topics_with_com %>%
   mutate(topic_prevalence = colMeans(topic_model$theta))
 
 #' We will use this table for exploration
-#' `saveRDS(topics, here(eer_data, "3_Topic_modelling", "TM_topics_summary.rds"))`
+#' `saveRDS(topics_complete, here(eer_data, "3_Topic_modelling", "TM_topics_summary.rds"))`
 #' 
 #' We also want to save some examples of the topics, by keeping the more representative abstracts.
 #' Some topics are most represented just by title
@@ -268,7 +268,7 @@ topic_gamma_attributes <- pivot_longer(topic_gamma_attributes,
 
 #' We will use this table for exploration
 #' `saveRDS(topic_gamma_attributes, here(eer_data, "3_Topic_modelling", "TM_gamma_values.rds"))`
-#' `topic_gamma_attributes <- readRDS(paste0(eer_data, "/3_Topic_modelling/topic_model_",id,"-",nb_topics,"_gamma_values.rds"))`
+#' `topic_gamma_attributes <- readRDS(here(eer_data, "3_Topic_modelling", "TM_gamma_values.rds"))`
 
 #' ## Differences in terms of journals and affiliations
 #' 
