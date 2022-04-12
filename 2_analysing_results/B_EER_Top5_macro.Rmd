@@ -44,9 +44,8 @@ In the section [Dynamics Networks], we propose a network analysis of all macro a
 Finally, in section [A Look at Dynamic Communities] users can explore information about the individual clusters identified in the previous section. For example, we produced a variety of tables to explore the most cited references of the cluster or its most distinctive words/institutions compared to the overall corpus. In addition, users can also find some intra-clusters information about how the cluster evolved overtime, or the differences in the clusters between European/US authors and/or venues of publications.
 
 ```{r, include=FALSE, set.seed(333)}
-knitr::opts_knit$set(root.dir = "D:/Dropbox/8-Projets Quanti/1-R_Projects/Home/EER_history")
-setwd("D:/Dropbox/8-Projets Quanti/1-R_Projects/Home/EER_history")
-source("Script_paths_and_basic_objects_EER.R")
+source(here::here("Script_paths_and_basic_objects_EER.R"))
+
 source(here("functions", "functions_dynamics_networks_alex.R")) 
 source(here("functions", "functions_networks_alex.R"))
 `%notlike%` <- Negate(`%like%`)
@@ -222,16 +221,6 @@ min_leiden_max <- 0.04
 # EER Bibliographic Information
 
 In this section we briefly explore some of the information compiled about the EER, its relationship to macro and the importance of the EER in the overall landscape of economics.
-
-## All articles in the EER
-
-In the following table, all articles published in the EER used for this section are available to explore:
-
-```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
-
-# datatable(Corpus_all_EER[,.(Nom,Annee_Bibliographique,Titre,Revue,EU_US_collab)], rownames = FALSE, class = 'cell-border stripe')
-
-```
 
 ## Distribution of Corpus
 

@@ -220,13 +220,177 @@ Articles have multiple topics, and more importantly, articles have different 'ra
 If we look at the distribution of topics by gamma mean depending on affiliations and journals:
 
 ```{r}
-knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
+# knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
+topic_gamma_attributes <- readRDS(here(eer_data,"3_Topic_modelling" ,"TM_gamma_values.RDS"))
+topics_complete <- readRDS(here(eer_data,"3_Topic_modelling" ,"topics_complete.RDS"))
+
+topic_diff <- copy(topic_gamma_attributes)
+
+topic_diff[, mean_affiliation := mean(gamma), by = c("topic_name", "EU_US_collab")] %>% 
+  .[, mean_journal := mean(gamma), by = c("topic_name", "journal_type")] 
+topic_diff_summary <- topic_diff %>% 
+  filter(EU_US_collab %in% c("Europe Only", "USA Only")) %>% 
+  select(topic_name, EU_US_collab, mean_affiliation, journal_type, mean_journal) %>% 
+  unique() 
+
+topic_diff_summary <- pivot_wider(topic_diff_summary, 
+                                  names_from = "EU_US_collab", 
+                                  values_from = "mean_affiliation") %>% 
+  pivot_wider(names_from = "journal_type", 
+              values_from = "mean_journal") %>% 
+  mutate(diff_affiliation = `Europe Only` - `USA Only`,
+         diff_journal = EER - TOP5,
+         total_diff = diff_affiliation + diff_journal,
+         id = as.integer(str_extract(topic_name, "[:digit:]{1,2}")),
+         topic_label = str_wrap(str_remove(topic_name, "Topic [:digit:]{1,2} "), 15)) %>% 
+  left_join(select(topics_complete, id, Com_name, com_color, topic_prevalence)) %>% 
+  select(id, topic_label, topic_name, Com_name, com_color, diff_affiliation, diff_journal, total_diff, topic_prevalence) %>% 
+  as.data.table()
+
+#' We can now plot the differences in a two-dimensions diagram:
+#' 
+
+# mean_diff_plot <- ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+#   geom_vline(xintercept = 0, size = 1.5, alpha = 0.9) +
+#   geom_hline(yintercept = 0, size = 1.5, alpha = 0.5) +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   geom_label_repel(aes(label = topic_label, 
+#                        group = factor(Com_name),
+#                        color = com_color, 
+#                        fill = com_color), size = 2, alpha = 0.7, hjust = 0) +
+#   geom_point(aes(group = factor(Com_name),
+#                  color = com_color, 
+#                  fill = com_color,
+#                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+#   scale_size_continuous(range = c(0.2, 50)) %>% 
+#   scale_color_identity() +
+#   scale_fill_identity() +
+#   labs(title = "Topic Prevalence over journals (Difference of Means method)",
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") +
+#   dark_theme_classic()
+
+ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(group = factor(Com_name),
+                 color = com_color, 
+                 fill = com_color,
+                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+  geom_text_repel(aes(label = topic_label, 
+                       group = factor(Com_name),
+                       color = com_color, 
+                       fill = com_color), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1) +
+  labs(title = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  theme_classic(base_size = 9) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  guides(size = "none") +
+  theme(legend.position = "bottom") +
+  scale_color_identity() +
+  scale_fill_identity() 
+ggsave(here(tm_picture_path, "mean_diff_plot_new.png"), width=40, height=20, units = "cm", scaling = 1.5)
+
+
+ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(group = factor(Com_name),
+                 color = com_color, 
+                 fill = com_color,
+                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
+                  segment.linetype=	"dashed", 
+                  segment.size = 0.3,) +
+  labs(title = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  theme_classic(base_size = 9) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  guides(size = "none") +
+  theme(legend.position = "bottom") +
+  scale_color_identity() +
+  scale_fill_identity() 
+ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+# ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
+#               width = 50, 
+#               height = 40, 
+#               units = "cm", 
+#               res = 400,
+#               scale=2)
+# mean_diff_plot
+# invisible(dev.off())
 ```
 
 If we look at the distribution of topics only for highest gamma, using the logratio for affiliations and jourals:
 
 ```{r}
-knitr::include_graphics(here(picture_path, "topic_modelling", "logratio_diff_plot.png"))
+
+topic_diff_logratio_journal <- copy(topic_gamma_attributes) %>% 
+  filter(gamma > 0.1) %>% 
+  group_by(topic) %>% 
+  add_count(journal_type, name = "percent_journal") %>% 
+  select(topic_name, topic, journal_type, percent_journal) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = journal_type, values_from = percent_journal, values_fill = 0) %>% 
+  mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  mutate(logratio_journal = log(EER/TOP5)) %>% 
+  select(topic_name, topic, logratio_journal)
+
+topic_diff_logratio_affiliation <- copy(topic_gamma_attributes) %>% 
+  filter(gamma > 0.1) %>% 
+  group_by(topic) %>% 
+  add_count(EU_US_collab, name = "percent_affiliation") %>% 
+  select(topic, EU_US_collab, percent_affiliation) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = EU_US_collab, values_from = percent_affiliation, values_fill = 0) %>% 
+  mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
+  mutate(logratio_affiliation = log(`Europe Only`/`USA Only`)) %>% 
+  select(topic, logratio_affiliation)
+
+topic_diff_logratio <- topic_diff_logratio_journal %>% 
+  left_join(topic_diff_logratio_affiliation) %>% 
+  mutate(id = as.integer(str_extract(topic_name, "[:digit:]{1,2}")),
+         topic_label = str_wrap(str_remove(topic_name, "Topic [:digit:]{1,2} "), 15)) %>% 
+  left_join(select(topics_complete, id, new_id, Com_name, com_color, topic_prevalence)) %>% 
+  select(id, new_id, topic_label, topic_name, Com_name, com_color, logratio_affiliation, logratio_journal, topic_prevalence) %>% 
+  as.data.table()
+  
+topic_diff_summary <- topic_diff_summary %>% 
+  left_join(select(topic_diff_logratio, id, logratio_affiliation, logratio_journal))
+
+#' We will use this table for exploration
+#' `saveRDS(topic_diff_summary, here(eer_data, "3_Topic_modelling", "TM_topics_diff.rds"))`  
+#' We can now plot in two dimensions:
+
+ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(group = factor(Com_name),
+                 color = com_color, 
+                 fill = com_color,
+                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
+                  segment.linetype=	"dashed", 
+                  segment.size = 0.3,) +
+  labs(title = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  theme_classic(base_size = 9) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  guides(size = "none") +
+  theme(legend.position = "bottom") +
+  scale_color_identity() +
+  scale_fill_identity() 
+ggsave(here(tm_picture_path, "logratio_diff_plot.png_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+
+
 ```
 
 
