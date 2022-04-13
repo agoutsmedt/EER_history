@@ -310,11 +310,11 @@ knitr::include_graphics(here(eer_data,"pictures","topic_modelling","logratio_dif
 
 To identifies specialties in a corpus, the existing literature usually use bibliographic information and network analysis (topology-based approach) or textual information and topic modeling (topic-based approach). In the first case, articles that share the same bibliographic informations (e.g., same references) are considered similar and part of the same specialties [@claveau2016]. In the second case, using abstracts or full-text, topics are assigned to individual articles, and specialties are identified are derived from these topics [@ambrosino2018]. These two approaches use very different information (bibliographic information vs text), and very different techniques (network analysis and cluster detection vs probabilistic natural language processing).
 
-In the informetrics literature, one can find some attempts to combine both approaches [@ding2011; @li2012; @yan2012; @mao2017], but it has never been done in the economics literature. For the present article, we propose to do so by using the two types of analysis jointly to identify European specialties. The heterogeneous nature of both approaches provide different advantages when used together. 
+In the informetrics literature, one can find some attempts to combine both approaches [@dingCommunity2011; @liAdding2012; @yanTopics2012; @maoTopic2017], but it has never been done in the economics literature. For the present article, we propose to do so by using the two types of analysis jointly to identify European specialties. The heterogeneous nature of both approaches provide different advantages when used together. 
 
-First, both approaches give different information and are complementary. Topology-based approach generally identify communities, while topic-based approached identify topics. Communities and topics are often considered intertwined: a community can have multiple topics, and a given topic can be tackled by different communities [@ding2011; @yan2012]. For example, a community of co-authors can cover different topics (e.g., a tight network of microeconomists discussing health and education) while different communities can cover similar topics (e.g., sociologists and economists discussing health but never co-authoring papers). Topic modeling can reveal heterogeneity of topics in a given community, while network analysis can reveal the bibliographic or co-authoring network that structure the same research topic. Using both approaches give a more exhaustive picture of the forces that structure economics research. Inversely, using both methods that can also reveal homogeneity, when communities and topics overlaps, then it sends a stronger signal that a community has a specific identity, is tightly knit and well-recognized.
+First, both approaches give different information and are complementary. Topology-based approach generally identify communities, while topic-based approached identify topics. Communities and topics are often considered intertwined: a community can have multiple topics, and a given topic can be tackled by different communities [@dingCommunity2011; @yanTopics2012]. For example, a community of co-authors can cover different topics (e.g., a tight network of microeconomists discussing health and education) while different communities can cover similar topics (e.g., sociologists and economists discussing health but never co-authoring papers). Topic modeling can reveal heterogeneity of topics in a given community, while network analysis can reveal the bibliographic or co-authoring network that structure the same research topic. Using both approaches give a more exhaustive picture of the forces that structure economics research. Inversely, using both methods that can also reveal homogeneity, when communities and topics overlaps, then it sends a stronger signal that a community has a specific identity, is tightly knit and well-recognized.
 
-A second advantage of using both methods is that they use different techniques and data sources. Bibliographic and textual data from scientific publications have imperfections. Publications before the 1970s do not always have abstracts, and authors can make mistakes when referencing articles that lead to imperfect identification of bibliographic data. Similarly, from a technical point of view, both approaches are relatively recent, and the best algorithms/models used suffer from analytical limits and are evolving very rapidly (e.g., see @zhang2020 for community detection). Using both approaches jointly can help triangulate results and both methods can compensate for some of the weaknesses of the other.
+A second advantage of using both methods is that they use different techniques and data sources. Bibliographic and textual data from scientific publications have imperfections. Publications before the 1970s do not always have abstracts, and authors can make mistakes when referencing articles that lead to imperfect identification of bibliographic data. Similarly, from a technical point of view, both approaches are relatively recent, and the best algorithms/models used suffer from analytical limits and are evolving very rapidly (e.g., see @zhangStatistical2020 for community detection). Using both approaches jointly can help triangulate results and both methods can compensate for some of the weaknesses of the other.
 
 # A Broad Picture of European Specialities {#european-specialities}
 
@@ -488,7 +488,7 @@ The construction of this corpus is made in multiple steps:
         -   For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824.
         -   For new JEL codes (1991 onward): all E, F3 and F4.[^19].
 
-2.  Using these JEL codes, we match econlit articles with WoS articles when they shared the same:
+2.  Using these JEL codes, we match econlit articles with WoS articles in the EER (Corpus 1 improved with Scopus), and in the top five journals (*American Economic Review*, *Econometrica*, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*) between 1973 and 2002. We used the following matching variables:
 
     -   Journal, Volume, First Page
     -   Year, Journal, First Page, Last Page
@@ -497,11 +497,10 @@ The construction of this corpus is made in multiple steps:
     -   First Author, Title, Year
     -   Title, Year, First Page
 
-Out of the `r n_econlit` articles we get in econlit, we matched `r n_corpus` of them in WoS in the journals of interest to us.[^20]
 
-3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, *Econometrica*, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
+Out of the `r n_econlit` articles in econlit, we matched `r n_corpus`. [^20]
 
-4.  Finally, we were able to collect abstracts:
+3.  Finally, we were able to collect abstracts:
 
     -   using *Scopus* for the EER. All abstracts have been matched with the EER corpus.
     -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using
