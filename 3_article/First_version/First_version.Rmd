@@ -488,7 +488,7 @@ The construction of this corpus is made in multiple steps:
         -   For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824.
         -   For new JEL codes (1991 onward): all E, F3 and F4.[^19].
 
-2.  Using these JEL codes, we match econlit articles with WoS articles in the EER (Corpus 1 improved with Scopus), and in the top five journals (*American Economic Review*, *Econometrica*, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*) between 1973 and 2002. We used the following matching variables:
+2.  Using these JEL codes, we match econlit articles with WoS articles using the following matching variables:
 
     -   Journal, Volume, First Page
     -   Year, Journal, First Page, Last Page
@@ -497,10 +497,9 @@ The construction of this corpus is made in multiple steps:
     -   First Author, Title, Year
     -   Title, Year, First Page
 
+3. We then kept articles published in the EER (Corpus 1 improved with Scopus), and in the top five journals (*American Economic Review*, *Econometrica*, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*) between 1973 and 2002. Out of the `r n_econlit` articles in econlit, we matched `r n_corpus`. [^20]
 
-Out of the `r n_econlit` articles in econlit, we matched `r n_corpus`. [^20]
-
-3.  Finally, we were able to collect abstracts:
+4.  Finally, we were able to collect abstracts:
 
     -   using *Scopus* for the EER. All abstracts have been matched with the EER corpus.
     -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using
