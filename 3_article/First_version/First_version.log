@@ -1,16 +1,16 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.13)  13 APR 2022 13:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.3.21)  13 APR 2022 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**First_version.tex
-(./First_version.tex
+**./First_version.tex
+(First_version.tex
 LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2022-04-10> (./elsarticle.cls
+L3 programming layer <2022-02-24> (elsarticle.cls
 Document Class: elsarticle 2008/05/22, 1.0.1: Elsevier Science
 \@bls=\dimen138
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
 File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -24,32 +24,43 @@ File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen139
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen140
 \Gin@req@width=\dimen141
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/pifont.sty
+) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/upzd.fd
+
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\upzd.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
 )
 LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/upsy.fd
+
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 ))
 \c@tnote=\count193
@@ -69,7 +80,9 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@enLab=\toks18
 \@sep=\skip49
 \@@sep=\skip50
-(./First_version.spl) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+
+(First_version.spl)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip51
 \bibsep=\skip52
@@ -79,10 +92,12 @@ LaTeX Info: Redefining \cite on input line 694.
 \splwrite=\write3
 \openout3 = `First_version.spl'.
 
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lineno/lineno.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lineno\lineno.sty
 Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 \linenopenalty=\count266
 \output=\toks19
@@ -99,10 +114,12 @@ Package: lineno 2005/11/02 line numbers on paragraphs v4.41
 \bframesep=\dimen149
 \bframebox=\box54
 LaTeX Info: Redefining \\ on input line 3056.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
-Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
 LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
@@ -135,9 +152,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks20
 \symAMSa=\mathgroup4
@@ -145,20 +164,24 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+)) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
 Package: amsmath 2021/10/15 v2.17l AMS math features
 \@mathmargin=\skip53
+
 For additional information on amsmath, use the `?' option.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
 Package: amstext 2021/08/26 v2.01 AMS text
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks21
 \ex@=\dimen150
-)) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+))
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen151
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2021/08/26 v2.02 operator names
 )
 \inf@bad=\count273
@@ -198,66 +221,127 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \mathdisplay@stack=\toks25
 LaTeX Info: Redefining \[ on input line 2938.
 LaTeX Info: Redefining \] on input line 2939.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifxetex.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifxetex.sty
 Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
-)) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.sty
+))
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fixltx2e.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\fixltx2e.sty
 Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
 Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
 
 Package fixltx2e Warning: fixltx2e is not required with releases after 2015
 (fixltx2e)                All fixes are now in the LaTeX kernel.
 (fixltx2e)                See the latexrelease package for details.
 
 Already applied: [0000/00/00] Old fixltx2e package on input line 53.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+))
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@prehook=\toks26
 \inpenc@posthook=\toks27
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
+Package: microtype 2022/03/14 v3.0d Micro-typographical refinements (RS)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count285
+)
+\MT@toks=\toks28
+\MT@tempbox=\box57
+\MT@count=\count286
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1027.
+LaTeX Info: Redefining \leftprotrusion on input line 1028.
+LaTeX Info: Redefining \rightprotrusion on input line 1036.
+LaTeX Info: Redefining \textls on input line 1195.
+\MT@outer@kern=\dimen159
+LaTeX Info: Redefining \textmicrotypecontext on input line 1781.
+\MT@listname@count=\count287
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdf
+tex.def
+File: microtype-pdftex.def 2022/03/14 v3.0d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 900.
+LaTeX Info: Redefining \lslig on input line 900.
+\MT@outer@space=\skip56
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
+File: microtype.cfg 2022/03/14 v3.0d microtype main configuration file (RS)
+))
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds
+.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.s
+ty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.s
+ty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefine
+keys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
+ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
+.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen159
-\Hy@linkcounter=\count285
-\Hy@pagecounter=\count286
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+\@linkdim=\dimen160
+\Hy@linkcounter=\count288
+\Hy@pagecounter=\count289
+ (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count287
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+\Hy@SavedSpaceFactor=\count290
+ (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -270,17 +354,21 @@ Package hyperref Info: Plain pages OFF on input line 4152.
 Package hyperref Info: Backreferencing OFF on input line 4157.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4390.
-\c@Hy@tempcnt=\count288
+\c@Hy@tempcnt=\count291
 LaTeX Info: Redefining \url on input line 4749.
-\XeTeXLinkMargin=\dimen160
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+\XeTeXLinkMargin=\dimen161
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc
+.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
 ))
-\Fld@menulength=\count289
-\Field@Width=\dimen161
-\Fld@charsize=\dimen162
+\Fld@menulength=\count292
+\Field@Width=\dimen162
+\Fld@charsize=\dimen163
 Package hyperref Info: Hyper figures OFF on input line 6027.
 Package hyperref Info: Link nesting OFF on input line 6032.
 Package hyperref Info: Hyper index ON on input line 6035.
@@ -290,197 +378,228 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6052.
 Package hyperref Info: PDF/A mode OFF on input line 6057.
 LaTeX Info: Redefining \ref on input line 6097.
 LaTeX Info: Redefining \pageref on input line 6101.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count290
-\c@Item=\count291
-\c@Hfootnote=\count292
+\Hy@abspage=\count293
+\c@Item=\count294
+\c@Hfootnote=\count295
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
 with kernel methods
 )
-\Fld@listcount=\count293
-\c@bookmark@seq@number=\count294
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+\Fld@listcount=\count296
+\c@bookmark@seq@number=\count297
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
+echeck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquec
+ounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
 )
-\Hy@SectionHShift=\skip56
+\Hy@SectionHShift=\skip57
 )
 Package hyperref Info: Option `breaklinks' set `true' on input line 49.
+
 
 Package hyperref Warning: Option `bookmarks' has already been used,
 (hyperref)                setting the option has no effect on input line 49.
 
 Package hyperref Info: Option `colorlinks' set `false' on input line 49.
-\cslhangindent=\skip57
-\csllabelwidth=\skip58
-\cslentryspacingunit=\skip59
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+\cslhangindent=\skip58
+\csllabelwidth=\skip59
+\cslentryspacingunit=\skip60
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count295
-\calc@Bcount=\count296
-\calc@Adimen=\dimen163
-\calc@Bdimen=\dimen164
-\calc@Askip=\skip60
-\calc@Bskip=\skip61
+\calc@Acount=\count298
+\calc@Bcount=\count299
+\calc@Adimen=\dimen164
+\calc@Bdimen=\dimen165
+\calc@Askip=\skip61
+\calc@Bskip=\skip62
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count297
-\calc@Cskip=\skip62
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
+\calc@Ccount=\count300
+\calc@Cskip=\skip63
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count298
-\float@exts=\toks28
-\float@box=\box57
-\@float@everytoks=\toks29
-\@floatcapt=\box58
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+\c@float@type=\count301
+\float@exts=\toks29
+\float@box=\box58
+\@float@everytoks=\toks30
+\@floatcapt=\box59
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen165
-\lightrulewidth=\dimen166
-\cmidrulewidth=\dimen167
-\belowrulesep=\dimen168
-\belowbottomsep=\dimen169
-\aboverulesep=\dimen170
-\abovetopsep=\dimen171
-\cmidrulesep=\dimen172
-\cmidrulekern=\dimen173
-\defaultaddspace=\dimen174
-\@cmidla=\count299
-\@cmidlb=\count300
-\@aboverulesep=\dimen175
-\@belowrulesep=\dimen176
-\@thisruleclass=\count301
-\@lastruleclass=\count302
-\@thisrulewidth=\dimen177
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+\heavyrulewidth=\dimen166
+\lightrulewidth=\dimen167
+\cmidrulewidth=\dimen168
+\belowrulesep=\dimen169
+\belowbottomsep=\dimen170
+\aboverulesep=\dimen171
+\abovetopsep=\dimen172
+\cmidrulesep=\dimen173
+\cmidrulekern=\dimen174
+\defaultaddspace=\dimen175
+\@cmidla=\count302
+\@cmidlb=\count303
+\@aboverulesep=\dimen176
+\@belowrulesep=\dimen177
+\@thisruleclass=\count304
+\@lastruleclass=\count305
+\@thisrulewidth=\dimen178
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip63
-\LTright=\skip64
-\LTpre=\skip65
-\LTpost=\skip66
-\LTchunksize=\count303
-\LTcapwidth=\dimen178
-\LT@head=\box59
-\LT@firsthead=\box60
-\LT@foot=\box61
-\LT@lastfoot=\box62
-\LT@gbox=\box63
-\LT@cols=\count304
-\LT@rows=\count305
-\c@LT@tables=\count306
-\c@LT@chunks=\count307
-\LT@p@ftn=\toks30
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+\LTleft=\skip64
+\LTright=\skip65
+\LTpre=\skip66
+\LTpost=\skip67
+\LTchunksize=\count306
+\LTcapwidth=\dimen179
+\LT@head=\box60
+\LT@firsthead=\box61
+\LT@foot=\box62
+\LT@lastfoot=\box63
+\LT@gbox=\box64
+\LT@cols=\count307
+\LT@rows=\count308
+\c@LT@tables=\count309
+\c@LT@chunks=\count310
+\LT@p@ftn=\toks31
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen179
-\ar@mcellbox=\box64
-\extrarowheight=\dimen180
-\NC@list=\toks31
-\extratabsurround=\skip67
-\backup@length=\skip68
-\ar@cellbox=\box65
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+\col@sep=\dimen180
+\ar@mcellbox=\box65
+\extrarowheight=\dimen181
+\NC@list=\toks32
+\extratabsurround=\skip68
+\backup@length=\skip69
+\ar@cellbox=\box66
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip69
-\multirow@cntb=\count308
-\multirow@dima=\skip70
-\bigstrutjot=\dimen181
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen182
-\WF@size=\dimen183
-\c@WF@wrappedlines=\count309
-\WF@box=\box66
-\WF@everypar=\toks32
+\multirow@colwidth=\skip70
+\multirow@cntb=\count311
+\multirow@dima=\skip71
+\bigstrutjot=\dimen182
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
+\wrapoverhang=\dimen183
+\WF@size=\dimen184
+\c@WF@wrappedlines=\count312
+\WF@box=\box67
+\WF@everypar=\toks33
 Package: wrapfig 2003/01/31  v 3.6
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
 )
-\everycr=\toks33
-\minrowclearance=\skip71
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+\everycr=\toks34
+\minrowclearance=\skip72
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics\lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
-Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
-Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box67
-\sift@deathcycles=\count310
-\@vwid@loff=\dimen184
-\@vwid@roff=\dimen185
 )
-\c@taburow=\count311
-\tabu@nbcols=\count312
-\tabu@cnt=\count313
-\tabu@Xcol=\count314
-\tabu@alloc=\count315
-\tabu@nested=\count316
-\tabu@target=\dimen186
-\tabu@spreadtarget=\dimen187
-\tabu@naturalX=\dimen188
-\tabucolX=\dimen189
-\tabu@Xsum=\dimen190
-\extrarowdepth=\dimen191
-\abovetabulinesep=\dimen192
-\belowtabulinesep=\dimen193
-\tabustrutrule=\dimen194
-\tabu@thebody=\toks34
-\tabu@footnotes=\toks35
-\tabu@box=\box68
-\tabu@arstrutbox=\box69
-\tabu@hleads=\box70
-\tabu@vleads=\box71
-\tabu@cellskip=\skip72
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/tabu\tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box68
+\sift@deathcycles=\count313
+\@vwid@loff=\dimen185
+\@vwid@roff=\dimen186
+)
+\c@taburow=\count314
+\tabu@nbcols=\count315
+\tabu@cnt=\count316
+\tabu@Xcol=\count317
+\tabu@alloc=\count318
+\tabu@nested=\count319
+\tabu@target=\dimen187
+\tabu@spreadtarget=\dimen188
+\tabu@naturalX=\dimen189
+\tabucolX=\dimen190
+\tabu@Xsum=\dimen191
+\extrarowdepth=\dimen192
+\abovetabulinesep=\dimen193
+\belowtabulinesep=\dimen194
+\tabustrutrule=\dimen195
+\tabu@thebody=\toks35
+\tabu@footnotes=\toks36
+\tabu@box=\box69
+\tabu@arstrutbox=\box70
+\tabu@hleads=\box71
+\tabu@vleads=\box72
+\tabu@cellskip=\skip73
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/threeparttable\threepar
+ttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box72
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+\@tempboxb=\box73
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/threeparttablex\threepa
+rttablex.sty
 Package: threeparttablex 2013/07/23 v0.3 by daleif
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/environ\environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/trimspaces\trimspaces.s
+ty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip73
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box73
-\UL@hyphenbox=\box74
-\UL@skip=\skip74
-\UL@hook=\toks36
-\UL@height=\dimen195
-\UL@pe=\count317
-\UL@pixel=\dimen196
-\ULC@box=\box75
+\TPTL@width=\skip74
+) (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/ulem\ulem.sty
+\UL@box=\box74
+\UL@hyphenbox=\box75
+\UL@skip=\skip75
+\UL@hook=\toks37
+\UL@height=\dimen196
+\UL@pe=\count320
+\UL@pixel=\dimen197
+\ULC@box=\box76
 Package: ulem 2019/11/18
-\ULdepth=\dimen197
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+\ULdepth=\dimen198
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/makecell\makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen198
-\c@nlinenum=\count318
-\TeXr@lab=\toks37
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+\rotheadsize=\dimen199
+\c@nlinenum=\count321
+\TeXr@lab=\toks38
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
@@ -495,14 +614,17 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 107.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
-File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-04-10 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count319
-\l__pdf_internal_box=\box76
-) (./First_version.aux)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
+7.
+ (C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
+tex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count322
+\l__pdf_internal_box=\box77
+) (First_version.aux)
 \openout1 = `First_version.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
@@ -523,39 +645,1375 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
 LaTeX Font Info:    ... okay on input line 107.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 107.
 LaTeX Font Info:    ... okay on input line 107.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count323
+\scratchdimen=\dimen256
+\scratchbox=\box78
+\nofMPsegments=\count324
+\nofMParguments=\count325
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count326
+\MPscratchDim=\dimen257
+\MPnumerator=\count327
+\makeMPintoPDFobject=\count328
+\everyMPtoPDFconversion=\toks40
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
+LaTeX Info: Redefining \microtypecontext on input line 107.
+Package microtype Info: Applying patch `item' on input line 107.
+Package microtype Info: Applying patch `toc' on input line 107.
+Package microtype Info: Applying patch `eqnum' on input line 107.
+Package microtype Info: Applying patch `footnote' on input line 107.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 107.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
 Package hyperref Info: Link coloring OFF on input line 107.
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
-(c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (c:/Users/alex7/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettit
+lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count320
+\c@section@level=\count329
 )
 LaTeX Info: Redefining \ref on input line 107.
 LaTeX Info: Redefining \pageref on input line 107.
 LaTeX Info: Redefining \nameref on input line 107.
-(./First_version.out) (./First_version.out)
+ (First_version.out) (First_version.out)
 \@outlinefile=\write4
 \openout4 = `First_version.out'.
 
+
 ! Undefined control sequence.
 l.120       \affiliation
-                        [1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place 
-Here is how much of TeX's memory you used:
- 12454 strings out of 480198
- 196656 string characters out of 5891172
- 472336 words of memory out of 5000000
- 30234 multiletter control sequences out of 15000+600000
- 473808 words of font info for 33 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 70i,1n,76p,238b,271s stack positions out of 10000i,1000n,20000p,200000b,200000s
+                        [1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-!  ==> Fatal error occurred, no output PDF file produced!
+! Undefined control sequence.
+l.122     \affiliation
+                      [2]{Université Côte d'Azur, CNRS GREDEG France.}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[1
+
+{C:/Users/alex7/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+44.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+44.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+144.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+144.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 144.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 144
+.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 144
+.
+
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 144.
+
+
+Package natbib Warning: Citation `portes1987' on page 2 undefined on input line
+ 153.
+
+
+Package natbib Warning: Citation `fourcade2006' on page 2 undefined on input li
+ne 164.
+
+
+Package natbib Warning: Citation `fourcade2009' on page 2 undefined on input li
+ne 164.
+
+
+Package natbib Warning: Citation `coats1996' on page 2 undefined on input line 
+166.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 2 undefined on input l
+ine 166.
+
+
+Package natbib Warning: Citation `sandelin1997' on page 2 undefined on input li
+ne 169.
+
+
+Package natbib Warning: Citation `cherrier2021' on page 2 undefined on input li
+ne 173.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 2 undefined on input l
+ine 173.
+
+
+Package natbib Warning: Citation `morgan1998' on page 2 undefined on input line
+ 176.
+
+
+Package natbib Warning: Citation `fourcade2006' on page 2 undefined on input li
+ne 186.
+
+[2
+
+]
+
+Package natbib Warning: Citation `portes1987' on page 3 undefined on input line
+ 201.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 3 undefined on input l
+ine 206.
+
+
+LaTeX Warning: Reference `fig:plot-jel' on page 3 undefined on input line 222.
+
+
+LaTeX Warning: Reference `rising-journal' on page 3 undefined on input line 224
+.
+
+
+LaTeX Warning: Reference `fig:plot-eer-importance-macro' on page 3 undefined on
+ input line 225.
+
+
+LaTeX Warning: Reference `european-specialities' on page 3 undefined on input l
+ine 235.
+
+
+LaTeX Warning: Reference `methods' on page 3 undefined on input line 242.
+
+[3]
+
+Package natbib Warning: Citation `duartelima2012a' on page 4 undefined on input
+ line 251.
+
+
+Package natbib Warning: Citation `devroey2016' on page 4 undefined on input lin
+e 251.
+
+
+Package natbib Warning: Citation `goutsmedtetal2019' on page 4 undefined on inp
+ut line 253.
+
+
+Package natbib Warning: Citation `goutsmedt2021b' on page 4 undefined on input 
+line 253.
+
+
+Package natbib Warning: Citation `renault2020a' on page 4 undefined on input li
+ne 253.
+
+
+Package natbib Warning: Citation `boumans2019' on page 4 undefined on input lin
+e 255.
+
+
+Package natbib Warning: Citation `qin2013a' on page 4 undefined on input line 2
+55.
+
+
+Package natbib Warning: Citation `renault2022' on page 4 undefined on input lin
+e 255.
+
+
+Package natbib Warning: Citation `backhouseboianovski2013' on page 4 undefined 
+on input line 257.
+
+
+Package natbib Warning: Citation `cherrier2018c' on page 4 undefined on input l
+ine 257.
+
+
+Package natbib Warning: Citation `hoover2012' on page 4 undefined on input line
+ 257.
+
+
+Package natbib Warning: Citation `portes1987' on page 4 undefined on input line
+ 277.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 4 undefined on input l
+ine 278.
+
+
+LaTeX Warning: Reference `disequilibrium' on page 4 undefined on input line 284
+.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 4 undefined on input l
+ine 285.
+
+
+Package natbib Warning: Citation `kydland1977' on page 4 undefined on input lin
+e 295.
+
+
+Package natbib Warning: Citation `barro1983' on page 4 undefined on input line 
+295.
+
+
+Package natbib Warning: Citation `barro1983c' on page 4 undefined on input line
+ 295.
+
+
+LaTeX Warning: Reference `political-economics' on page 4 undefined on input lin
+e 297.
+
+[4]
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/mean
+_jel' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.304 ... Drive/data/EER/pictures/Graphs/mean_jel}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `waelbroeck1969' on page 5 undefined on input 
+line 325.
+
+
+Package natbib Warning: Citation `duppe2017' on page 5 undefined on input line 
+338.
+
+
+Package natbib Warning: Citation `maes2005' on page 5 undefined on input line 3
+45.
+
+
+Package natbib Warning: Citation `duppe2017' on page 5 undefined on input line 
+345.
+
+
+Package natbib Warning: Citation `maes2005' on page 5 undefined on input line 3
+47.
+
+
+LaTeX Warning: Reference `fig:plot-authors' on page 5 undefined on input line 3
+51.
+
+
+LaTeX Warning: Reference `fig:plot-boards' on page 5 undefined on input line 35
+8.
+
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.359 
+      ]
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_
+affiliations' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.362 ...ata/EER/pictures/Graphs/EER_affiliations}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 6 undefined on input l
+ine 371.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Boar
+d_affiliations' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.377 ...a/EER/pictures/Graphs/Board_affiliations}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:plot-authors' on page 6 undefined on input line 4
+00.
+
+
+LaTeX Warning: Reference `fig:plot-collabs' on page 6 undefined on input line 4
+04.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Coll
+ab_strict' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.410 ...e/data/EER/pictures/Graphs/Collab_strict}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:plot-eer-importance' on page 6 undefined on input
+ line 422.
+
+
+LaTeX Warning: Reference `fig:plot-eer-importance-macro' on page 6 undefined on
+ input line 424.
+
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.425 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.425 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.425 
+      ]
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_
+Importance_econ' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.428 .../EER/pictures/Graphs/EER_Importance_econ}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/EER_
+Importance_macro' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.437 ...EER/pictures/Graphs/EER_Importance_macro}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `jel1991' on page 7 undefined on input line 46
+5.
+
+
+Package natbib Warning: Citation `traag2019' on page 7 undefined on input line 
+493.
+
+
+Package natbib Warning: Citation `claveau2016' on page 7 undefined on input lin
+e 498.
+
+
+Package natbib Warning: Citation `truc2021' on page 7 undefined on input line 4
+98.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 7 undefined on input l
+ine 498.
+
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.504 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.504 
+      ]
+
+LaTeX Warning: Reference `fig:plot-community-diff' on page 8 undefined on input
+ line 535.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/Graphs/Comm
+unities_europeanisation_colored' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.542 ...aphs/Communities_europeanisation_colored}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package natbib Warning: Citation `blei2007' on page 8 undefined on input line 5
+61.
+
+
+Package natbib Warning: Citation `bischof2012' on page 8 undefined on input lin
+e 567.
+
+
+LaTeX Warning: Reference `tab:summary-topics' on page 8 undefined on input line
+ 574.
+
+[8]
+
+LaTeX Warning: Reference `fig:plot-topic-diff' on page 9 undefined on input lin
+e 586.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/topic_model
+ling/logratio_diff_plot' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.592 ...tures/topic_modelling/logratio_diff_plot}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `claveau2016' on page 9 undefined on input lin
+e 608.
+
+
+Package natbib Warning: Citation `ambrosino2018' on page 9 undefined on input l
+ine 611.
+
+[9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.615 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.615 
+      ]
+
+Package natbib Warning: Citation `ding2011' on page 10 undefined on input line 
+617.
+
+
+Package natbib Warning: Citation `li2012' on page 10 undefined on input line 61
+7.
+
+
+Package natbib Warning: Citation `yan2012' on page 10 undefined on input line 6
+17.
+
+
+Package natbib Warning: Citation `mao2017' on page 10 undefined on input line 6
+17.
+
+
+Package natbib Warning: Citation `ding2011' on page 10 undefined on input line 
+628.
+
+
+Package natbib Warning: Citation `yan2012' on page 10 undefined on input line 6
+28.
+
+
+Package natbib Warning: Citation `zhang2020' on page 10 undefined on input line
+ 649.
+
+
+Package natbib Warning: Citation `friedman1957' on page 10 undefined on input l
+ine 669.
+
+
+Package natbib Warning: Citation `hall1978b' on page 10 undefined on input line
+ 670.
+
+
+Package natbib Warning: Citation `baumol1952' on page 10 undefined on input lin
+e 676.
+
+
+Package natbib Warning: Citation `friedman1963' on page 10 undefined on input l
+ine 676.
+
+
+Package natbib Warning: Citation `hoover1988' on page 10 undefined on input lin
+e 678.
+
+
+Package natbib Warning: Citation `bryant1979' on page 10 undefined on input lin
+e 679.
+
+
+Package natbib Warning: Citation `sargent1982' on page 10 undefined on input li
+ne 680.
+
+
+Package natbib Warning: Citation `kiyotaki1989' on page 10 undefined on input l
+ine 681.
+
+
+Package natbib Warning: Citation `kiyotaki1993' on page 10 undefined on input l
+ine 681.
+
+
+Package natbib Warning: Citation `trejos1995' on page 10 undefined on input lin
+e 681.
+
+
+Package natbib Warning: Citation `trejos1995' on page 10 undefined on input lin
+e 683.
+
+
+Package natbib Warning: Citation `frasser2020' on page 10 undefined on input li
+ne 683.
+
+
+Package natbib Warning: Citation `fama1975' on page 10 undefined on input line 
+690.
+
+
+Package natbib Warning: Citation `hoover1988' on page 10 undefined on input lin
+e 691.
+
+
+Package natbib Warning: Citation `devroey2016' on page 10 undefined on input li
+ne 697.
+
+
+Package natbib Warning: Citation `lucas1972' on page 10 undefined on input line
+ 698.
+
+
+Package natbib Warning: Citation `lucas1973' on page 10 undefined on input line
+ 699.
+
+
+Package natbib Warning: Citation `barro1974' on page 10 undefined on input line
+ 699.
+
+
+Package natbib Warning: Citation `sargent1975' on page 10 undefined on input li
+ne 699.
+
+
+Package natbib Warning: Citation `sargent1976' on page 10 undefined on input li
+ne 700.
+
+
+Package natbib Warning: Citation `barro1976' on page 10 undefined on input line
+ 700.
+
+
+LaTeX Warning: Reference `fig:plot-new-classical' on page 10 undefined on input
+ line 702.
+
+
+Package natbib Warning: Citation `hoover2012' on page 10 undefined on input lin
+e 708.
+
+
+LaTeX Warning: Reference `disequilibrium' on page 10 undefined on input line 71
+0.
+
+[10]
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/graphs/g2_o
+ver_citations' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.714 ...ta/EER/pictures/graphs/g2_over_citations}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: Reference `fig:plot-community-diff' on page 11 undefined on inpu
+t line 726.
+
+
+LaTeX Warning: Reference `fig:plot-topic-diff' on page 11 undefined on input li
+ne 726.
+
+
+LaTeX Warning: Reference `political-economics' on page 11 undefined on input li
+ne 728.
+
+
+Package natbib Warning: Citation `pissarides1990' on page 11 undefined on input
+ line 729.
+
+
+Package natbib Warning: Citation `mortensen1994' on page 11 undefined on input 
+line 729.
+
+
+Package natbib Warning: Citation `layard1991a' on page 11 undefined on input li
+ne 729.
+
+
+Package natbib Warning: Citation `qin2013a' on page 11 undefined on input line 
+736.
+
+[11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.740 T
+       he detailed analysis of clusters and topics offer a general panorama of]
+
+LaTeX Warning: Reference `Disequilibrium' on page 12 undefined on input line 75
+5.
+
+
+LaTeX Warning: Reference `political-economics' on page 12 undefined on input li
+ne 759.
+
+
+Package natbib Warning: Citation `backhouseboianovski2013' on page 12 undefined
+ on input line 767.
+
+
+Package natbib Warning: Citation `plassard2021' on page 12 undefined on input l
+ine 767.
+
+
+Package natbib Warning: Citation `duartelima2012a' on page 12 undefined on inpu
+t line 770.
+
+
+Package natbib Warning: Citation `hoover2012' on page 12 undefined on input lin
+e 778.
+
+
+Package natbib Warning: Citation `renault2020a' on page 12 undefined on input l
+ine 778.
+
+
+Package natbib Warning: Citation `barro1971' on page 12 undefined on input line
+ 779.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 12 undefined on input 
+line 781.
+
+
+Package natbib Warning: Citation `devroey2016' on page 12 undefined on input li
+ne 789.
+
+
+Package natbib Warning: Citation `azariadis1975' on page 12 undefined on input 
+line 790.
+
+
+Package natbib Warning: Citation `hart1982' on page 12 undefined on input line 
+791.
+
+
+Package natbib Warning: Citation `diamond1982' on page 12 undefined on input li
+ne 792.
+
+[12]
+
+Package natbib Warning: Citation `backhouseboianovski2013' on page 13 undefined
+ on input line 804.
+
+
+Package natbib Warning: Citation `backhouseboianovski2013' on page 13 undefined
+ on input line 809.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 13 undefined on input 
+line 810.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 13 undefined on input 
+line 816.
+
+
+Package natbib Warning: Citation `dreze1981' on page 13 undefined on input line
+ 827.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 13 undefined on input 
+line 831.
+
+
+Package natbib Warning: Citation `brunosachs1985' on page 13 undefined on input
+ line 842.
+
+
+Package natbib Warning: Citation `goutsmedt2021' on page 13 undefined on input 
+line 842.
+
+
+Package natbib Warning: Citation `dixit1978' on page 13 undefined on input line
+ 848.
+
+
+Package natbib Warning: Citation `frenkel1976' on page 13 undefined on input li
+ne 850.
+
+
+Package natbib Warning: Citation `dixit1978' on page 13 undefined on input line
+ 852.
+
+
+Package natbib Warning: Citation `dixit1980' on page 13 undefined on input line
+ 854.
+
+[13]
+
+Package natbib Warning: Citation `sneessens1986' on page 14 undefined on input 
+line 872.
+
+
+Package natbib Warning: Citation `malinvaud1986' on page 14 undefined on input 
+line 873.
+
+
+Package natbib Warning: Citation `malinvaud1986' on page 14 undefined on input 
+line 877.
+
+
+Package natbib Warning: Citation `layard1986' on page 14 undefined on input lin
+e 884.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 14 undefined on input 
+line 894.
+
+
+Package natbib Warning: Citation `layard1991a' on page 14 undefined on input li
+ne 904.
+
+
+Package natbib Warning: Citation `pissarides1990' on page 14 undefined on input
+ line 906.
+
+
+Package natbib Warning: Citation `mortensen1994' on page 14 undefined on input 
+line 906.
+
+
+Package natbib Warning: Citation `gottfries1987' on page 14 undefined on input 
+line 912.
+
+
+Package natbib Warning: Citation `gottfries1992' on page 14 undefined on input 
+line 912.
+
+
+Package natbib Warning: Citation `lindbeck1986' on page 14 undefined on input l
+ine 912.
+
+
+Package natbib Warning: Citation `lindbeck1987a' on page 14 undefined on input 
+line 912.
+
+
+Package natbib Warning: Citation `gottfries1987' on page 14 undefined on input 
+line 919.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 14 undefined on input 
+line 920.
+
+
+Package natbib Warning: Citation `lindbeck1987a' on page 14 undefined on input 
+line 921.
+
+
+Package natbib Warning: Citation `gottfries1992' on page 14 undefined on input 
+line 923.
+
+
+Package natbib Warning: Citation `bertola1990a' on page 14 undefined on input l
+ine 927.
+
+
+Package natbib Warning: Citation `bentolila1990' on page 14 undefined on input 
+line 927.
+
+
+Package natbib Warning: Citation `bentolila1992a' on page 14 undefined on input
+ line 927.
+
+[14]
+
+Package natbib Warning: Citation `drazen2002' on page 15 undefined on input lin
+e 948.
+
+
+Package natbib Warning: Citation `galvaodealmeida2021' on page 15 undefined on 
+input line 950.
+
+
+Package natbib Warning: Citation `persson2002' on page 15 undefined on input li
+ne 955.
+
+
+Package natbib Warning: Citation `persson2002' on page 15 undefined on input li
+ne 965.
+
+[15]
+
+Package natbib Warning: Citation `kydland1977' on page 16 undefined on input li
+ne 974.
+
+
+Package natbib Warning: Citation `barro1983' on page 16 undefined on input line
+ 982.
+
+
+Package natbib Warning: Citation `barro1983c' on page 16 undefined on input lin
+e 982.
+
+
+Package natbib Warning: Citation `rogoff1985b' on page 16 undefined on input li
+ne 984.
+
+
+Package natbib Warning: Citation `hoover1988' on page 16 undefined on input lin
+e 986.
+
+
+LaTeX Warning: Reference `fig:plot-political-economy' on page 16 undefined on i
+nput line 991.
+
+
+LaTeX Warning: Reference `fig:plot-political-economy-europe' on page 16 undefin
+ed on input line 994.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/graphs/g1_c
+itations' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.998 ...ve/data/EER/pictures/graphs/g1_citations}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: File `C:/Users/goutsmedt/Mon Drive/data/EER/pictures/graphs/g1_o
+ver_citations' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1007 ...a/EER/pictures/graphs/g1_over_citations}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Package natbib Warning: Citation `giavazzi1988' on page 16 undefined on input l
+ine 1037.
+
+
+Package natbib Warning: Citation `rogoff1985b' on page 16 undefined on input li
+ne 1045.
+
+
+Package natbib Warning: Citation `giavazzi1988' on page 16 undefined on input l
+ine 1048.
+
+
+Package natbib Warning: Citation `laskar1989' on page 16 undefined on input lin
+e 1052.
+
+
+Package natbib Warning: Citation `rogoff1985b' on page 16 undefined on input li
+ne 1053.
+
+
+Package natbib Warning: Citation `svensson1993a' on page 16 undefined on input 
+line 1062.
+
+
+Package natbib Warning: Citation `rose1994' on page 16 undefined on input line 
+1062.
+
+
+Package natbib Warning: Citation `degrauwe1996' on page 16 undefined on input l
+ine 1069.
+
+
+Package natbib Warning: Citation `svensson1997' on page 16 undefined on input l
+ine 1080.
+
+[16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.10}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1081 
+       
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1081 
+       ]
+
+Package natbib Warning: Citation `horn1988' on page 17 undefined on input line 
+1084.
+
+
+Package natbib Warning: Citation `horn1988' on page 17 undefined on input line 
+1088.
+
+
+Package natbib Warning: Citation `horn1988' on page 17 undefined on input line 
+1098.
+
+
+Package natbib Warning: Citation `gylfason1984' on page 17 undefined on input l
+ine 1103.
+
+
+Package natbib Warning: Citation `malinvaud1977' on page 17 undefined on input 
+line 1105.
+
+
+Package natbib Warning: Citation `gylfason1984' on page 17 undefined on input l
+ine 1106.
+
+
+Package natbib Warning: Citation `gylfason1986' on page 17 undefined on input l
+ine 1111.
+
+
+Package natbib Warning: Citation `gylfason1994' on page 17 undefined on input l
+ine 1116.
+
+
+Package natbib Warning: Citation `barro1983' on page 17 undefined on input line
+ 1120.
+
+
+Package natbib Warning: Citation `barro1983c' on page 17 undefined on input lin
+e 1120.
+
+[17]
+
+Package natbib Warning: Citation `alesina1990' on page 18 undefined on input li
+ne 1131.
+
+
+Package natbib Warning: Citation `persson1992' on page 18 undefined on input li
+ne 1132.
+
+
+Package natbib Warning: Citation `persson1992' on page 18 undefined on input li
+ne 1136.
+
+
+Package natbib Warning: Citation `kydland1977' on page 18 undefined on input li
+ne 1145.
+
+
+Package natbib Warning: Citation `barro1983' on page 18 undefined on input line
+ 1145.
+
+
+Package natbib Warning: Citation `barro1983c' on page 18 undefined on input lin
+e 1145.
+
+
+Package natbib Warning: Citation `rogoff1985b' on page 18 undefined on input li
+ne 1145.
+
+[18] [19] [20]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 1183.
+ [21
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1230 \newpage
+               ]
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+[]
+ []
+
+
+Overfull \hbox (19.88797pt too wide) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (-20) Differences
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) val-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) ues
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) are
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) sum
+ []
+
+
+Underfull \hbox (badness 1231) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) of (i)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) dif-fer-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) ence
+ []
+
+
+Overfull \hbox (5.58037pt too wide) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (-20) gamma
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) mean
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) be-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) EER
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) Top
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) same
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) dif-fer-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) ence
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) but
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) be-
+ []
+
+
+Overfull \hbox (16.5292pt too wide) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (-20) European-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) US-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) based
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1253--1253
+\T1/lmr/m/n/9 (+20) au-
+ []
+
+
+Overfull \hbox (0.82571pt too wide) in alignment at lines 1254--1660
+ [] [] [] 
+ []
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 2 on input line 1660.
+
+[22] [23] [24]
+
+Package natbib Warning: Citation `jel1991' on page 25 undefined on input line 1
+681.
+
+
+LaTeX Warning: Reference `eer-top5-macro' on page 25 undefined on input line 16
+82.
+
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+720.
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+
+Package natbib Warning: Citation `jel1991' on page 25 undefined on input line 1
+737.
+
+[25] [26]
+
+Package natbib Warning: Citation `shen2019' on page 27 undefined on input line 
+1848.
+
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+870.
+(C:\Users\alex7\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+
+Package natbib Warning: Citation `traag2019' on page 27 undefined on input line
+ 1873.
+
+[27] [28]
+
+Package natbib Warning: Citation `blei2007' on page 29 undefined on input line 
+1973.
+
+
+Package natbib Warning: Citation `bischof2012' on page 29 undefined on input li
+ne 2003.
+
+No file First_version.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+
+Package longtable Warning: Table widths have changed. Rerun LaTeX.
+
+[29] (First_version.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `First_version.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `First_version.out':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  71F84D586B77D8A4D35E2E9308929C07;3866.
+ ) 
+Here is how much of TeX's memory you used:
+ 15945 strings out of 478582
+ 275884 string characters out of 2844344
+ 585313 words of memory out of 3000000
+ 33337 multiletter control sequences out of 15000+600000
+ 549496 words of font info for 227 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 70i,11n,76p,1012b,541s stack positions out of 10000i,1000n,20000p,200000b,80000s
+{C:/Users/alex7/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C
+:/Users/alex7/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Us
+ers/alex7/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Users
+/alex7/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Users
+/alex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users
+/alex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/
+alex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/a
+lex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/al
+ex7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/alex
+7/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/alex7/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alex7/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alex7/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alex7/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alex7/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alex7/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri9.pfb><C:/Users/alex7/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/alex7/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
+Output written on First_version.pdf (29 pages, 487504 bytes).
+PDF statistics:
+ 431 PDF objects out of 1000 (max. 8388607)
+ 159 named destinations out of 1000 (max. 500000)
+ 39425 words of extra memory for PDF output out of 42996 (max. 10000000)
+
