@@ -708,7 +708,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   # geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
   scale_y_continuous("Share of Articles in Corpus References", labels = scales::percent_format(scale=1), limits=c(0,NA)) +
-  coord_cartesian(xlim = c(NA, 2010)) +
+  coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
   ggrepel::geom_label_repel(aes(label = label_special), data = g1_citation[Annee_Bibliographique==2000, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3) +
   theme_minimal() +
