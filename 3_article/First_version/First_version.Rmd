@@ -497,9 +497,9 @@ The construction of this corpus is made in multiple steps:
     -   First Author, Title, Year
     -   Title, Year, First Page
 
-Out of the `r n_econlit` articles we get in econlit, we matched `r n_corpus` of them in WoS.[^20]
+Out of the `r n_econlit` articles we get in econlit, we matched `r n_corpus` of them in WoS in the journals of interest to us.[^20]
 
-3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, Econometrica, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
+3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, *Econometrica*, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
 
 4.  Finally, we were able to collect abstracts:
 
