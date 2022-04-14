@@ -294,7 +294,7 @@ ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=30, height=20, u
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 #### Collaborations ####
 
-institutions_unique <- Institutions_all_EER[,head(.SD, 1),.(ID_Art,Institution)]
+institutions_unique <- Institutions_all_EER[,head(.SD, 1),.(ID_Art,Institution,Pays)]
 
 count_year <- institutions_unique[,.N,.(ID_Art,EU_US_collab,Annee_Bibliographique)][order(N)]
 count_year <- count_year %>% group_by(Annee_Bibliographique, EU_US_collab) %>% summarise(n = n()) %>%  mutate(freq = n / sum(n)) %>% as.data.table()
