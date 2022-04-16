@@ -270,28 +270,28 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
 #        y = "Top 5 (down) vs. EER (up)") +
 #   dark_theme_classic()
 
-ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(group = factor(Com_name),
-                 color = com_color, 
-                 fill = com_color,
-                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-  geom_text_repel(aes(label = topic_label, 
-                       group = factor(Com_name),
-                       color = com_color, 
-                       fill = com_color), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1) +
-  labs(title = NULL,
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") +
-  theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
-  guides(size = "none") +
-  theme(legend.position = "bottom") +
-  scale_color_identity() +
-  scale_fill_identity() 
-ggsave(here(tm_picture_path, "mean_diff_plot_new.png"), width=40, height=20, units = "cm", scaling = 1.5)
+# ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   geom_point(aes(group = factor(Com_name),
+#                  color = com_color, 
+#                  fill = com_color,
+#                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
+#   geom_text_repel(aes(label = topic_label, 
+#                        group = factor(Com_name),
+#                        color = com_color, 
+#                        fill = com_color), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1) +
+#   labs(title = NULL,
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") +
+#   theme_classic(base_size = 9) +
+#   scale_size_continuous(range = c(0.2, 50)) %>% 
+#   guides(size = "none") +
+#   theme(legend.position = "bottom") +
+#   scale_color_identity() +
+#   scale_fill_identity() 
+# ggsave(here(tm_picture_path, "mean_diff_plot_new.png"), width=40, height=20, units = "cm", scaling = 1.5)
 
 
 ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
@@ -314,7 +314,7 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   theme(legend.position = "bottom") +
   scale_color_identity() +
   scale_fill_identity() 
-ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+# ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 # ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
 #               width = 50, 
 #               height = 40, 
@@ -388,7 +388,8 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
   theme(legend.position = "bottom") +
   scale_color_identity() +
   scale_fill_identity() 
-ggsave(here(tm_picture_path, "logratio_diff_plot.png_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+# ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 
 
 ```
