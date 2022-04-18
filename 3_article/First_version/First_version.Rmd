@@ -209,13 +209,13 @@ Our approach identifies different bibliometric clusters and topics that are more
 
 [^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix), as well as two online appendices listing the features of the bibliometric clusters ("Bibliographic information about the EER and details on the bibliographic coupling clusters") and of the topics identified by our topic model ("Details on the topics").
 
-```{r plot-jel, fig.cap="Share of Articles with at least one macroeconomics JEL code", out.width = '100%'}
+```{r plot-jel, fig.cap="Share of articles with at least one macroeconomics JEL code", out.width = '100%'}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
 ```
 
-# The Creation of the EER {#EER-creation}
+# The creation of the EER {#EER-creation}
 
-## The Birth of a European Project
+## The birth of a european project
 
 In 1969, Jean Waelbroeck and Herbert Glejser, both from the *Université Libre de Bruxelles* (ULB), launched the *European Economic Review*. The new review was planned to be the official journal of the European Scientific Association of Applied Economics (ASEPELT), which had been created in 1961 by Waelbroeck and another ULB economist: Etienne Kirschen. Before 1969, the association published in English a bulletin gathering research in econometrics and mathematical economics [@waelbroeck1969, 4]. The EER took up this torch by publishing the same type of research. Articles had to be published in English, the new "*lingua franca* of economics" triggering the process of "internationalisation of our science" as Waelbroeck and Glejser polemically stated in the introduction of the first issue (*ibid.*).
 
@@ -238,7 +238,7 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_affiliations.png"
 The EER was one of these crucial initiatives that contributed to the development of intellectual exchanges between European based economists [@goutsmedt2021]. The centrality of the journal was strengthened in 1984 when the European Economic Association was created, and the EER was established as the official journal of the new association.
 
 
-## A Rising European Journal {#rising-journal}
+## A rising european journal {#rising-journal}
 
 Besides offering a common platform for European economists, the journal initial goal was also to encourage the promotion of a US-style approach to economics. An important dimension of the journal was thus the progressive integration of US-based economists. The "International Seminar on Macroeconomics," co-organized by the French *Ecole des Hautes Etudes en Sciences Sociales* and the US National Bureau of Economic Research, played a key role in that integration of US economists, as the conference papers were published each year in a special issue. It also likely contributed to make the journal known on the other side of the Atlantic.
 
@@ -264,7 +264,7 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_Importance_macro.
 
 But did this whole process of internationalisation lead to the total standardisation of a European economics on the US model, or did it still leave room for the development and persistence of proper European specialities?
 
-# Methods for Identifying European Specialities {#methods}
+# Methods for identifying European specialities {#methods}
 
 To identify European specialities, we compare macroeconomics articles published in the EER and in the Top-5 journals (*American Economic Review*, *Journal of Political Economy*, *Econometrica*, *Quarterly Journal of Economics*, *Review of Economic Studies*). By focusing on the Top 5, we get only the most popular and dominant trends in macroeconomics and we thus draw clearer comparisons with what is published in the EER. Besides, the EER was created with the intent to establish an elite leading journal for the European community that would imitate the standards of US major journals. The Top 5 thus seems an adequate benchmark to compare the EER to.
 
@@ -294,7 +294,7 @@ A set of indicators allows us to understand what these clusters are about---e.g.
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored.png"))
 ```
 
-## Topic Modelling
+## Topic modelling
 
 Topic modelling is a non-supervised machine learning method which associates *(i)* the *ngrams* contained in a corpus to *k* topics and *(ii)* the documents of the corpus to the same *k* topics. Our corpus is constituted of all the titles and abstracts (when available) of the macroeconomic articles published in the EER and Top 5.[^13] We use a variant of the Latent Dirichlet Allocation model with the Correlated Topic Model [@blei2007]. The number of topics *k* is chosen by the modellers: after assessing quantitatively and qualitatively different models, we choose to run the model with `r topic_diff$topic_name %>% unique %>% length` topics.[^14] For each topic, we can look at the word with the highest 'FREX' value [@bischof2012].[^15] Table \ref{tab:summary-topics} displays the words with the highest FREX value for each topic. We also use a set of indicators, like the most cited references per topic crossed with the journal and affiliation variables, to get a better picture of what the topics are and what are their European and non-European dimensions.^[There information are collected in the online Appendix "Details on the topics".] 
 
@@ -319,7 +319,7 @@ Within the infometrics literature, one can find some attempts to combine both ap
 
 Second, the combination of the two methods makes it possible to take advantage of their complementarity, since they do not measure the same thing. Clusters tend to reflect a more sociological dimension: we cite economists who work on similar subjects but also who are institutionally, geographically and intellectually closer to us. Topic modelling partially abstracts from this dimension by looking at words used. Several times in this article, topic modelling allows us to complement bibliometric results by observing how some large bibliometric cluster actually dealt with several topics, but also for a same topic (and thus a relatively similar used vocabulary) what were the differences between Europe-based and US-based economists. 
 
-# A Broad Picture of European Specialities {#european-specialities}
+# A broad picture of European specialities {#european-specialities}
 
 In this section, we get a general idea of the different specialities emerging from bibliometric coupling and topic modelling analyses. In the two next sessions, we will sketch a more encompassing portrait of the evolution of European macroeconomics from the late 1970s to the late 1990s, while leaving aside some of the specialities identified. 
 

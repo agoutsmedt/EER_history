@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  18 APR 2022 22:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  18 APR 2022 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -977,7 +977,7 @@ an_diff_plot_new_bw.png>] (./First_version.aux)
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `First_version.out' has not changed.
-(rerunfilecheck)             Checksum: 107BE0EB535281A3E75754BF618FFA08;3856.
+(rerunfilecheck)             Checksum: D83F086FA29A1360B0C1DA3180B85C4F;3856.
  ) 
 Here is how much of TeX's memory you used:
  15841 strings out of 478278
@@ -1001,7 +1001,7 @@ exmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texlive/2021/texmf-dist/fonts/typ
 e1/public/lm/lmri8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri9.
 pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/texlive/202
 1/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on First_version.pdf (39 pages, 8850600 bytes).
+Output written on First_version.pdf (39 pages, 8850067 bytes).
 PDF statistics:
  981 PDF objects out of 1000 (max. 8388607)
  886 compressed objects within 9 object streams
