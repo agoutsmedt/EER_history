@@ -1,5 +1,6 @@
 ---
-title: "EER"
+title: "Bibliographic information about the EER and details on the bibliographic coupling clusters"
+subtitle: "Appendix in complement of 'An Independent European Macroeconomics? A History of European Macroeconomics through the Lens of the European Economic Review'"
 output: 
   html_document:
     theme: united

@@ -1,12 +1,10 @@
 ---
-title: "Topics Description"
+title: "Details on the topics"
+subtitle: "Appendix in complement of 'An Independent European Macroeconomics? A History of European Macroeconomics through the Lens of the European Economic Review'"
 author: "Aurélien Goutsmedt and Alexandre Truc"
-date: "03/12/2021"
 output: 
   html_document:
-    theme: 
-      version: 5
-      bootswatch: darkly
+    theme: united
     toc: true
     number_sections: true
     toc_float: true
@@ -325,7 +323,7 @@ ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, 
 # invisible(dev.off())
 ```
 
-If we look at the distribution of topics only for highest gamma, using the logratio for affiliations and jourals:
+If we look at the distribution of topics only for highest gamma, using the logratio for affiliations and journals:
 
 ```{r}
 
