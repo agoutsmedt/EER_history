@@ -1,9 +1,9 @@
 \documentclass[]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
-
 \usepackage[hyphens]{url}
 
   \journal{European Economic Review} % Sets Journal name
+
 
 \usepackage{lineno} % add
 
@@ -29,9 +29,7 @@
 \fi
 % use microtype if available
 \IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-\usepackage[]{natbib}
-\bibliographystyle{plainnat}
-
+\bibliographystyle{elsarticle-harv}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -47,6 +45,7 @@
             urlcolor=blue,
             linkcolor=magenta,
             pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
 
 \setcounter{secnumdepth}{5}
 % Pandoc toggle for numbering sections (defaults to be off)
@@ -111,17 +110,14 @@
 
   \title{An Independent European Macroeconomics? A History of European
 Macroeconomics through the Lens of the European Economic Review}
-    \author[1]{Aurélien Goutsmedt%
-  %
-  \fnref{3}}
+    \author[1]{Aurélien Goutsmedt\corref{3}}
   
     \author[2]{Alexandre Truc}
   
-      \affiliation[1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place
+      \address[1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place
 Montesquieu, 1/L 2.08.07, 1348 - Louvain-la-Neuve.}
-    \affiliation[2]{Université Côte d'Azur, CNRS GREDEG France.}
-    \cortext[cor1]{Corresponding author}
-    \fntext[3]{Corresponding Author: aurelien.goutsmedt@uclouvain.be}
+    \address[2]{Université Côte d'Azur, CNRS GREDEG France.}
+      \cortext[3]{Corresponding Author: aurelien.goutsmedt@uclouvain.be}
   
   \begin{abstract}
   Economics in Europe has encountered a process of internationalisation
@@ -160,39 +156,45 @@ In 1987 in the \emph{European Economic Review}, the director of the
 Centre for Economic Policy Research, Richard Portes, attempted to assess
 the ``state and status of economics in Europe''. He regarded ``the
 standard of comparison {[}as{]} obvious: the United States, by far the
-dominant producer'' \citep[1329]{portes1987}. He then asked ``whether
-there is now any economics outside and independent of the United
-States.'' (p.~1330) He listed many clues testifying of the US
-domination, ending it by the observation that ``the leaders of the
-economics profession in Europe were trained as postgraduates in the
-United States. Many take from the US their professional standards, their
-views of what are the interesting problems, and their approaches to
-them''. (\emph{ibid.})
+dominant producer'' (\protect\hyperlink{ref-portes1987}{Portes, 1987, p.
+1329}). He then asked ``whether there is now any economics outside and
+independent of the United States.'' (p.~1330) He listed many clues
+testifying of the US domination, ending it by the observation that ``the
+leaders of the economics profession in Europe were trained as
+postgraduates in the United States. Many take from the US their
+professional standards, their views of what are the interesting
+problems, and their approaches to them''. (\emph{ibid.})
 
 Indeed, in the early 1970s in many Western European countries, economics
-had entered a process of internationalisation \citep[chapters 3 and
-4]{fourcade2006, fourcade2009}. To some extent, such process was also a
-form of ``Americanisation'' \citep{coats1996, goutsmedt2021}: US
+had entered a process of internationalisation
+(\protect\hyperlink{ref-fourcade2009}{Fourcade, 2009, chap. 3} and 4;
+\protect\hyperlink{ref-fourcade2006}{Fourcade, 2006}). To some extent,
+such process was also a form of ``Americanisation''
+(\protect\hyperlink{ref-coats1996}{Coats, 1996};
+\protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al., 2021}): US
 professional and intellectual standards were progressively adopted in
 European countries, mimicking the functioning of the US academic field.
 English gradually spread as the dominant language in economics
-\citep{sandelin1997} and publications in peer-review journals became the
-norm for assessing research productivity. The organisation of
-international events were encouraged to boost research centres
-visibility \citep{cherrier2021, goutsmedt2021}. In terms of content, the
-Americanisation of the discipline in Europe favoured the intellectual
-standards that had become widespread in the US in the postwar era
-\citep{morgan1998}: the use of mathematical economics and econometrics,
-and the reliance on neoclassical theory as a benchmark for
-modelling.\footnote{Of course, this process of Americanisation did not
-  go without conflicts: many ``local conflicts'' emerged between more
-  ``nationally-trained'' economists (generally locally trained) and
-  ``internationally-trained economists'' who had been often trained in
-  the US \citep{fourcade2006}. These conflicts involved intellectual
-  matters (for instance around the relevance of the neoclassical theory)
-  as well as institutional issues, like the criteria to assess the
-  quality of economists' work and thus to determine hiring and
-  promotion.}
+(\protect\hyperlink{ref-sandelin1997}{Sandelin and Ranki, 1997}) and
+publications in peer-review journals became the norm for assessing
+research productivity. The organisation of international events were
+encouraged to boost research centres visibility
+(\protect\hyperlink{ref-cherrier2021}{Cherrier and Saïdi, 2021};
+\protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al., 2021}). In terms
+of content, the Americanisation of the discipline in Europe favoured the
+intellectual standards that had become widespread in the US in the
+postwar era (\protect\hyperlink{ref-morgan1998}{Morgan and Rutherford,
+1998}): the use of mathematical economics and econometrics, and the
+reliance on neoclassical theory as a benchmark for modelling.\footnote{Of
+  course, this process of Americanisation did not go without conflicts:
+  many ``local conflicts'' emerged between more ``nationally-trained''
+  economists (generally locally trained) and ``internationally-trained
+  economists'' who had been often trained in the US
+  (\protect\hyperlink{ref-fourcade2006}{Fourcade, 2006}). These
+  conflicts involved intellectual matters (for instance around the
+  relevance of the neoclassical theory) as well as institutional issues,
+  like the criteria to assess the quality of economists' work and thus
+  to determine hiring and promotion.}
 
 In parallel to this Americanisation, we observe a process of
 `Europeanisation': many initiatives from the first issue of the
@@ -207,22 +209,25 @@ doing economics to exist and persist in a relative autonomy from the US
 after the 1970s?
 
 Portes pointed out some European ``comparative advantages''
-\citep[1332]{portes1987} even if some of these European specialities had
-been pioneered by US economists. He highlighted the dynamism in Europe
-of ``general equilibrium theory{[},{]} social choice, duality, and the
-analysis of repeated games'', ``international macroeconomic policy
-coordination'' or ``Non-Walrasian macroeconomics'' (\emph{ibid}.).
-\citet{goutsmedt2021} have also highlighted that within the
-\emph{International Seminar on Macroeconomics} (ISoM), whose annual
-proceedings were published in the EER, disequilibrium macroeconomics and
-large-scale macroeconometric modelling constituted important rallying
-research programs until the mid-1980s for European economists involved
-in the ISoM.\footnote{In the rest of the article, we follow Backhouse
-  and Boianovsky and use the expression ``disequilibrium
-  macroeconomics'' to designate a research program that has been
-  labelled in many ways: ``non-Walrasian theory, disequilibrium theory,
-  equilibrium with rationing, \emph{non-tâtonnement} theory, fixed-price
-  models'' \citep[8-9]{backhouseboianovski2013}.}
+(\protect\hyperlink{ref-portes1987}{Portes, 1987, p. 1332}) even if some
+of these European specialities had been pioneered by US economists. He
+highlighted the dynamism in Europe of ``general equilibrium
+theory{[},{]} social choice, duality, and the analysis of repeated
+games'', ``international macroeconomic policy coordination'' or
+``Non-Walrasian macroeconomics'' (\emph{ibid}.). Goutsmedt et al.
+(\protect\hyperlink{ref-goutsmedt2021}{2021}) have also highlighted that
+within the \emph{International Seminar on Macroeconomics} (ISoM), whose
+annual proceedings were published in the EER, disequilibrium
+macroeconomics and large-scale macroeconometric modelling constituted
+important rallying research programs until the mid-1980s for European
+economists involved in the ISoM.\footnote{In the rest of the article, we
+  follow Backhouse and Boianovsky and use the expression
+  ``disequilibrium macroeconomics'' to designate a research program that
+  has been labelled in many ways: ``non-Walrasian theory, disequilibrium
+  theory, equilibrium with rationing, \emph{non-tâtonnement} theory,
+  fixed-price models''
+  (\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
+  Boianovski, 2013, pp. 8--9}).}
 
 The purpose of our article is to investigate this issue systematically
 and quantitatively. We focus on macroeconomics articles, mainly because
@@ -261,16 +266,23 @@ macroeconomics in the 1970s and 1980s. These contributions have
 identified the major lines of transformation of the discipline (notably
 the transformation involved by new classical economists' contributions)
 and documented to what extent the methodology of macroeconomics has
-changed \citep{duartelima2012a, devroey2016}. Historians have also
-underlined the discontinuities of these transformations, as well as the
-resistence against them
-\citep{goutsmedtetal2019, goutsmedt2021b, renault2020a}, their relative
+changed (\protect\hyperlink{ref-devroey2016}{De Vroey, 2016};
+\protect\hyperlink{ref-duartelima2012a}{Duarte and Lima, 2012}).
+Historians have also underlined the discontinuities of these
+transformations, as well as the resistence against them
+(\protect\hyperlink{ref-goutsmedt2021b}{Goutsmedt, 2021};
+\protect\hyperlink{ref-goutsmedtetal2019}{Goutsmedt et al., 2019};
+\protect\hyperlink{ref-renault2020a}{Renault, 2020}), their relative
 impact on applied macroeconomic and empirical works
-\citep{boumans2019, qin2013a, renault2022}, but also the existence of
-alternative theoretical research programs
-\citep{backhouseboianovski2013, cherrier2018c, hoover2012}. However,
-these historical contributions remained mainly US-centered. If this is
-easily explained by the influence of US macroeconomists on the
+(\protect\hyperlink{ref-boumans2019}{Boumans and Duarte, 2019};
+\protect\hyperlink{ref-qin2013a}{Qin, 2013};
+\protect\hyperlink{ref-renault2022}{Renault, 2022}), but also the
+existence of alternative theoretical research programs
+(\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
+Boianovski, 2013}; \protect\hyperlink{ref-cherrier2018c}{Cherrier and
+Saïdi, 2018}; \protect\hyperlink{ref-hoover2012}{Hoover, 2012}).
+However, these historical contributions remained mainly US-centered. If
+this is easily explained by the influence of US macroeconomists on the
 discipline---influence strengthened by the internationalisation process
 described above---, a history of European macroeconomics remained to be
 written to understand how it differentiated itself from the dominant US
@@ -292,31 +304,33 @@ European macroeconomists were working on from the 1970s to the 1990s in
 comparison to the US. A careful study of the detailed results also
 allows us to draw a broader picture---even if not fully
 comprehensive---of the evolution of European macroeconomics since the
-1970s. Consistently with \citet{portes1987} and \citet{goutsmedt2021}
-claims, disequilibrium theory appears as a unifying framework for
-European macroeconomics between the mid-1970s and the mid-1980s. If it
-first constituted a theoretical research program targeting the
-development of general equilibrium theory (GET), it also became an
-interpretative framework to explain the stagflation and the European
-unemployment problem after the 1970s (see Section \ref{disequilibrium}).
-Disequilibrium theory---and notably Malinvaud's
-\citeyearpar{malinvaud1977}---was a rallying point for European
-macroeconomists when discussing various macroeconomic issues, and even
-those who disagreed with its utility made their dissent explicit. Its
-influence was thus far more extended than the contributions of new
-classical economists like Robert Lucas, Thomas Sargent or Robert Barro.
-However, disequilibrium progressively disappeared from references in the
-second part of the 1980s and issues like European unemployment were
-tackled mainly using other types of frameworks. If no unifying and
-consistent theoretical framework has taken over the disequilibrium
-theory (at least to the same extent), the new political economy inspired
-by \citet{kydland1977} and Barro and Gordon
-\citetext{\citeyear{barro1983}; \citeyear{barro1983c}} brought new
-questions and a common language for many contributions of European
-economists (see Section \ref{political-economics}). The pioneering
-contributions of this literature were carried by US economists, but it
-became a truly European way to tackle many macroeconomic issues in the
-1990s.
+1970s. Consistently with Portes
+(\protect\hyperlink{ref-portes1987}{1987}) and Goutsmedt et al.
+(\protect\hyperlink{ref-goutsmedt2021}{2021}) claims, disequilibrium
+theory appears as a unifying framework for European macroeconomics
+between the mid-1970s and the mid-1980s. If it first constituted a
+theoretical research program targeting the development of general
+equilibrium theory (GET), it also became an interpretative framework to
+explain the stagflation and the European unemployment problem after the
+1970s (see Section \ref{disequilibrium}). Disequilibrium theory---and
+notably Malinvaud's (\protect\hyperlink{ref-malinvaud1977}{1977})---was
+a rallying point for European macroeconomists when discussing various
+macroeconomic issues, and even those who disagreed with its utility made
+their dissent explicit. Its influence was thus far more extended than
+the contributions of new classical economists like Robert Lucas, Thomas
+Sargent or Robert Barro. However, disequilibrium progressively
+disappeared from references in the second part of the 1980s and issues
+like European unemployment were tackled mainly using other types of
+frameworks. If no unifying and consistent theoretical framework has
+taken over the disequilibrium theory (at least to the same extent), the
+new political economy inspired by Kydland and Prescott
+(\protect\hyperlink{ref-kydland1977}{1977}) and Barro and Gordon
+(\protect\hyperlink{ref-barro1983}{1983a},
+\protect\hyperlink{ref-barro1983c}{1983b}) brought new questions and a
+common language for many contributions of European economists (see
+Section \ref{political-economics}). The pioneering contributions of this
+literature were carried by US economists, but it became a truly European
+way to tackle many macroeconomic issues in the 1990s.
 
 \begin{figure}[h]
 
@@ -341,12 +355,12 @@ of the European Scientific Association of Applied Economics (ASEPELT),
 which had been created in 1961 by Waelbroeck and another ULB economist:
 Etienne Kirschen. Before 1969, the association published in English a
 bulletin gathering research in econometrics and mathematical economics
-\citep[4]{waelbroeck1969}. The EER took up this torch by publishing the
-same type of research. Articles had to be published in English, the new
-``\emph{lingua franca} of economics'' triggering the process of
-``internationalisation of our science'' as Waelbroeck and Glejser
-polemically stated in the introduction of the first issue
-(\emph{ibid.}).
+(\protect\hyperlink{ref-waelbroeck1969}{Waelbroeck and Glejser, 1969, p.
+4}). The EER took up this torch by publishing the same type of research.
+Articles had to be published in English, the new ``\emph{lingua franca}
+of economics'' triggering the process of ``internationalisation of our
+science'' as Waelbroeck and Glejser polemically stated in the
+introduction of the first issue (\emph{ibid.}).
 
 The fact that such a project was born in Belgium is no coincidence.
 Indeed, the country displayed a high effervescence regarding the
@@ -354,16 +368,19 @@ internationalisation of the discipline. In 1966, Jacques Drèze had
 established the Center for Operations Research and Econometrics (CORE)
 at the \emph{Katholieke Universiteit Leuven} (before its split), on the
 model of the Cowles Commission and the Carnegie Institute of Technology,
-which Drèze had visited in the 1950s \citep{duppe2017}.\footnote{KU
-  Leuven was split in 1968 between a Flemish and a French-speaking part,
-  the latter giving birth to the \emph{Université Catholique de Louvain}
-  at Louvain-La-Neuve, where the CORE eventually moved in the mid-1970s.}
+which Drèze had visited in the 1950s
+(\protect\hyperlink{ref-duppe2017}{Düppe, 2017}).\footnote{KU Leuven was
+  split in 1968 between a Flemish and a French-speaking part, the latter
+  giving birth to the \emph{Université Catholique de Louvain} at
+  Louvain-La-Neuve, where the CORE eventually moved in the mid-1970s.}
 The CORE developed a research program around macroeconomic modelling and
 GET, and quickly stimulated the establishment of a European research
 network of economists, notably through its large visiting programme
-\citep{maes2005, duppe2017}. Encouraged by Waelbroeck, the ULB
-department of economics joined the CORE in its first years of existence
-\citep[79]{maes2005}.
+(\protect\hyperlink{ref-duppe2017}{Düppe, 2017};
+\protect\hyperlink{ref-maes2005}{Maes and Buyst, 2005}). Encouraged by
+Waelbroeck, the ULB department of economics joined the CORE in its first
+years of existence (\protect\hyperlink{ref-maes2005}{Maes and Buyst,
+2005, p. 79}).
 
 From the beginning, the EER was conceived as a European project and the
 composition of the editorial board testifies of it (Figure
@@ -397,9 +414,10 @@ in the 1970s in terms of geographic affiliation.
 
 The EER was one of these crucial initiatives that contributed to the
 development of intellectual exchanges between European based economists
-\citep{goutsmedt2021}. The centrality of the journal was strengthened in
-1984 when the European Economic Association was created, and the EER was
-established as the official journal of the new association.
+(\protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al., 2021}). The
+centrality of the journal was strengthened in 1984 when the European
+Economic Association was created, and the EER was established as the
+official journal of the new association.
 
 \hypertarget{rising-journal}{%
 \subsection{A rising european journal}\label{rising-journal}}
@@ -481,9 +499,9 @@ that would imitate the standards of US major journals. The Top 5 thus
 seems an adequate benchmark to compare the EER to.
 
 We identify macroeconomics articles by using the former and new JEL
-codes classifications \citep{jel1991}.\footnote{See the complete list of
-  all the JEL codes we have used in
-  \protect\hyperlink{eer-top5-macro}{Appendix B.1.}} Outside of JEL
+codes classifications (\protect\hyperlink{ref-jel1991}{JEL,
+1991}).\footnote{See the complete list of all the JEL codes we have used
+  in \protect\hyperlink{eer-top5-macro}{Appendix B.1.}} Outside of JEL
 codes data, we have used three different databases to collect different
 types of information: outside of basic metadata (year of publication,
 title, authors, \emph{etc.}), we have collected the list of
@@ -508,17 +526,21 @@ together.\footnote{For more details on the measure of weights, see
 moving eight-year window (depending on the year of publication of the
 articles). We thus have 23 networks from the 1973-1980 period, through
 1974-1981, 1975-1982, \emph{etc.}, to the 1995-2002 period. For each
-network, we use the Leiden algorithm \citep{traag2019} to identify
+network, we use the Leiden algorithm
+(\protect\hyperlink{ref-traag2019}{Traag et al., 2019}) to identify
 bibliographic clusters, that is groups of articles that share many
 significant references in common with articles in their cluster, and few
 with articles outside their cluster. Articles which belongs to the same
 cluster are more likely to share cognitive content (e.g., sharing
 objects of study, methods, results or theory) even if disagreeing
-\citep{claveau2016, truc2021, goutsmedt2021}. Finally, we look at the
-similarity of the clusters two by two for successive time windows, and
-merge clusters from different windows together when they are
-sufficiently close.\footnote{See \protect\hyperlink{network}{Appendix
-  B.3.} for details on the merging criteria.}
+(\protect\hyperlink{ref-claveau2016}{Claveau and Gingras, 2016};
+\protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al., 2021};
+\protect\hyperlink{ref-truc2021}{Truc et al., 2021}). Finally, we look
+at the similarity of the clusters two by two for successive time
+windows, and merge clusters from different windows together when they
+are sufficiently close.\footnote{See
+  \protect\hyperlink{network}{Appendix B.3.} for details on the merging
+  criteria.}
 
 This process allows us to obtain dynamic clusters. Indeed, citation
 patterns are highly dependent of the date of publication of an article:
@@ -586,25 +608,27 @@ the EER and Top 5.\footnote{From the documents of our corpus, we extract
   `lemmatised'. See the \protect\hyperlink{topic}{Appendix B.4.} for
   more details on the preprocessing steps we use.} We use a variant of
 the Latent Dirichlet Allocation model with the Correlated Topic Model
-\citep{blei2007}. The number of topics \emph{k} is chosen by the
-modellers: after assessing quantitatively and qualitatively different
-models, we choose to run the model with 50 topics.\footnote{\protect\hyperlink{topic}{Appendix
-  B.4.} gives more details on the different models we have tested and
-  how we have set the number of topics.} For each topic, we can look at
-the word with the highest `FREX' value \citep{bischof2012}.\footnote{FREX
-  is the weighted harmonic mean of the terms' rank regarding exclusivity
-  and frequency scores. Exclusivity is a measure of how much a term is
-  frequent in a topic in comparison to its frequency in others. In other
-  words, a good topic model is a model where the words in topics are
-  frequently used, but each topic can be easily dinstinguished from
-  others, for the words associated to this topic are hardly used or not
-  used in other topics.} Table \ref{tab:summary-topics} displays the
-words with the highest FREX value for each topic. We also use a set of
-indicators, like the most cited references per topic crossed with the
-journal and affiliation variables, to get a better picture of what the
-topics are and what are their European and non-European
-dimensions.\footnote{There information are collected in the online
-  Appendix ``Details on the topics''.}
+(\protect\hyperlink{ref-blei2007}{Blei and Lafferty, 2007}). The number
+of topics \emph{k} is chosen by the modellers: after assessing
+quantitatively and qualitatively different models, we choose to run the
+model with 50 topics.\footnote{\protect\hyperlink{topic}{Appendix B.4.}
+  gives more details on the different models we have tested and how we
+  have set the number of topics.} For each topic, we can look at the
+word with the highest `FREX' value
+(\protect\hyperlink{ref-bischof2012}{Bischof and Airoldi,
+2012}).\footnote{FREX is the weighted harmonic mean of the terms' rank
+  regarding exclusivity and frequency scores. Exclusivity is a measure
+  of how much a term is frequent in a topic in comparison to its
+  frequency in others. In other words, a good topic model is a model
+  where the words in topics are frequently used, but each topic can be
+  easily dinstinguished from others, for the words associated to this
+  topic are hardly used or not used in other topics.} Table
+\ref{tab:summary-topics} displays the words with the highest FREX value
+for each topic. We also use a set of indicators, like the most cited
+references per topic crossed with the journal and affiliation variables,
+to get a better picture of what the topics are and what are their
+European and non-European dimensions.\footnote{There information are
+  collected in the online Appendix ``Details on the topics''.}
 
 Similarly to what we do for bibliometric coupling, we are interested in
 the topics characteristics regarding the publications (EER \emph{vs.}
@@ -638,22 +662,25 @@ information and network analysis) or a topic-based approach (textual
 information and topic modelling). In the first case, articles that share
 the same bibliographic information (e.g., same references) are
 considered similar and belong to the same speciality
-\citep{claveau2016}. In the second case, using titles, abstracts or
-full-text, topics are assigned to individual articles, and specialities
-are derived from these topics \citep{ambrosino2018}. Both methods have
-the advantage of organising a large corpus and allow the user to `read'
-more than you can really read. It points to the most influent articles
-and each cluster or topic can be identified by some important articles.
-Besides furnishing synthetic indicators (like the most cited references
-or most recurrent authors), these methods guide the qualitative
-exploration of a corpus.
+(\protect\hyperlink{ref-claveau2016}{Claveau and Gingras, 2016}). In the
+second case, using titles, abstracts or full-text, topics are assigned
+to individual articles, and specialities are derived from these topics
+(\protect\hyperlink{ref-ambrosino2018}{Ambrosino et al., 2018}). Both
+methods have the advantage of organising a large corpus and allow the
+user to `read' more than you can really read. It points to the most
+influent articles and each cluster or topic can be identified by some
+important articles. Besides furnishing synthetic indicators (like the
+most cited references or most recurrent authors), these methods guide
+the qualitative exploration of a corpus.
 
 Within the infometrics literature, one can find some attempts to combine
-both approaches
-\citep{dingCommunity2011, liAdding2012, yanTopics2012, maoTopic2017}. To
-our knowledge, this article is the first attempt to combine both methods
-to describe the state of economics at different period. The combination
-of both approaches provides different advantages. First, each method
+both approaches (\protect\hyperlink{ref-dingCommunity2011}{Ding, 2011};
+\protect\hyperlink{ref-liAdding2012}{Li et al., 2012};
+\protect\hyperlink{ref-maoTopic2017}{Mao et al., 2017};
+\protect\hyperlink{ref-yanTopics2012}{Yan et al., 2012}). To our
+knowledge, this article is the first attempt to combine both methods to
+describe the state of economics at different period. The combination of
+both approaches provides different advantages. First, each method
 enables to cross-check the result of the other and thus to test the
 general robustness of the results. If a certain literature appears as
 not `European' or very `European' in both the bibliometric and topic
@@ -688,47 +715,58 @@ evolution of European macroeconomics from the late 1970s to the late
 First, the two methods allow us to understand what European
 macroeconomics \emph{was not}. A first consistent finding between the
 two methods is that the literature about the life-cycle and permanent
-income hypotheses, influenced by \citet{friedman1957} and
-\citet{hall1978b}, was far from popular for European
-economists.\footnote{See clusters ``Intergenerational model, Savings \&
-  Consumption'' and ``Permanent Income and Life-Cycle Hypotheses'', as
-  well as topics 12 and 14.} Part of this literature sought to introduce
-structural heterogenity in life cycle or permanent income models (see
-Cherrier, Duarte and Saïdi, this issue). Other more US-oriented areas
-were research about \emph{(i)} the demand for money---for which
-\citet{baumol1952} and \citet{friedman1963} were central references---as
-well as \emph{(ii)} the ``new classical monetary theory'' \citep[chapter
-6]{hoover1988} of the 1970s inspired by Sargent's, Bryant's and
-Wallace's works---see for instance \citet{bryant1979} or
-\citet{sargent1982}---or \emph{(iii)} the more recent ``New Monetarist
-Economics'' of \citet{kiyotaki1989}, \citet{kiyotaki1993}, and
-\citet{trejos1995}---see \citet[chapter 2]{frasser2020}, for a
-historical reconstruction of this literature.\footnote{See clusters
-  ``Monetary Economics \& Demand for Money'' and ``New Theory of Money:
-  Search, Bargaining\ldots{}'', and, even if it is not as
-  ``non-European'' as the two others, the cluster ``Demand for Money''.
-  For topics, see topic 2 on the demand for money and money supply,
-  which is one of the most non-European topic, but also topic 19 on
-  demand for money and term structure of interest rates, influenced
-  notably by \citet{fama1975}.} The new classical monetary theory of the
-1970s is described by Hoover \citeyearpar[111]{hoover1988} as the
-research for ``microfoundations for the theory of money consistent with
-general equilibrium and individual optimization'' promoted by new
-classical economists (Lucas, Sargent, Barro, Kydland, Prescott, etc.).
-More generally, it appears that the works of new classical economists
-that contributed to reshaping macroeconomics in the late 1970s and early
+income hypotheses, influenced by Friedman
+(\protect\hyperlink{ref-friedman1957}{1957}) and Hall
+(\protect\hyperlink{ref-hall1978b}{1978}), was far from popular for
+European economists.\footnote{See clusters ``Intergenerational model,
+  Savings \& Consumption'' and ``Permanent Income and Life-Cycle
+  Hypotheses'', as well as topics 12 and 14.} Part of this literature
+sought to introduce structural heterogenity in life cycle or permanent
+income models (see Cherrier, Duarte and Saïdi, this issue). Other more
+US-oriented areas were research about \emph{(i)} the demand for
+money---for which Baumol (\protect\hyperlink{ref-baumol1952}{1952}) and
+Friedman and Schwartz (\protect\hyperlink{ref-friedman1963}{1963}) were
+central references---as well as \emph{(ii)} the ``new classical monetary
+theory'' (\protect\hyperlink{ref-hoover1988}{Hoover, 1988, chap. 6}) of
+the 1970s inspired by Sargent's, Bryant's and Wallace's works---see for
+instance Bryant and Wallace (\protect\hyperlink{ref-bryant1979}{1979})
+or Sargent and Wallace (\protect\hyperlink{ref-sargent1982}{1982})---or
+\emph{(iii)} the more recent ``New Monetarist Economics'' of Kiyotaki
+and Wright (\protect\hyperlink{ref-kiyotaki1989}{1989}), Kiyotaki and
+Wright (\protect\hyperlink{ref-kiyotaki1993}{1993}), and Trejos and
+Wright (\protect\hyperlink{ref-trejos1995}{1995})---see Frasser
+(\protect\hyperlink{ref-frasser2020}{2020, chap. 2}), for a historical
+reconstruction of this literature.\footnote{See clusters ``Monetary
+  Economics \& Demand for Money'' and ``New Theory of Money: Search,
+  Bargaining\ldots{}'', and, even if it is not as ``non-European'' as
+  the two others, the cluster ``Demand for Money''. For topics, see
+  topic 2 on the demand for money and money supply, which is one of the
+  most non-European topic, but also topic 19 on demand for money and
+  term structure of interest rates, influenced notably by Fama
+  (\protect\hyperlink{ref-fama1975}{1975}).} The new classical monetary
+theory of the 1970s is described by Hoover
+(\protect\hyperlink{ref-hoover1988}{1988, p. 111}) as the research for
+``microfoundations for the theory of money consistent with general
+equilibrium and individual optimization'' promoted by new classical
+economists (Lucas, Sargent, Barro, Kydland, Prescott, etc.). More
+generally, it appears that the works of new classical economists that
+contributed to reshaping macroeconomics in the late 1970s and early
 1980s, and that are so central in many history of macroeconomics
-\citep{devroey2016}, were less influential in Europe at the time.
-Articles like \citet{lucas1972}, \citet{lucas1973}, \citet{sargent1975}
-or \citet{barro1976} were constantly under-cited by Europe-based
-macroeconomists in comparison to US economists in the 1970s and 1980s
-(see Figure \ref{fig:plot-new-classical}).\footnote{We have to wait the
-  1982-1988 window to see some new classical contributions cited as much
-  by Europeans as by US economists. The integration of these
-  contributions obviously took some time in Europe and lagged behind the
-  US.} This is consistent with the fact that European macroeconomists
-favoured in the late 1970s and early 1980s an alternative
-``microfoundational programme'' \citep{hoover2012}: disequilibrium
+(\protect\hyperlink{ref-devroey2016}{De Vroey, 2016}), were less
+influential in Europe at the time. Articles like Lucas
+(\protect\hyperlink{ref-lucas1972}{1972}), Lucas
+(\protect\hyperlink{ref-lucas1973}{1973}), Sargent and Wallace
+(\protect\hyperlink{ref-sargent1975}{1975}) or Barro
+(\protect\hyperlink{ref-barro1976}{1976}) were constantly under-cited by
+Europe-based macroeconomists in comparison to US economists in the 1970s
+and 1980s (see Figure \ref{fig:plot-new-classical}).\footnote{We have to
+  wait the 1982-1988 window to see some new classical contributions
+  cited as much by Europeans as by US economists. The integration of
+  these contributions obviously took some time in Europe and lagged
+  behind the US.} This is consistent with the fact that European
+macroeconomists favoured in the late 1970s and early 1980s an
+alternative ``microfoundational programme''
+(\protect\hyperlink{ref-hoover2012}{Hoover, 2012}): disequilibrium
 theory (see Section \ref{disequilibrium}).
 
 \begin{figure}[h]
@@ -737,7 +775,7 @@ theory (see Section \ref{disequilibrium}).
 
 }
 
-\caption{Citation of new classical works by European economists relatively to US-based economists}\label{fig:plot-new-classical}
+\caption{Citation of new classical works by European economists relatively to US-based economists (log of ratios on 7-year moving average)}\label{fig:plot-new-classical}
 \end{figure}
 
 Second, now regarding what European macroeconomics was, the EER appeared
@@ -748,17 +786,20 @@ dollar reserves), and many topics are also relatively more authored by
 European authors (see Figure \ref{fig:plot-community-diff} and
 \ref{fig:plot-topic-diff}). Topics and clusters on the political economy
 of central banking (see Section \ref{political-economics}) and on
-unemployment---relying notably on \citet{pissarides1990},
-\citet{mortensen1994} and \citet{layard1991a}---are also particularly
+unemployment---relying notably on Pissarides
+(\protect\hyperlink{ref-pissarides1990}{1990}), Mortensen and Pissarides
+(\protect\hyperlink{ref-mortensen1994}{1994}) and Layard et al.
+(\protect\hyperlink{ref-layard1991a}{1991})---are also particularly
 Europe-oriented both in terms of authorship and in publication
 venues.\footnote{See the ``Political Economics of Central Banks''
   cluster and topic 8 for the first; and cluster ``Theory of
   Unemployment \& Job Dynamics'' and topic 37 for the second.} Lastly,
 our analyses reveal a proper European approach of time series and
 econometrics even if in a large part a UK speciality: the ``LSE
-approach'' of David Hendry and his colleagues \citep[chapter
-4]{qin2013a} and the treatment of the cointegration issue.\footnote{See
-  topic 46 and the cluster ``Business Cycles, Cointegration \& Trends''.}
+approach'' of David Hendry and his colleagues
+(\protect\hyperlink{ref-qin2013a}{Qin, 2013, chap. 4}) and the treatment
+of the cointegration issue.\footnote{See topic 46 and the cluster
+  ``Business Cycles, Cointegration \& Trends''.}
 
 The detailed analysis of clusters and topics offer a general panorama of
 the different issues, methods and theoretical questions investigated by
@@ -785,57 +826,65 @@ macroeconomics}\label{disequilibrium}}
 
 Disequilibrium theory constituted an important but often forgotten step
 in the history of macroeconomics
-\citep{backhouseboianovski2013, plassard2021}. It contributed
-significantly to the renewal of interest for the research for
-microfoundations in macroeconomics in the 1970s.\footnote{See
-  \citet{duartelima2012a} for a history of microfoundations in
-  macroeconomics.} Anchored in the general equilibrium theory (GET)
-tradition and influenced by the work of Patinkin, Clower and
-Leijonhufvud, disequilibrium theory explored the impact of non-walrasian
-price-setting (i.e.~without \emph{tâtonnement}), fix-price and quantity
-rationing on macroeconomic outcomes. It constituted an alternative to
-new classical contributions and the ``representative-agent
-microfoundational program'' of Lucas and Sargent
-\citetext{\citealp{hoover2012}; \citealp[see also][]{renault2020a}}.
-Even if Barro and Grossman's \citeyearpar{barro1971} article was
+(\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
+Boianovski, 2013}; \protect\hyperlink{ref-plassard2021}{Plassard et al.,
+2021}). It contributed significantly to the renewal of interest for the
+research for microfoundations in macroeconomics in the 1970s.\footnote{See
+  Duarte and Lima (\protect\hyperlink{ref-duartelima2012a}{2012}) for a
+  history of microfoundations in macroeconomics.} Anchored in the
+general equilibrium theory (GET) tradition and influenced by the work of
+Patinkin, Clower and Leijonhufvud, disequilibrium theory explored the
+impact of non-walrasian price-setting (i.e.~without \emph{tâtonnement}),
+fix-price and quantity rationing on macroeconomic outcomes. It
+constituted an alternative to new classical contributions and the
+``representative-agent microfoundational program'' of Lucas and Sargent
+(\protect\hyperlink{ref-hoover2012}{Hoover, 2012}; see also
+\protect\hyperlink{ref-renault2020a}{Renault, 2020}). Even if Barro and
+Grossman's (\protect\hyperlink{ref-barro1971}{1971}) article was
 fundamental in the popularisation of disequilibrium macroeconomics, the
 research program was more deeply anchored in Europe, notably in France
-and Belgium \citep[and Plassard and Renault, this
-issue]{goutsmedt2021}.\footnote{Online appendices also display some
-  statistics on countries and institutions for each cluster and topic.}
+and Belgium (\protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al.,
+2021}, and Plassard and Renault, this issue).\footnote{Online appendices
+  also display some statistics on countries and institutions for each
+  cluster and topic.}
 
 Bibliometric analysis shows that the ``Disequilibrium and Keynesian
 economics'' cluster constituted the most significant cluster strongly
 associated to the EER and developed by Europe-based economists. This
 cluster also integrates other ``alternative research lines'' to Lucas's
-research program \citep[chapter 14]{devroey2016}, like Azariadis's
-\citeyearpar{azariadis1975} implicit contract model, Hart's
-\citeyearpar{hart1982} imperfect competition model or Diamond's
-\citeyearpar{diamond1982} search model. It testifies that in the late
-1970s and in the 1980s, connections existed between US and European
-macroeconomists regarding both the renewal of theoretical macroeconomics
-and the search for microfoundations, and the opposition to new classical
-macroeconomics. As a complement, topic modelling analysis allows us to
-observe how widespread disequilibrium theory was for European
-macroeconomics in the 1980s and how it unified the treatment of
-different macroeconomic issues.
+research program (\protect\hyperlink{ref-devroey2016}{De Vroey, 2016,
+chap. 14}), like Azariadis's
+(\protect\hyperlink{ref-azariadis1975}{1975}) implicit contract model,
+Hart's (\protect\hyperlink{ref-hart1982}{1982}) imperfect competition
+model or Diamond's (\protect\hyperlink{ref-diamond1982}{1982}) search
+model. It testifies that in the late 1970s and in the 1980s, connections
+existed between US and European macroeconomists regarding both the
+renewal of theoretical macroeconomics and the search for
+microfoundations, and the opposition to new classical macroeconomics. As
+a complement, topic modelling analysis allows us to observe how
+widespread disequilibrium theory was for European macroeconomics in the
+1980s and how it unified the treatment of different macroeconomic
+issues.
 
 First of all, part of the literature ``arose out of the internal
 problems within general equilibrium theory''
-\citep[105]{backhouseboianovski2013}, notably the need to break with
+(\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
+Boianovski, 2013, p. 105}), notably the need to break with
 \emph{tâtonnement} and to build GET model with agents setting prices in
 the model. Disequilibrium macroeconomics thus contributed to the
 persistence of a lively research program around GET issues .\footnote{See
   topic 11.} However, disequilibrium macroeconomics also appeared as an
 important framework to deal with the explanation of the contemporaneous
-stagflation in the 1970s \citep[chapter 8]{backhouseboianovski2013}.
-Malinvaud's \emph{Theory of Unemployment Reconsidered}
-\citeyearpar{malinvaud1977} was a decisive step in this direction by
-conceptualising the opposition between ``Keynesian unemployment'',
-caused by excess supply in both goods and labour markets, and classical
-unemployment", triggered by excess demand for goods, but excess supply
-on the labour market---involving that real wages were too
-high.\footnote{\citet{malinvaud1977} proposed a third regime,
+stagflation in the 1970s
+(\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
+Boianovski, 2013, chap. 8}). Malinvaud's \emph{Theory of Unemployment
+Reconsidered} (\protect\hyperlink{ref-malinvaud1977}{1977}) was a
+decisive step in this direction by conceptualising the opposition
+between ``Keynesian unemployment'', caused by excess supply in both
+goods and labour markets, and classical unemployment'', triggered by
+excess demand for goods, but excess supply on the labour
+market---involving that real wages were too high.\footnote{Malinvaud
+  (\protect\hyperlink{ref-malinvaud1977}{1977}) proposed a third regime,
   ``repressed inflation'', due to excess demand on both markets.} The
 oil shock of 1973 and the simultaneous decrease of productivity
 explained the rise of a classical unemployment in the 1970s. The big
@@ -847,11 +896,13 @@ This framework to think about unemployment and the stagflation has been
 used, discussed, or at least mentioned in many important works in
 European macroeconomics in the 1980s.\footnote{``Important'' means here
   highly cited by European economists in one or several clusters or
-  topics.} \citet{dreze1981} discussed in the EER the ``current state of
-underemployment in Belgium'' (p.~2) by analysing the trade off between
-real wages and employment in the context of a small open economy. Drèze
-and Modigliani explained that they mixed the possibility of classical
-unemployment, inspired by \citet{malinvaud1977}, and Modigliani and
+  topics.} Drèze and Modigliani
+(\protect\hyperlink{ref-dreze1981}{1981}) discussed in the EER the
+``current state of underemployment in Belgium'' (p.~2) by analysing the
+trade off between real wages and employment in the context of a small
+open economy. Drèze and Modigliani explained that they mixed the
+possibility of classical unemployment, inspired by Malinvaud
+(\protect\hyperlink{ref-malinvaud1977}{1977}), and Modigliani and
 Padoa-Schioppa's argument that, ``in an open economy, external balance
 implies a constraining relationship between the levels of real wages and
 employment'' (2). Similarly, Malinvaud's framework was linked in the
@@ -859,25 +910,30 @@ early 1980s to the debate, recurrent in the EER, about the ``wage gap'',
 that is the assessment of whether real wages were too high (meaning a
 positive wage gap) or too low. Bruno and Sachs were central characters
 in this debate and relied explicitly on Malinvaud's
-framework.\footnote{Bruno and Sachs's \citeyearpar{brunosachs1985} book,
-  \emph{Economics of Worldwide Stagflation}, offered a synthesis of
-  their late 1970s and early 1980s works, and constituted a highly cited
-  resource for European macroeconomists in the 1980s \citep[see
-  also][section 3]{goutsmedt2021}.}
+framework.\footnote{Bruno and Sachs's
+  (\protect\hyperlink{ref-brunosachs1985}{1985}) book, \emph{Economics
+  of Worldwide Stagflation}, offered a synthesis of their late 1970s and
+  early 1980s works, and constituted a highly cited resource for
+  European macroeconomists in the 1980s (see also
+  \protect\hyperlink{ref-goutsmedt2021}{Goutsmedt et al., 2021, sec.
+  3}).}
 
 Outside of unemployment and stagflation, disequilibrium theory was also
 extended to other macroeconomic issues. For instance, Avinash Dixit,
 when at University of Warwick, extended Clower's
-\citeyearpar{clower1965} dual decision hypothesis and Malinvaud's
-framework to international trade theory \citep[393]{dixit1978}. It gave
-the basis to Dixit for advocating a ``more satisfactory model of the
-balance of trade'' than Frenkel and Johnson's \citeyearpar{frenkel1976}
-monetary approach which ``assumes instantaneous attainment of Walrasian
-equilibrium in commodity and labour markets'' \citep[393]{dixit1978}.
-Dixit's model would form the basis for some parts of Dixit and Norman's
-book on the \emph{Theory of International Trade} \citep{dixit1980},
-which constituted an important reference for European economists working
-on international trade.\footnote{See topic 39.}
+(\protect\hyperlink{ref-clower1965}{1965}) dual decision hypothesis and
+Malinvaud's framework to international trade theory
+(\protect\hyperlink{ref-dixit1978}{Dixit, 1978, p. 393}). It gave the
+basis to Dixit for advocating a ``more satisfactory model of the balance
+of trade'' than Frenkel and Johnson's
+(\protect\hyperlink{ref-frenkel1976}{1976}) monetary approach which
+``assumes instantaneous attainment of Walrasian equilibrium in commodity
+and labour markets'' (\protect\hyperlink{ref-dixit1978}{Dixit, 1978, p.
+393}). Dixit's model would form the basis for some parts of Dixit and
+Norman's book on the \emph{Theory of International Trade}
+(\protect\hyperlink{ref-dixit1980}{Dixit and Norman, 1980}), which
+constituted an important reference for European economists working on
+international trade.\footnote{See topic 39.}
 
 This centrality of disequilibrium theory in European macroeconomics is
 also visible through the fact that many macroeconomists had to position
@@ -889,19 +945,22 @@ a conference in Sussex about European unemployment, published in
   issue.} Macroeconomists from different countries presented their
 analyses of European or national unemployment rates. While Sneessens and
 Drèze estimated a ``two-market macroeconomic rationing (or
-disequilibirum) model of the economy \citep[S97]{sneessens1986},
-\citet{malinvaud1986} proposed a more descriptive analysis to explain
-the rise of unemployment in France, even if he claimed some proximity
-with Sneessens and Drèze formalisation in the same issue. Malinvaud
-discussed some determinants of''the classical component of unemployment"
-\citep[S216]{malinvaud1986}, but also criticised the use of Phillips
-curve with a non-accelerating inflation rate of unemployment (NAIRU) to
-deal with the causes of unemployment. To the contrary, NAIRU was central
-in the model proposed by Layard and Nickell to discuss unemployment in
-Britain and they claimed that the ``labour demand function that we use
-cuts through the fruitless debate now raging (especially in Europe) as
-to whether current unemployment is `classical' or `Keynesian'\,''
-\citep[S121]{layard1986}.
+disequilibirum) model of the economy
+(\protect\hyperlink{ref-sneessens1986}{Sneessens and Drèze, 1986, p.
+S97}), Malinvaud (\protect\hyperlink{ref-malinvaud1986}{1986}) proposed
+a more descriptive analysis to explain the rise of unemployment in
+France, even if he claimed some proximity with Sneessens and Drèze
+formalisation in the same issue. Malinvaud discussed some determinants
+of''the classical component of unemployment''
+(\protect\hyperlink{ref-malinvaud1986}{Malinvaud, 1986, p. S216}), but
+also criticised the use of Phillips curve with a non-accelerating
+inflation rate of unemployment (NAIRU) to deal with the causes of
+unemployment. To the contrary, NAIRU was central in the model proposed
+by Layard and Nickell to discuss unemployment in Britain and they
+claimed that the ``labour demand function that we use cuts through the
+fruitless debate now raging (especially in Europe) as to whether current
+unemployment is `classical' or `Keynesian'\,''
+(\protect\hyperlink{ref-layard1986}{Layard and Nickell, 1986, p. S121}).
 
 If not totally consensual, disequilibrium theory and the
 classical/Keynesian unemployment opposition were unavoidable in the
@@ -912,48 +971,60 @@ decrease of disequilibrium importance both through the bibliometric and
 topic modelling analyses.\footnote{See the destiny of the disequilibrium
   cluster and of topic 11 in Figure \ref{fig:plot-cluster-flow} and
   Figure \ref{fig:plot-topic-year}.} We can also observe that indirectly
-in topic 25 on real wages and employment: while \citet{malinvaud1977}
-was an important reference for the older article of the topic, it
-disappeared from the bibliography of the most recent articles.
-\footnote{See online appendix on topic-modelling} Part of the research
-program on disequilibrium seems to have persist in the 1990s through its
-most theoretical part and developed closer links with the literature on
-coordination and sunspots.\footnote{See cluster on ``Coordination \&
-  Sunspots 2'' and Figure \ref{fig:plot-cluster-flow}}. This cluster was
-only slightly over-represented by European economists, but gathered
-articles mainly published in the Top 5, so it does not really constitute
-a European speciality.{]} Regarding the European unemployment problem,
-new ways to account for it progressively emerged and eclipsed the
-opposition between Keynesian and classical unemployment. That is the
-case of Layard and Nickell's approach
-\citep{grubb1982, layard1986, layard1991a}, relying on NAIRU and
-wage-bargaining, and of the Diamond-Mortensen-Pissarides equilibrium
-approach \citep{pissarides1990, mortensen1994}, relying on
+in topic 25 on real wages and employment: while Malinvaud
+(\protect\hyperlink{ref-malinvaud1977}{1977}) was an important reference
+for the older article of the topic, it disappeared from the bibliography
+of the most recent articles. \footnote{See online appendix on
+  topic-modelling} Part of the research program on disequilibrium seems
+to have persist in the 1990s through its most theoretical part and
+developed closer links with the literature on coordination and
+sunspots.\footnote{See cluster on ``Coordination \& Sunspots 2'' and
+  Figure \ref{fig:plot-cluster-flow}}. This cluster was only slightly
+over-represented by European economists, but gathered articles mainly
+published in the Top 5, so it does not really constitute a European
+speciality.{]} Regarding the European unemployment problem, new ways to
+account for it progressively emerged and eclipsed the opposition between
+Keynesian and classical unemployment. That is the case of Layard and
+Nickell's approach (\protect\hyperlink{ref-grubb1982}{Grubb et al.,
+1982}; \protect\hyperlink{ref-layard1991a}{Layard et al., 1991};
+\protect\hyperlink{ref-layard1986}{Layard and Nickell, 1986}), relying
+on NAIRU and wage-bargaining, and of the Diamond-Mortensen-Pissarides
+equilibrium approach (\protect\hyperlink{ref-mortensen1994}{Mortensen
+and Pissarides, 1994};
+\protect\hyperlink{ref-pissarides1990}{Pissarides, 1990}), relying on
 search.\footnote{See cluster ``Theory of Unemployment \& Job Dynamics''
   and topic 37.} The insider and outsider approach of the labour market
 also gained some popularity in Europe.\footnote{The approach was
   developed notably by Nils Gottfries, Henrik Horn, Assar Lindbeck (all
   from the University of Stockholm) and Denis Snower from Birkbeck
-  College
-  \citep{gottfries1987, gottfries1992, lindbeck1986, lindbeck1987a}.} We
-can observe that when using the insider-outsider opposition to discuss
-European unemployment in 1987, Gottfries and Horn still referred to the
-Keynesian/classical opposition and argued in their paper that ``the
-present unemployment may originally have arisen for Keynesian reasons,
-but once unemployment is created it will change the conditions under
-which wages are formed, thus persisting in a classical form''
-\citep[2]{gottfries1987}. Lindbeck and Snower similarly cited
-\citet{malinvaud1977} and the ``boundary between the `Keynesian' and
-`Classical' regimes'' \citep[408]{lindbeck1987a}. This reference to
-Malinvaud's framework disappear in the following years in similar works
-\citep[as in][for instance]{gottfries1992}. This reference to the
-classical versus Keynesian unemployment was also missing in the
-literature exploring the role of firing costs and labour market
-flexibility in European unemployment, which became popular in the early
-1990s \citep{bertola1990a, bentolila1990, bentolila1992a}.\footnote{These
-  four different approaches were central in significant European
-  clusters and topics of the late 1980s and 1990s. See cluster ``Theory
-  of Unemployment \& Job Dynamics'' or topic 37 and 25.}
+  College (\protect\hyperlink{ref-gottfries1992}{Gottfries, 1992};
+  \protect\hyperlink{ref-gottfries1987}{Gottfries and Horn, 1987};
+  \protect\hyperlink{ref-lindbeck1987a}{Lindbeck and Snower, 1987},
+  \protect\hyperlink{ref-lindbeck1986}{1986}).} We can observe that when
+using the insider-outsider opposition to discuss European unemployment
+in 1987, Gottfries and Horn still referred to the Keynesian/classical
+opposition and argued in their paper that ``the present unemployment may
+originally have arisen for Keynesian reasons, but once unemployment is
+created it will change the conditions under which wages are formed, thus
+persisting in a classical form''
+(\protect\hyperlink{ref-gottfries1987}{Gottfries and Horn, 1987, p. 2}).
+Lindbeck and Snower similarly cited Malinvaud
+(\protect\hyperlink{ref-malinvaud1977}{1977}) and the ``boundary between
+the `Keynesian' and `Classical' regimes''
+(\protect\hyperlink{ref-lindbeck1987a}{Lindbeck and Snower, 1987, p.
+408}). This reference to Malinvaud's framework disappear in the
+following years in similar works (as in
+\protect\hyperlink{ref-gottfries1992}{Gottfries, 1992}, for instance).
+This reference to the classical versus Keynesian unemployment was also
+missing in the literature exploring the role of firing costs and labour
+market flexibility in European unemployment, which became popular in the
+early 1990s (\protect\hyperlink{ref-bentolila1990}{Bentolila and
+Bertola, 1990}; \protect\hyperlink{ref-bentolila1992a}{Bentolila and
+Saint-Paul, 1992}; \protect\hyperlink{ref-bertola1990a}{Bertola,
+1990}).\footnote{These four different approaches were central in
+  significant European clusters and topics of the late 1980s and 1990s.
+  See cluster ``Theory of Unemployment \& Job Dynamics'' or topic 37 and
+  25.}
 
 In the late 1980s, disequilibrium theory had lost its capacity to build
 bridges between European macroeconomists and did not constitute a
@@ -971,45 +1042,51 @@ In its 2000 handbook, \emph{Political Economy in Macroeconomics}, Allan
 Drazen defined the ``new political economy'' that had emerged since the
 1970s by ``its use of the formal and technical tools of modern economic
 analysis to look at the importance of politics for economics''
-\citep[4]{drazen2002}.\footnote{For a history of the emergence of the
-  ``new political economy'' or ``new political macroeconomics'' label,
-  see \citet{galvaodealmeida2021}.} The main question for political
-economy is to understand ``how political constraints may explain the
-choice of policies (and thus economic outcomes) that differ from optimal
-policies'' (p.~7). In Europe, a detailed introduction to political
-economy was proposed by Torsten Persson and Guido Tabellini
-\citeyearpar{persson2002}.\footnote{Torsten Persson obtained his PhD in
-  1982 in Stockholm at the Institute for International Economic Studies
-  under the supervision of Lars Svensson and became professor in
-  Stockholm in 1987. Tabellini graduated in Torino before to move to
-  UCLA for his PhD. After a first position at Stanford, he moved back in
-  Italy in 1990. In their book, they used the term ``political
-  economics'' rather than ``political economy'', as the latter is too
-  much associated with ``an alternative analytical approach, as if the
-  traditional tools of analysis in economics were not appropriate to
-  study political phenomena'' \citep[2]{persson2002}, idea which was the
-  complete opposite of their point of view.} They distinguished three
-traditions to which ``political economics'' can be ``traced back''
-(p.~2): ``the theory of macroeconomic policy'' inspired by Lucas, the
-public choice tradition of Buchanan, Tullock and Olson, and the formal
-analysis in political analysis inspired by Riker.
+(\protect\hyperlink{ref-drazen2002}{Drazen, 2002, p. 4}).\footnote{For a
+  history of the emergence of the ``new political economy'' or ``new
+  political macroeconomics'' label, see Galvão de~Almeida
+  (\protect\hyperlink{ref-galvaodealmeida2021}{2021}).} The main
+question for political economy is to understand ``how political
+constraints may explain the choice of policies (and thus economic
+outcomes) that differ from optimal policies'' (p.~7). In Europe, a
+detailed introduction to political economy was proposed by Torsten
+Persson and Guido Tabellini
+(\protect\hyperlink{ref-persson2002}{2002}).\footnote{Torsten Persson
+  obtained his PhD in 1982 in Stockholm at the Institute for
+  International Economic Studies under the supervision of Lars Svensson
+  and became professor in Stockholm in 1987. Tabellini graduated in
+  Torino before to move to UCLA for his PhD. After a first position at
+  Stanford, he moved back in Italy in 1990. In their book, they used the
+  term ``political economics'' rather than ``political economy'', as the
+  latter is too much associated with ``an alternative analytical
+  approach, as if the traditional tools of analysis in economics were
+  not appropriate to study political phenomena''
+  (\protect\hyperlink{ref-persson2002}{Persson and Tabellini, 2002, p.
+  2}), idea which was the complete opposite of their point of view.}
+They distinguished three traditions to which ``political economics'' can
+be ``traced back'' (p.~2): ``the theory of macroeconomic policy''
+inspired by Lucas, the public choice tradition of Buchanan, Tullock and
+Olson, and the formal analysis in political analysis inspired by Riker.
 
 That is the first tradition that lies at the core of European
 macroeconomics in the 1990s. The integration of rational expectations in
 the 1970s had raised attention for certain policy problems. The most
-emblematic one is the time-consistency problem popularized by
-\citet{kydland1977}. The idea is that the optimal policy in time
-\emph{t} is not the same as in \emph{t + s} as the policymaker has some
-interest to mislead economic agents for their own good. If agents are
-rational, they will anticipate in advance the policymaker's incentive
-and the optimal policy is unattainable. This work raised the question of
-the necessity to ``tie the hands'' of policymakers and it has led to
-numerous extensions, notably about central banks, on the concepts of
-credibility, reputation \citep{barro1983, barro1983c} or about the
-choice of central bankers and of the formalisation of delegation
-\citep{rogoff1985b}. This literature had clear origins in the academic
-US debates around rational expectations and the efficiency of
-macroeconomic policies in the 1970s \citep[80-86]{hoover1988}. But the
+emblematic one is the time-consistency problem popularized by Kydland
+and Prescott (\protect\hyperlink{ref-kydland1977}{1977}). The idea is
+that the optimal policy in time \emph{t} is not the same as in \emph{t +
+s} as the policymaker has some interest to mislead economic agents for
+their own good. If agents are rational, they will anticipate in advance
+the policymaker's incentive and the optimal policy is unattainable. This
+work raised the question of the necessity to ``tie the hands'' of
+policymakers and it has led to numerous extensions, notably about
+central banks, on the concepts of credibility, reputation
+(\protect\hyperlink{ref-barro1983}{Barro and Gordon, 1983a},
+\protect\hyperlink{ref-barro1983c}{1983b}) or about the choice of
+central bankers and of the formalisation of delegation
+(\protect\hyperlink{ref-rogoff1985b}{Rogoff, 1985}). This literature had
+clear origins in the academic US debates around rational expectations
+and the efficiency of macroeconomic policies in the 1970s
+(\protect\hyperlink{ref-hoover1988}{Hoover, 1988, pp. 80--86}). But the
 articles cited above displayed an unusual citation trajectory: after
 capturing a rising share of total citations in the first years after
 their publication and then a decreasing share (like for many famous
@@ -1025,7 +1102,7 @@ these references more than their US colleagues (Figure
 
 }
 
-\caption{Share of citations of the political economy literature}\label{fig:plot-political-economy}
+\caption{Share of articles citing political economy literature (5-year moving average)}\label{fig:plot-political-economy}
 \end{figure}
 
 \begin{figure}[h]
@@ -1034,7 +1111,7 @@ these references more than their US colleagues (Figure
 
 }
 
-\caption{Citation of political economy articles by European economists relatively to US-based economists}\label{fig:plot-political-economy-europe}
+\caption{Citation of political economy articles by European economists relatively to US-based economists (log of ratios on 7-year moving average)}\label{fig:plot-political-economy-europe}
 \end{figure}
 
 This interest of European economists for the new political economy
@@ -1062,93 +1139,104 @@ constitutes a particularity of European macroeconomics in comparison to
 the US. First, many discussions about the appropriate framework for
 monetary policy involved political economy contributions. An important
 contribution for European macroeconomics here is Giavazzi and Pagano's
-\citeyearpar{giavazzi1988} article published in the EER. The authors
-questioned the advantages of adhering to the European monetary system
-(EMS) for countries with higher rate of inflation. They deal with the
-idea that the EMS would constitute a solution to the time-consistency
-problem: it would ``tie the hands'' of high-inflation countries which
-would have to keep their exchange rate stable, thus reducing their
-incentive to generate surprise inflation and increasing the credibility
-of monetary authorities in these countries. The adhesion to the EMS thus
-``parallels that in \citet{rogoff1985b}, who shows that the
+(\protect\hyperlink{ref-giavazzi1988}{1988}) article published in the
+EER. The authors questioned the advantages of adhering to the European
+monetary system (EMS) for countries with higher rate of inflation. They
+deal with the idea that the EMS would constitute a solution to the
+time-consistency problem: it would ``tie the hands'' of high-inflation
+countries which would have to keep their exchange rate stable, thus
+reducing their incentive to generate surprise inflation and increasing
+the credibility of monetary authorities in these countries. The adhesion
+to the EMS thus ``parallels that in Rogoff
+(\protect\hyperlink{ref-rogoff1985b}{1985}), who shows that the
 non-cooperative rate of inflation can be reduced `through a system of
 rewards and punishments which alters the incentives of the central
-bank'\,'' \citep[1057]{giavazzi1988}. The question was whether the
-adhesion to the EMS would be ``welfare-improving'' for high-inflation
-countries (\emph{ibid.}).\footnote{Giavazzi and Pagano's article
-  constitutes a major reference for topic 3 and topic 8.} Still in the
-EER, Daniel \citet{laskar1989} also started from Rogoff's
-\citeyearpar{rogoff1985b} argument that appointing a conservative
-central banker could be beneficial for society, but extended the issue
-to a two-country model to discuss in which cases appointing conservative
-central bankers in both countries could be detrimental or beneficial to
-both countries.\footnote{We also observe another important way to
-  approach the issue of the EMS, less empirical and a bit less framed in
-  political economy terms, but still dealing with ``credibility'': the
-  expectation from going out of the EMS and thus the credibility
-  associated to some exchange rates in a target zone regime
-  \citep{svensson1993a, rose1994}.} Still regarding monetary policy
-framework, the monetary union issue also stimulated contributions in the
-terms of political economy. In his EER survey about the theoretical
-justification for the convergence requirements of the Maastricht treaty,
-Paul distinguished between two types of justification: \emph{(i)} ``the
-traditional theory of optimum currency areas (OCA)'' and \emph{(ii)}
-``the more recent `new view' based on credibility issues''
-\citep[1091-1092]{degrauwe1996}. Contrarily to the OCA theory, the
-second approach relied on the intuition of the Barro-Gordon model. It
-analyses ``how countries can gain (or loose) credibility by joining a
-monetary union'' and thus how inflation rates would converge.\footnote{Whereas
-  the OCA theory rather focused on the divergence in output and
-  employment trends.} When dealing with the monetary union issue,
-European macroeconomists favoured the credibility approach and the OCA
-theory appeared less influential (see notably topic 3).\footnote{Our
-  goal is not to be fully comprehensive here. We can find another
-  important discussion about monetary policy framework with a political
-  economy taste on inflation targeting \citep[see
-  notably][]{svensson1997}.}
+bank'\,'' (\protect\hyperlink{ref-giavazzi1988}{Giavazzi and Pagano,
+1988, p. 1057}). The question was whether the adhesion to the EMS would
+be ``welfare-improving'' for high-inflation countries
+(\emph{ibid.}).\footnote{Giavazzi and Pagano's article constitutes a
+  major reference for topic 3 and topic 8.} Still in the EER, Daniel
+Laskar (\protect\hyperlink{ref-laskar1989}{1989}) also started from
+Rogoff's (\protect\hyperlink{ref-rogoff1985b}{1985}) argument that
+appointing a conservative central banker could be beneficial for
+society, but extended the issue to a two-country model to discuss in
+which cases appointing conservative central bankers in both countries
+could be detrimental or beneficial to both countries.\footnote{We also
+  observe another important way to approach the issue of the EMS, less
+  empirical and a bit less framed in political economy terms, but still
+  dealing with ``credibility'': the expectation from going out of the
+  EMS and thus the credibility associated to some exchange rates in a
+  target zone regime (\protect\hyperlink{ref-rose1994}{Rose and
+  Svensson, 1994}; \protect\hyperlink{ref-svensson1993a}{Svensson,
+  1993}).} Still regarding monetary policy framework, the monetary union
+issue also stimulated contributions in the terms of political economy.
+In his EER survey about the theoretical justification for the
+convergence requirements of the Maastricht treaty, Paul distinguished
+between two types of justification: \emph{(i)} ``the traditional theory
+of optimum currency areas (OCA)'' and \emph{(ii)} ``the more recent `new
+view' based on credibility issues''
+(\protect\hyperlink{ref-degrauwe1996}{De Grauwe, 1996, pp. 1091--1092}).
+Contrarily to the OCA theory, the second approach relied on the
+intuition of the Barro-Gordon model. It analyses ``how countries can
+gain (or loose) credibility by joining a monetary union'' and thus how
+inflation rates would converge.\footnote{Whereas the OCA theory rather
+  focused on the divergence in output and employment trends.} When
+dealing with the monetary union issue, European macroeconomists favoured
+the credibility approach and the OCA theory appeared less influential
+(see notably topic 3).\footnote{Our goal is not to be fully
+  comprehensive here. We can find another important discussion about
+  monetary policy framework with a political economy taste on inflation
+  targeting (see notably \protect\hyperlink{ref-svensson1997}{Svensson,
+  1997}).}
 
 A second area where a political economy framework was influential is the
 issue of wage-setting. In the EER, Horn and Persson
-\citeyearpar{horn1988} studied the interaction between exchange rate
-policy and the role of unions in wage-setting. If devaluations used to
-maintain or increase competitiveness are followed by compensatory wage
-increases, the effects on competitiveness are cancelled and the economy
-is in a situation of a ``devaluation-wage spiral''
-\citep[1621]{horn1988}. The point of departure of the authors' analysis
-is that ``if wage setters are rational and forward-looking and
-understand the objectives behind the government's exchange rate policy
-(\ldots) they will anticipate exchange rate changes and take them into
-account in their wage decisions'' (p.~1622). Their goal was thus to
-endogenise both wage decisions and policy formation in a game-theoretic
-framework.\footnote{Horn and Persson's \citeyearpar{horn1988} article
-  was an important reference for topic 3 (on monetary union), topic 6
-  (on exchange rate dynamics), topic 25 (on real wages, employment and
-  contracts) and topic 8 (on strategic policy making issues).} Thorvadur
-Gylfasson and Lindbeck's work on the links between wage-setting and
-monetary policy is also enlightening here. In a 1984 article in the EER,
-they tried to integrate together cost push and demand pull inflation in
-a Keynesian framework taking into account the behaviour of aggregate
-supply and the Phillips curve for wage formation \citep{gylfason1984}.
-As they acknowledged themselves, the issues raised by their model echoed
-Malinvaud's \citeyearpar{malinvaud1977} opposition between Classical and
-Keynesian unemployment \citep[6-7]{gylfason1984}. Their article had a
-political economy flavour as they dealt with ``competing wage claims''
-and framed their model as a duopoly problem \emph{à la} Cournot. In
-their following article in the EER, they relied explicitly on game
-theory to deal with the interaction of wages determination and
-government spending \citep{gylfason1986}. Some years later, going back
-to the issue of wage setting and monetary policy, they refer to the
-``wage gaps'' debate of the 1970s and the ``cases where government
-efforts to reduce unemployment by bringing real wages through price
-inflation were frustrated by subsequent nominal wage increases''
-\citep[34]{gylfason1994}, but no reference was made to classical and
-Keynesian unemployment. They proposed a model in which wages are
-determined ``through collective bargaining among strong and well
-coordinated labor unions'' (34) and explored its consequences for
-monetary policy in a game-theoretic model similar to
-\citeauthor{barro1983}
-\citetext{\citeyear{barro1983}; \citealp{barro1983c}}. To some extent,
-the trajectory of Gylfason and Lindbeck's work is representative of the
+(\protect\hyperlink{ref-horn1988}{1988}) studied the interaction between
+exchange rate policy and the role of unions in wage-setting. If
+devaluations used to maintain or increase competitiveness are followed
+by compensatory wage increases, the effects on competitiveness are
+cancelled and the economy is in a situation of a ``devaluation-wage
+spiral'' (\protect\hyperlink{ref-horn1988}{Horn and Persson, 1988, p.
+1621}). The point of departure of the authors' analysis is that ``if
+wage setters are rational and forward-looking and understand the
+objectives behind the government's exchange rate policy (\ldots) they
+will anticipate exchange rate changes and take them into account in
+their wage decisions'' (p.~1622). Their goal was thus to endogenise both
+wage decisions and policy formation in a game-theoretic
+framework.\footnote{Horn and Persson's
+  (\protect\hyperlink{ref-horn1988}{1988}) article was an important
+  reference for topic 3 (on monetary union), topic 6 (on exchange rate
+  dynamics), topic 25 (on real wages, employment and contracts) and
+  topic 8 (on strategic policy making issues).} Thorvadur Gylfasson and
+Lindbeck's work on the links between wage-setting and monetary policy is
+also enlightening here. In a 1984 article in the EER, they tried to
+integrate together cost push and demand pull inflation in a Keynesian
+framework taking into account the behaviour of aggregate supply and the
+Phillips curve for wage formation
+(\protect\hyperlink{ref-gylfason1984}{Gylfason and Lindbeck, 1984}). As
+they acknowledged themselves, the issues raised by their model echoed
+Malinvaud's (\protect\hyperlink{ref-malinvaud1977}{1977}) opposition
+between Classical and Keynesian unemployment
+(\protect\hyperlink{ref-gylfason1984}{Gylfason and Lindbeck, 1984, pp.
+6--7}). Their article had a political economy flavour as they dealt with
+``competing wage claims'' and framed their model as a duopoly problem
+\emph{à la} Cournot. In their following article in the EER, they relied
+explicitly on game theory to deal with the interaction of wages
+determination and government spending
+(\protect\hyperlink{ref-gylfason1986}{Gylfason and Lindbeck, 1986}).
+Some years later, going back to the issue of wage setting and monetary
+policy, they refer to the ``wage gaps'' debate of the 1970s and the
+``cases where government efforts to reduce unemployment by bringing real
+wages through price inflation were frustrated by subsequent nominal wage
+increases'' (\protect\hyperlink{ref-gylfason1994}{Gylfason and Lindbeck,
+1994, p. 34}), but no reference was made to classical and Keynesian
+unemployment. They proposed a model in which wages are determined
+``through collective bargaining among strong and well coordinated labor
+unions'' (34) and explored its consequences for monetary policy in a
+game-theoretic model similar to Barro and Gordon
+(\protect\hyperlink{ref-barro1983}{1983a},
+\protect\hyperlink{ref-barro1983c}{1983b}). To some extent, the
+trajectory of Gylfason and Lindbeck's work is representative of the
 transformation of European macroeconomics between the 1970s and the
 1990s.
 
@@ -1159,21 +1247,26 @@ first explained in the AER that the goal was to ``{[}abandon{]} the
 assumption that fiscal policy is set by a benevolent social planner who
 maximizes the welfare of a representative consumer \ldots{} {[}for{]} an
 economy with two policymakers with different objectives alternating in
-office as a result of elections'' \citep{alesina1990}.
-\citet{persson1992} defended a similar ``positive public finance''
-research agenda. Their goal was to understand how the rising European
-integration and the removal of barriers to the mobility of capital,
-goods and labour could affect the ``politico-economic equilibrium that
-determines fiscal policy'' \citep[689]{persson1992}.\footnote{There
-  references are important for European economists in Topic 36, in
-  comparison to US-based economists. We find a distinction similar in
-  topic 22, where US economists mainly cited endogenous growth
-  references, when Europeans were sticking to the political economy
-  literature.}
+office as a result of elections''
+(\protect\hyperlink{ref-alesina1990}{Alesina and Tabellini, 1990}).
+Persson and Tabellini (\protect\hyperlink{ref-persson1992}{1992})
+defended a similar ``positive public finance'' research agenda. Their
+goal was to understand how the rising European integration and the
+removal of barriers to the mobility of capital, goods and labour could
+affect the ``politico-economic equilibrium that determines fiscal
+policy'' (\protect\hyperlink{ref-persson1992}{Persson and Tabellini,
+1992, p. 689}).\footnote{There references are important for European
+  economists in Topic 36, in comparison to US-based economists. We find
+  a distinction similar in topic 22, where US economists mainly cited
+  endogenous growth references, when Europeans were sticking to the
+  political economy literature.}
 
 As the three examples testify, after the late 1980s, (new) political
 economy and its pioneering works
-\citep{kydland1977, barro1983, barro1983c, rogoff1985b} represented a
+(\protect\hyperlink{ref-barro1983}{Barro and Gordon, 1983a},
+\protect\hyperlink{ref-barro1983c}{1983b};
+\protect\hyperlink{ref-kydland1977}{Kydland and Prescott, 1977};
+\protect\hyperlink{ref-rogoff1985b}{Rogoff, 1985}) represented a
 unifying framework for many European macroeconomists to deal with
 different macroeconomic issues. It constituted a resource for tackling
 the issues raised by the European integration and the building of a
@@ -1200,9 +1293,10 @@ framework in Europe, it progressively became a minor and declining
 research program after the mid-1980s. In the same time, new classical
 economists' contributions eventually encountered some success in Europe,
 notably with the import of Real Business Cycle modelling, but above all
-with the influence of the new political economy literature of
-\citet{kydland1977} and \citeauthor{barro1983}
-\citetext{\citeyear{barro1983}; \citealp{barro1983c}}.
+with the influence of the new political economy literature of Kydland
+and Prescott (\protect\hyperlink{ref-kydland1977}{1977}) and Barro and
+Gordon (\protect\hyperlink{ref-barro1983}{1983a},
+\protect\hyperlink{ref-barro1983c}{1983b}).
 
 In the 1990s, European macroeconomics appeared closer to its US
 counterpart on the theoretical and methodological levels. However, it
@@ -1223,7 +1317,470 @@ for European researchers.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-alesina1990}{}}%
+Alesina, A., Tabellini, G., 1990. A {Positive Theory} of {Fiscal
+Deficits} and {Government Debt}. The Review of Economic Studies 57,
+403--414. doi:\href{https://doi.org/10.2307/2298021}{10.2307/2298021}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ambrosino2018}{}}%
+Ambrosino, A., Cedrini, M., Davis, J.B., Fiori, S., Guerzoni, M.,
+Nuccio, M., 2018. What topic modeling could reveal about the evolution
+of economics. Journal of Economic Methodology 25, 329--348.
+doi:\href{https://doi.org/10.1080/1350178X.2018.1529215}{10.1080/1350178X.2018.1529215}
+
+\leavevmode\vadjust pre{\hypertarget{ref-azariadis1975}{}}%
+Azariadis, C., 1975. Implicit contracts and underemployment equilibria.
+Journal of Political Economy 83, 1183--1202.
+
+\leavevmode\vadjust pre{\hypertarget{ref-backhouseboianovski2013}{}}%
+Backhouse, R.E., Boianovski, M., 2013. Tranforming modern
+macroeconomics. {Exploring} disequilibrium microfoundations (1956-2003).
+{Cambridge University Press}, {Cambdrige}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-barro1976}{}}%
+Barro, R.J., 1976. Rational expectations and the role of monetary
+policy. Journal of Monetary Economics 2, 1--32.
+doi:\href{https://doi.org/10.1016/0304-3932(76)90002-7}{10.1016/0304-3932(76)90002-7}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barro1983}{}}%
+Barro, R.J., Gordon, D.B., 1983a. Rules, discretion and reputation in a
+model of monetary policy. Journal of Monetary Economics 12, 101--121.
+doi:\href{https://doi.org/10.1016/0304-3932(83)90051-X}{10.1016/0304-3932(83)90051-X}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barro1983c}{}}%
+Barro, R.J., Gordon, D.B., 1983b. A {Positive Theory} of {Monetary
+Policy} in a {Natural Rate Model}. Journal of Political Economy 91,
+589--610.
+
+\leavevmode\vadjust pre{\hypertarget{ref-barro1971}{}}%
+Barro, R.J., Grossman, H.I., 1971. A {General Disequilibrium Model} of
+{Income} and {Employment}. The American Economic Review 61, 82--93.
+
+\leavevmode\vadjust pre{\hypertarget{ref-baumol1952}{}}%
+Baumol, W.J., 1952. The transactions demand for cash: {An} inventory
+theoretic approach. The Quarterly journal of economics 545--556.
+
+\leavevmode\vadjust pre{\hypertarget{ref-bentolila1990}{}}%
+Bentolila, S., Bertola, G., 1990. Firing costs and labour demand: How
+bad is eurosclerosis? The Review of Economic Studies 57, 381--402.
+
+\leavevmode\vadjust pre{\hypertarget{ref-bentolila1992a}{}}%
+Bentolila, S., Saint-Paul, G., 1992. The macroeconomic impact of
+flexible labor contracts, with an application to {Spain}. European
+Economic Review 36, 1013--1047.
+doi:\href{https://doi.org/10.1016/0014-2921(92)90043-V}{10.1016/0014-2921(92)90043-V}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bertola1990a}{}}%
+Bertola, G., 1990. Job security, employment and wages. European Economic
+Review 34, 851--879.
+doi:\href{https://doi.org/10.1016/0014-2921(90)90066-8}{10.1016/0014-2921(90)90066-8}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bischof2012}{}}%
+Bischof, J., Airoldi, E.M., 2012. Summarizing topical content with word
+frequency and exclusivity. p. 201208.
+
+\leavevmode\vadjust pre{\hypertarget{ref-blei2007}{}}%
+Blei, D.M., Lafferty, J.D., 2007.
+\href{https://www.jstor.org/stable/4537420}{A correlated topic model of
+science}. The Annals of Applied Statistics 1, 17--35.
+
+\leavevmode\vadjust pre{\hypertarget{ref-boumans2019}{}}%
+Boumans, M., Duarte, P.G., 2019. The {History} of {Macroeconometric
+Modeling} : {An Introduction}. History of Political Economy 51,
+391--400.
+
+\leavevmode\vadjust pre{\hypertarget{ref-brunosachs1985}{}}%
+Bruno, M., Sachs, J.D., 1985. Economics of worldwide stagflation.
+{National Bureau of Economic Research}, {Cambridge, Mass.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bryant1979}{}}%
+Bryant, J., Wallace, N., 1979. The inefficiency of interest-bearing
+national debt. Journal of Political Economy 87, 365--381.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cherrier2018c}{}}%
+Cherrier, B., Saïdi, A., 2018. The indeterminate fate of sunspots in
+economics. History of Political Economy 50, 425--481.
+
+\leavevmode\vadjust pre{\hypertarget{ref-cherrier2021}{}}%
+Cherrier, B., Saïdi, A., 2021. Back to {Front}: {The Role} of
+{Seminars}, {Conferences} and {Workshops} in the {History} of
+{Economics}. {Preface} to the {Second Issue}. Revue d'economie politique
+131, 723--727.
+
+\leavevmode\vadjust pre{\hypertarget{ref-claveau2016}{}}%
+Claveau, F., Gingras, Y., 2016.
+\href{http://hope.dukejournals.org/cgi/content/short/48/4/551?rss=1}{Macrodynamics
+of economics: A bibliometric history}. History of Political Economy.
+
+\leavevmode\vadjust pre{\hypertarget{ref-clower1965}{}}%
+Clower, R., 1965. The {Keynesian Counter-Revolution}: {A Theoretical
+Appraisal}, in: The {Theory} of {Interest Rates}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-coats1996}{}}%
+Coats, A.W., 1996. The Post-1945 Internationalization of Economics. Duke
+University Press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-degrauwe1996}{}}%
+De Grauwe, P., 1996. Monetary union and convergence economics. European
+Economic Review, Papers and {Proceedings} of the {Tenth Annual Congress}
+of the {European Economic Association} 40, 1091--1101.
+doi:\href{https://doi.org/10.1016/0014-2921(95)00117-4}{10.1016/0014-2921(95)00117-4}
+
+\leavevmode\vadjust pre{\hypertarget{ref-devroey2016}{}}%
+De Vroey, M., 2016. A history of modern macroeconomics from keynes to
+lucas and beyond. Cambridge University Press, Cambridge.
+
+\leavevmode\vadjust pre{\hypertarget{ref-diamond1982}{}}%
+Diamond, P.A., 1982. Aggregate demand management in search equilibrium.
+Journal of political Economy 90, 881--894.
+
+\leavevmode\vadjust pre{\hypertarget{ref-dingCommunity2011}{}}%
+Ding, Y., 2011. Community detection: {Topological} vs. topical. Journal
+of Informetrics 5, 498--514.
+doi:\href{https://doi.org/10.1016/j.joi.2011.02.006}{10.1016/j.joi.2011.02.006}
+
+\leavevmode\vadjust pre{\hypertarget{ref-dixit1978}{}}%
+Dixit, A., 1978. The balance of trade in a model of temporary
+equilibrium with rationing. The Review of Economic Studies 45, 393--404.
+
+\leavevmode\vadjust pre{\hypertarget{ref-dixit1980}{}}%
+Dixit, A., Norman, V., 1980. Theory of {International Trade}: {A Dual},
+{General Equilibrium Approach}. {Cambridge University Press}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-drazen2002}{}}%
+Drazen, A., 2002. Political {Economy} in {Macroeconomics}, Nouvelle. ed.
+{Princeton University Press}, {New Haven}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-dreze1981}{}}%
+Drèze, J.H., Modigliani, F., 1981. The trade-off between real wages and
+employment in an open economy ({Belgium}). European Economic Review 15,
+1--40.
+doi:\href{https://doi.org/10.1016/0014-2921(81)90065-9}{10.1016/0014-2921(81)90065-9}
+
+\leavevmode\vadjust pre{\hypertarget{ref-duartelima2012a}{}}%
+Duarte, P.G., Lima, G.T., 2012. Microfoundations {Reconsidered}. {The
+Relationship} of {Micro} and {Macroeconomics} in {Historical
+Perspective}. {Edward Elgar Publishing}, {Cheltenham}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-duppe2017}{}}%
+Düppe, T., 2017. How modern economics learned french: Jacques drèze and
+the foundation of CORE. The European Journal of the History of Economic
+Thought 24, 238--273.
+
+\leavevmode\vadjust pre{\hypertarget{ref-fama1975}{}}%
+Fama, E.F., 1975. Short-term interest rates as predictors of inflation.
+American Economic Review 65.
+
+\leavevmode\vadjust pre{\hypertarget{ref-fourcade2006}{}}%
+Fourcade, M., 2006. The construction of a global profession: The
+transnationalization of economics. American Journal of Sociology 112,
+145194.
+
+\leavevmode\vadjust pre{\hypertarget{ref-fourcade2009}{}}%
+Fourcade, M., 2009. Economists and societies: Discipline and profession
+in the united states, britain, and france, 1890s to 1990s. Princeton
+University Press, Princeton.
+
+\leavevmode\vadjust pre{\hypertarget{ref-frasser2020}{}}%
+Frasser, C., 2020. Essays on liquidity-based asset classiﬁcation and
+illegal means of payment (PhD thesis). Université Paris 1
+Panthéon-Sorbonne, Paris.
+
+\leavevmode\vadjust pre{\hypertarget{ref-frenkel1976}{}}%
+Frenkel, J.A., Johnson, H.G. (Eds.), 1976. The monetary approach to the
+balance of payments. {G. Allen \& Unwin}, {London}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-friedman1957}{}}%
+Friedman, M., 1957. A theory of the consumption function. Princeton
+University Press, Princeton.
+
+\leavevmode\vadjust pre{\hypertarget{ref-friedman1963}{}}%
+Friedman, M., Schwartz, A.J., 1963. A {Monetary} history of the {United}
+{States} 1867-1960, Studies in business cycles. Princeton university
+press, Princeton.
+
+\leavevmode\vadjust pre{\hypertarget{ref-galvaodealmeida2021}{}}%
+Galvão de~Almeida, R., 2021. A {Macroeconomic View} of {Public Choice}:
+{New Political Macroeconomics} as a {Separate Tradition} of {Public
+Choice}. Œconomia. History, Methodology, Philosophy 77--105.
+doi:\href{https://doi.org/10.4000/oeconomia.10402}{10.4000/oeconomia.10402}
+
+\leavevmode\vadjust pre{\hypertarget{ref-giavazzi1988}{}}%
+Giavazzi, F., Pagano, M., 1988. The advantage of tying one's hands:
+{EMS} discipline and central bank credibility. European economic review
+32, 1055--1075.
+
+\leavevmode\vadjust pre{\hypertarget{ref-gottfries1992}{}}%
+Gottfries, N., 1992. Insiders, outsiders, and nominal wage contracts.
+Journal of Political Economy 100, 252--270.
+
+\leavevmode\vadjust pre{\hypertarget{ref-gottfries1987}{}}%
+Gottfries, N., Horn, H., 1987. Wage formation and the persistence of
+unemployment. The Economic Journal 97, 877--884.
+
+\leavevmode\vadjust pre{\hypertarget{ref-goutsmedt2021b}{}}%
+Goutsmedt, A., 2021. From the {Stagflation} to the {Great Inflation}:
+{Explaining} the {US} economy of the 1970s. Revue d'Economie Politique
+131, 557--582.
+
+\leavevmode\vadjust pre{\hypertarget{ref-goutsmedtetal2019}{}}%
+Goutsmedt, A., Pinzon-Fuchs, E., Renault, M., Sergi, F., 2019. Reacting
+to the lucas critique: {The} keynesians' replies. History of Political
+Economy 51, 533--556.
+doi:\href{https://doi.org/10.1215/00182702-7551912}{10.1215/00182702-7551912}
+
+\leavevmode\vadjust pre{\hypertarget{ref-goutsmedt2021}{}}%
+Goutsmedt, A., Renault, M., Sergi, F., 2021. European {Economics} and
+the {Early Years} of the {``{International Seminar} on
+{Macroeconomics}.''} Revue d'Economie Politique 131, 693--722.
+
+\leavevmode\vadjust pre{\hypertarget{ref-grubb1982}{}}%
+Grubb, D., Jackman, R., Layard, R., 1982. Causes of the {Current
+Stagflation}. The Review of Economic Studies 49, 707--730.
+doi:\href{https://doi.org/10.2307/2297186}{10.2307/2297186}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gylfason1984}{}}%
+Gylfason, T., Lindbeck, A., 1984. Competing wage claims, cost inflation,
+and capacity utilization. European Economic Review 24, 1--21.
+doi:\href{https://doi.org/10.1016/0014-2921(84)90010-2}{10.1016/0014-2921(84)90010-2}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gylfason1986}{}}%
+Gylfason, T., Lindbeck, A., 1986. Endogenous unions and governments: {A}
+game-theoretic approach. European Economic Review 30, 5--26.
+doi:\href{https://doi.org/10.1016/0014-2921(86)90029-2}{10.1016/0014-2921(86)90029-2}
+
+\leavevmode\vadjust pre{\hypertarget{ref-gylfason1994}{}}%
+Gylfason, T., Lindbeck, A., 1994. The interaction of monetary policy and
+wages. Public Choice 79, 33--46.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hall1978b}{}}%
+Hall, R.E., 1978. Stochastic implications of the life cycle-permanent
+income hypothesis: Theory and evidence. Journal of political economy 86,
+971--987.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hart1982}{}}%
+Hart, O., 1982. A model of imperfect competition with {Keynesian}
+features. The Quarterly Journal of Economics 97, 109--138.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hoover1988}{}}%
+Hoover, K.D. (Ed.), 1988. The new classical macroeconomics, The
+{International} library of critical writings in economics. E. Elgar,
+Aldershot (GB) Brookfield (Vt.).
+
+\leavevmode\vadjust pre{\hypertarget{ref-hoover2012}{}}%
+Hoover, K.D., 2012. Microfoundational programs, in: Duarte, P.G., Lima,
+G.T. (Eds.), Microfoundations {Reconsidered}. Edward Elgar Publishing,
+Cheltenham, pp. 19--61.
+
+\leavevmode\vadjust pre{\hypertarget{ref-horn1988}{}}%
+Horn, H., Persson, T., 1988. Exchange rate policy, wage formation and
+credibility. European Economic Review 32, 1621--1636.
+doi:\href{https://doi.org/10.1016/0014-2921(88)90021-9}{10.1016/0014-2921(88)90021-9}
+
+\leavevmode\vadjust pre{\hypertarget{ref-jel1991}{}}%
+JEL, 1991. \href{https://www.jstor.org/stable/2727351}{Classification
+system: Old and new categories}. Journal of Economic Literature 29,
+xviii--xxviii.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kiyotaki1989}{}}%
+Kiyotaki, N., Wright, R., 1989. On money as a medium of exchange.
+Journal of political Economy 97, 927--954.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kiyotaki1993}{}}%
+Kiyotaki, N., Wright, R., 1993. A search-theoretic approach to monetary
+economics. The American Economic Review 63--77.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kydland1977}{}}%
+Kydland, F.E., Prescott, E.C., 1977. Rules {Rather} than {Discretion}:
+{The Inconsistency} of {Optimal Plans}. Journal of Political Economy 85,
+473--491.
+
+\leavevmode\vadjust pre{\hypertarget{ref-laskar1989}{}}%
+Laskar, D., 1989. Conservative central bankers in a two-country world.
+European Economic Review 33, 1575--1595.
+doi:\href{https://doi.org/10.1016/0014-2921(89)90079-2}{10.1016/0014-2921(89)90079-2}
+
+\leavevmode\vadjust pre{\hypertarget{ref-layard1986}{}}%
+Layard, R., Nickell, S., 1986. Unemployment in {Britain}. Economica 53,
+S121--S169. doi:\href{https://doi.org/10.2307/2554377}{10.2307/2554377}
+
+\leavevmode\vadjust pre{\hypertarget{ref-layard1991a}{}}%
+Layard, R., Nickell, S., Jackman, R., 1991. Unemployment: {Macroeconomic
+Performance} and the {Labour Market}. {Oxford University Press},
+{Oxford}.
+doi:\href{https://doi.org/10.1093/acprof:oso/9780199279166.001.0001}{10.1093/acprof:oso/9780199279166.001.0001}
+
+\leavevmode\vadjust pre{\hypertarget{ref-liAdding2012}{}}%
+Li, D., Ding, Y., Shuai, X., Bollen, J., Tang, J., Chen, S., Zhu, J.,
+Rocha, G., 2012. Adding community and dynamic to topic models. Journal
+of Informetrics 6, 237--253.
+doi:\href{https://doi.org/10.1016/j.joi.2011.11.004}{10.1016/j.joi.2011.11.004}
+
+\leavevmode\vadjust pre{\hypertarget{ref-lindbeck1986}{}}%
+Lindbeck, A., Snower, D.J., 1986. Wage setting, unemployment, and
+insider-outsider relations. The American Economic Review 76, 235--239.
+
+\leavevmode\vadjust pre{\hypertarget{ref-lindbeck1987a}{}}%
+Lindbeck, A., Snower, D.J., 1987. Efficiency wages versus insiders and
+outsiders. European Economic Review 31, 407--416.
+doi:\href{https://doi.org/10.1016/0014-2921(87)90058-4}{10.1016/0014-2921(87)90058-4}
+
+\leavevmode\vadjust pre{\hypertarget{ref-lucas1973}{}}%
+Lucas, R.E., 1973. \href{http://www.jstor.org/stable/1914364}{Some
+international evidence on output-inflation tradeoffs}. The American
+Economic Review 326--334.
+
+\leavevmode\vadjust pre{\hypertarget{ref-lucas1972}{}}%
+Lucas, R.E., Jr., 1972. Expectations and the neutrality of money.
+Journal of Economic Theory 4, 103--124.
+doi:\href{https://doi.org/10.1016/0022-0531(72)90142-1}{10.1016/0022-0531(72)90142-1}
+
+\leavevmode\vadjust pre{\hypertarget{ref-maes2005}{}}%
+Maes, I., Buyst, E., 2005. Migration and americanization: The special
+case of belgian economics. The European Journal of the History of
+Economic Thought 12, 7388.
+
+\leavevmode\vadjust pre{\hypertarget{ref-malinvaud1977}{}}%
+Malinvaud, E., 1977. The theory of unemployment reconsidered.
+{Basil-Blackwell}, {Oxford}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-malinvaud1986}{}}%
+Malinvaud, E., 1986. The rise of unemployment in {France}. Economica 53,
+S197--S217.
+
+\leavevmode\vadjust pre{\hypertarget{ref-maoTopic2017}{}}%
+Mao, J., Cao, Y., Lu, K., Li, G., 2017. Topic scientific community in
+science: A combined perspective of scientific collaboration and topics.
+Scientometrics 112, 851--875.
+doi:\href{https://doi.org/10.1007/s11192-017-2418-7}{10.1007/s11192-017-2418-7}
+
+\leavevmode\vadjust pre{\hypertarget{ref-morgan1998}{}}%
+Morgan, M.S., Rutherford, M., 1998.
+\href{http://search.ebscohost.com/login.aspx?direct=true\&db=bth\&AN=7752144\&lang=fr\&site=ehost-live}{American
+economics: The character of the transformation}. History of Political
+Economy 30, 1--26.
+
+\leavevmode\vadjust pre{\hypertarget{ref-mortensen1994}{}}%
+Mortensen, D.T., Pissarides, C.A., 1994. Job creation and job
+destruction in the theory of unemployment. The review of economic
+studies 61, 397415.
+
+\leavevmode\vadjust pre{\hypertarget{ref-persson1992}{}}%
+Persson, T., Tabellini, G., 1992. The {Politics} of 1992: {Fiscal
+Policy} and {European Integration}. The Review of Economic Studies 59,
+689--701. doi:\href{https://doi.org/10.2307/2297993}{10.2307/2297993}
+
+\leavevmode\vadjust pre{\hypertarget{ref-persson2002}{}}%
+Persson, T., Tabellini, G.E., 2002. Political economics: Explaining
+economic policy. {MIT press}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-pissarides1990}{}}%
+Pissarides, C.A., 1990. Equilibrium unemployment theory. MIT press.
+
+\leavevmode\vadjust pre{\hypertarget{ref-plassard2021}{}}%
+Plassard, R., Renault, M., Rubin, G., 2021. Modelling market dynamics :
+{Jean-Pascal Bénassy}, {Edmond Malinvaud}, and the development of
+disequilibrium macroeconomics. Modelling market dynamics : Jean-Pascal
+Bénassy, Edmond Malinvaud, and the development of disequilibrium
+macroeconomics 83--114.
+doi:\href{https://doi.org/10.19272/202106101005}{10.19272/202106101005}
+
+\leavevmode\vadjust pre{\hypertarget{ref-portes1987}{}}%
+Portes, R., 1987. Economics in europe. European Economic Review 31,
+1329--1340.
+doi:\href{https://doi.org/10.1016/S0014-2921(87)80021-1}{10.1016/S0014-2921(87)80021-1}
+
+\leavevmode\vadjust pre{\hypertarget{ref-qin2013a}{}}%
+Qin, D., 2013. {A History of Econometrics: The Reformation from the
+1970s}. {Oxford University Press}, {Oxford}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-renault2020a}{}}%
+Renault, M., 2020. Edmond {Malinvaud}'s {Criticisims} of the {New
+Classical Economics}: {Restoring} the {Nature} and the {Rationale} of
+the {Old Keynesians}' {Opposition}. Journal of the History of Economic
+Thought 42, 563--585.
+doi:\href{https://doi.org/10.1017/S1053837219000610}{10.1017/S1053837219000610}
+
+\leavevmode\vadjust pre{\hypertarget{ref-renault2022}{}}%
+Renault, M., 2022. Theory to the {Rescue} of the {Large-Scale Models}:
+{Edmond Malinvaud}'s {Alternative View} on the {Search} for
+{Microfoundations}. History of Political Economy 54.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rogoff1985b}{}}%
+Rogoff, K., 1985. The optimal degree of commitment to a monetary target.
+Quarterly Journal of Economics 100, 1169--1190.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rose1994}{}}%
+Rose, A.K., Svensson, L.E.O., 1994. European exchange rate credibility
+before the fall. European Economic Review 38, 1185--1216.
+doi:\href{https://doi.org/10.1016/0014-2921(94)90067-1}{10.1016/0014-2921(94)90067-1}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sandelin1997}{}}%
+Sandelin, B., Ranki, S., 1997. Internationalization or americanization
+of swedish economics? The European Journal of the History of Economic
+Thought 4, 284--298.
+doi:\href{https://doi.org/10.1080/10427719700000040}{10.1080/10427719700000040}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sargent1975}{}}%
+Sargent, T.J., Wallace, N., 1975.
+\href{http://econpapers.repec.org/article/ucpjpolec/v_3A83_3Ay_3A1975_3Ai_3A2_3Ap_3A241-54.htm}{"{Rational}"
+{Expectations}, the {Optimal} {Monetary} {Instrument}, and the {Optimal}
+{Money} {Supply} {Rule}}. Journal of Political Economy 83, 241--54.
+
+\leavevmode\vadjust pre{\hypertarget{ref-sargent1982}{}}%
+Sargent, T.J., Wallace, N., 1982.
+\href{http://www.jstor.org/stable/1830945}{The real-bills doctrine
+versus the quantity theory: {A} reconsideration}. The Journal of
+Political Economy 90, 1212--1236.
+
+\leavevmode\vadjust pre{\hypertarget{ref-shen2019}{}}%
+Shen, S., Zhu, D., Rousseau, R., Su, X., Wang, D., 2019. A refined
+method for computing bibliographic coupling strengths. Journal of
+Informetrics 13, 605--615.
+doi:\href{https://doi.org/10.1016/j.joi.2019.01.012}{10.1016/j.joi.2019.01.012}
+
+\leavevmode\vadjust pre{\hypertarget{ref-sneessens1986}{}}%
+Sneessens, H.R., Drèze, J.H., 1986. A {Discussion} of {Belgian
+Unemployment}, {Combining Traditional Concepts} and {Disequilibrium
+Econometrics}. Economica 53, S89--S119.
+doi:\href{https://doi.org/10.2307/2554376}{10.2307/2554376}
+
+\leavevmode\vadjust pre{\hypertarget{ref-svensson1993a}{}}%
+Svensson, L.E.O., 1993. Assessing target zone credibility: {Mean}
+reversion and devaluation expectations in the {ERM},
+1979\textendash 1992. European Economic Review 37, 763--793.
+doi:\href{https://doi.org/10.1016/0014-2921(93)90087-Q}{10.1016/0014-2921(93)90087-Q}
+
+\leavevmode\vadjust pre{\hypertarget{ref-svensson1997}{}}%
+Svensson, L.E.O., 1997. Inflation forecast targeting: {Implementing} and
+monitoring inflation targets. European Economic Review 41, 1111--1146.
+doi:\href{https://doi.org/10.1016/S0014-2921(96)00055-4}{10.1016/S0014-2921(96)00055-4}
+
+\leavevmode\vadjust pre{\hypertarget{ref-traag2019}{}}%
+Traag, V.A., Waltman, L., van Eck, N.J., 2019. From louvain to leiden:
+Guaranteeing well-connected communities. Scientific reports 9, 112.
+
+\leavevmode\vadjust pre{\hypertarget{ref-trejos1995}{}}%
+Trejos, A., Wright, R., 1995. Search, bargaining, money, and prices.
+Journal of political Economy 103, 118--141.
+
+\leavevmode\vadjust pre{\hypertarget{ref-truc2021}{}}%
+Truc, A., Claveau, F., Santerre, O., 2021. Economic methodology: a
+bibliometric perspective. Journal of Economic Methodology 1--12.
+doi:\href{https://doi.org/10.1080/1350178X.2020.1868774}{10.1080/1350178X.2020.1868774}
+
+\leavevmode\vadjust pre{\hypertarget{ref-waelbroeck1969}{}}%
+Waelbroeck, J.L., Glejser, H., 1969. Editor's introduction. European
+Economic Review 1, 3--6.
+doi:\href{https://doi.org/10.1016/0014-2921(69)90016-6}{10.1016/0014-2921(69)90016-6}
+
+\leavevmode\vadjust pre{\hypertarget{ref-yanTopics2012}{}}%
+Yan, E., Ding, Y., Milojević, S., Sugimoto, C.R., 2012. Topics in
+dynamic research communities: {An} exploratory study for the field of
+information retrieval. Journal of Informetrics 6, 140--153.
+doi:\href{https://doi.org/10.1016/j.joi.2011.10.001}{10.1016/j.joi.2011.10.001}
+
 \end{CSLReferences}
 
 \newpage
@@ -1740,12 +2297,12 @@ economics journals (\emph{American Economic Review}, \emph{Journal of
 Political Economy}, \emph{Econometrica}, \emph{Quarterly Journal of
 Economics}, \emph{Review of Economic Studies}) and the EER.
 Macroeconomic articles are identified thanks to the former and new
-classification of the JEL codes \citep{jel1991}.\footnote{See
-  \ref{eer-top5-macro} for the list of JEL codes used.} This corpus is
-used as the basis for topic modelling and bibliographic coupling
-analysis to contrast macroeconomics publications authored by
-Europe-based and US-based authors, and/or published in top 5 journals
-and in the EER.
+classification of the JEL codes (\protect\hyperlink{ref-jel1991}{JEL,
+1991}).\footnote{See \ref{eer-top5-macro} for the list of JEL codes
+  used.} This corpus is used as the basis for topic modelling and
+bibliographic coupling analysis to contrast macroeconomics publications
+authored by Europe-based and US-based authors, and/or published in top 5
+journals and in the EER.
 
 \hypertarget{eer-publications}{%
 \paragraph*{EER Publications}\label{eer-publications}}
@@ -1792,7 +2349,8 @@ The construction of this corpus is made in multiple steps:
         (the letter `E'), but we had F3 and F4 as they deal with
         international macroeconomics. For the older JEL codes, we use
         the table of correspondence produce by the \emph{Journal of
-        Economic Literature} itself \citep{jel1991}.}.
+        Economic Literature} itself
+        (\protect\hyperlink{ref-jel1991}{JEL, 1991}).}.
     \end{itemize}
   \end{itemize}
 \item
@@ -1893,12 +2451,13 @@ common. The more references that two articles have in common, the
 stronger the link. Bibliographic coupling is one way to measure how
 similar two articles are in a corpus. To normalize and weight the link
 between two articles, we used the refined bibliographic coupling
-strength of \citet{shen2019}.\footnote{We have implemented this method
-  in the \emph{biblionetwork} R package: Aurélien Goutsmedt, François
-  Claveau and Alexandre Truc (2021). biblionetwork: A Package For
-  Creating Different Types of Bibliometric Networks. R package version
-  0.0.0.9000.} This method normalized and weight the strength between
-articles by taking into account two important elements
+strength of Shen et al.
+(\protect\hyperlink{ref-shen2019}{2019}).\footnote{We have implemented
+  this method in the \emph{biblionetwork} R package: Aurélien Goutsmedt,
+  François Claveau and Alexandre Truc (2021). biblionetwork: A Package
+  For Creating Different Types of Bibliometric Networks. R package
+  version 0.0.0.9000.} This method normalized and weight the strength
+between articles by taking into account two important elements
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1922,8 +2481,9 @@ For all macroeconomics articles published in the EER and in the Top 5,
 we build the networks with 8-year overlapping windows. This results in
 23.
 
-We use Leiden detection algorithm \citep{traag2019} that optimize the
-modularity on each network to identify groups of articles that are
+We use Leiden detection algorithm
+(\protect\hyperlink{ref-traag2019}{Traag et al., 2019}) that optimize
+the modularity on each network to identify groups of articles that are
 similar to each other and dissimilar to the rest of the network. We use
 a resolution of 1 with 1000 iterations. This results in 466 clusters
 across all networks. Because networks have a lot of overlaps, many
@@ -2047,10 +2607,11 @@ several steps to clean our corpus before running our topic models:
 topics}\label{choosing-the-number-of-topics}}
 \addcontentsline{toc}{paragraph}{Choosing the number of topics}
 
-We use the Correlated Topic Model \citep{blei2007} method implemented in
-the \emph{STM} R package.\footnote{Roberts ME, Stewart BM, Tingley D
-  (2019). ``stm: An R Package for Structural Topic Models.''
-  \emph{Journal of Statistical Software}, \emph{91}(2), 1-40.}
+We use the Correlated Topic Model (\protect\hyperlink{ref-blei2007}{Blei
+and Lafferty, 2007}) method implemented in the \emph{STM} R
+package.\footnote{Roberts ME, Stewart BM, Tingley D (2019). ``stm: An R
+  Package for Structural Topic Models.'' \emph{Journal of Statistical
+  Software}, \emph{91}(2), 1-40.}
 
 From the list of words we have tokenised, cleaned and lemmatised, we
 test different thresholds and choices by running different models:
@@ -2077,12 +2638,13 @@ the model with 50 topics.
 
 We have chosen the criteria and the number of topics by comparing the
 performance of the different models in terms of the FREX value
-\citep{bischof2012}. We have tested alternative specification for
-preprocessing steps and different number of topics when the performance
-regarding FREX values was similar. It seems to us that 50 topics allows
-us to have a model with easily understandable topics and an interesting
-level of ``zoom''. Indeed, increasing the number of topics just splits
-some topics in two, but did not lead to fundamentally different results.
+(\protect\hyperlink{ref-bischof2012}{Bischof and Airoldi, 2012}). We
+have tested alternative specification for preprocessing steps and
+different number of topics when the performance regarding FREX values
+was similar. It seems to us that 50 topics allows us to have a model
+with easily understandable topics and an interesting level of ``zoom''.
+Indeed, increasing the number of topics just splits some topics in two,
+but did not lead to fundamentally different results.
 
 For each cluster, we are able to plot the distribution of the years of
 publications of article, depending on their \emph{gamma} value for the
@@ -2138,8 +2700,6 @@ authors:
 \bigskip
 
 \({\scriptstyle \text{Author EU/US Orientation}=\log(\frac{\frac{\text{Share Of European Authored Articles In The Topic}}{\text{Total Share Of European Authored Articles}}} {\frac{\text{Share Of US Authored Articles In The Topic}}{\text{Total Share Of US Authored Articles}}})}\)
-
-\bibliography{bibliography.bib}
 
 
 \end{document}
