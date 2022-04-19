@@ -207,15 +207,13 @@ countries_tf_idf <-  institutions %>%
 
 # Introduction
 
-In the section [General difference in affiliations and journals] of this appendix, we identify what are the most American/European topics resulting from our topic model approach. To achieve our goal, we computed how much each topics is characterize by particular publications venues (EER *vs.* Top 5), and by the countries of affiliations of the authors (the US *vs.* European countries). 
+In the section [General difference in affiliations and journals] of this appendix, we identify what are the most American/European topics resulting from our topic model approach. To achieve our goal, we computed how much each topics is characterize by particular publications venues (EER *vs.* Top 5), and by the countries of affiliations of authors (US *vs.* European). 
 
-In the section [Details on the different topics] of this appendix, users can explore information about the individual topics. We produced a variety of tables to explore the most cited references of the topics, or the most common terms of the topics. In addition, users can also find some intra-topics information about how the topics evolved in importance overtime, or the differences in the clusters between European/American authors and/or venues of publications.
+In the section [Details on the different topics] of this appendix, users can explore information about the individual topics. We produced a variety of tables to explore the most cited references of the topics, or the most common terms of the topics. In addition, users can also find some intra-topics information about the differences in the clusters between European/American authors and/or venues of publications.
 
 # General difference in affiliations and journals
 
 Articles have multiple topics, and more importantly, articles have different 'rate of belonging' for each of their topic (the *gamma* value). We are able, for each topic, to compute the difference in the means of *gamma* values for (i) articles published in the EER and articles published in the Top 5 and (ii) articles written by US-based authors and those written by European-based authors.
-
-If we look at the distribution of topics by gamma mean depending on affiliations and journals:
 
 ```{r}
 # knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
@@ -297,21 +295,22 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(group = factor(Com_name),
-                 color = com_color, 
+                 color = com_color,
                  fill = com_color,
                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
-                  segment.linetype=	"dashed", 
+  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+                  segment.linetype=	"dashed",
                   segment.size = 0.3,) +
   labs(title = NULL,
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
+  scale_size_continuous(range = c(0.2, 50)) %>%
   guides(size = "none") +
   theme(legend.position = "bottom") +
   scale_color_identity() +
-  scale_fill_identity() 
+  scale_fill_identity()
+
 # ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 # ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
 #               width = 50, 
@@ -323,7 +322,7 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
 # invisible(dev.off())
 ```
 
-If we look at the distribution of topics only for highest gamma, using the logratio for affiliations and journals:
+If we look at the distribution of topics only for highest gamma (superior to 0.1), using the logratio for affiliations and journals:
 
 ```{r}
 
@@ -361,7 +360,7 @@ topic_diff_logratio <- topic_diff_logratio_journal %>%
   
 topic_diff_summary <- topic_diff_summary %>% 
   left_join(select(topic_diff_logratio, id, logratio_affiliation, logratio_journal))
-
+topic_diff_summary[,sumdiff:=logratio_affiliation+logratio_journal]
 #' We will use this table for exploration
 #' `saveRDS(topic_diff_summary, here(eer_data, "3_Topic_modelling", "TM_topics_diff.rds"))`  
 #' We can now plot in two dimensions:
@@ -370,28 +369,31 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(group = factor(Com_name),
-                 color = com_color, 
-                 fill = com_color,
-                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-  geom_text_repel(data= topic_diff_summary[topic_prevalence>0.01], aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1, 
-                  segment.linetype=	"dashed", 
-                  segment.size = 0.3,) +
+  geom_point(aes(color = sumdiff,
+                 size = topic_prevalence), alpha = 0.8) +
   labs(title = NULL,
+       color = NULL,
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_classic(base_size = 9) +
   scale_size_continuous(range = c(0.2, 50)) %>% 
   guides(size = "none") +
   theme(legend.position = "bottom") +
-  scale_color_identity() +
-  scale_fill_identity() 
+  scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
+    ggrepel::geom_text_repel(
+    data= topic_diff_summary[topic_prevalence>0.01], 
+    aes(label = as.character(topic_label)), 
+    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+    segment.linetype=	"dashed",
+    segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 
 ```
 
+
+# Prevalence of topics per years
 
 ```{r}
 knitr::include_graphics(here(picture_path, "topic_modelling", "topic_per_year.png"))
@@ -399,7 +401,7 @@ knitr::include_graphics(here(picture_path, "topic_modelling", "topic_per_year.pn
 
 # Details on the different topics
 
-We printed a variety of tables to explore the content of content of each topics identified. Users can explore individual topics and find out the most cited references of each clusters, the most common terms, the articles with the highest number of citations and/or the articles that belong to most to a given topics. We also printed intra-clusters information such as the most common references of EER articles vs Top-5 articles in individual topics.
+We printed a variety of tables to explore the content of content of each topics identified. Users can explore individual topics and find the most cited references of each clusters, the most common terms, the articles with the highest number of citations and/or the articles that belong the most to a given topics. We also printed intra-clusters information such as the most common references of EER articles vs Top-5 articles in individual topics.
 
 We also cross-checked our topic analysis with our network analysis by measuring how much articles in a given topics belong to particular communities identified with the network analysis.
 
