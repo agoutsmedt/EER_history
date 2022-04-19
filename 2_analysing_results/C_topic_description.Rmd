@@ -361,9 +361,6 @@ topic_diff_logratio <- topic_diff_logratio_journal %>%
 topic_diff_summary <- topic_diff_summary %>% 
   left_join(select(topic_diff_logratio, id, logratio_affiliation, logratio_journal))
 topic_diff_summary[,sumdiff:=logratio_affiliation+logratio_journal]
-#' We will use this table for exploration
-#' `saveRDS(topic_diff_summary, here(eer_data, "3_Topic_modelling", "TM_topics_diff.rds"))`  
-#' We can now plot in two dimensions:
 
 ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
