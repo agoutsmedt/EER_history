@@ -306,7 +306,7 @@ Topic modelling is a non-supervised machine learning method which associates *(i
 Similarly to what we do for bibliometric coupling, we are interested in the topics characteristics regarding the publications (EER *vs.* Top 5) and the countries of affiliations of the authors (the US *vs.* European countries). As each article has a 'rate of belonging' to each topic (the *gamma* value), we keep only the articles with a *gamma* value above 0.1 to assess the over/under representation of EER and of Europe-based authors in each topic.^[See [Appendix B.4.](#topic) for details on the measure we use and for the results with an alternative measure that do not use *gamma* as a threshold.]. The measures are the coordinates of the `r topic_diff$topic_name %>% unique %>% length` topics in Figure \ref{fig:plot-topic-diff}. When we sum, we have an indicator of how much a topic is a European topic.
 
 
-```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics"}
+```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics (LogRatio method)"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"))
 ```
 
@@ -601,11 +601,11 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","topic_per_year.png"))
 
 To look at the features of the topics regarding our two variables of interest (EER *vs.* Top 5 publications and US authors *vs.* European authors), we use two methods. The first one keeps all articles and, for each topic, calculate the average gamma value for articles published in the EER and in the Top 5. We subtract the two means. We do the same for articles written by European authors only and by US authors only. The two resulting differences are plot in the following Figure \ref{fig:plot-topic-diff-alternative}.
 
-```{r plot-topic-diff-alternative, out.width = '100%', fig.cap="The distribution of topics over time"}
+```{r plot-topic-diff-alternative, out.width = '100%', fig.cap="The most European topics (Differences of mean method)"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"))
 ```
 
-In Figure \ref{fig:plot-topic-diff} in the text above, we are only keeping, for each topic, articles with a *gamma* value above 0.01. We then calculate the log ratio of EER and Top 5 articles for each topic:
+In Figure \ref{fig:plot-topic-diff} in the text above, we are only keeping, for each topic, articles with a *gamma* value above 0.1. We then calculate the log ratio of EER and Top 5 articles for each topic:
 
 \bigskip
 
