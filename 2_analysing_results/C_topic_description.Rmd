@@ -289,27 +289,31 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
 #   scale_fill_identity() 
 # ggsave(here(tm_picture_path, "mean_diff_plot_new.png"), width=40, height=20, units = "cm", scaling = 1.5)
 
+topic_diff_summary[,sumdiff:=diff_affiliation+diff_journal]
 
 ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(group = factor(Com_name),
-                 color = com_color,
-                 fill = com_color,
-                 size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-  geom_text_repel(aes(label = topic_label, color="black"), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
-                  segment.linetype=	"dashed",
-                  segment.size = 0.3,) +
+  geom_point(aes(color = sumdiff,
+                 size = topic_prevalence), alpha = 0.8) +
   labs(title = NULL,
+       color = NULL,
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>%
+  scale_size_continuous(range = c(0.2, 50)) %>% 
   guides(size = "none") +
   theme(legend.position = "bottom") +
-  scale_color_identity() +
-  scale_fill_identity()
+  scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
+    ggrepel::geom_text_repel(
+    data= topic_diff_summary[topic_prevalence>0.01], 
+    aes(label = as.character(topic_label)), 
+    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+    segment.linetype=	"dashed",
+    segment.size = 0.3) 
+# ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 # ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 # ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
