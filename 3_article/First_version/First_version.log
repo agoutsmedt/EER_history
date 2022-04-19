@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  19 APR 2022 18:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  19 APR 2022 20:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -959,7 +959,7 @@ o_dkN5/data/EER/pictures/Graphs/topic_per_year.png  used on input line 2655.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/mean_diff_plot_new_bw.png, id=852, 1138.0116pt x 569.0058pt>
+/Graphs/mean_diff_plot_new_bw.png, id=852, 853.5087pt x 569.0058pt>
 File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
 tures/Graphs/mean_diff_plot_new_bw.png Graphic file (type png)
 <use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
@@ -967,7 +967,7 @@ ures/Graphs/mean_diff_plot_new_bw.png>
 Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
 o_dkN5/data/EER/pictures/Graphs/mean_diff_plot_new_bw.png  used on input line 2
 679.
-(pdftex.def)             Requested size: 345.0pt x 172.50029pt.
+(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -976,22 +976,22 @@ e.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.2705 \end{document}
-                     pdfTeX warning (ext4): destination with the same identifie
-r (name{figure.14}) has been already used, duplicate ignored
+                      <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
+dkN5/data/EER/pictures/Graphs/topic_per_year.png>] [40pdfTeX warning (ext4): de
+stination with the same identifier (name{figure.14}) has been already used, dup
+licate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.2705 \end{document}
                       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/topic_per_year.png> <g:/.shortcut-targets-by-id/1
-EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures/Graphs/mean_diff_plot_new_bw
-.png>] (./First_version.aux)
+dkN5/data/EER/pictures/Graphs/mean_diff_plot_new_bw.png>] (./First_version.aux)
 Package rerunfilecheck Info: File `First_version.out' has not changed.
 (rerunfilecheck)             Checksum: D83F086FA29A1360B0C1DA3180B85C4F;3856.
  ) 
 Here is how much of TeX's memory you used:
- 15840 strings out of 478278
- 260899 string characters out of 5850546
- 588384 words of memory out of 5000000
+ 15841 strings out of 478278
+ 260906 string characters out of 5850546
+ 588419 words of memory out of 5000000
  33179 multiletter control sequences out of 15000+600000
  549252 words of font info for 211 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1010,10 +1010,10 @@ exmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texlive/2021/texmf-dist/fonts/typ
 e1/public/lm/lmri8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri9.
 pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/texlive/202
 1/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on First_version.pdf (39 pages, 8903571 bytes).
+Output written on First_version.pdf (40 pages, 8841859 bytes).
 PDF statistics:
- 997 PDF objects out of 1000 (max. 8388607)
- 901 compressed objects within 10 object streams
- 275 named destinations out of 1000 (max. 500000)
+ 1001 PDF objects out of 1200 (max. 8388607)
+ 904 compressed objects within 10 object streams
+ 276 named destinations out of 1000 (max. 500000)
  39143 words of extra memory for PDF output out of 42996 (max. 10000000)
 
