@@ -1200,6 +1200,7 @@ for (com in com_to_inspect) {
     .[EU_US_collab=="Europe Only"] %>% 
     .[,freq]
   
+  
   share_europeans_authors_noodds <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window) & (EU_US_collab=="USA Only" | EU_US_collab=="Europe Only")] %>%
     group_by(EU_US_collab) %>%
     summarise(n = n()) %>%
@@ -1213,6 +1214,13 @@ for (com in com_to_inspect) {
     summarise(n = n()) %>%
     mutate(freq = n / sum(n)) %>% as.data.table() %>% 
     .[EU_US_collab=="Europe Only"] %>% 
+    .[,freq]
+  
+  share_europeans_authors_notcluster <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window) & new_Id_com!=com] %>%
+    group_by(EU_US_collab) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n)) %>% as.data.table() %>% 
+    .[EU_US_collab =="Europe Only"] %>% 
     .[,freq]
   
   # Revision european
@@ -1248,6 +1256,13 @@ for (com in com_to_inspect) {
     .[EU_US_collab=="USA Only"] %>% 
     .[,freq]
   
+  share_US_authors_notcluster <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window) & new_Id_com!=com] %>%
+    group_by(EU_US_collab) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n)) %>% as.data.table() %>% 
+    .[EU_US_collab =="Europe Only"] %>% 
+    .[,freq]
+  
   share_US_authors_cluster <- alluv_com %>%
     group_by(EU_US_collab) %>%
     summarise(n = n()) %>%
@@ -1256,6 +1271,13 @@ for (com in com_to_inspect) {
     .[,freq]
   
   share_EER_articles <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window)] %>%
+    group_by(Revue) %>%
+    summarise(n = n()) %>%
+    mutate(freq = n / sum(n)) %>% as.data.table() %>% 
+    .[Revue =="EUROPEAN ECONOMIC REVIEW"] %>% 
+    .[,freq]
+  
+  share_EER_articles_notcluster <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window) & new_Id_com!=com] %>%
     group_by(Revue) %>%
     summarise(n = n()) %>%
     mutate(freq = n / sum(n)) %>% as.data.table() %>% 
@@ -1295,16 +1317,22 @@ for (com in com_to_inspect) {
   share_EER_articles_cluster_sd <- sd(share_EER_articles_cluster_sd$freq)
   
   
-  # europeans_authors_diff <- log(log(share_europeans_authors_cluster/share_US_authors_cluster)/log((share_europeans_authors/share_US_authors)))
+  europeans_authors_diff_odds <- log10((share_europeans_authors_cluster/share_US_authors_cluster)/(share_europeans_authors/share_US_authors))
+
+  # europeans_authors_diff_odds <- log10((share_europeans_authors_cluster/share_europeans_authors)/(share_US_authors_cluster/share_US_authors))
+  # europeans_authors_diff_odds <- log10(share_europeans_authors_cluster/share_US_authors_cluster/share_europeans_authors_notcluster/share_US_authors_notcluster)
+
   europeans_authors_diff <- log10(share_europeans_authors_cluster_noodds/share_europeans_authors_noodds)
-  europeans_authors_diff_odds <- log10((share_europeans_authors_cluster_noodds/(1-share_europeans_authors_cluster_noodds))/(share_europeans_authors_noodds/(1-share_europeans_authors_noodds)))
+  # europeans_authors_diff_odds <- log10((share_europeans_authors_cluster_noodds/(1-share_europeans_authors_cluster_noodds))/(share_europeans_authors_noodds/(1-share_europeans_authors_noodds)))
   europeans_authors_sd <- (share_europeans_authors_cluster_noodds-share_europeans_authors_noodds) / sqrt((share_europeans_authors_cluster_sd^2/share_europeans_authors_cluster_sd_n) + (share_europeans_authors_sd^2/share_europeans_authors_sd_n))
   europeans_authors_hdi <- (log10(share_europeans_authors_cluster_noodds)-log10(share_europeans_authors_hdi_min)) / log10((share_europeans_authors_hdi_max)-log10(share_europeans_authors_hdi_min))
   
-  
-  EER_articles_diff <- log10(share_EER_articles_cluster/share_EER_articles)
   EER_articles_diff_odds <- log10((share_EER_articles_cluster/(1-share_EER_articles_cluster))/(share_EER_articles/(1-share_EER_articles)))
-  # EER_articles_diff <- (share_EER_articles_cluster/(1-share_EER_articles_cluster))-(share_EER_articles/(1-share_EER_articles))
+  # EER_articles_diff_odds <- log10((share_EER_articles_cluster/share_EER_articles)/((1-share_EER_articles_cluster)/(1-share_EER_articles)))
+  # EER_articles_diff_odds <- log10(share_EER_articles_cluster/(1-share_EER_articles_cluster)/share_EER_articles_notcluster/(1-share_EER_articles_notcluster))
+  # 
+  EER_articles_diff <- log10(share_EER_articles_cluster/share_EER_articles)
+  # EER_articles_diff_odds <- log10((share_EER_articles_cluster/(1-share_EER_articles_cluster))/(share_EER_articles/(1-share_EER_articles)))
   EER_articles_sd <- (share_EER_articles_cluster-share_EER_articles) / sqrt((share_EER_articles_cluster_sd^2/share_EER_articles_sd_cluster_sd_n) + (share_EER_articles_sd^2/share_EER_articles_sd_n))
   EER_articles_hdi <- (log10(share_EER_articles_cluster)-log10(share_EER_articles_hdi_min)) / (log10(share_EER_articles_hdi_max)-log10(share_EER_articles_hdi_min))
   
