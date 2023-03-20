@@ -55,6 +55,7 @@ require(rmdformats)
 require(kableExtra)
 require(see)
 require(ragg)
+require(chisquare)
 set.seed(333)
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#
@@ -1272,7 +1273,7 @@ for (com in com_to_inspect) {
   share_europeans_authors_hdi_max <- max(share_europeans_authors_hdi$freq)
   share_europeans_authors_hdi_min <- min(share_europeans_authors_hdi$freq)
   
-  share_europeans_authors_sd <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window) & (EU_US_collab=="USA Only" | EU_US_collab=="Europe Only")] %>% 
+  share_europeans_authors_sd <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window)] %>% 
     group_by(EU_US_collab, Window) %>% #sd type index
     summarise(n = n()) %>%
     group_by(Window) %>%
@@ -1282,7 +1283,7 @@ for (com in com_to_inspect) {
   share_europeans_authors_sd_n <- share_europeans_authors_sd[,.N]
   share_europeans_authors_sd <- sd(share_europeans_authors_sd$freq) 
   
-  share_europeans_authors_cluster_sd <- alluv_com[EU_US_collab=="USA Only" | EU_US_collab=="Europe Only"] %>%
+  share_europeans_authors_cluster_sd <- alluv_com %>%
     group_by(EU_US_collab, Window) %>%
     summarise(n = n()) %>%
     group_by(Window) %>%
@@ -1292,6 +1293,25 @@ for (com in com_to_inspect) {
   share_europeans_authors_cluster_sd_n <- share_europeans_authors_cluster_sd[,.N]
   share_europeans_authors_cluster_sd <- sd(share_europeans_authors_cluster_sd$freq)
   
+  share_US_authors_sd <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window)] %>% 
+    group_by(EU_US_collab, Window) %>% #sd type index
+    summarise(n = n()) %>%
+    group_by(Window) %>%
+    mutate(freq = n / sum(n)) %>% as.data.table() %>% 
+    .[EU_US_collab=="USA Only"] 
+  share_US_authors_sd_mean <- share_US_authors_sd[,mean(freq)]
+  share_US_authors_sd_n <- share_US_authors_sd[,.N]
+  share_US_authors_sd <- sd(share_US_authors_sd$freq) 
+  
+  share_US_authors_cluster_sd <- alluv_com %>%
+    group_by(EU_US_collab, Window) %>%
+    summarise(n = n()) %>%
+    group_by(Window) %>%
+    mutate(freq = n / sum(n)) %>% as.data.table() %>% 
+    .[EU_US_collab=="Europe Only"]
+  share_US_authors_cluster_sd_mean <- share_US_authors_cluster_sd[,mean(freq)]
+  share_USeuropeans_authors_cluster_sd_n <- share_US_authors_cluster_sd[,.N]
+  share_US_authors_cluster_sd <- sd(share_US_authors_cluster_sd$freq)
   
   share_US_authors <- alluv_dt_as_nodes[Window>=min(alluv_com$Window) & Window<=max(alluv_com$Window)] %>%
     group_by(EU_US_collab) %>%
@@ -1367,8 +1387,8 @@ for (com in com_to_inspect) {
   share_EER_articles_cluster_sd <- sd(share_EER_articles_cluster_sd$freq)
   
   
-  europeans_authors_diff_odds <- log10((share_europeans_authors_cluster/share_US_authors_cluster)/(share_europeans_authors/share_US_authors))
-  europeans_authors_diff_odds_windows <- log10((share_europeans_authors_cluster/share_US_authors_cluster)/(share_europeans_authors/share_US_authors))
+  europeans_authors_diff_odds <- log10((share_europeans_authors_cluster/share_US_authors_cluster)/(share_europeans_authors_cluster_sd_mean/share_US_authors))
+  europeans_authors_diff_odds_windows <- log10((share_europeans_authors_cluster_sd_mean/share_US_authors_cluster_sd_mean)/(share_europeans_authors_sd_mean/share_US_authors_cluster_sd_mean))
   
   # europeans_authors_diff_odds <- log10((share_europeans_authors_cluster/share_europeans_authors)/(share_US_authors_cluster/share_US_authors))
   # europeans_authors_diff_odds <- log10(share_europeans_authors_cluster/share_US_authors_cluster/share_europeans_authors_notcluster/share_US_authors_notcluster)
@@ -1376,9 +1396,11 @@ for (com in com_to_inspect) {
   europeans_authors_diff <- log10(share_europeans_authors_cluster_noodds/share_europeans_authors_noodds)
   # europeans_authors_diff_odds <- log10((share_europeans_authors_cluster_noodds/(1-share_europeans_authors_cluster_noodds))/(share_europeans_authors_noodds/(1-share_europeans_authors_noodds)))
   europeans_authors_sd <- (share_europeans_authors_cluster_sd_mean-share_europeans_authors_sd_mean) / sqrt((share_europeans_authors_cluster_sd^2/share_europeans_authors_cluster_sd_n) + (share_europeans_authors_sd^2/share_europeans_authors_sd_n))
+  
   europeans_authors_hdi <- (share_europeans_authors_hdi_mean-share_europeans_authors_hdi_min) / (share_europeans_authors_hdi_max-share_europeans_authors_hdi_min)
   
   EER_articles_diff_odds <- log10((share_EER_articles_cluster/(1-share_EER_articles_cluster))/(share_EER_articles/(1-share_EER_articles)))
+  EER_articles_diff_odds_windows <- log10((share_EER_articles_cluster_sd_mean/(1-share_EER_articles_cluster_sd_mean))/(share_EER_articles_sd_mean/(1-share_EER_articles_sd_mean)))
   # EER_articles_diff_odds <- log10((share_EER_articles_cluster/share_EER_articles)/((1-share_EER_articles_cluster)/(1-share_EER_articles)))
   # EER_articles_diff_odds <- log10(share_EER_articles_cluster/(1-share_EER_articles_cluster)/share_EER_articles_notcluster/(1-share_EER_articles_notcluster))
   # 
@@ -1400,10 +1422,13 @@ for (com in com_to_inspect) {
     share_EER_articles_cluster=share_EER_articles_cluster,
     europeans_authors_diff = europeans_authors_diff,
     europeans_authors_diff_odds = europeans_authors_diff_odds,
+    europeans_authors_diff_odds_windows = europeans_authors_diff_odds_windows,
     EER_articles_diff = EER_articles_diff,
     EER_articles_diff_odds = EER_articles_diff_odds,
+    EER_articles_diff_odds_windows = EER_articles_diff_odds_windows,
     sum_diff=europeans_authors_diff+EER_articles_diff,
     sum_diff_odds=europeans_authors_diff_odds+EER_articles_diff_odds,
+    sum_diff_odds_windows=europeans_authors_diff_odds_windows+EER_articles_diff_odds_windows,
     europeans_authors_sd=europeans_authors_sd,
     EER_articles_sd=EER_articles_sd,
     sum_diff_sd=europeans_authors_sd+EER_articles_sd,
@@ -1473,6 +1498,48 @@ plot_odds <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds, y =
   theme_classic(base_size = 9) +
   guides(size = "none") + theme(legend.position = "bottom")
 ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_odds.png"), width=30, height=20, units = "cm", scaling = 1.5)
+
+plot_odds_bw <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds, y = EER_articles_diff_odds)) +
+  geom_vline(aes(xintercept = xintercept), size = 1, alpha = 0.3) +
+  geom_hline(aes(yintercept = yintercept), size = 1, alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(color = sum_diff_odds, size = new_Id_com_size), alpha = 0.8) +
+  ggrepel::geom_text_repel(data = . %>% filter(sum_diff_odds > 0.01 | sum_diff_odds < -0.012),
+                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
+                           min.segment.length = 0.07, 
+                           segment.linetype=	"dashed",
+                           segment.size = 0.3,
+                           box.padding=0.15,
+                           max.overlaps = 3) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") + 
+  theme_classic(base_size = 9) +
+  guides(size = "none") + theme(legend.position = "bottom")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_colored_odds_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+
+plot_odds_bw_windows <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds_windows, y = EER_articles_diff_odds_windows)) +
+  geom_vline(aes(xintercept = xintercept), size = 1, alpha = 0.3) +
+  geom_hline(aes(yintercept = yintercept), size = 1, alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(size = new_Id_com_size), alpha = 0.8, color = "#808080") +
+  ggrepel::geom_text_repel(data = . %>% filter(sum_diff_odds_windows > 0.01 | sum_diff_odds_windows < -0.012),
+                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
+                           min.segment.length = 0.07, 
+                           segment.linetype=	"dashed",
+                           segment.size = 0.3,
+                           box.padding=0.15,
+                           max.overlaps = 3) +
+  # scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") + 
+  theme_classic(base_size = 9) +
+  guides(size = "none") + theme(legend.position = "bottom")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(data=diff_stat_euro_com[mask==0], aes(xintercept = xintercept), size = 1, alpha = 0.3) +
@@ -1556,14 +1623,13 @@ plot_sd <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_sd, y = EER_arti
   geom_hline(aes(yintercept = yintercept), size = 1, alpha = 0.3) +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sum_diff_sd, size = new_Id_com_size), alpha = 0.8) +
-  ggrepel::geom_text_repel(data = . %>% filter(sum_diff > 0.01 | sum_diff < -0.012),
-                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
+  ggrepel::geom_text_repel(aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
                            min.segment.length = 0.07, 
                            segment.linetype=	"dashed",
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 8) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-20, 30), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1573,6 +1639,126 @@ plot_sd <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_sd, y = EER_arti
 ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_bw_sd.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_communities.rds"))
+
+```
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+alluv_dt_as_nodes[Revue=="EUROPEAN ECONOMIC REVIEW", EER_bin:=1]
+alluv_dt_as_nodes[is.na(EER_bin), EER_bin:=0]
+alluv_dt_as_nodes[, EU_US_collab_bin:=99]
+alluv_dt_as_nodes[EU_US_collab=="Europe Only", EU_US_collab_bin:=1]
+alluv_dt_as_nodes[EU_US_collab=="USA Only", EU_US_collab_bin:=0]
+
+
+
+eer_contingency <- table(as.character(alluv_dt_as_nodes$EER_bin),as.character(alluv_dt_as_nodes$new_Id_com))
+result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
+result$stand.resid.
+eer_resid <- result$stand.resid. %>% as.data.table
+eer_resid <- melt(eer_resid) %>% as.data.table
+eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+
+collab_contingency <- table(as.character(alluv_dt_as_nodes$EU_US_collab_bin),as.character(alluv_dt_as_nodes$new_Id_com))
+result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
+result$stand.resid.
+collab_resid <- result$stand.resid. %>% as.data.table
+collab_resid <- melt(collab_resid) %>% as.data.table
+collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+
+plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
+
+plot_resid_all <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
+  geom_point() +
+  geom_text_repel(max.overlaps = 100) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
+  theme_classic(base_size = 9) 
+
+# En ne gardant que les grosses com
+eer_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EER_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
+result <- chisquare(as.data.frame.matrix(eer_contingency), B=99)
+result$stand.resid.
+eer_resid <- result$stand.resid. %>% as.data.table
+eer_resid <- melt(eer_resid) %>% as.data.table
+eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+
+collab_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
+result <- chisquare(as.data.frame.matrix(collab_contingency), B=99)
+result$stand.resid.
+collab_resid <- result$stand.resid. %>% as.data.table
+collab_resid <- melt(collab_resid) %>% as.data.table
+collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+
+plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
+
+plot_resid <- merge(plot_resid, alluv_dt_as_nodes[,.N,.(new_Id_com)], by.x = "variable", by.y = "new_Id_com")
+plot_resid[, sum_diff:= -1*(value.x+value.y)]
+
+plot_resid_big_com <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(color = sum_diff, size = N), alpha = 0.8) +
+  ggrepel::geom_text_repel(aes(label = as.character(Label_com.x)), alpha = 1, hjust = 0, size=2, 
+                           min.segment.length = 0.07, 
+                           segment.linetype=	"dashed",
+                           segment.size = 0.3,
+                           box.padding=0.15,
+                           max.overlaps = 3) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") + 
+  theme_classic(base_size = 9) +
+  guides(size = "none") + 
+  theme(legend.position = "bottom")
+
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation__chi_big_com.png"), width=30, height=20, units = "cm", scaling = 1.5)
+saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_communities.rds"))
+
+```
+
+```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
+noodle_collab <- copy(alluv_dt_as_nodes[EU_US_collab=="USA Only" | EU_US_collab=="Europe Only"])
+noodle_collab[,n_collab_cluster:=.N, .(Window, EU_US_collab, Label_com)]
+noodle_collab[,n_collab_window:=.N, .(Window, EU_US_collab)]
+noodle_collab[,n_cluster_window:=.N, .(Window, Label_com)]
+noodle_collab[,n_window:=.N, .(Window)]
+noodle_collab[,share_collab_cluster:=n_collab_cluster/n_cluster_window]
+noodle_collab[,share_collab_window:=n_collab_window/n_window]
+
+noodle_collab <- noodle_collab[EU_US_collab=="Europe Only", head(.SD,1), .(Window, Label_com)]
+noodle_collab[,log_share:=log10(share_collab_cluster/share_collab_window)]
+
+ggplot(noodle_collab[new_Id_com %in% com_to_inspect], aes(x=as.numeric(Window), y=log_share, group=Label_com)) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = "black") +
+  geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
+  # scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
+  facet_wrap(~ Label_com)
+
+noodle_pub <- copy(alluv_dt_as_nodes)
+noodle_pub[,n_collab_cluster:=.N, .(Window, Revue , Label_com)]
+noodle_pub[,n_collab_window:=.N, .(Window, Revue )]
+noodle_pub[,n_cluster_window:=.N, .(Window, Label_com)]
+noodle_pub[,n_window:=.N, .(Window)]
+noodle_pub[,share_collab_cluster:=n_collab_cluster/n_cluster_window]
+noodle_pub[,share_collab_window:=n_collab_window/n_window]
+
+noodle_pub <- noodle_pub[Revue =="EUROPEAN ECONOMIC REVIEW", head(.SD,1), .(Window, Label_com)]
+noodle_pub[,log_share:=log10(share_collab_cluster/share_collab_window)]
+
+ggplot(noodle_pub[new_Id_com %in% com_to_inspect], aes(x=as.numeric(Window), y=log_share, group=Label_com)) +
+  geom_point() +
+  geom_smooth(se = FALSE, color = "black") +
+  geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
+  # scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
+  facet_wrap(~ Label_com)
 
 ```
 
