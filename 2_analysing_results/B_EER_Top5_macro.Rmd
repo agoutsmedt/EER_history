@@ -1643,83 +1643,82 @@ saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_
 ```
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
-alluv_dt_as_nodes[Revue=="EUROPEAN ECONOMIC REVIEW", EER_bin:=1]
-alluv_dt_as_nodes[is.na(EER_bin), EER_bin:=0]
-alluv_dt_as_nodes[, EU_US_collab_bin:=99]
-alluv_dt_as_nodes[EU_US_collab=="Europe Only", EU_US_collab_bin:=1]
-alluv_dt_as_nodes[EU_US_collab=="USA Only", EU_US_collab_bin:=0]
-
-euro_chi_list <- list()
-
-
-for (windows in alluv_dt_as_nodes[order(Window),.N,Window]$Window){
-eer_contingency <- table(as.character(alluv_dt_as_nodes$EER_bin),as.character(alluv_dt_as_nodes$new_Id_com))
-result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
-result$stand.resid.
-eer_resid <- result$stand.resid. %>% as.data.table
-eer_resid <- melt(eer_resid) %>% as.data.table
-eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-
-collab_contingency <- table(as.character(alluv_dt_as_nodes$EU_US_collab_bin),as.character(alluv_dt_as_nodes$new_Id_com))
-result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
-result$stand.resid.
-collab_resid <- result$stand.resid. %>% as.data.table
-collab_resid <- melt(collab_resid) %>% as.data.table
-collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-
-plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
-euro_chi_list[[as.character(windows)]] <- euro_com_stat
-}
-
-plot_resid_all <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
-  geom_point() +
-  geom_text_repel(max.overlaps = 100) +
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
-  theme_classic(base_size = 9) 
-
-# En ne gardant que les grosses com
-eer_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EER_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
-result <- chisquare(as.data.frame.matrix(eer_contingency), B=99)
-result$stand.resid.
-eer_resid <- result$stand.resid. %>% as.data.table
-eer_resid <- melt(eer_resid) %>% as.data.table
-eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-
-collab_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
-result <- chisquare(as.data.frame.matrix(collab_contingency), B=99)
-result$stand.resid.
-collab_resid <- result$stand.resid. %>% as.data.table
-collab_resid <- melt(collab_resid) %>% as.data.table
-collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-
-plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
-
-plot_resid <- merge(plot_resid, alluv_dt_as_nodes[,.N,.(new_Id_com)], by.x = "variable", by.y = "new_Id_com")
-plot_resid[, sum_diff:= -1*(value.x+value.y)]
-
-plot_resid_big_com <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(color = sum_diff, size = N), alpha = 0.8) +
-  ggrepel::geom_text_repel(aes(label = as.character(Label_com.x)), alpha = 1, hjust = 0, size=2, 
-                           min.segment.length = 0.07, 
-                           segment.linetype=	"dashed",
-                           segment.size = 0.3,
-                           box.padding=0.15,
-                           max.overlaps = 3) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
-  labs(title = NULL,
-       color = NULL,
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") + 
-  theme_classic(base_size = 9) +
-  guides(size = "none") + 
-  theme(legend.position = "bottom")
-
-ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation__chi_big_com.png"), width=30, height=20, units = "cm", scaling = 1.5)
-saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_communities.rds"))
+# alluv_dt_as_nodes[Revue=="EUROPEAN ECONOMIC REVIEW", EER_bin:=1]
+# alluv_dt_as_nodes[is.na(EER_bin), EER_bin:=0]
+# alluv_dt_as_nodes[, EU_US_collab_bin:=99]
+# alluv_dt_as_nodes[EU_US_collab=="Europe Only", EU_US_collab_bin:=1]
+# alluv_dt_as_nodes[EU_US_collab=="USA Only", EU_US_collab_bin:=0]
+# 
+# euro_chi_list <- list()
+# 
+# 
+# for (windows in alluv_dt_as_nodes[order(Window),.N,Window]$Window){
+# eer_contingency <- table(as.character(alluv_dt_as_nodes$EER_bin),as.character(alluv_dt_as_nodes$new_Id_com))
+# result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
+# result$stand.resid.
+# eer_resid <- result$stand.resid. %>% as.data.table
+# eer_resid <- melt(eer_resid) %>% as.data.table
+# eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+# 
+# collab_contingency <- table(as.character(alluv_dt_as_nodes$EU_US_collab_bin),as.character(alluv_dt_as_nodes$new_Id_com))
+# result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
+# result$stand.resid.
+# collab_resid <- result$stand.resid. %>% as.data.table
+# collab_resid <- melt(collab_resid) %>% as.data.table
+# collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+# 
+# plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
+# euro_chi_list[[as.character(windows)]] <- euro_com_stat
+# }
+# 
+# plot_resid_all <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
+#   geom_point() +
+#   geom_text_repel(max.overlaps = 100) +
+#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
+#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
+#   theme_classic(base_size = 9) 
+# 
+# # En ne gardant que les grosses com
+# eer_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EER_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
+# result <- chisquare(as.data.frame.matrix(eer_contingency), B=99)
+# result$stand.resid.
+# eer_resid <- result$stand.resid. %>% as.data.table
+# eer_resid <- melt(eer_resid) %>% as.data.table
+# eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+# 
+# collab_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
+# result <- chisquare(as.data.frame.matrix(collab_contingency), B=99)
+# result$stand.resid.
+# collab_resid <- result$stand.resid. %>% as.data.table
+# collab_resid <- melt(collab_resid) %>% as.data.table
+# collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+# 
+# plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
+# 
+# plot_resid <- merge(plot_resid, alluv_dt_as_nodes[,.N,.(new_Id_com)], by.x = "variable", by.y = "new_Id_com")
+# plot_resid[, sum_diff:= -1*(value.x+value.y)]
+# 
+# plot_resid_big_com <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
+#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
+#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   geom_point(aes(color = sum_diff, size = N), alpha = 0.8) +
+#   ggrepel::geom_text_repel(aes(label = as.character(Label_com.x)), alpha = 1, hjust = 0, size=2, 
+#                            min.segment.length = 0.07, 
+#                            segment.linetype=	"dashed",
+#                            segment.size = 0.3,
+#                            box.padding=0.15,
+#                            max.overlaps = 3) +
+#   scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+#   labs(title = NULL,
+#        color = NULL,
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") + 
+#   theme_classic(base_size = 9) +
+#   guides(size = "none") + 
+#   theme(legend.position = "bottom")
+# 
+# ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation__chi_big_com.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 ```
 
@@ -1775,7 +1774,7 @@ plot_resid_big_com <- ggplot(plot_resid, aes(x=-1*mean.y, y=-1*mean.x, label = L
                            segment.linetype=	"dashed",
                            segment.size = 0.3,
                            box.padding=0.15,
-                           max.overlaps = 3) +
+                           max.overlaps = 5) +
   scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,

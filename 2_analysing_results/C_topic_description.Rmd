@@ -18,18 +18,18 @@ library(kableExtra)
 ```
 
 ```{js zoom-jquery, include = FALSE, echo = FALSE}
- $(document).ready(function() {
-    $('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
-    // onClick function for all plots (img's)
-    $('img:not(.zoomImg)').click(function() {
-      $('.zoomImg').attr('src', $(this).attr('src')).css({width: '100%'});
-      $('.zoomDiv').css({opacity: '1', width: 'auto', border: '1px solid white', borderRadius: '5px', position: 'fixed', top: '50%', left: '50%', marginRight: '-50%', transform: 'translate(-50%, -50%)', boxShadow: '0px 0px 50px #888888', zIndex: '50', overflow: 'auto', maxHeight: '100%'});
-    });
-    // onClick function for zoomImg
-    $('img.zoomImg').click(function() {
-      $('.zoomDiv').css({opacity: '0', width: '0%'}); 
-    });
-  });
+$(document).ready(function() {
+$('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
+// onClick function for all plots (img's)
+$('img:not(.zoomImg)').click(function() {
+$('.zoomImg').attr('src', $(this).attr('src')).css({width: '100%'});
+$('.zoomDiv').css({opacity: '1', width: 'auto', border: '1px solid white', borderRadius: '5px', position: 'fixed', top: '50%', left: '50%', marginRight: '-50%', transform: 'translate(-50%, -50%)', boxShadow: '0px 0px 50px #888888', zIndex: '50', overflow: 'auto', maxHeight: '100%'});
+});
+// onClick function for zoomImg
+$('img.zoomImg').click(function() {
+$('.zoomDiv').css({opacity: '0', width: '0%'}); 
+});
+});
 ```
 
 ```{r loading}
@@ -92,8 +92,8 @@ topic_diff <- readRDS(here(eer_data,
                            "TM_topics_diff.rds"))
 
 topics <- readRDS(here(eer_data, 
-                           "3_Topic_modelling",
-                           "TM_gamma_values.rds")) %>%
+                       "3_Topic_modelling",
+                       "TM_gamma_values.rds")) %>%
   filter(gamma > 0.1) %>%
   left_join(topic_diff) %>%
   mutate(
@@ -126,29 +126,29 @@ topic_examples <- readRDS(here(eer_data,
                                "3_Topic_modelling",
                                "TM_Topic_examples.rds")) %>% 
   mutate(examples = str_trunc(examples, 1000, "right"))
-  
+
 
 # merge institutions data for EER and top5
 institutions <- readRDS(here(eer_data, 
-                                 "1_Corpus_Prepped_and_Merged",
-                                 "Institutions_Top5_EER.rds")) %>%
+                             "1_Corpus_Prepped_and_Merged",
+                             "Institutions_Top5_EER.rds")) %>%
   inner_join(select(topics, ID_Art, topic_name)) %>%
   select(ID_Art, Institution, Pays, topic_name)
 
 # merge articles from topics with what they cite
 Corpus <- readRDS(here(eer_data, 
-                     "1_Corpus_Prepped_and_Merged",
-                     "Corpus_Top5_EER.rds")) %>% 
+                       "1_Corpus_Prepped_and_Merged",
+                       "Corpus_Top5_EER.rds")) %>% 
   select(ID_Art, ItemID_Ref)
 
 Refs <- readRDS(here(eer_data, 
                      "1_Corpus_Prepped_and_Merged",
                      "References_Top5_EER.rds"))
 Direct_citations <- readRDS(here(eer_data, 
-                     "1_Corpus_Prepped_and_Merged",
-                     "Direct_citations_Top5_EER.rds")) %>% 
+                                 "1_Corpus_Prepped_and_Merged",
+                                 "Direct_citations_Top5_EER.rds")) %>% 
   inner_join(Refs)
-  
+
 
 ref_topics <- topics %>% 
   group_by(topic) %>% 
@@ -306,7 +306,7 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   guides(size = "none") +
   theme(legend.position = "bottom") +
   scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
-    ggrepel::geom_text_repel(
+  ggrepel::geom_text_repel(
     data= topic_diff_summary[topic_prevalence>0.01], 
     aes(label = as.character(topic_label)), 
     size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
@@ -314,6 +314,27 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+
+ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  theme_classic(base_size = 9) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  guides(size = "none") +
+  theme(legend.position = "bottom") +
+  ggrepel::geom_text_repel(
+    data= topic_diff_summary[topic_prevalence>0.01], 
+    aes(label = as.character(topic_label)), 
+    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+    segment.linetype=	"dashed",
+    segment.size = 0.3) 
+ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw2.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 # ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 # ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
@@ -361,7 +382,7 @@ topic_diff_logratio <- topic_diff_logratio_journal %>%
   left_join(select(topics_complete, id, new_id, Com_name, com_color, topic_prevalence)) %>% 
   select(id, new_id, topic_label, topic_name, Com_name, com_color, logratio_affiliation, logratio_journal, topic_prevalence) %>% 
   as.data.table()
-  
+
 topic_diff_summary <- topic_diff_summary %>% 
   left_join(select(topic_diff_logratio, id, logratio_affiliation, logratio_journal))
 topic_diff_summary[,sumdiff:=logratio_affiliation+logratio_journal]
@@ -381,7 +402,7 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
   guides(size = "none") +
   theme(legend.position = "bottom") +
   scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
-    ggrepel::geom_text_repel(
+  ggrepel::geom_text_repel(
     data= topic_diff_summary[topic_prevalence>0.01], 
     aes(label = as.character(topic_label)), 
     size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
@@ -389,6 +410,28 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+
+ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
+  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") +
+  theme_classic(base_size = 9) +
+  scale_size_continuous(range = c(0.2, 50)) %>% 
+  guides(size = "none") +
+  theme(legend.position = "bottom") +
+  ggrepel::geom_text_repel(
+    data= topic_diff_summary[topic_prevalence>0.01], 
+    aes(label = as.character(topic_label)), 
+    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+    segment.linetype=	"dashed",
+    segment.size = 0.3) 
+# ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw2.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 
 ```
@@ -411,18 +454,18 @@ We also cross-checked our topic analysis with our network analysis by measuring 
 for (topic_turn in unique(topics$topic_name)) {
   topic_in_question <- topics %>% 
     filter(topic_name == topic_turn)
-
+  
   # Calculate top frex and lift value for the topic 
   topic_terms <- top_terms %>%
     filter(topic_n == as.integer(str_extract(topic_turn, "[:digit:]+")),
            measure == "frex") %>%
     left_join((top_terms %>%
-    filter(topic_n == as.integer(str_extract(topic_turn, "[:digit:]+")),
-           measure == "lift") %>% 
-      ungroup() %>%  
-      select(-topic_n)), 
-    by = c("rank" = "rank"),
-    suffix = c("_frex", "_lift")) %>% 
+                 filter(topic_n == as.integer(str_extract(topic_turn, "[:digit:]+")),
+                        measure == "lift") %>% 
+                 ungroup() %>%  
+                 select(-topic_n)), 
+              by = c("rank" = "rank"),
+              suffix = c("_frex", "_lift")) %>% 
     select(! starts_with("measure")) %>% 
     relocate(rank, .after = topic_n)
   
@@ -516,8 +559,8 @@ for (topic_turn in unique(topics$topic_name)) {
   } else {
     top_logratio_ref_journal <- data.frame(message = "Nothing to display")
   }
-
-# Most cited document of the topic
+  
+  # Most cited document of the topic
   cited <- cited_corpus %>% 
     filter(topic_name == topic_turn,
            ! is.na(nb_cit)) %>% 
@@ -538,7 +581,7 @@ for (topic_turn in unique(topics$topic_name)) {
     group_by(EU_US_collab) %>%
     slice_max(order_by = nb_cit, n = 10, with_ties = FALSE)
   
-# Most representative article of the topic
+  # Most representative article of the topic
   top_gamma <- cited %>%
     slice_max(order_by = gamma, n = 15, with_ties = FALSE)
   
@@ -550,8 +593,8 @@ for (topic_turn in unique(topics$topic_name)) {
     filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
     group_by(EU_US_collab) %>%
     slice_max(order_by = gamma, n = 10, with_ties = FALSE)
-
-# Looking at links between topics and communities
+  
+  # Looking at links between topics and communities
   top_communities <- topics %>%
     filter(topic_name == topic_turn) %>%
     select(topic_name, ID_Art) %>%
@@ -562,7 +605,7 @@ for (topic_turn in unique(topics$topic_name)) {
     unique() %>%
     arrange(desc(percent_community)) %>% 
     filter(percent_community > 5)
-
+  
   # Looking at institutions
   top_institution <- institutions %>% 
     filter(topic_name == topic_turn) %>% 
@@ -578,7 +621,7 @@ for (topic_turn in unique(topics$topic_name)) {
   
   ################ Beginning of the template ######################
   cat("## ", topic_turn, "\n")
-
+  
   cat(paste0("The topic displays a difference of means of Europe-based minus US-based authors of ",
              unique(topic_in_question$diff_affiliation),
              " and of EER minus top 5 of ",
@@ -603,7 +646,7 @@ for (topic_turn in unique(topics$topic_name)) {
              nrow(prevalence_rank),
              " topics.\n\n"))
   
-    cat(paste0("We have ",
+  cat(paste0("We have ",
              nrow(topic_in_question),
              " articles with a gamma value above 0.01 for this topic.\n\n"))
   
@@ -628,20 +671,20 @@ for (topic_turn in unique(topics$topic_name)) {
   print(kable(top_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
+  
   cat("#####", "Top references by TF-IDF")
   cat("\n\n")
   print(kable(filter(refs_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("#####", "Early references (first quartile)")
+  cat("#####", "Early references (first quartile)")
   cat("\n\n")
   print(kable(top_early_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
   
-    cat("#####", "Late references (last quartile)")
+  cat("#####", "Late references (last quartile)")
   cat("\n\n")
   print(kable(top_late_refs) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
@@ -660,7 +703,7 @@ for (topic_turn in unique(topics$topic_name)) {
   print(kable(filter(top_refs_journal, journal_type == "TOP5")) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
+  
   cat("\n\n")
   cat("#####", "Europe Only")
   cat("\n\n")
@@ -780,7 +823,7 @@ for (topic_turn in unique(topics$topic_name)) {
   print(kable(top_country) %>%
           kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)))
   cat("\n\n")
-
+  
   cat("####", "TF-IDF for Countries")
   cat("\n\n")
   print(kable(filter(countries_tf_idf, topic_name == topic_turn) %>% select(-topic_name)) %>%
