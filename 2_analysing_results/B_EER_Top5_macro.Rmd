@@ -558,7 +558,7 @@ journal_name <- tribble(
   ~Code_Revue, ~Journal_label, ~line_type, ~color_bw,
   "5200", "EER", "solid", "black",
   "14501", "Scandinavian", "dotted", "#a0a0a0",
-  "4713", "Economics Journal", "dashed", "#a0a0a0",
+  "4713", "The Economics Journal", "dashed", "#a0a0a0",
   "13992", "Review of Economic Studies", "dotted", "black",
   "4719", "Economica", "solid", "#a0a0a0",
   "12488", "Oxford Economic Papers", "longdash", "black",
