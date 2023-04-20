@@ -564,6 +564,8 @@ journal_name <- tribble(
   "12488", "Oxford Economic Papers", "longdash", "black",
   "16273", "Weltwirtschaftliches Archiv", "twodash", "black")
 
+econ_journals <- readRDS(here(data_path, "macro_AA","OST_generic_data", "revues.RDS")) %>% filter(Code_Discipline==119)
+                                       
 
 if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))==FALSE){
   liste_code_revue <- c("5200","14501","4713","13992","4719","12488","16273")
@@ -581,7 +583,6 @@ if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))=
                                      as.data.frame = FALSE) %>%  
     filter(ID_Art %in% citations_journals$ID_Art) %>% 
     collect()
-  
   citations_journals <- merge(citations_journals, info_citing[,.(ID_Art,Annee_Bibliographique)], by="ID_Art",all.x=TRUE) # add year of publications of the article citing
   citations_journals <- merge(citations_journals, ID_art_journals[,.(ItemID_Ref,Code_Revue)], by="ItemID_Ref",all.x=TRUE) # add year of publications of the article citing
   
@@ -702,7 +703,7 @@ if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.R
   ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
   n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  
     left_join(ID_Art_years) %>% 
-    .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art,.N,.(Annee_Bibliographique) & Annee >= 1969]
+    .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art & Annee >= 1969,.N,.(Annee_Bibliographique)]
   
   citations_journals_macro <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
   citations_journals_macro[,n_refs_tot:=NULL]
@@ -1749,24 +1750,24 @@ euro_chi_list <- list()
 
 
 for (windows_loop in alluv_dt_as_nodes[order(Window),.N,Window]$Window){
-eer_contingency <- table(as.character(alluv_dt_as_nodes[Window==windows_loop]$EER_bin),as.character(alluv_dt_as_nodes[Window==windows_loop]$id_com_chi))
-result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
-result$stand.resid.
-eer_resid <- result$stand.resid. %>% as.data.table
-eer_resid <- melt(eer_resid) %>% as.data.table
-eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# eer_resid[,windows_loop:=windows_loop]
-
-collab_contingency <- table(as.character(alluv_dt_as_nodes[Window==windows_loop]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[Window==windows_loop]$id_com_chi))
-result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
-result$stand.resid.
-collab_resid <- result$stand.resid. %>% as.data.table
-collab_resid <- melt(collab_resid) %>% as.data.table
-collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# collab_resid[,windows_loop:=windows_loop]
-
-plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
-euro_chi_list[[as.character(windows_loop)]] <- plot_resid
+  eer_contingency <- table(as.character(alluv_dt_as_nodes[Window==windows_loop]$EER_bin),as.character(alluv_dt_as_nodes[Window==windows_loop]$id_com_chi))
+  result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
+  result$stand.resid.
+  eer_resid <- result$stand.resid. %>% as.data.table
+  eer_resid <- melt(eer_resid) %>% as.data.table
+  eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+  # eer_resid[,windows_loop:=windows_loop]
+  
+  collab_contingency <- table(as.character(alluv_dt_as_nodes[Window==windows_loop]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[Window==windows_loop]$id_com_chi))
+  result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
+  result$stand.resid.
+  collab_resid <- result$stand.resid. %>% as.data.table
+  collab_resid <- melt(collab_resid) %>% as.data.table
+  collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
+  # collab_resid[,windows_loop:=windows_loop]
+  
+  plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
+  euro_chi_list[[as.character(windows_loop)]] <- plot_resid
 }
 euro_chi_list_bind <- rbindlist(euro_chi_list, idcol = "windows_loop")
 euro_chi_list_bind[,mean.x:=mean(value.x), by = "variable"]
