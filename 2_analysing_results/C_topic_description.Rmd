@@ -292,18 +292,18 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
 topic_diff_summary[,sumdiff:=diff_affiliation+diff_journal]
 
 ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+  geom_vline(aes(xintercept = 0), linewidth = 1, alpha = 0.3, color="black") +
+  geom_hline(aes(yintercept = 0), linewidth = 1, alpha = 0.3, color="black") +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sumdiff,
                  size = topic_prevalence), alpha = 0.8) +
   labs(title = NULL,
        color = NULL,
+       size = "Topic prevalence",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
-  guides(size = "none") +
+  scale_size_continuous(range = c(0.2, 12)) + 
   theme(legend.position = "bottom") +
   scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
   ggrepel::geom_text_repel(
@@ -313,7 +313,7 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
     segment.linetype=	"dashed",
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
@@ -322,11 +322,11 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
   geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
   labs(title = NULL,
        color = NULL,
+       size = "Topic prevalence",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
-  guides(size = "none") +
+  scale_size_continuous(range = c(0.2, 12)) + 
   theme(legend.position = "bottom") +
   ggrepel::geom_text_repel(
     data= topic_diff_summary[topic_prevalence>0.01], 
@@ -334,7 +334,7 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
     size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
     segment.linetype=	"dashed",
     segment.size = 0.3) 
-ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw2.png"), width=30, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 # ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 # ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
@@ -392,14 +392,15 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_point(aes(color = sumdiff,
-                 size = topic_prevalence), alpha = 0.8) +
+                 size = topic_prevalence), 
+             alpha = 0.8) +
   labs(title = NULL,
        color = NULL,
+       size = "Topic prevalence",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
-  theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
-  guides(size = "none") +
+  theme_classic(base_size = 8) +
+  scale_size_continuous(range = c(0.2, 9)) + 
   theme(legend.position = "bottom") +
   scico::scale_color_scico(palette = "roma", breaks = c(-1.4, 1.5), labels = c("Less European", "More European")) +
   ggrepel::geom_text_repel(
@@ -409,7 +410,7 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
     segment.linetype=	"dashed",
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
@@ -418,20 +419,20 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
   geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
   labs(title = NULL,
        color = NULL,
+       size = "Topic prevalence",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
-  theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 50)) %>% 
-  guides(size = "none") +
+  theme_classic(base_size = 10) +
+  scale_size_continuous(range = c(0.2, 7)) +
   theme(legend.position = "bottom") +
   ggrepel::geom_text_repel(
-    data= topic_diff_summary[topic_prevalence>0.01], 
+    data= topic_diff_summary[topic_prevalence>0.014], 
     aes(label = as.character(topic_label)), 
-    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+    size = 1.6, alpha = 1, hjust = 0, max.overlaps = 5, min.segment.length = 0.1,
     segment.linetype=	"dashed",
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw2.png"), width=30, height=20, units = "cm", scaling = 1.5)
+ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
 
 ```

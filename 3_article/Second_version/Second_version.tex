@@ -3,9 +3,11 @@
 \PassOptionsToPackage{hyphens}{url}
 %
 \documentclass[
-]{article}
+  12pt,
+  onecolumn]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
+\usepackage{setspace}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -33,7 +35,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
+\usepackage[a4paper,bindingoffset=0mm,inner=30mm,outer=30mm,top=30mm,bottom=30mm]{geometry}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -105,7 +107,7 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={An Independent European Macroeconomics? A History of European Macroeconomics through the Lens of the European Economic Review},
-  pdfauthor={Aurélien Goutsmedt; Alexandre Truc {[}Université Côte d'Azur, CNRS GREDEG France.{]}},
+  pdfauthor={Aurélien Goutsmedt; Alexandre Truc },
   pdflang={en-UK},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -113,7 +115,7 @@
 \title{An Independent European Macroeconomics? A History of European
 Macroeconomics through the Lens of the European Economic Review}
 \author{Aurélien Goutsmedt\footnote{UCLouvain, ISPOLE; F.R.S.-FNRS.} \and Alexandre
-Truc {[}Université Côte d'Azur, CNRS GREDEG France.{]}}
+Truc \footnote{Université Côte d'Azur, CNRS GREDEG France.}}
 \date{2023-04-20}
 
 \begin{document}
@@ -145,6 +147,7 @@ integration and the building of a European monetary system, and
 constituted a common language for many European macroeconomists.
 \end{abstract}
 
+\setstretch{1.5}
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
@@ -159,7 +162,7 @@ testifying of the US domination, ending it by the observation that ``the
 leaders of the economics profession in Europe were trained as
 postgraduates in the United States. Many take from the US their
 professional standards, their views of what are the interesting
-problems, and their approaches to them''. (\emph{ibid.})
+problems, and their approaches to them'' (\emph{ibid.}).
 
 Indeed, in the early 1970s in many Western European countries, economics
 had entered a process of internationalisation
@@ -171,7 +174,7 @@ had entered a process of internationalisation
   \protect\hyperlink{ref-hagemann2011a}{Hagemann, 2011};
   \protect\hyperlink{ref-hesse2012}{Hesse, 2012}). However, one observe
   a significant acceleration of this process after the 1970s
-  (\protect\hyperlink{ref-coats1996}{Coats, 1996}) even if national
+  (\protect\hyperlink{ref-coats1996}{Coats, 1996}), even though national
   rhythms may differ (e.g.
   \protect\hyperlink{ref-backhouse1997a}{Backhouse, 1997}).} To some
 extent, such process was also a form of ``Americanisation''
@@ -209,49 +212,53 @@ development of intellectual exchanges between European
 economists---while obviously keeping US economics as a model. The
 simultaneous spreading of US standards in Europe after the 1970s and the
 promotion of a European economics transcending national traditions bring
-us back to Portes's 1987 question: was it possible for a European way of
-doing economics to exist and persist in a relative autonomy from the US
-after the 1970s?
+us back to Portes's 1987 question: could a distinct European approach to
+economics develop and maintain a degree of autonomy from the US in the
+years following the 1970s?
 
 Portes pointed out some European ``comparative advantages''
-(\protect\hyperlink{ref-portes1987}{Portes, 1987, p. 1332}) even if some
-of these European specialities had been pioneered by US economists. He
-highlighted the dynamism in Europe of ``general equilibrium
-theory{[},{]} social choice, duality, and the analysis of repeated
-games'', ``international macroeconomic policy coordination'' or
-``Non-Walrasian macroeconomics'' (\emph{ibid}.). Goutsmedt et al.
-(\protect\hyperlink{ref-goutsmedt2021}{2021}) have also highlighted that
-within the \emph{International Seminar on Macroeconomics} (ISoM), whose
-annual proceedings were published in the EER, disequilibrium
-macroeconomics and large-scale macroeconometric modelling constituted
-important rallying research programs until the mid-1980s for European
-economists involved in the ISoM.\footnote{In the rest of the article, we
-  follow Backhouse and Boianovsky and use the expression
-  ``disequilibrium macroeconomics'' to designate a research program that
-  has been labelled in many ways: ``non-Walrasian theory, disequilibrium
-  theory, equilibrium with rationing, \emph{non-tâtonnement} theory,
-  fixed-price models''
+(\protect\hyperlink{ref-portes1987}{Portes, 1987, p. 1332}), even though
+some of these European specialities had been initially pioneered by US
+economists. He mentioned the prominence in Europe of ``general
+equilibrium theory,'' ``international macroeconomic policy
+coordination,'' or ``Non-Walrasian macroeconomics'' (\emph{ibid}.).
+Goutsmedt et al. (\protect\hyperlink{ref-goutsmedt2021}{2021}) have also
+highlighted that within the \emph{International Seminar on
+Macroeconomics} (ISoM), whose annual proceedings were published in the
+EER, disequilibrium macroeconomics and large-scale macroeconometric
+modelling constituted important rallying research programs until the
+mid-1980s for European economists involved in the ISoM.\footnote{In the
+  rest of the article, we follow Backhouse and Boianovsky and use the
+  expression ``disequilibrium macroeconomics'' to designate a research
+  program that has been labelled in many ways: ``non-Walrasian theory,
+  disequilibrium theory, equilibrium with rationing,
+  \emph{non-tâtonnement} theory, fixed-price models''
   (\protect\hyperlink{ref-backhouseboianovski2013}{Backhouse and
   Boianovski, 2013, pp. 8--9}).}
 
-The purpose of our article is to investigate this issue systematically
-and quantitatively. We focus on macroeconomics articles, mainly because
-we think that such a general investigation involved in-depth
-quantitative \emph{and} qualitative analyses and a relatively good
-knowledge of the literature at stake. A similar investigation on the
-whole economic field would have been beyond our analytical capabilities.
-Besides, macroeconomics constituted a substantial part of EER
+The purpose of our article is to investigate systematically and
+quantitatively the development and persistence of European specificities
+in macroeconomics. Macroeconomics constituted a substantial part of EER
 publications, even representing almost half of all the articles in the
 early 1980s (Figure \ref{fig:plot-jel}). Macroeconomics was also
 instrumental in fostering collaborations between European economists as
-the ``International Seminar on Macroeconomics'' testifies (see Section
-\ref{rising-journal} and Figure \ref{fig:plot-eer-importance-macro}).
-Regarding the history of the EER and its importance in the promotion of
-a European macroeconomics, we think that it constitutes a good proxy for
-observing the emergence and persistence of `European specialities' in
-macroeconomics. We define specialities as \emph{(i)} widespread research
-topics, \emph{(ii)} distinct from what US-based economists were doing
-and \emph{(iii)} adopted by Europe-based economists affiliated to
+evidenced by the ISoM (see Section \ref{rising-journal} and Figure
+\ref{fig:plot-eer-importance-macro}). Regarding EER's history and its
+significance in the promotion of a European macroeconomics, we believe
+that it constitutes a compelling perspective from which to examine the
+evolution of a European ``mainstream'' macroeconomics, as well as of the
+emergence and persistence of `European specialities' within the field
+(see Section \ref{rising-journal} for further arguments on this
+point).\footnote{We use ``mainstream'' as a convenient way to indicate
+  that our focus is on a specific subset of macroeconomics, which
+  adhered to certain standards and fundamental theoretical assumptions,
+  inspired by US economists. Several alternative approaches, such as
+  Marxian and Sraffian economics or British Keynesianism and
+  post-Keynesianism, held strong roots in Europe. Yet, they were
+  considerably less likely to be featured in publications within the
+  EER.} We define European specialities as \emph{(i)} widespread
+research topics, \emph{(ii)} distinct from what US-based economists were
+doing and \emph{(iii)} adopted by Europe-based economists affiliated to
 different institutions in different European countries. Using
 bibliometric coupling and topic modelling jointly with more qualitative
 content analysis, we identify European specialities from 1973 to 2002
@@ -339,7 +346,7 @@ way to tackle many macroeconomic issues in the 1990s.
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel} 
+{\centering \includegraphics[width=0.8\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel} 
 
 }
 
@@ -473,7 +480,7 @@ prominent European journals regarding bibliographic citations (Figure
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.9\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macro} 
+{\centering \includegraphics[width=0.9\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macro_bw} 
 
 }
 
@@ -772,7 +779,7 @@ theory (see Section \ref{disequilibrium}).
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations} 
+{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations_bw} 
 
 }
 
@@ -1099,7 +1106,7 @@ these references more than their US colleagues (Figure
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations} 
+{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw} 
 
 }
 
@@ -1108,7 +1115,7 @@ these references more than their US colleagues (Figure
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations} 
+{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_bw} 
 
 }
 
