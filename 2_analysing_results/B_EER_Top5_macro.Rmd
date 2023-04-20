@@ -260,14 +260,14 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
   labs(x = NULL,
        y = NULL) +
   scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
-  scale_x_continuous() +
-  coord_cartesian(ylim = c(0,NA)) +
+  scale_x_continuous(n.breaks = 6) +
+  coord_cartesian(ylim = c(0.2,0.45)) +
   theme_minimal() 
 # ggplot2::annotate("text", x = max(mean_jel$Annee_Bibliographique), y = min(mean_jel$V1), hjust=0.95, vjust=-1,
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
 # theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=30, height=17, units = "cm", scaling = 1.7)
 
 # ragg::agg_png(here(eer_data,"pictures","Graphs","ragg.png"), width = 30, height = 20, units = "cm", res = 300, scaling = 2)
 
@@ -387,7 +387,7 @@ bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(
 
 ## Occurence of Institutions and Countries
 
-The following graphs informs us about the occurences of particular institutions and countries in our Corpus:
+The following graphs informs us about the occurrences of particular institutions and countries in our corpus:
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE}
 country_eer_colors <- Institutions_all_EER %>%
@@ -558,33 +558,44 @@ journal_name <- tribble(
   ~Code_Revue, ~Journal_label, ~line_type, ~color_bw,
   "5200", "EER", "solid", "black",
   "14501", "Scandinavian", "dotted", "#a0a0a0",
-  "4713", "The Economics Journal", "dashed", "#a0a0a0",
+  "4713", "The Economic Journal", "dashed", "#a0a0a0",
   "13992", "Review of Economic Studies", "dotted", "black",
   "4719", "Economica", "solid", "#a0a0a0",
   "12488", "Oxford Economic Papers", "longdash", "black",
   "16273", "Weltwirtschaftliches Archiv", "twodash", "black")
 
 
-if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))==FALSE)
-{
+if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))==FALSE){
   liste_code_revue <- c("5200","14501","4713","13992","4719","12488","16273")
-  ID_art_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% liste_code_revue]
-  citations_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  .[ItemID_Ref %in% ID_art_journals[ItemID_Ref!=0]$ItemID_Ref]
-  info_citing <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[ID_Art %in% citations_journals$ID_Art]
+  ID_art_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet"),
+                                         as_data_frame = FALSE) %>% 
+    filter(Code_Revue %in% liste_code_revue,
+           ItemID_Ref != 0) %>% 
+    collect()
+  citations_journals <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet"),
+                                            as_data_frame = FALSE) %>%  
+    filter(ItemID_Ref %in% ID_art_journals$ItemID_Ref,
+           Annee >= 1969) %>% # Reviewer suggestion, to no overweight older journals
+    collect()
+  info_citing <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet"),
+                                     as.data.frame = FALSE) %>%  
+    filter(ID_Art %in% citations_journals$ID_Art) %>% 
+    collect()
   
   citations_journals <- merge(citations_journals, info_citing[,.(ID_Art,Annee_Bibliographique)], by="ID_Art",all.x=TRUE) # add year of publications of the article citing
   citations_journals <- merge(citations_journals, ID_art_journals[,.(ItemID_Ref,Code_Revue)], by="ItemID_Ref",all.x=TRUE) # add year of publications of the article citing
   
   ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0,.N,.(Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  
+    left_join(ID_Art_years) %>% 
+    .[ItemID_Ref!=0 & Annee >= 1969,.N,.(Annee_Bibliographique)]
   
   citations_journals <- merge(citations_journals, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
   citations_journals <- citations_journals %>% rename(n_refs_tot = N)
   citations_journals[,n_refs_journal:=.N,.(Annee_Bibliographique,Code_Revue)]
   citations_journals[,share:=n_refs_journal/n_refs_tot*100]
   saveRDS(citations_journals, here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))
-}else
-{
+} else {
   citations_journals <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance.RDS"))
 }
 count <- citations_journals[,.N,.(Annee_Bibliographique,Code_Revue,share)]
@@ -631,7 +642,7 @@ if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_econ.RD
   ID_art_econ <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>% .[Code_Revue %in% econ_journals$Code_Revue]
   
   ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_econ$ID_Art,.N,.(Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_econ$ID_Art & Annee >= 1969,.N,.(Annee_Bibliographique) ]
   
   citations_journals_econ <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
   citations_journals_econ[,n_refs_tot:=NULL]
@@ -689,7 +700,9 @@ if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.R
   ID_art_macro <- all_macro
   
   ID_Art_years <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_art.parquet")) %>%  .[,.N,.(ID_Art,Annee_Bibliographique)]
-  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  left_join(ID_Art_years) %>% .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art,.N,.(Annee_Bibliographique)]
+  n_refs <- arrow::read_parquet(here(data_path, "macro_AA","OST_generic_data", "all_ref.parquet")) %>%  
+    left_join(ID_Art_years) %>% 
+    .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art,.N,.(Annee_Bibliographique) & Annee >= 1969]
   
   citations_journals_macro <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
   citations_journals_macro[,n_refs_tot:=NULL]
