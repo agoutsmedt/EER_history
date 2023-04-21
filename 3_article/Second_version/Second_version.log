@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  20 APR 2023 17:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  20 APR 2023 19:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -670,20 +670,16 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 170.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 170.
-[2] [3] [4]
-<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=12
-2, 853.5087pt x 483.4863pt>
+[2] [3] [4] [5]
+<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=13
+5, 853.5087pt x 483.4863pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png G
 raphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_jel.png  used on input line 349.
+aphs/mean_jel.png  used on input line 360.
 (pdftex.def)             Requested size: 341.43651pt x 193.41322pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5] [6 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png
->]
+[6 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliations.
 png, id=156, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliat
@@ -691,8 +687,11 @@ ions.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliati
 ons.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Board_affiliations.png  used on input line 411.
+aphs/Board_affiliations.png  used on input line 422.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliations.pn
 g, id=157, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliatio
@@ -700,36 +699,42 @@ ns.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliation
 s.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/EER_affiliations.png  used on input line 420.
+aphs/EER_affiliations.png  used on input line 431.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliatio
-ns.png>] [8 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_aff
-iliations.png>]
+[7]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.png, 
-id=184, 853.5087pt x 569.0058pt>
+id=179, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.
 png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.p
 ng>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Collab_strict.png  used on input line 466.
+aphs/Collab_strict.png  used on input line 477.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-[9 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.pn
-g>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliatio
+ns.png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macr
-o_bw.png, id=192, 853.5087pt x 569.0058pt>
+o_bw.png, id=188, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance
 _macro_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_
 macro_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/EER_importance_macro_bw.png  used on input line 483.
+aphs/EER_importance_macro_bw.png  used on input line 494.
 (pdftex.def)             Requested size: 384.10141pt x 256.06761pt.
-[10 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_
-macro_bw.png>] [11]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliations
+.png>] [10 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_s
+trict.png>] [11 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER
+_importance_macro_bw.png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
 nisation_colored.png, id=237, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
@@ -737,7 +742,7 @@ ropeanisation_colored.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
 opeanisation_colored.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Communities_europeanisation_colored.png  used on input line 598.
+aphs/Communities_europeanisation_colored.png  used on input line 609.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -751,94 +756,97 @@ plot_new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_p
 lot_new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/logratio_diff_plot_new_bw.png  used on input line 656.
+aphs/logratio_diff_plot_new_bw.png  used on input line 667.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 [14 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_p
 lot_new_bw.png>] [15] [16]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations_b
-w.png, id=353, 853.5087pt x 569.0058pt>
+w.png, id=349, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g2_over_citations_bw.png  used on input line 782.
+aphs/g2_over_citations_bw.png  used on input line 793.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 [17 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citatio
 ns_bw.png>]
-Underfull \hbox (badness 2617) in paragraph at lines 833--833
+Underfull \hbox (badness 2617) in paragraph at lines 844--844
 []\T1/lmr/bx/n/17.28 (+20) Disequilibrium the-ory as a land-mark for
  []
 
 [18] [19] [20] [21] [22] [23]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw.png
-, id=524, 853.5087pt x 569.0058pt>
+, id=526, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_b
 w.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
 .png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_citations_bw.png  used on input line 1109.
+aphs/g1_citations_bw.png  used on input line 1120.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_b
-w.png, id=525, 853.5087pt x 569.0058pt>
+w.png, id=527, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_over_citations_bw.png  used on input line 1118.
+aphs/g1_over_citations_bw.png  used on input line 1129.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
-.png>] [25 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_
-citations_bw.png>] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
-Overfull \hbox (22.1608pt too wide) in paragraph at lines 1793--1797
+[24] [25 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citatio
+ns_bw.png>] [26 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_
+over_citations_bw.png>] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
+Overfull \hbox (22.1608pt too wide) in paragraph at lines 1804--1808
 \T1/lmr/m/n/12 (-20) spect-ive. Journal of Eco-nomic Meth-od-o-logy 1--12. doi:
 []10.1080/1350178X.2020.1868774[] 
  []
 
 [37]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1832.
+(Font)              <9> on input line 1843.
 [38] [39] [40] [41] [42] [43] [44] [45]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_commu
-nities.png, id=777, 995.6397pt x 569.0058pt>
+nities.png, id=779, 995.6397pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_
 communities.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_c
 ommunities.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Intertemporal_communities.png  used on input line 2532.
+aphs/Intertemporal_communities.png  used on input line 2543.
 (pdftex.def)             Requested size: 426.795pt x 243.91235pt.
 [46 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_c
 ommunities.png>] [47] [48]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.png,
- id=817, 1422.5145pt x 1138.0116pt>
+ id=819, 1422.5145pt x 1138.0116pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year
 .png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.
 png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/topic_per_year.png  used on input line 2680.
+aphs/topic_per_year.png  used on input line 2691.
 (pdftex.def)             Requested size: 426.77934pt x 341.42348pt.
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_new_
-bw.png, id=819, 853.5087pt x 569.0058pt>
+bw.png, id=821, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot
 _new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_
 new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_diff_plot_new_bw.png  used on input line 2704.
+aphs/mean_diff_plot_new_bw.png  used on input line 2715.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 [49 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.
 png>] [50 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff
 _plot_new_bw.png>] (./Second_version.aux) ) 
 Here is how much of TeX's memory you used:
- 16930 strings out of 478278
- 277986 string characters out of 5850546
+ 16931 strings out of 478278
+ 277998 string characters out of 5850546
  631758 words of memory out of 5000000
  34212 multiletter control sequences out of 15000+600000
  576651 words of font info for 247 fonts, out of 8000000 for 9000
@@ -856,10 +864,10 @@ fb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/
 texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2021/texmf-dist/fonts/typ
 e1/public/lm/lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri1
 2.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri9.pfb>
-Output written on Second_version.pdf (50 pages, 7634083 bytes).
+Output written on Second_version.pdf (50 pages, 7635224 bytes).
 PDF statistics:
- 1020 PDF objects out of 1200 (max. 8388607)
- 916 compressed objects within 10 object streams
- 288 named destinations out of 1000 (max. 500000)
+ 1024 PDF objects out of 1200 (max. 8388607)
+ 920 compressed objects within 10 object streams
+ 289 named destinations out of 1000 (max. 500000)
  59618 words of extra memory for PDF output out of 61914 (max. 10000000)
 
