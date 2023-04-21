@@ -705,7 +705,7 @@ if(file.exists(here(eer_data,"2_Raw_Networks_and_Alluv", "eer_importance_macro.R
     left_join(ID_Art_years) %>% 
     .[ItemID_Ref!=0 & ID_Art %in% ID_art_macro$ID_Art & Annee >= 1969,.N,.(Annee_Bibliographique)]
   
-  citations_journals_macro <- citations_journals[ID_Art %in% ID_art_econ$ID_Art]
+  citations_journals_macro <- citations_journals[ID_Art %in% ID_art_macro$ID_Art]
   citations_journals_macro[,n_refs_tot:=NULL]
   citations_journals_macro <- merge(citations_journals_macro, n_refs, by="Annee_Bibliographique",all.x=TRUE) # add year of publications of the article citing
   citations_journals_macro <- citations_journals_macro %>% rename(n_refs_tot = N)
