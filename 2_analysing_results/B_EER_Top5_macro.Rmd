@@ -413,10 +413,10 @@ count_year_all[EU_US_collab=="Collaboration", EU_US_collab:="EU-US Collab"]
 
 
 ggplot(count_year_all, aes(x=as.numeric(Annee_Bibliographique), y=freq, linetype=EU_US_collab, color=EU_US_collab)) +
-  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.2) +
+  geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   # geom_point(alpha=0.2) +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), labels = scales::label_percent()) +
+  scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), breaks = seq(0,1,0.2), labels = scales::label_percent()) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_color_manual(values = c("#a0a0a0", "black", "#a0a0a0", "black"),guide = FALSE) +
