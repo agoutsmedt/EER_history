@@ -12,12 +12,23 @@ output:
     code_folding: hide
 ---
 
+<style>
+body {
+text-align: justify}
+</style>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(kableExtra)
 ```
 
-```{js zoom-jquery, include = FALSE, echo = FALSE}
+
+```{css zoom-lib-src, echo = FALSE}
+# Follows the css and js script used for allow zooming in graphs
+script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+```
+
+```{js zoom-jquery, echo = FALSE}
 $(document).ready(function() {
 $('body').prepend('<div class=\"zoomDiv\"><img src=\"\" class=\"zoomImg\"></div>');
 // onClick function for all plots (img's)
@@ -350,7 +361,6 @@ ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=30,
 If we look at the distribution of topics only for highest gamma (superior to 0.1), using the logratio for affiliations and journals:
 
 ```{r}
-
 topic_diff_logratio_journal <- copy(topic_gamma_attributes) %>% 
   filter(gamma > 0.1) %>% 
   group_by(topic) %>% 
@@ -433,8 +443,6 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
     segment.size = 0.3) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
-
-
 ```
 
 

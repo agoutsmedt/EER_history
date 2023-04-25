@@ -217,7 +217,6 @@ all_years <- c(1975,1980,1985,1990) # do FA2 on some years rather than all
 min_n_years <- 2
 min_leiden_max <- 0.04
 
-
 ```
 
 # EER Bibliographic Information
