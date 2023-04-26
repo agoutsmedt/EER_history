@@ -266,7 +266,7 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
 # theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=30, height=17, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=40, height=15, units = "cm", scaling = 2)
 
 # ragg::agg_png(here(eer_data,"pictures","Graphs","ragg.png"), width = 30, height = 20, units = "cm", res = 300, scaling = 2)
 
@@ -420,12 +420,12 @@ ggplot(count_year_all, aes(x=as.numeric(Annee_Bibliographique), y=freq, linetype
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_color_manual(values = c("#818181", "black", "#c2c2c2", "black")) +
   guides(linetype = FALSE, color= FALSE) +
-  ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year_all[Annee_Bibliographique==2001], nudge_x = 2, nudge_y = 0.01, segment.color = NA, force = 2, force_pull = 10) +
+  ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year_all[Annee_Bibliographique==2001], nudge_x = 2, nudge_y = 0.01, segment.color = NA, force = 2, force_pull = 10, size = 3) +
   coord_cartesian(xlim = c(NA, 2008))
 # ggplot2::annotate("text", x = max(2008), y = min(count_year$freq), hjust=0.95, vjust=-1,
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
-ggsave(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.png"), width=40, height=20, units = "cm", scaling = 2)
 
 
 
@@ -856,7 +856,7 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002 & Code_Rev
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   labs(title = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"), width=40, height=20, units = "cm", scaling = 2)
 ```
 
 EER importance in all articles in social sciences:
@@ -943,14 +943,14 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
-  ggrepel::geom_label_repel(aes(label = label_special), data = g1_citation[Annee_Bibliographique==2000, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = g1_citation[Annee_Bibliographique==2000, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_colour_identity() +
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
 
 ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linetype = line_type)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
@@ -960,7 +960,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linet
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
-  ggrepel::geom_label_repel(aes(label = label_special), data = g1_citation[Annee_Bibliographique==2000, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = g1_citation[Annee_Bibliographique==2000, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   theme_minimal() +
   scale_linetype_identity() +
   scale_color_identity() +
@@ -969,7 +969,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linet
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g1_citations_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g1_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
 
 
 
@@ -1036,13 +1036,13 @@ ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995,2000)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 2003), ylim = c(-0.1,NA)) +
   scale_colour_identity() +
   ggplot2::annotate("text", x = 1988.5, y = 0.35, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
                     size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=40, height=20, units = "cm", scaling = 2)
 
 ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color=color_bw, group=color, linetype = line_type)) +
   geom_point(alpha=1) +
@@ -1056,14 +1056,14 @@ ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995,2000)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 2003), ylim = c(-0.1,NA)) +
   scale_colour_identity() +
   scale_linetype_identity() +
   ggplot2::annotate("text", x = 1988.5, y = 0.35, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
                     size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g1_over_citations_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g1_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
 
 
 g2_citation <- copy(Refs)
@@ -1088,14 +1088,14 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique , y
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   coord_cartesian(xlim = c(NA, 2000)) +
   scale_color_discrete(guide = "none") +
-  ggrepel::geom_label_repel(aes(label = label_special), data = g2_citation[Annee_Bibliographique==1995, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = g2_citation[Annee_Bibliographique==1995, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_colour_identity() +
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=40, height=20, units = "cm", scaling = 2)
 
 ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=share, color=color_bw, linetype = line_type)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
@@ -1105,7 +1105,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
-  ggrepel::geom_label_repel(aes(label = label_special), data = g2_citation[Annee_Bibliographique==1995, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = g2_citation[Annee_Bibliographique==1995, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   theme_minimal() +
   scale_linetype_identity() +
   scale_color_identity() +
@@ -1114,7 +1114,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g2_citations_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g2_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
 
 # share of EU/US
 g2_citation <- copy(Refs)
@@ -1164,13 +1164,13 @@ ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_B
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 1995)) +
   scale_colour_identity()+
   ggplot2::annotate("text", x = 1981.5, y = 0.19, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
                     size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, height=20, units = "cm", scaling = 2)
 
 
 ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_Bibliographique , y=-1*y, color=color_bw, linetype = line_type)) +
@@ -1185,14 +1185,14 @@ ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_B
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
+  ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 1995)) +
   scale_linetype_identity() +
   scale_color_identity() +
   ggplot2::annotate("text", x = 1981.5, y = 0.19, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
                     size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g2_over_citations_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g2_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
 
 
 

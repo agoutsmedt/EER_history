@@ -211,7 +211,7 @@ Our approach identifies different *bibliometric clusters* and *topics* that are 
 
 [^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix), as well as two online appendices listing the features of the bibliometric clusters ("Bibliographic information about the EER and details on the bibliographic coupling clusters") and of the topics identified by our topic model ("Details on the topics").
 
-```{r plot-jel, fig.cap="Share of articles with at least one macroeconomics JEL code", out.width = '80%'}
+```{r plot-jel, fig.cap="Share of articles with at least one macroeconomics JEL code", out.width = '100%'}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
 ```
 
@@ -319,7 +319,7 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.pn
 
 In the mid-1980s, the journal thus emerged as a symbol of a more integrated European economics, taking inspiration from the US standards and enticing numerous US economists to contribute. Also, its intellectual impact has seemingly broadened: the journal ascended as a pre-eminent publication in macroeconomics, gradually surpassing other prominent European journals regarding bibliographic citations (Figure \ref{fig:plot-eer-importance-macro}).
 
-```{r plot-eer-importance-macro, out.width="90%", fig.cap="Share of citations from macroeconomics articles to the EER and the main european journals (smoothed using local polynomial regression). The *The Scandinavian Journal of Economics*, *Oxford Economic Papers*, and *Weltwirtschaftliches Archiv* remain in a stable manner under 0.5%. Graphs including these journals can be found in the online appendix."}
+```{r plot-eer-importance-macro, out.width="100%", fig.cap="Share of citations from macroeconomics articles to the EER and the main european journals (smoothed using local polynomial regression). The *The Scandinavian Journal of Economics*, *Oxford Economic Papers*, and *Weltwirtschaftliches Archiv* remain in a stable manner under 0.5%. Graphs including these journals can be found in the online appendix."}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"))
 ```
 
