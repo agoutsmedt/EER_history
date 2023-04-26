@@ -418,9 +418,9 @@ ggplot(count_year_all, aes(x=as.numeric(Annee_Bibliographique), y=freq, linetype
   scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), breaks = seq(0,1,0.2), labels = scales::label_percent()) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-  scale_color_manual(values = c("#a0a0a0", "black", "#a0a0a0", "black"),guide = FALSE) +
-  guides(linetype = FALSE) +
-  ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year_all[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
+  scale_color_manual(values = c("#818181", "black", "#c2c2c2", "black")) +
+  guides(linetype = FALSE, color= FALSE) +
+  ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year_all[Annee_Bibliographique==2001], nudge_x = 2, nudge_y = 0.01, segment.color = NA, force = 2, force_pull = 10) +
   coord_cartesian(xlim = c(NA, 2008))
 # ggplot2::annotate("text", x = max(2008), y = min(count_year$freq), hjust=0.95, vjust=-1,
 #                   label="Smoothed using local polynomial regression",
