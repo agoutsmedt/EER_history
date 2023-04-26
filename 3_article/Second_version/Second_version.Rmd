@@ -315,6 +315,8 @@ The combination of two distinct unsupervised methods enables us to systematicall
 
 # The 1970s to mid-1980s: A progressive Europeanisation in opposition to US macroeconomics
 
+While the literature in the history of macroeconomics insist on the transformations of macroeconomics following debates on microfoundations, and the rise of the microfoundational program of new classical economics, European macroeconomics have followed a different path. European macroeconomists stay far from most of the theoretical debates triggered by microfoundations, whether on the Rational expectations and the Phillips curve, the demand for money, or the consumption function. Rather, they developed more empirical studies, but also their own microfoundational program.
+
 ## Opposition to New Trends in US macroeconomics 
 
 The analysis of topics and clusters allows us to understand what European macroeconomics *was not* in this period. Several literatures seem to be ignored by the Europeans in the EER. That is the case of the debates around the life-cycle and permanent income hypotheses, influenced by @friedman1957 and @hall1978b.^[See clusters "Intergenerational model, Savings & Consumption" and "Permanent Income and Life-Cycle Hypotheses", as well as topics 12 and 14.] This literature sought to introduce structural heterogenity in life cycle or permanent income models (see Cherrier, Duarte and Saïdi, this issue). 
@@ -330,6 +332,17 @@ knitr::include_graphics(here(eer_data,"pictures","graphs","g2_over_citations_bw.
 But this rejection of new theoretical research in line with the search for microfoundations, and coming from the US, may also be linked to the fact that European macroeconomics as it appeared in the EER, was relatively more oriented toward applied and empirical contributions.
 
 ## The importance of applied and empirical works
+
+It is not easy to assess some convergence between European macroeconomists when looking at the EER, as relatively few papers were published in the first issues. But one characteristic appears dominant: the propensity...
+
+Two literatures emerge here.
+
+LSE and consumption: connecting micro data with macro aggregates (empirical microfoundations)
+
+The work around the "Rotterdam model" and the modelling of supply and demand. Two characters stand out: Anton Barten and Henri Theil.
+[@clements2015]. Culmination: discussion organised in 1984 around the "flexibility of the Rotterdam model". Barten (1969) = first article of the EER.
+
+"Applied demand analysis"
 
 ## Disequilibrium theory as a landmark for European macroeconomics {#disequilibrium}
 
@@ -353,6 +366,8 @@ If not totally consensual, disequilibrium theory and the classical/Keynesian une
 In the late 1980s, disequilibrium theory had lost its capacity to build bridges between European macroeconomists and did not constitute a unifying theoretical language any more. What tended to unify European macroeconomists in the 1990s was not any more a theoretical framework derived from the general equilibrium theory and the search for microfoundations, but rather a new way to approach many macroeconomic problems through the lens of political economy.
 
 # The Mid-1980s to the Late 1990s: Remaining Specialities despite Theoretical Convergence
+
+## The Fall of Disequilibrium
 
 ## New Approaches to Deal with European Unemployment
 
