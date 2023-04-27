@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  25 APR 2023 16:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  27 APR 2023 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -672,208 +672,372 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 171.
 [2] [3] [4] [5]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=13
-5, 853.5087pt x 483.4863pt>
+4, 1138.0116pt x 426.6339pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png G
 raphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_jel.png  used on input line 361.
-(pdftex.def)             Requested size: 341.43651pt x 193.41322pt.
+aphs/mean_jel.png  used on input line 363.
+(pdftex.def)             Requested size: 426.78804pt x 160.00034pt.
 [6 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>]
-<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliations.
-png, id=158, 853.5087pt x 569.0058pt>
-File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliat
-ions.png Graphic file (type png)
-<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affiliati
-ons.png>
+
+LaTeX Warning: Reference `table:plot-boards' on page 7 undefined on input line 
+413.
+
+
+LaTeX Warning: Reference `fig:plot-authors' on page 7 undefined on input line 4
+16.
+
+
+Overfull \hbox (1.91684pt too wide) in alignment at lines 434--439
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.91684pt too wide) in alignment at lines 439--444
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.91684pt too wide) in alignment at lines 444--446
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.91684pt too wide) in alignment at lines 446--448
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.91684pt too wide) in alignment at lines 448--460
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.57529pt too wide) in alignment at lines 465--470
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.57529pt too wide) in alignment at lines 470--475
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.57529pt too wide) in alignment at lines 475--477
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.57529pt too wide) in alignment at lines 477--479
+ [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.57529pt too wide) in alignment at lines 479--491
+ [] [] [] [] [] [] [] [] 
+ []
+
+[7]
+
+LaTeX Warning: Reference `fig:plot-authors' on page 8 undefined on input line 5
+30.
+
+[8]
+<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_collab.
+png, id=186, 1138.0116pt x 569.0058pt>
+File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_co
+llab.png Graphic file (type png)
+<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_col
+lab.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Board_affiliations.png  used on input line 432.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliations.pn
-g, id=159, 853.5087pt x 569.0058pt>
-File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliatio
-ns.png Graphic file (type png)
-<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliation
-s.png>
-Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/EER_affiliations.png  used on input line 441.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[7] [8 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Board_affili
-ations.png>]
-<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.png, 
-id=189, 853.5087pt x 569.0058pt>
-File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.
-png Graphic file (type png)
-<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_strict.p
-ng>
-Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Collab_strict.png  used on input line 494.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+aphs/Intra_vs_US_collab.png  used on input line 540.
+(pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macr
-o_bw.png, id=191, 853.5087pt x 569.0058pt>
+o_minimal_bw.png, id=190, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance
-_macro_bw.png Graphic file (type png)
+_macro_minimal_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_
-macro_bw.png>
+macro_minimal_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/EER_importance_macro_bw.png  used on input line 511.
-(pdftex.def)             Requested size: 384.10141pt x 256.06761pt.
+aphs/EER_importance_macro_minimal_bw.png  used on input line 559.
+(pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_affiliations
-.png>] [10 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Collab_s
-trict.png>] [11 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER
-_importance_macro_bw.png>] [12]
+[9 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_coll
+ab.png>] [10 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_im
+portance_macro_minimal_bw.png>] [11]
+
+LaTeX Warning: Reference `tab:summary-communities' on page 12 undefined on inpu
+t line 698.
+
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
-nisation_colored.png, id=253, 853.5087pt x 569.0058pt>
+nisation_odds_windows_bw.png, id=247, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
-ropeanisation_colored.png Graphic file (type png)
+ropeanisation_odds_windows_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
-opeanisation_colored.png>
+opeanisation_odds_windows_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Communities_europeanisation_colored.png  used on input line 654.
+aphs/Communities_europeanisation_odds_windows_bw.png  used on input line 704.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[13] [14 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communitie
-s_europeanisation_colored.png>]
+[12] [13 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communitie
+s_europeanisation_odds_windows_bw.png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_plot_
-new_bw.png, id=295, 853.5087pt x 569.0058pt>
+new_bw.png, id=284, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_
 plot_new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_p
 lot_new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/logratio_diff_plot_new_bw.png  used on input line 732.
+aphs/logratio_diff_plot_new_bw.png  used on input line 782.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Underfull \hbox (badness 2980) in paragraph at lines 760--760
+[14]
+Underfull \hbox (badness 2980) in paragraph at lines 810--810
 []\T1/lmr/bx/n/17.28 (+20) The 1970s to mid-1980s: A pro-gress-ive
  []
 
-[15] [16 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_d
-iff_plot_new_bw.png>] [17]
+[15 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_p
+lot_new_bw.png>] [16]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations_b
-w.png, id=376, 853.5087pt x 569.0058pt>
+w.png, id=354, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g2_over_citations_bw.png  used on input line 864.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+aphs/g2_over_citations_bw.png  used on input line 888.
+(pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
+[17 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citatio
+ns_bw.png>] [18] [19] [20] [21] [22] [23]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: Reference `opposition-trends' on page 24 undefined on input line
+ 1193.
 
-[18] [19 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_ci
-tations_bw.png>] [20] [21] [22] [23]
+[24] [25] [26]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw.png
-, id=526, 853.5087pt x 569.0058pt>
+, id=628, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_b
 w.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
 .png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_citations_bw.png  used on input line 1130.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+aphs/g1_citations_bw.png  used on input line 1353.
+(pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_b
-w.png, id=527, 853.5087pt x 569.0058pt>
+w.png, id=629, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_over_citations_bw.png  used on input line 1139.
-(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+aphs/g1_over_citations_bw.png  used on input line 1362.
+(pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
-.png>] [25 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_
-citations_bw.png>] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35]
-Overfull \hbox (22.1608pt too wide) in paragraph at lines 1792--1796
+[27] [28 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citatio
+ns_bw.png>] [29 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_
+over_citations_bw.png>] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40]
+Overfull \hbox (22.1608pt too wide) in paragraph at lines 2106--2110
 \T1/lmr/m/n/12 (-20) spect-ive. Journal of Eco-nomic Meth-od-o-logy 1--12. doi:
 []10.1080/1350178X.2020.1868774[] 
  []
 
-[36]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1825.
-[37] [38] [39] [40] [41] [42] [43] [44]
+[41]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+129.
+(c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 2129.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2129--2129
+[]\T1/lmtt/b/n/17.28 {r summary-communities} # communities_table
+ []
+
+
+Overfull \hbox (137.61609pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 <- communities %>% select(Label_com, sum_diff_odds_windows)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 %>% arrange(desc(sum_diff_odds_windows)) #
+ []
+
+
+Overfull \hbox (37.82419pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 # communities_table %>% #   kbl(caption="Summary
+ []
+
+
+Overfull \hbox (1.53622pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 of Bibliographic Clusters", #       booktabs
+ []
+
+
+Overfull \hbox (74.11215pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 = TRUE, #       longtable = FALSE, #       col.names
+ []
+
+
+Overfull \hbox (46.89618pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 =c("Communities", "Differences"), #       format=
+ []
+
+
+Overfull \hbox (182.97604pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 "latex", #       align="lr") %>% #   kable_styling(latex_opt
+ions
+ []
+
+
+Overfull \hbox (46.89618pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 = c("striped", "repeat_header", "hold_position"),
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 #                 font_size = 9) #  # # alt
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 index # communities_table_log_by_cluster <-
+ []
+
+
+Overfull \hbox (37.82419pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 communities %>% select(Label_com, sum_diff_odds)
+ []
+
+
+Overfull \hbox (119.4721pt too wide) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 %>% arrange(desc(sum_diff_odds)) # communities_table_chi2
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2129--2129
+\T1/lmtt/b/n/17.28 <- communities_chi %>% select(Label_com.x,
+ []
+
+[42] [43] [44] [45] [46] [47] [48] [49]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_commu
-nities.png, id=770, 995.6397pt x 569.0058pt>
+nities.png, id=896, 995.6397pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_
 communities.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_c
 ommunities.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Intertemporal_communities.png  used on input line 2525.
+aphs/Intertemporal_communities.png  used on input line 2792.
 (pdftex.def)             Requested size: 426.795pt x 243.91235pt.
-[45 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_c
-ommunities.png>] [46] [47]
+[50 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_c
+ommunities.png>] [51]
+<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
+nisation_mean_of_log_ratio.png, id=915, 853.5087pt x 569.0058pt>
+File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
+ropeanisation_mean_of_log_ratio.png Graphic file (type png)
+<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
+opeanisation_mean_of_log_ratio.png>
+Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
+aphs/Communities_europeanisation_mean_of_log_ratio.png  used on input line 2882
+.
+(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
+nisation_odds_bw.png, id=916, 853.5087pt x 569.0058pt>
+File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
+ropeanisation_odds_bw.png Graphic file (type png)
+<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
+opeanisation_odds_bw.png>
+Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
+aphs/Communities_europeanisation_odds_bw.png  used on input line 2891.
+(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
+nisation__chi_mean.png, id=917, 853.5087pt x 569.0058pt>
+File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
+ropeanisation__chi_mean.png Graphic file (type png)
+<use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
+opeanisation__chi_mean.png>
+Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
+aphs/Communities_europeanisation__chi_mean.png  used on input line 2900.
+(pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[52 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
+opeanisation_mean_of_log_ratio.png>] [53 <../../../../../../../../Mon Drive/dat
+a/EER/pictures/Graphs/Communities_europeanisation_odds_bw.png>] [54 <../../../.
+./../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation__c
+hi_mean.png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.png,
- id=808, 1422.5145pt x 1138.0116pt>
+ id=953, 1422.5145pt x 1138.0116pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year
 .png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.
 png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/topic_per_year.png  used on input line 2673.
+aphs/topic_per_year.png  used on input line 3005.
 (pdftex.def)             Requested size: 426.77934pt x 341.42348pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_new_
-bw.png, id=810, 853.5087pt x 569.0058pt>
+bw.png, id=955, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot
 _new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_
 new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_diff_plot_new_bw.png  used on input line 2697.
+aphs/mean_diff_plot_new_bw.png  used on input line 3029.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
-[48 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year.
-png>] [49 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff
-_plot_new_bw.png>] (./Second_version.aux) ) 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[55] [56 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_
+year.png>] [57 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean
+_diff_plot_new_bw.png>] (./Second_version.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 16950 strings out of 478278
- 278649 string characters out of 5850546
- 632136 words of memory out of 5000000
- 34218 multiletter control sequences out of 15000+600000
- 577163 words of font info for 252 fonts, out of 8000000 for 9000
+ 17087 strings out of 478278
+ 283298 string characters out of 5850546
+ 653439 words of memory out of 5000000
+ 34278 multiletter control sequences out of 15000+600000
+ 585306 words of font info for 265 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,12n,77p,1074b,547s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2021/texmf-dist/fonts/en
-c/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf
--dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/texlive/2021/texmf-dist/fonts/type1/
-public/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.p
-fb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/texlive/202
-1/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2021/texmf-dist/fonts
-/type1/public/lm/lmmi6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lm
-mi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive
-/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fo
-nts/type1/public/lm/lmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm
-/lmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texliv
-e/2021/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fo
-nts/type1/public/lm/lmr9.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/
-lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/tex
-live/2021/texmf-dist/fonts/type1/public/lm/lmri9.pfb>
-Output written on Second_version.pdf (49 pages, 7680437 bytes).
+ 74i,12n,77p,7978b,515s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/tex
+mf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvi
+ps/lm/lm-ec.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c
+:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/tex
+mf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type
+1/public/lm/lmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi12
+.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/texlive/20
+21/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2021/texmf-dist/fonts
+/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lm
+r12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive
+/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb><c:/texlive/2021/texmf-dist/fon
+ts/type1/public/lm/lmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/l
+mr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/
+2021/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/texlive/2021/texmf-dist/font
+s/type1/public/lm/lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/
+lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texl
+ive/2021/texmf-dist/fonts/type1/public/lm/lmri9.pfb><c:/texlive/2021/texmf-dist
+/fonts/type1/public/lm/lmtk10.pfb>
+Output written on Second_version.pdf (57 pages, 8189007 bytes).
 PDF statistics:
- 1041 PDF objects out of 1200 (max. 8388607)
- 929 compressed objects within 10 object streams
- 292 named destinations out of 1000 (max. 500000)
- 59642 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1219 PDF objects out of 1440 (max. 8388607)
+ 1088 compressed objects within 11 object streams
+ 336 named destinations out of 1000 (max. 500000)
+ 63759 words of extra memory for PDF output out of 74296 (max. 10000000)
 
