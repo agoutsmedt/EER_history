@@ -483,25 +483,6 @@ In the 1990s, European macroeconomics appeared closer to its US counterpart on t
 
 ## A - Summary Tables {.unnumbered}
 
-# ```{r summary-communities}
-# communities_table <- communities %>% select(Label_com, sum_diff_odds_windows) %>% arrange(desc(sum_diff_odds_windows))
-# 
-# communities_table %>%
-#   kbl(caption="Summary of Bibliographic Clusters",
-#       booktabs = TRUE,
-#       longtable = FALSE,
-#       col.names =c("Communities", "Differences"),
-#       format= "latex",
-#       align="lr") %>%
-#   kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
-#                 font_size = 9)
-# 
-# # alt index
-# communities_table_log_by_cluster <- communities %>% select(Label_com, sum_diff_odds) %>% arrange(desc(sum_diff_odds))
-# communities_table_chi2 <- communities_chi %>% select(Label_com.x, sum_diff) %>% arrange(desc(sum_diff))
-# 
-# ```
-
 ```{r summary-topics}
 topics_summary <- top_terms %>%
   filter(measure == "frex") %>%
