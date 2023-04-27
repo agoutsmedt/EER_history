@@ -209,7 +209,7 @@ The interplay between the internationalisation of macroeconomics and the persist
 
 Our approach identifies different *bibliometric clusters* and *topics* that are more associated to publication in the EER (rather than in top 5 journals) and to Europe-based economists (see Section \ref{methods} for details on method).[^4] This approach provides insights into the research areas European macroeconomists focused on from the 1970s to the 1990s, in contrast to their US counterparts. A meticulous examination of the detailed findings allows us to paint a broader, albeit not complete, portrait of the evolution of European macroeconomics since the 1970s. Consistently with @portes1987 and @goutsmedt2021 claims, disequilibrium theory appears as a unifying framework for European macroeconomics between the mid-1970s and the mid-1980s. If it first constituted a theoretical research program targeting the development of general equilibrium theory, it also became an interpretative framework to explain the stagflation and the European unemployment problem after the 1970s (see Section \ref{disequilibrium}). Disequilibrium theory---and notably Malinvaud's [-@malinvaud1977]---was a rallying point for European macroeconomists when discussing various macroeconomic issues, and even those who disagreed with its utility made their dissent explicit. Its influence was thus far more extended than the contributions of new classical economists like Robert Lucas, Thomas Sargent or Robert Barro. However, disequilibrium progressively disappeared from references in the second part of the 1980s and issues like European unemployment were tackled mainly using other types of frameworks. If no unifying and consistent theoretical framework has taken over the disequilibrium theory (at least to the same extent), the new political economy inspired by @kydland1977 and Barro and Gordon [-@barro1983;-@barro1983c] brought new questions and a common language for many contributions of European economists (see Section \ref{political-economics}). The pioneering contributions of this literature were carried by US economists, but it became a truly European way to tackle many macroeconomic issues in the 1990s.     
 
-[^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix), as well as two online appendices listing the features of the bibliometric clusters ("Bibliographic information about the EER and details on the bibliographic coupling clusters") and of the topics identified by our topic model ("Details on the topics").
+[^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix), as well as two online appendices listing the features of the bibliometric clusters ("Bibliographic information about the EER and details on the bibliographic coupling clusters") and of the topics identified by our topic model ("Details on the topics"). Online appendices also display some statistics on countries and institutions for each cluster and topic.
 
 ```{r plot-jel, fig.cap="Share of articles with at least one macroeconomics JEL code", out.width = '80%'}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
@@ -225,13 +225,10 @@ The birth of such a project in Belgium is far from coincidental. Indeed, the cou
 
 [^5]: KU Leuven was split in 1968 between a Flemish and a French-speaking part, the latter giving birth to the *Université Catholique de Louvain* at Louvain-La-Neuve, where the CORE eventually moved in the mid-1970s.
 
-From the beginning, the EER was conceived as a European project and the composition of the editorial board testifies of it (Figure \ref{fig:plot-boards}). But the EER being a Belgian-centred initiative, Belgian institutions represented one fourth of authors' affiliations in EER articles in the first years (Figure \ref{fig:plot-authors}).[^6] Nonetheless, the geographical diversity of EER authorship expanding significantly during the 1970s. When comparing authors' affiliations data from *The Economic Journal* and *Economica* as calculated in @backhouse1997a[Figures 7 and 8], we see that European countries excluding the UK were far better represented in the EER.^[In contrast to *The Economic Journal* and *Economica*, where British and US affiliations accounted approximately for 80% of authors from the 1970s to the 1990s, these affiliations represented merely 30 to 40% in the EER. Meanwhile, European countries (excluding the UK) represented nearly 50%.]     
+From the beginning, the EER was conceived as a European project and the composition of the editorial board testifies of it (Table \ref{table:plot-boards}). But the EER being a Belgian-centred initiative, Belgian institutions represented one fourth of authors' affiliations in EER articles in the first years (Figure \ref{fig:plot-authors}).[^6] Nonetheless, the geographical diversity of EER authorship expanding significantly during the 1970s. When comparing authors' affiliations data from *The Economic Journal* and *Economica* as calculated in @backhouse1997a[Figures 7 and 8], we see that European countries excluding the UK were far better represented in the EER.^[In contrast to *The Economic Journal* and *Economica*, where British and US affiliations accounted approximately for 80% of authors from the 1970s to the 1990s, these affiliations represented merely 30 to 40% in the EER. Meanwhile, European countries (excluding the UK) represented nearly 50%.]     
 
 [^6]: This is an approximation, as the affiliation per author is not available in our corpus and we only have the affiliations per article (see [Appendix B.2.](#author-affiliation) for more details).]
 
-# ```{r plot-boards, out.width = '100%', fig.cap="Share of countries in EER editorial boards (Top 10)"}
-# knitr::include_graphics(here(eer_data,"pictures","Graphs","Board_affiliations.png"))
-# ```
 
 ```{r table-boards}
 table_board <- boards %>% as.data.table() %>% .[Year <= 2002]
@@ -260,14 +257,10 @@ table_board %>%
   column_spec(7, latex_valign = "l") %>%
   column_spec(8, latex_valign = "l") %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 9)
+                font_size = 4)
 
 ```
 
-
-# ```{r plot-authors, out.width = '100%', fig.cap="Share of countries of authors' affiliations in EER publications (Top 10)"}
-# knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_affiliations.png"))
-# ```
 
 ```{r table-authors}
 table_countries <- Institutions_all_EER %>%
@@ -300,7 +293,7 @@ table_countries %>%
   column_spec(7, latex_valign = "l") %>%
   column_spec(8, latex_valign = "l") %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 9)
+                font_size = 4)
 
 ```
 
@@ -313,15 +306,19 @@ Besides offering a common platform for European economists, the journal initial 
 
 During the 1970s, the share of US-based authors publishing in the journal grew steadily and reached a third of all affiliations in the early 1980s (Figure \ref{fig:plot-authors}). The rising involvement of US economists in the EER signified not just an increase in articles published by US-based authors, but also a rise in collaborations between US and European economists (Figure \ref{fig:plot-collabs}). Although there were no collaborations in the journal's inaugural year, by 1980, 10 percent of the published articles featured joint writing between institutions from the US and Europe.
 
-```{r plot-collabs, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER (smoothed using local polynomial regression). While the "Europe Only", "USA Only" and "EU-US Collab" categories are computed on the overall corpus, the "Intra EU Collab category" is computed on EER papers written by European authors (Europe Only Category).)}
+```{r plot-collabs, out.width = '100%', fig.cap="Patterns of collaboration between the United States and European countries in EER (smoothed using local polynomial regression)\\protect\\footnotemark"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.png"))
 ```
 
+\footnotetext{While the 'Europe Only', 'USA Only' and 'EU-US Collab' categories are computed on the overall corpus, the 'Intra EU Collab category' is computed on EER papers written by European authors ('Europe Only' category).}
+
 In the mid-1980s, the journal thus emerged as a symbol of a more integrated European economics, taking inspiration from the US standards and enticing numerous US economists to contribute. Also, its intellectual impact has seemingly broadened: the journal ascended as a pre-eminent publication in macroeconomics, gradually surpassing other prominent European journals regarding bibliographic citations (Figure \ref{fig:plot-eer-importance-macro}).
 
-```{r plot-eer-importance-macro, out.width="90%", fig.cap="Share of citations from macroeconomics articles to the EER and the main european journals (smoothed using local polynomial regression). The *The Scandinavian Journal of Economics*, *Oxford Economic Papers*, and *Weltwirtschaftliches Archiv* remain in a stable manner under 0.5%. Graphs including these journals can be found in the online appendix."}
+```{r plot-eer-importance-macro, out.width="90%", fig.cap="Share of citations from macroeconomics articles to the EER and the main european journals (smoothed using local polynomial regression)\\protect\\footnotemark"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"))
 ```
+
+\footnotetext{We count only references to articles published after 1969, the inaugural year of the EER. We have also looked at the \textit{Scandinavian Journal of Economics}, \textit{Oxford Economic Papers}, and \textit{Weltwirtschaftliches Archiv}, which remain steadily under 0.5\%. Graphs including these journals can be found in the online appendix.}
 
 The question that remains is whether this process of internationalisation resulted in the complete standardisation of European macroeconomics based on the US model, or if it allowed for the cultivation and persistence of distinctly European specialities.
 
@@ -373,7 +370,7 @@ $$
 
 with $N_{\text{EER in topic }i}$ the number of EER articles in the topic and $N_{\text{topic }i}$ the total number of articles in the topic. We perform the same calculation for articles written exclusively by Europe-based authors or US-based authors. The two log odds ratios are plotted in a two-dimensional graph (Figure \ref{fig:plot-topic-diff}), which allows us to observe which topics are over-represented in the EER and more frequently mentioned by Europe-based authors.^[Refer to [Appendix B.4.](#topic) for details on the measure and the results using an alternative measure that does not employ $\gamma$ as a threshold.]
 
-```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics (LogRatio method)"}
+```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics (the size of nodes capture the topics prevalence)"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"))
 ```
 
@@ -401,23 +398,29 @@ But this rejection of new theoretical research in line with the search for micro
 
 ## The importance of applied and empirical works
 
-It is not easy to assess some convergence between European macroeconomists when looking at the EER, as relatively few papers were published in the first issues. But one characteristic appears dominant: the propensity...
+That is not easy to assess some major trends in Europeans publications in the EER in the first years, neither to observe convergence between European macroeconomists. Indeed, as fewer papers were published in the first issues and we may also imagine that the editorial line was fluctuating. However, a first characteristic emerges: the propensity to publish applied and empirical works. For instance, in the 1970s issues, we find contributions providing empirical analysis of Dutch pensions funds, UK income distribution, Belgium wage variations, using principal components analysis, building indicators of capacity utilization or larger macroeconometric models (see Table X).
 
-Two literatures emerge here.
+As an emerging journal, the EER was still less likely in the mid-1970s to publish very influential contributions. But some of the early contributions belong to some already well established literature and connect with two important research programs that influenced these contributions in the ERR.^[These contributions are grouped in topic 46 and cluster "Modeling Consumption & Production", which partially overlap.] These two research programs were at the juncture of econometrics and macroeconomics.
 
-LSE and consumption: connecting micro data with macro aggregates (empirical microfoundations)
+The first one is the "LSE approach" of econometrics, under the leadership of David Hendry, involving notably the work of James Davidson, Grayham Mizon and Neil Ericsson [@qin2013a, chapter 4]. A major goal of the LSE approach and of Hendry was to build some bridges between the Cowles Commission structural approach of econometrics and the Box-Jenkins time-series approach. Heavy emphasis was put on the search for appropriate model specification, to design the best representation of the true "data generation process".
 
-The work around the "Rotterdam model" and the modelling of supply and demand. Two characters stand out: Anton Barten and Henri Theil.
-[@clements2015]. Culmination: discussion organised in 1984 around the "flexibility of the Rotterdam model". Barten (1969) = first article of the EER.
+A large part of the LSE approach work was devoting to the modelling of consumption. Davidson and Hendry, accompanied by two co-authors, tackles consumption modelling by inspecting the existing "plethora of substantially different quarterly regression equations" and criticised the "proliferation of non-tested models" [@davidson1978, 661-662]. This article was the occasion for them to highlight the major principles of the LSE approach, and notably to illustrate the use of error-correction [@qin2013a, 63-64]. During the third edition of the ISoM, published in 1981 in the EER, they came back to the chosen equations of @davidson1978 to test the integration of the permanent income/life cycle hypothesis in Hall's -@hall1978b formulation [@davidson1981].
 
-"Applied demand analysis"
+Econometric research on demand and consumption did not limit to the LSE in the UK. Angus Deaton's and John Muellbauer's contributions also appear to have had impact on research published in the EER. Their focus was on the aggregation problem and the weaknesses of a "representative consumer" (see Cherrier et al., this issue). In 1980 in the *American Economic Review*, they proposed a new system of demand equations, modelling the relationship between consumer demand, relative prices and income, that they called the "Almost Ideal Demand System" [@deaton1980]. They claimed the superiority of this model to competitor like the translog model, or the Rotterdam model developed by Henri Theil and Anton Barten.
+
+The research around the Rotterdam model constituted a second research program that appeared central in the 1970s for the European contributions published in the EER. Theil had been appointed in 1953 as Professor of Econometrics at the Netherlands School of Economics in Rotterdam, to take the succession of Jan Tinbergen [@kloek2001]. In 1966, he eventually moved to Chicago, one year after having published "The Information Approach to Demand Analysis" [@theil1965], an essential pillar of the Rotterdam model, modelling the role played by marginal budget shares [@clements2015a]. The other essential contribution was the one of @barten1964.
+
+Barten had indeed started a Ph.D. thesis on consumer behavior under the supervision of Theil in Rotterdam [@kuleuven2016]. Barten was hired in 1966 by KU Leuven to join the just-born CORE. His most cited paper is the very first article published in the EER [@barten1969]: Barten developed a new estimation procedure of a demand equations system that would gather a lot of attention in the first years of the EER.^[Barten tackled broader project than demand equations. With other CORE economists, he contributed to develop a macroeconometric model of the European Economic Community (EEC), which was presented in the EER [@barten1976]. The next year, André Dramais from the *Université Libre de Bruxelles* presented empirical results on inflation transmission between EEC members, using a competing macroeconometric model, DESMOS. Both models constituted crucial steps in the development of macroeconometric model within the European Commission (see Acosta et al., this issue).] The Rotterdam model recurrently appeared in EER's publications, somewhat culminating in 1984 when two synthesis articles were devoted to it [@barnett1984; @byron1984]. 
+
+These two lines of research (the LSE approach and the Rotterdam model) as well as the contributions of researchers gravitating around them, appear as original and distinguished from the developments of macroeconomics occurring on the other side of the Atlantic.^[This is even more true for the British side, that devoted time to criticise many new trends in the US. For instance, Deaton and Muellbauer attacked the search for theoretical microfoundations to macroeconomics, which ignored aggregation issues (Cherrier et al., this issue).] Nonetheless, we cannot speak of European specialities are these research lines were very nationally anchored (or just connect Belgium and the Netherlands in the second case) and did not yet participate to a true process of Europeanisation. Some transnational connections existed. For instance, Hendry visited the CORE during 1980-1981, at the time where Angus Deaton was also there [@ericsson2004]. Hendry started to work with Jean-François Richard, a CORE econometrician, and Robert Engle, then at University of California San Diego. The resulting article developed the concept of "strong exogeneity" and "super exogeneity" [@engle1983]. 
+
+The LSE approach and Hendry had a delayed impact on the development of European specialities. The cointegration concept [@engle1987] had some roots in the LSE approach and in Granger's and Engle's discussion with Hendry [@diebold2003, 1173-1174;@qin2013a, 68]. Both the LSE approach and Granger and Engle's contributions, as well as the work of University of Copenhagen econometrician, Soren Johansen [@johansen1988], would deeply influence research published by European macroeconomists in the EER after the mid-1980s.^[See Topic 46 and Community "Business Cycles, Cointegration & Trends".] Many European macroeconomists engaged in the 1990s in empirical research on business cycles, detrending methods and shocks identifications. The German Horst Entorf, the Italians Marco Lippi and Lucrezia Reichlin, the Spanish Juan José Dolado, or the LSE economist Dany Quah were essential characters ^[The French Olivier Blanchard was of course another important researcher in this domain, but was working in the US during the period.]
+
+However, before this period, the true European speciality and most unifying line of research from the 1970s to the mid-1980s was the disequilibrium theory.
 
 ## Disequilibrium theory as a landmark for European macroeconomics {#disequilibrium}
 
-Disequilibrium theory constituted an important but often forgotten step in the history of macroeconomics [@backhouseboianovski2013;@plassard2021]. It contributed significantly to the renewal of interest for the research for microfoundations in macroeconomics in the 1970s.^[See @duartelima2012a for a history of microfoundations in macroeconomics.] Anchored in the general equilibrium theory tradition and influenced by the work of Patinkin, Clower and Leijonhufvud, disequilibrium theory explored the impact of non-walrasian price-setting (i.e. without *tâtonnement*), fix-price and quantity rationing on macroeconomic outcomes. It constituted an alternative to new classical contributions and the "representative-agent microfoundational program" of Lucas and Sargent [@hoover2012; see also @renault2020a]. Even if Barro and Grossman's [-@barro1971] article was fundamental in the popularisation of disequilibrium macroeconomics, the research program was more deeply anchored in Europe, notably in France and Belgium [@goutsmedt2021, and Plassard and Renault, this issue].^[Online appendices also display some statistics on countries and institutions for each cluster and topic.] 
-
-
-
+Research around the disequilibrium theory represents a significant yet often overlooked milestone in the history of macroeconomics [@backhouseboianovski2013;@plassard2021]. It played a crucial role in the 1970s in rekindling interest in the research finding appropriate microfoundations for macroeconomics in the 1970s.^[See @duartelima2012a for a history of microfoundations in macroeconomics.] Rooted in the tradition of the general equilibrium theory and influenced by the work of Patinkin, Clower and Leijonhufvud, disequilibrium theory investigated the effects of non-walrasian price-setting (i.e. without *tâtonnement*), fixed-price and quantity rationing on macroeconomic outcomes. This approach provided an alternative to the new classical contributions and the Lucas and Sargent's "representative-agent microfoundational program" [@hoover2012], which many proponents of disequilibrium research explicitly rejected [@renault2020a]. Although Barro and Grossman's [-@barro1971] article helped popularising disequilibrium macroeconomics, this research line was deeply anchored in France and Belgium, and it continued to expand throughout the 1970s and 1980s (Plassard and Renault, this issue).
 
 Bibliometric analysis shows that the "Disequilibrium and Keynesian economics" cluster constituted the most significant cluster strongly associated to the EER and developed by Europe-based economists. This cluster also integrates other "alternative research lines" to Lucas's research program [@devroey2016, chapter 14], like Azariadis's [-@azariadis1975] implicit contract model, Hart's [-@hart1982] imperfect competition model or Diamond's [-@diamond1982] search model. It testifies that in the late 1970s and in the 1980s, connections existed between US and European macroeconomists regarding both the renewal of theoretical macroeconomics and the search for microfoundations, and the opposition to new classical macroeconomics. As a complement, topic modelling analysis allows us to observe how widespread disequilibrium theory was for European macroeconomics in the 1980s and how it unified the treatment of different macroeconomic issues.
 
@@ -603,7 +606,7 @@ For the descriptive analysis we simply use the count of unique combinations of i
 
 ### B.3. Bibliographic Coupling and Cluster Detection {#network .unnumbered}
 
-#### Main Index {#author-affiliation .unnumbered}
+#### Main Index {#main-index .unnumbered}
 
 ```{r}
 network_raw_com <- lapply(tbl_coup_list,function(x) x %>% activate(nodes) %>% as.data.table %>% .[,.N,Leiden1])
