@@ -1294,7 +1294,7 @@ knitr::include_graphics(here(eer_data,"pictures","Graphs","Intertemporal_communi
 
 #### Main Index
 
-For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios
+For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios:
 
 \bigskip
 ${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}$
@@ -1310,14 +1310,12 @@ Finally, clusters are placed on a scatterplot with the X-axis for the *Author EU
 
 Supplementary information about each cluster can be found in the online appendix "Bibliographic information about the EER and details on the bibliographic coupling clusters".
 
-#### Alternative Indexes
+#### Alternative Indexes {#alt-index .unnumbered}
 
 In addition to the main index, we propose a few alternative indexes:
 
 - **Mean of Log of Ratios Index** (see Figure \ref{fig:plot-mean-log-ratios}): this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed on each individual window for each clusters, and the overall score of each cluster is the mean of the score across all time windows in which the cluster exists. However, one issue is that the score is not computed for time windows in which the clusters have 0 observations for some modalities.
-- **All Nodes Ratios Index** (see Figure \ref{fig:plot-all-nodes-ratios}): this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed for each cluster using all nodes across all time windows in which the cluster exists. In other words, for each cluster, we take all the nodes that are the clusters, and all the nodes that are in the time windows of each cluster, and compute the log of ratios for the *Author EU/US Orientation* and *Journal EU/US Orientation* scores. One difference with the main index is that more weights is given to time windows in which the cluster is bigger while the main index is simply the mean across all time windows no matter the size of the cluster in each time window.
 - **Chi2 Index** (see Figure \ref{fig:plot-chi-two-mean}): this index is very different from all other indexes. For each time window, we made a chi-square test of independence. We then used the adjusted standardized residuals computed for each time window to investigate the difference between expected and observed frequency for each modality of our variables. A positive residual indicates that the observed frequency is greater than what was expected, while a negative residual indicates that the observed frequency is less than what was expected. For each cluster, we then used the average residual across all time windows in which the cluster exists. For the *Author EU/US Orientation* score with four modalities, the frequency of *European Authored Articles* was used for the residual.
-
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE, echo=FALSE}
 
@@ -2075,14 +2073,6 @@ Mean of Log of Ratios Index :
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
 
 knitr::include_graphics(here(eer_data,"pictures","graphs","Communities_europeanisation_mean_of_log_ratio.png"))
-
-```
-
-All Nodes Ratios Index:
-
-```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
-
-knitr::include_graphics(here(eer_data,"pictures","graphs","Communities_europeanisation_odds_bw.png"))
 
 ```
 
