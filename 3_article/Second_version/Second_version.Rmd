@@ -215,7 +215,7 @@ However, the disequilibrium line of research gradually faded after the mid-1980s
 
 [^4]: The article is also accompanied by a detailed methodological [Appendix](#appendix), as well as two online appendices listing the features of the bibliometric clusters ("Bibliographic information about the EER and details on the bibliographic coupling clusters") and of the topics identified by our topic model ("Details on the topics"). 
 
-```{r plot-jel, fig.cap="Share of articles with at least one macroeconomics JEL code", out.width = '100%'}
+```{r plot-jel, out.width = '100%', fig.cap="Share of articles with at least one macroeconomics JEL code"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","mean_jel.png"))
 ```
 
