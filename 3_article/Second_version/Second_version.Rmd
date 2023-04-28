@@ -267,7 +267,7 @@ table_board %>%
 ```
 
 
-```{r table-authors}
+```{r table-authors, eval = FALSE}
 table_countries <- Institutions_all_EER %>%
   filter(ID_Art %in% filter(Corpus_all_EER, Annee_Bibliographique <= 2002)$ID_Art) %>%
   mutate(Pays = ifelse(Pays %in% c("SCOTLAND", "ENGLAND", "WALES", "UNITED KINGDOM"), "UK", Pays))
@@ -484,7 +484,7 @@ The interest for explaining the high European unemployment did not limit to UK a
 
 All these lines of research were central for European macroeconomists publishing in the EER, as well as they constitute a true specificity in comparison to the US. They spread across different European countries and fostered transnational collaborations, even if the UK appears as a more dynamic producer of contributions on European unemployment. Another approach, also partly centred in the UK and the LSE, was quite influential in the 1990s: the literature on search and matching models, developed by Dale Mortensen from Northwestern University and Christopher Pissarides from the LSE [@mortensen1994]. Mortensen and Pissarides' theoretical framework contributed to shape the orientation of the research agenda in Europe, whether on job flows, firing costs, skills and geographical mismatching. However, this approach appears to have found some echo among US macroeconomists and Top 5 journals, and does not limit to European macroeconomics.    
 
-## A new unifying language: political economy {#political-economics}
+## A New Unifying Language: Political Economy {#political-economics}
 
 European macroeconomists' research in the 1980s and 1990s was largely shaped by pressing macroeconomic issues of the period, such as  European high rates of unemployment or the challenges presented by the European integration (fiscal convergence, monetary union, etc.). Beyond examining these specific objects, many European macroeconomists also adopted a specific perspective on these problems by utilising a political economy framework.
 
