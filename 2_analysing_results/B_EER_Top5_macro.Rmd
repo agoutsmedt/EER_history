@@ -229,7 +229,7 @@ In this section we briefly explore some of the information compiled about the EE
 ggplot(Corpus_all_EER, aes(as.numeric(Annee_Bibliographique))) + 
   geom_bar() +
   labs(x = NULL,
-       y = "Number of Articles") +
+       y = "Number of articles") +
   theme_minimal() 
 
 
@@ -312,7 +312,7 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   # geom_point(alpha=0.2) +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), breaks = seq(0,.8,0.2), labels = scales::label_percent()) +
+  scale_y_continuous("Share of papers nelonging to a pattern of collaboration", limits = c(0, NA), breaks = seq(0,.8,0.2), labels = scales::label_percent()) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_color_manual(values = c(rev(brewer.pal(n = 7, name = "Dark2"))),guide = FALSE) +
@@ -328,9 +328,9 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   # geom_point(alpha=0.2) +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), breaks = seq(0,.8,0.2), labels = scales::label_percent()) +
+  scale_y_continuous("Share of papers nelonging to a pattern of collaboration", limits = c(0, NA), breaks = seq(0,.8,0.2), labels = scales::label_percent()) +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+  theme(axis.title = element_text(size = 8), plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_color_manual(values = c("#a0a0a0", "black", "#a0a0a0", "black"),guide = FALSE) +
   guides(linetype = FALSE) +
   ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA) +
@@ -388,7 +388,7 @@ ggplot(count_year[intra_eu_collab_bin==1], aes(x=as.numeric(Annee_Bibliographiqu
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   # geom_point(alpha=0.2) +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Written by Europeans Authors from Different Countries", limits = c(0, NA), labels = scales::label_percent()) +
+  scale_y_continuous("Share of articles written by Europeans authors from different countries", limits = c(0, NA), labels = scales::label_percent()) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   # scale_color_manual(values = c(rev(brewer.pal(n = 7, name = "Dark2"))),guide = FALSE) +
@@ -408,14 +408,16 @@ count_year_all[,EU_US_collab:=as.character(EU_US_collab)]
 count_year_all[EU_US_collab==1, EU_US_collab:="Intra EU Collab"]
 count_year_all <- count_year_all[EU_US_collab!=0]
 count_year_all <- rbind(count_year_all[,.(Annee_Bibliographique, EU_US_collab, freq)], share_EU_US_collab_save[EU_US_collab!="Neither",.(Annee_Bibliographique, EU_US_collab, freq)])
-count_year_all[EU_US_collab=="Collaboration", EU_US_collab:="EU-US Collab"]
-
+count_year_all[EU_US_collab=="Collaboration", EU_US_collab:="EU-US collaboration"]
+count_year_all[EU_US_collab=="Europe Only", EU_US_collab:="European authors"]
+count_year_all[EU_US_collab=="USA Only", EU_US_collab:="US authors"]
+count_year_all[EU_US_collab=="Intra EU Collab", EU_US_collab:="Intra-EU Collaboration*"]
 
 ggplot(count_year_all, aes(x=as.numeric(Annee_Bibliographique), y=freq, linetype=EU_US_collab, color=EU_US_collab)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4) +
   # geom_point(alpha=0.2) +
   scale_x_continuous(NULL) +
-  scale_y_continuous("Share of Papers Belonging to a Pattern of Collaboration", limits = c(0, NA), breaks = seq(0,1,0.2), labels = scales::label_percent()) +
+  scale_y_continuous("Share of articles", limits = c(0, NA), breaks = seq(0,1,0.2), labels = scales::label_percent()) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   scale_color_manual(values = c("#818181", "black", "#c2c2c2", "black")) +
@@ -940,7 +942,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_y_continuous("Share of Articles Citing References", labels = scales::percent_format()) +
+  scale_y_continuous("Share of articles citing references", labels = scales::percent_format()) +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
@@ -951,13 +953,13 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color)) +
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=40, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","g1_citations.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linetype = line_type)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_y_continuous("Share of Articles Citing References", labels = scales::percent_format()) +
+  scale_y_continuous("Share of articles citing references", labels = scales::percent_format()) +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
@@ -1085,7 +1087,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique , y
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=0.1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_y_continuous("Share of Articles Citing References", labels = scales::percent_format()) +
+  scale_y_continuous("Share of articles citing references", labels = scales::percent_format()) +
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   coord_cartesian(xlim = c(NA, 2000)) +
   scale_color_discrete(guide = "none") +
@@ -1102,7 +1104,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
   # geom_point(alpha=1) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-  scale_y_continuous("Share of Articles Citing References", labels = scales::percent_format()) +
+  scale_y_continuous("Share of articles citing references", labels = scales::percent_format()) +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
   coord_cartesian(xlim = c(NA, 2005)) +
   scale_color_discrete(guide = "none") +
@@ -1607,7 +1609,7 @@ ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff
   geom_point(aes(size = new_Id_com_size), alpha = 0.8) +
   scale_color_identity() +
   scale_fill_identity() +
-  labs(title = "Over/Under representation of the EER and Europeans in Communities",
+  labs(title = "Over/Under representation of the EER and Europeans in communities",
        x = "US Only (left) vs. European Only (right)",
        y = "Top 5 (down) vs. EER (up)") +
   theme_minimal() +
@@ -1631,7 +1633,7 @@ plot_odds <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds, y =
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 8) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.38), labels = c("Less European", "More European")) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.38), labels = c("Less european", "More european")) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1697,7 +1699,7 @@ plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_artic
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 4) +
-  scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.40), labels = c("Less European", "More European")) +
+  scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.40), labels = c("Less european", "More european")) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1724,7 +1726,7 @@ plot_bw <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_ar
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 4) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less european", "More european"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1749,7 +1751,7 @@ plot_hdi <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_hdi, y = EER_ar
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 8) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less european", "More european"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1770,7 +1772,7 @@ plot_sd <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_sd, y = EER_arti
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 8) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-20, 30), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-20, 30), labels = c("Less european", "More european"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
        x = "US Only (left) vs. European Only (right)",
@@ -1918,11 +1920,11 @@ plot_resid_big_com <- ggplot(plot_resid, aes(x=1*mean.y, y=1*mean.x, label = Lab
                            segment.size = 0.3,
                            box.padding=0.15,
                            max.overlaps = 5) +
-  scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less european", "More european"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
-       x = "Mean Residuals of European Only Authors: less European (left) vs. more European (right)",
-       y = "Mean Residuals of EER Publications: less European (down) vs. more European (up)") + 
+       x = "Mean residuals of European authors: less European (left) vs. more European (right)",
+       y = "Mean residuals of EER publications: less European (down) vs. more European (up)") + 
   theme_classic(base_size = 9) +
   guides(size = "none") + 
   theme(legend.position = "bottom")
@@ -2015,8 +2017,8 @@ log_ratio_authors_window <- ggplot(mean_log[new_Id_com %in% com_to_inspect], aes
   facet_wrap(~ Label_com) +
   labs(title = NULL,
        color = NULL,
-       y = "Log of Ratios: US Only (down) vs. European Only (top)",
-       x = "Time Window")
+       y = "Log of ratios: US only (down) vs. European only (top)",
+       x = "Time window")
 ggsave(here(eer_data,"pictures","Graphs","log_ratio_authors_window.png"), width=30, height=20, units = "cm", scaling = 0.7)
 
 log_ratio_eer_window <- ggplot(mean_log[new_Id_com %in% com_to_inspect], aes(x=as.numeric(Window), y=log_on_mean_pub, group=Label_com)) +
@@ -2030,7 +2032,7 @@ log_ratio_eer_window <- ggplot(mean_log[new_Id_com %in% com_to_inspect], aes(x=a
   labs(title = NULL,
        color = NULL,
        y = "Log of Ratios: Top 5 (down) vs. EER (top)",
-       x = "Time Window")
+       x = "Time window")
 ggsave(here(eer_data,"pictures","Graphs","log_ratio_eer_window.png"), width=30, height=20, units = "cm", scaling = 0.7)
 
 
@@ -2053,7 +2055,7 @@ plot_mean_log <- ggplot(mean_log[new_Id_com %in% com_to_inspect], aes(x = mean_l
   # scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
   labs(title = NULL,
        color = NULL,
-       x = "US Only (left) vs. European Only (right)",
+       x = "US only (left) vs. European only (right)",
        y = "Top 5 (down) vs. EER (up)") + 
   theme_classic(base_size = 9) +
   guides(size = "none") + theme(legend.position = "bottom")
