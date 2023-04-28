@@ -346,9 +346,22 @@ This process allows us to obtain intertemporal clusters. Academic articles predo
 
 A range of indicators helps us to discern the content of these intertemporal clusters---e.g. the words used in abstracts and titles, recurring authors, the most important nodes or the most cited references.^[This information is collected for each cluster in the online appendix "Bibliographic information about the EER and details on the bibliographic coupling clusters".] These indicators informed our labeling of the clusters. 
 
-Then, for each intertemporal cluster, we identify the US or European oriented nature of its publications and authors. We measured *via* the log of ratios the over/under representation of Europe- and US-based authors in the cluster, and over/under representation of the EER and top 5 journals in the cluster.[^12] These two measures inform us on which are the most 'European' clusters, meaning those where relatively more articles are published in the EER and by Europe-based economists.^[Table \ref{tab:summary-communities} lists the `r n_communities_of_interest` most significant clusters with the two measures. [Appendix B.3.](#network) explains the method. Figure \ref{fig:plot-cluster-flow} displays the distribution of clusters over the different time windows and the flows of articles between the different clusters from one time window to another.] Figure \ref{fig:plot-community-diff} displays the position of each cluster relatively to these two measures.
+Then, for each intertemporal cluster, we identify the US or European oriented nature of its publications and authors. We measured *via* the log of ratios the over/under representation of Europe- and US-based authors in the cluster, and over/under representation of the EER and top 5 journals in the cluster.[^12] These two measures inform us on which are the most 'European' clusters, meaning those where relatively more articles are published in the EER and by Europe-based economists.^[Table \ref{tab:summary-communities} lists the `r n_communities_of_interest` most significant clusters with the two measures. [Appendix B.3.](#network) explains the method. Figure \ref{fig:plot-cluster-flow} displays the distribution of clusters over the different time windows and the flows of articles between the different clusters from one time window to another.] The first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios:
+
+\bigskip
+${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}$
+\bigskip
+
+We then use a second similar index for the publication venue of the articles in the cluster:
+
+\bigskip
+${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of EER Articles In The Cluster}}{\text{1-Mean Share Of EER Articles In The Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}$
+\bigskip
+
+Figure \ref{fig:plot-community-diff} displays the position of each cluster relatively to these two measures on a scatterplot with the X-axis for the *Author EU/US Orientation* score, and the Y-Axis for the *Journal EU/US Orientation* score. The size of the points captures the number of articles in the cluster. To test the robustness of our index, we also tested two alternatives indexes giving similar results (see [Appendix B.3.](#alt-index).
 
 [^12]: Our assumption is that the content of articles published in the Top 5 by European economists could be more largely influenced by the standards of Top 5 journals and of US macroeconomics, and thus could be less representative of European economics than the articles published in the EER.
+
 
 ```{r plot-community-diff, out.width = '100%', fig.cap="The most European clusters (the size of the points captures the number of articles in the cluster)"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw.png"))
@@ -372,7 +385,7 @@ $$
 
 with $N_{\text{EER in topic }i}$ the number of EER articles in the topic and $N_{\text{topic }i}$ the total number of articles in the topic. We perform the same calculation for articles written exclusively by Europe-based authors or US-based authors. The two log odds ratios are plotted in a two-dimensional graph (Figure \ref{fig:plot-topic-diff}), which allows us to observe which topics are over-represented in the EER and more frequently mentioned by Europe-based authors.^[Refer to [Appendix B.4.](#topic) for details on the measure and the results using an alternative measure that does not employ $\gamma$ as a threshold.]
 
-```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics (the size of nodes capture the topics prevalence)"}
+```{r plot-topic-diff, out.width = '100%', fig.cap="The most European topics (the size of points capture the topics prevalence)"}
 knitr::include_graphics(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"))
 ```
 
