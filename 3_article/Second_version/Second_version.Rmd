@@ -250,7 +250,7 @@ table_board %>%
   select(-c("1998-2002")) %>% 
   kbl(caption="Share of countries in EER editorial boards (Top 10)",
       booktabs = TRUE,
-      longtable = TRUE,
+      longtable = FALSE,
       format= "latex",
       align="cllll") %>%
   column_spec(1, latex_valign = "m") %>%
@@ -286,7 +286,7 @@ table_countries %>%
   select(-c("1997-2002")) %>% 
   kbl(caption="Share of countries of authors' affiliations in EER publications (Top 10)",
       booktabs = TRUE,
-      longtable = TRUE,
+      longtable = FALSE,
       format= "latex",
       align="cllll") %>%
   column_spec(1, latex_valign = "m") %>%
@@ -564,7 +564,8 @@ topics_summary %>%
   # column_spec(1, latex_valign = "m") %>%
   # column_spec(2, latex_valign = "m") %>%
   # column_spec(3, width = "40em", latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped")) %>% 
+  kable_styling(font_size = 7)
 
 ```
 
@@ -575,11 +576,13 @@ communities_table %>%
   select(Label_com, europeans_authors_diff_odds_windows, EER_articles_diff_odds_windows) %>%
   kbl(caption="Summary of Bibliographic Clusters",
       booktabs = TRUE,
-      longtable = FALSE,
+      longtable = TRUE,
       col.names =c("Communities", "Author EU/US Orientation score", "Journal EU/US Orientation* score"),
       format= "latex",
       align="lrr") %>%
-  kable_styling(latex_options = c("striped", "repeat_header", "hold_position", "scale_down"))
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position")) %>% 
+  kable_styling(font_size = 7)
+
 ```
 
 ```{r EER-empirics}
@@ -596,7 +599,9 @@ table_eer_empirics %>%
       align="lcl") %>%
   # column_spec(1, latex_valign = "lcl") %>%
   # column_spec(3, width = "40em", latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped")) %>% 
+  kable_styling(font_size = 7)
+
 
 
 ```
