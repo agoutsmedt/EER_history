@@ -1309,7 +1309,7 @@ We then use a second similar index for the publication venue of the articles in 
 ${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of EER Articles In The Cluster}}{\text{1-Mean Share Of EER Articles In The Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}$
 \bigskip
 
-Finally, clusters are placed on a scatterplot with the X-axis for the *Author EU/US Orientation* score, and the X-Axis for the *Journal EU/US Orientation* score. The size of the points captures the number of articles in the cluster (see Figure \ref{fig:plot-community-diff}).
+Finally, clusters are placed on a scatterplot with the X-axis for the *Author EU/US Orientation* score, and the X-Axis for the *Journal EU/US Orientation* score. The size of the points captures the number of articles in the cluster.
 
 Supplementary information about each cluster can be found in the online appendix "Bibliographic information about the EER and details on the bibliographic coupling clusters".
 
