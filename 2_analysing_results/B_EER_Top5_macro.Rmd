@@ -266,7 +266,7 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
 # theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=40, height=15, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=40, height=15, units = "cm", scaling = 2.3)
 
 # ragg::agg_png(here(eer_data,"pictures","Graphs","ragg.png"), width = 30, height = 20, units = "cm", res = 300, scaling = 2)
 
@@ -338,7 +338,7 @@ ggplot(count_year, aes(x=as.numeric(Annee_Bibliographique), y=freq, group=EU_US_
 # ggplot2::annotate("text", x = max(2008), y = min(count_year$freq), hjust=0.95, vjust=-1,
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
-ggsave(here(eer_data,"pictures","Graphs","Collab_strict_bw.png"), width=30, height=20, units = "cm", scaling = 1.7)
+ggsave(here(eer_data,"pictures","Graphs","Collab_strict_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 ```
 
@@ -421,11 +421,12 @@ ggplot(count_year_all, aes(x=as.numeric(Annee_Bibliographique), y=freq, linetype
   scale_color_manual(values = c("#818181", "black", "#c2c2c2", "black")) +
   guides(linetype = FALSE, color= FALSE) +
   ggrepel::geom_label_repel(aes(label = EU_US_collab), data = count_year_all[Annee_Bibliographique==2001], nudge_x = 2, nudge_y = 0.01, segment.color = NA, force = 2, force_pull = 10, size = 3) +
-  coord_cartesian(xlim = c(NA, 2008))
+  coord_cartesian(xlim = c(NA, 2008)) +
+  theme(axis.title = element_text(size = 8))  
 # ggplot2::annotate("text", x = max(2008), y = min(count_year$freq), hjust=0.95, vjust=-1,
 #                   label="Smoothed using local polynomial regression",
 #                   color="Darkgrey")
-ggsave(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.png"), width=40, height=20, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","Intra_vs_US_collab.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 
 
@@ -856,7 +857,7 @@ ggplot(count[Annee_Bibliographique>1970 & Annee_Bibliographique<=2002 & Code_Rev
   theme(plot.background = element_rect(fill = 'white', colour = NA)) +
   labs(title = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"), width=40, height=20, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","EER_importance_macro_minimal_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 ```
 
 EER importance in all articles in social sciences:
@@ -969,7 +970,7 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linet
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g1_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","g1_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 
 
@@ -1035,14 +1036,14 @@ ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color
   scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995,2000)) +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+  theme(axis.title = element_text(size = 8), plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 2003), ylim = c(-0.1,NA)) +
   scale_colour_identity() +
-  ggplot2::annotate("text", x = 1988.5, y = 0.35, 
+  ggplot2::annotate("text", x = 1989, y = 0.33, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
-                    size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=40, height=20, units = "cm", scaling = 2)
+                    size=2.8,color="Darkgrey", parse = TRUE)
+ggsave(here(eer_data,"pictures","Graphs","g1_over_citations.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color=color_bw, group=color, linetype = line_type)) +
   geom_point(alpha=1) +
@@ -1055,15 +1056,15 @@ ggplot(obs_th_comparison[!is.na(y)], aes(x=Annee_Bibliographique , y=-1*y, color
   scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
   scale_x_continuous(breaks=c(1980, 1985, 1990, 1995,2000)) +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+  theme(axis.title = element_text(size = 8), plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1999, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 2003), ylim = c(-0.1,NA)) +
   scale_colour_identity() +
   scale_linetype_identity() +
-  ggplot2::annotate("text", x = 1988.5, y = 0.35, 
+  ggplot2::annotate("text", x = 1989, y = 0.33, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
-                    size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g1_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
+                    size=2.8,color="Darkgrey", parse = TRUE)
+ggsave(here(eer_data,"pictures","Graphs","g1_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 
 g2_citation <- copy(Refs)
@@ -1095,7 +1096,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique , y
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=40, height=20, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","g2_citations.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=share, color=color_bw, linetype = line_type)) +
   geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.4)+
@@ -1114,7 +1115,7 @@ ggplot(g2_citation[Annee_Bibliographique<=1995], aes(x=Annee_Bibliographique, y=
   labs(title = NULL,
        color = NULL,
        x = NULL) 
-ggsave(here(eer_data,"pictures","Graphs","g2_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
+ggsave(here(eer_data,"pictures","Graphs","g2_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 # share of EU/US
 g2_citation <- copy(Refs)
@@ -1163,14 +1164,14 @@ ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_B
   scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+  theme(axis.title = element_text(size = 8), plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 1995)) +
   scale_colour_identity()+
-  ggplot2::annotate("text", x = 1981.5, y = 0.19, 
+  ggplot2::annotate("text", x = 1982.5, y = 0.18, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
-                    size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, height=20, units = "cm", scaling = 2)
+                    size=2.8,color="Darkgrey", parse = TRUE)
+ggsave(here(eer_data,"pictures","Graphs","g2_over_citations.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 
 ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_Bibliographique , y=-1*y, color=color_bw, linetype = line_type)) +
@@ -1184,15 +1185,15 @@ ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_B
   scale_y_continuous("Over-citations Americans (bottom) vs Europeans (top)") +
   scale_x_continuous(breaks=c(1975, 1980, 1985, 1990)) +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+  theme(axis.title = element_text(size = 8), plot.background = element_rect(fill = 'white', colour = NA)) +
   ggrepel::geom_label_repel(aes(label = label_special), data = obs_th_comparison[Annee_Bibliographique==1992, head(.SD, 1),label_special], nudge_x = 1, segment.color = NA, size=3, box.padding = 0.01) +
   coord_cartesian(xlim = c(NA, 1995)) +
   scale_linetype_identity() +
   scale_color_identity() +
-  ggplot2::annotate("text", x = 1981.5, y = 0.19, 
+  ggplot2::annotate("text", x = 1982.5, y = 0.18, 
                     label=TeX(r'($LogRatio=-1 \times\log(\frac{Share\,of\,Citations\,from\,American\,Articles\,to\,Specific\,References}{Overall\,Share\,of\,Citations\,from\,American\,Articles})$)'), 
-                    size=3.5,color="Darkgrey", parse = TRUE)
-ggsave(here(eer_data,"pictures","Graphs","g2_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2)
+                    size=2.8,color="Darkgrey", parse = TRUE)
+ggsave(here(eer_data,"pictures","Graphs","g2_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
 
 
@@ -1314,8 +1315,8 @@ Supplementary information about each cluster can be found in the online appendix
 
 In addition to the main index, we propose a few alternative indexes:
 
-- **Mean of Log of Ratios Index** (see Figure \ref{fig:plot-mean-log-ratios}): this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed on each individual window for each clusters, and the overall score of each cluster is the mean of the score across all time windows in which the cluster exists. However, one issue is that the score is not computed for time windows in which the clusters have 0 observations for some modalities.
-- **Chi2 Index** (see Figure \ref{fig:plot-chi-two-mean}): this index is very different from all other indexes. For each time window, we made a chi-square test of independence. We then used the adjusted standardized residuals computed for each time window to investigate the difference between expected and observed frequency for each modality of our variables. A positive residual indicates that the observed frequency is greater than what was expected, while a negative residual indicates that the observed frequency is less than what was expected. For each cluster, we then used the average residual across all time windows in which the cluster exists. For the *Author EU/US Orientation* score with four modalities, the frequency of *European Authored Articles* was used for the residual.
+- **Mean of Log of Ratios Index**: this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed on each individual window for each clusters, and the overall score of each cluster is the mean of the score across all time windows in which the cluster exists. However, one issue is that the score is not computed for time windows in which the clusters have 0 observations for some modalities.
+- **Chi2 Index**: this index is very different from all other indexes. For each time window, we made a chi-square test of independence. We then used the adjusted standardized residuals computed for each time window to investigate the difference between expected and observed frequency for each modality of our variables. A positive residual indicates that the observed frequency is greater than what was expected, while a negative residual indicates that the observed frequency is less than what was expected. For each cluster, we then used the average residual across all time windows in which the cluster exists. For the *Author EU/US Orientation* score with four modalities, the frequency of *European Authored Articles* was used for the residual.
 
 ```{r, include=FALSE, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE, echo=FALSE}
 
