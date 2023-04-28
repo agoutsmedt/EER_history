@@ -256,6 +256,7 @@ table_board %>%
   column_spec(6, latex_valign = "l") %>%
   column_spec(7, latex_valign = "l") %>%
   column_spec(8, latex_valign = "l") %>%
+  kableExtra::landscape() %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
                 font_size = 3)
 
@@ -292,6 +293,7 @@ table_countries %>%
   column_spec(6, latex_valign = "l") %>%
   column_spec(7, latex_valign = "l") %>%
   column_spec(8, latex_valign = "l") %>%
+  kableExtra::landscape() %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
                 font_size = 3)
 
@@ -511,25 +513,6 @@ In the 1990s, European macroeconomics appeared closer to its US counterpart on t
 
 ## A - Summary Tables {.unnumbered}
 
-# ```{r summary-communities}
-# communities_table <- communities %>% select(Label_com, sum_diff_odds_windows) %>% arrange(desc(sum_diff_odds_windows))
-# 
-# communities_table %>%
-#   kbl(caption="Summary of Bibliographic Clusters",
-#       booktabs = TRUE,
-#       longtable = FALSE,
-#       col.names =c("Communities", "Differences"),
-#       format= "latex",
-#       align="lr") %>%
-#   kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
-#                 font_size = 9)
-# 
-# # alt index
-# communities_table_log_by_cluster <- communities %>% select(Label_com, sum_diff_odds) %>% arrange(desc(sum_diff_odds))
-# communities_table_chi2 <- communities_chi %>% select(Label_com.x, sum_diff) %>% arrange(desc(sum_diff))
-# 
-# ```
-
 ```{r summary-topics}
 topics_summary <- top_terms %>%
   filter(measure == "frex") %>%
@@ -555,6 +538,21 @@ topics_summary %>%
   column_spec(3, width = "25em", latex_valign = "m") %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
                 font_size = 9)
+
+table_eer_empirics <- Corpus_all_EER[jel_id==1 & EU_US_collab=="Europe Only" & Annee_Bibliographique>=1973 & Annee_Bibliographique<=1978][,.(Nom, Annee_Bibliographique, Titre)]
+table_eer_empirics[,Nom:=str_extract(Nom,".*(?=[:punct:])")]
+
+table_eer_empirics %>% 
+  kbl(caption="Articles of European authors in the EER between 1973 and 1978",
+      booktabs = TRUE,
+      longtable = TRUE,
+      format= "latex",
+      col.names = c("First Author", "Year of Publication", "Title"),
+      align="lrl") %>%
+  column_spec(1, latex_valign = "lrl") %>%
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
+                font_size = 9)
+
 
 ```
 
@@ -664,7 +662,7 @@ This gives us `r n_communities_alluv` clusters, with `r n_communities_of_interes
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Intertemporal_communities.png"))
 ```
 
-For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios
+For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios:
 
 \bigskip
 ${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}$
@@ -685,15 +683,10 @@ Supplementary information about each cluster can be found in the online appendix
 In addition to the main index, we propose a few alternative indexes:
 
 - **Mean of Log of Ratios Index** (see Figure \ref{fig:plot-mean-log-ratios}): this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed on each individual window for each clusters, and the overall score of each cluster is the mean of the score across all time windows in which the cluster exists. However, one issue is that the score is not computed for time windows in which the clusters have 0 observations for some modalities.
-- **All Nodes Ratios Index** (see Figure \ref{fig:plot-all-nodes-ratios}): this index computes a very similar log ratio as the main index, but the *Author EU/US Orientation* and *Journal EU/US Orientation* scores are computed for each cluster using all nodes across all time windows in which the cluster exists. In other words, for each cluster, we take all the nodes that are the clusters, and all the nodes that are in the time windows of each cluster, and compute the log of ratios for the *Author EU/US Orientation* and *Journal EU/US Orientation* scores. One difference with the main index is that more weights is given to time windows in which the cluster is bigger while the main index is simply the mean across all time windows no matter the size of the cluster in each time window.
 - **Chi2 Index** (see Figure \ref{fig:plot-chi-two-mean}): this index is very different from all other indexes. For each time window, we made a chi-square test of independence. We then used the adjusted standardized residuals computed for each time window to investigate the difference between expected and observed frequency for each modality of our variables. A positive residual indicates that the observed frequency is greater than what was expected, while a negative residual indicates that the observed frequency is less than what was expected. For each cluster, we then used the average residual across all time windows in which the cluster exists. For the *Author EU/US Orientation* score with four modalities, the frequency of *European Authored Articles* was used for the residual.
 
 ```{r plot-mean-log-ratios, out.width = '100%', fig.cap="Citation of political economy articles by European economists relatively to US-based economists (log of ratios on 7-year moving average)"}
 knitr::include_graphics(here(eer_data,"pictures","graphs","Communities_europeanisation_mean_of_log_ratio.png"))
-```
-
-```{r plot-all-nodes-ratios, out.width = '100%', fig.cap="Citation of political economy articles by European economists relatively to US-based economists (log of ratios on 7-year moving average)"}
-knitr::include_graphics(here(eer_data,"pictures","graphs","Communities_europeanisation_odds_bw.png"))
 ```
 
 ```{r plot-chi-two-mean, out.width = '100%', fig.cap="Citation of political economy articles by European economists relatively to US-based economists (log of ratios on 7-year moving average)"}
