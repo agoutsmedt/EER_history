@@ -366,7 +366,7 @@ Figure \ref{fig:plot-community-diff} displays the position of each cluster relat
 
 
 ```{r plot-community-diff, out.width = '100%', out.extra='angle=90', fig.cap="The most European clusters (the size of the points captures the number of articles in the cluster)"}
-knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw.png"))
+knitr::include_graphics(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw_wide.png"))
 ```
 
 ## Topic modelling
