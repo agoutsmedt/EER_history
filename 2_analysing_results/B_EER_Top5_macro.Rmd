@@ -1684,6 +1684,27 @@ plot_odds_bw_windows <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_dif
   guides(size = "none") + theme(legend.position = "bottom")
 ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
+plot_odds_bw_windows <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff_odds_windows, y = EER_articles_diff_odds_windows)) +
+  geom_vline(aes(xintercept = xintercept), size = 1, alpha = 0.3) +
+  geom_hline(aes(yintercept = yintercept), size = 1, alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_point(aes(size = new_Id_com_size), alpha = 0.8, color = "#808080") +
+  ggrepel::geom_text_repel(data = . %>% filter(sum_diff_odds_windows > 0.01 | sum_diff_odds_windows < -0.012),
+                           aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2, 
+                           min.segment.length = 0.07, 
+                           segment.linetype=	"dashed",
+                           segment.size = 0.3,
+                           box.padding=0.15,
+                           max.overlaps = 3) +
+  # scico::scale_color_scico(palette = "grayC", breaks = c(-1, 0.40), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
+  labs(title = NULL,
+       color = NULL,
+       x = "US Only (left) vs. European Only (right)",
+       y = "Top 5 (down) vs. EER (up)") + 
+  theme_classic(base_size = 9) +
+  guides(size = "none") + theme(legend.position = "bottom")
+ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation_odds_windows_bw_wide.png"), width=40, height=20, units = "cm", scaling = 2.3)
+
 plot <- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) +
   geom_vline(data=diff_stat_euro_com[mask==0], aes(xintercept = xintercept), size = 1, alpha = 0.3) +
   geom_hline(data=diff_stat_euro_com[mask==0], aes(yintercept = yintercept), size = 1, alpha = 0.3) +
