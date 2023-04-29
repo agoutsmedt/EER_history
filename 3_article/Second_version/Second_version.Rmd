@@ -209,7 +209,7 @@ The interplay between the internationalisation of macroeconomics and the persist
 
 Our approach identifies different *bibliometric clusters* and *topics* that are more associated to publication in the EER (rather than in top 5 journals) and to Europe-based economists (see Section \ref{methods} for details on method).[^4] This approach provides insights into the research areas European macroeconomists focused on from the 1970s to the 1990s, in contrast to their US counterparts. A meticulous examination of the detailed findings allows us to paint a broader, albeit not complete, portrait of the evolution of European macroeconomics since the 1970s. 
 
-In line with the claims made by @portes1987 and @goutsmedt2021 claims, disequilibrium theory emerges as a unifying framework for European macroeconomics between the mid-1970s and the mid-1980s. If initially it served as a theoretical research program aimed at advancing general equilibrium theory, it also became an interpretative framework for explaining stagflation and the European unemployment problem following the 1970s (see Section \ref{disequilibrium}). Disequilibrium theory---and notably Malinvaud's [-@malinvaud1977] distinction between Keynesian and classical unemployment---provided a common ground for European macroeconomists when addressing various macroeconomic issues. Even those who disagreed with its relevance made their dissent explicit. Consequently, its influence was far more extended than the contributions of new classical economists like Robert Lucas, Thomas Sargent or Robert Barro, which were largely overlooked by most European macroeconomists (see Section \ref{opposition-trends}). 
+In line with the claims made by @portes1987 and @goutsmedt2021, disequilibrium theory emerges as a unifying framework for European macroeconomics between the mid-1970s and the mid-1980s. If initially it served as a theoretical research program aimed at advancing general equilibrium theory, it also became an interpretative framework for explaining stagflation and the European unemployment problem following the 1970s (see Section \ref{disequilibrium}). Disequilibrium theory---and notably Malinvaud's [-@malinvaud1977] distinction between Keynesian and classical unemployment---provided a common ground for European macroeconomists when addressing various macroeconomic issues. Even those who disagreed with its relevance made their dissent explicit. Consequently, its influence was far more extended than the contributions of new classical economists like Robert Lucas, Thomas Sargent or Robert Barro, which were largely overlooked by most European macroeconomists (see Section \ref{opposition-trends}). 
 
 However, the disequilibrium line of research gradually faded after the mid-1980s and issues like European unemployment were tackled using alternative frameworks (see Section \ref{disequilibrium-fall} and \ref{unemployment}). While no single unifying and consistent theoretical framework replaced disequilibrium theory, the new political economy inspired by @kydland1977 and Barro and Gordon [-@barro1983;-@barro1983c] brought new questions and a shared language for many contributions by European economists (see Section \ref{political-economics}). Although the pioneering contributions of this literature were conducted by US economists, it became a distinctly European approach for tackling many macroeconomic issues in the 1990s.     
 
@@ -261,8 +261,7 @@ table_board %>%
   # column_spec(6, latex_valign = "m") %>%
   # column_spec(7, latex_valign = "m") %>%
   # column_spec(8, latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 7)
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
 
 ```
 
@@ -298,8 +297,7 @@ table_countries %>%
   # column_spec(6, latex_valign = "m") %>%
   # column_spec(7, latex_valign = "m") %>%
   # column_spec(8, latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 7)
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
 
 ```
 
@@ -411,7 +409,7 @@ Other more US-oriented areas were research about *(i)* the demand for money---fo
 
 More generally, it appears that the works of new classical economists that contributed to reshaping macroeconomics in the late 1970s and early 1980s, and that are so central in many histories of macroeconomics [@snowdon2005; @devroey2016], were less influential in Europe at the time. The articles of Lucas [-@lucas1972; -@lucas1973], @sargent1975 or @barro1976 were constantly under-cited by Europe-based macroeconomists in comparison to US economists in the 1970s and 1980s (see Figure \ref{fig:plot-new-classical}).^[We have to wait the 1982-1988 window to see some new classical contributions cited as much by Europeans as by US economists. The integration of these contributions obviously took some time in Europe and lagged behind the US.] This is consistent with the fact that European macroeconomists favoured in the late 1970s and early 1980s an alternative "microfoundational programme" [@hoover2012]: disequilibrium theory (see Section \ref{disequilibrium}).
 
-```{r plot-new-classical, out.width = '100%', fig.cap="Citation of new classical works by European economists relatively to US-based economists (log of ratios on 7-year moving average)"}
+```{r plot-new-classical, out.width = '100%', fig.cap="Citation of new classical works by European economists relatively to US-based economists (log of ratios on articles by European and US economists computed on 7-year moving average)"}
 knitr::include_graphics(here(eer_data,"pictures","graphs","g2_over_citations_bw.png"))
 ```
 
@@ -496,7 +494,7 @@ That is this first tradition that lies at the core of European macroeconomics in
 knitr::include_graphics(here(eer_data,"pictures","graphs","g1_citations_bw.png"))
 ```
 
-```{r plot-political-economy-europe, out.width = '100%', fig.cap="Citation of political economy articles by European economists relatively to US-based economists (log of ratios on 7-year moving average)"}
+```{r plot-political-economy-europe, out.width = '100%', fig.cap="Citation of political economy articles by European economists relatively to US-based economists (log of ratios on articles by European and US economists computed on 7-year moving average)"}
 knitr::include_graphics(here(eer_data,"pictures","graphs","g1_over_citations_bw.png"))
 ```
 
@@ -566,8 +564,7 @@ topics_summary %>%
   column_spec(1, latex_valign = "m") %>%
   column_spec(2, latex_valign = "m") %>%
   column_spec(3, width = "40em", latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 9)
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
 
 ```
 
@@ -582,9 +579,7 @@ communities_table %>%
       col.names =c("Communities", "Author EU/US Orientation score", "Journal EU/US Orientation* score"),
       format= "latex",
       align="lrr") %>%
-  kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
-                font_size = 9)
-
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position", "scale_down"))
 ```
 
 ```{r EER-empirics}
@@ -601,8 +596,7 @@ table_eer_empirics %>%
       align="lcl") %>%
   column_spec(1, latex_valign = "lcl") %>%
   column_spec(3, width = "40em", latex_valign = "m") %>%
-  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
-                font_size = 8)
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped", "scale_down"))
 
 
 ```
