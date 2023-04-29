@@ -85,12 +85,12 @@
 % get rid of language-specific shorthands (see #6817):
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
+\usepackage{float}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{wrapfig}
-\usepackage{float}
 \usepackage{colortbl}
 \usepackage{pdflscape}
 \usepackage{tabu}
@@ -315,20 +315,26 @@ investigation to include the 1990s, a period that has yet not been
 thoroughly explored by historians.
 
 Our approach identifies different \emph{bibliometric clusters} and
-\emph{topics} that are more associated to publication in the EER (rather
-than in top 5 journals) and to Europe-based economists (see Section
-\ref{methods} for details on method).\footnote{The article is also
-  accompanied by a detailed methodological
+\emph{topics} that are overly associated to publication in the EER
+(rather than in top 5 journals) and to Europe-based economists (see
+Section \ref{methods} for details on method).\footnote{We focus on
+  affiliations rather than nationality. Beyond the fact that data on
+  nationality may be challenging to get, we understand ``European
+  macroeconomics'' as the macroeconomics developed in Europe. The terms
+  ``Europe-based'' and ``US-based'' are used to clarify that the
+  discussion revolves around affiliations. However, for the sake of
+  brevity, we may sometimes use the term ``European macroeconomists''.}
+This approach provides insights into the research areas European
+macroeconomists focused on from the 1970s to the 1990s, in contrast to
+their US counterparts. A meticulous examination of the detailed findings
+allows us to paint a broader, albeit not complete, portrait of the
+evolution of European macroeconomics since the 1970s.\footnote{The
+  article is also accompanied by a detailed methodological
   \protect\hyperlink{appendix}{Appendix}, as well as two online
   appendices listing the features of the bibliometric clusters
   (``Bibliographic information about the EER and details on the
   bibliographic coupling clusters'') and of the topics identified by our
-  topic model (``Details on the topics'').} This approach provides
-insights into the research areas European macroeconomists focused on
-from the 1970s to the 1990s, in contrast to their US counterparts. A
-meticulous examination of the detailed findings allows us to paint a
-broader, albeit not complete, portrait of the evolution of European
-macroeconomics since the 1970s.
+  topic model (``Details on the topics'').}
 
 In line with the claims made by Portes
 (\protect\hyperlink{ref-portes1987}{1987}) and Goutsmedt et al.
@@ -363,7 +369,7 @@ contributions of this literature were conducted by US economists, it
 became a distinctly European approach for tackling many macroeconomic
 issues in the 1990s.
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel} 
 
@@ -431,8 +437,9 @@ that European countries excluding the UK were far better represented in
 the EER.\footnote{In contrast to \emph{The Economic Journal} and
   \emph{Economica}, where British and US affiliations accounted
   approximately for 80\% of authors from the 1970s to the 1990s, these
-  affiliations represented merely 30 to 40\% in the EER. Meanwhile,
-  European countries (excluding the UK) represented nearly 50\%.}
+  affiliations represented merely 30 to 45 percent in the EER.
+  Meanwhile, European countries (excluding the UK) represented between
+  40 and 50 percent in the EER.}
 
 \begin{table}[!h]
 
@@ -526,7 +533,7 @@ there were no collaborations in the journal's inaugural year, by 1980,
 10 percent of the published articles featured joint writing between
 institutions from the US and Europe.
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_collab} 
 
@@ -545,7 +552,7 @@ pre-eminent publication in macroeconomics, gradually surpassing other
 prominent European journals regarding bibliographic citations (Figure
 \ref{fig:plot-eer-importance-macro}).
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macro_minimal_bw} 
 
@@ -684,19 +691,19 @@ measures inform us on which are the most `European' clusters, meaning
 those where relatively more articles are published in the EER and by
 Europe-based economists.\footnote{Table \ref{tab:summary-communities}
   lists the 33 most significant clusters with the two measures.
-  \protect\hyperlink{network}{Appendix B.3.} explains the method. Figure
-  \ref{fig:plot-cluster-flow} displays the distribution of clusters over
-  the different time windows and the flows of articles between the
-  different clusters from one time window to another.} Regarding
-European and US authors, for each time window, we compute the \emph{(i)}
-share of articles written by European authors and US authors in each
-cluster, and \emph{(ii)} the overall share of European authors and US
-authors. Then, for each cluster, we average its relative shares per time
-window across all the time windows in which the cluster exists:
+  \protect\hyperlink{network}{Appendix B.3.} explains the method and
+  displays a flow chart of the distribution of clusters over the
+  different networks and the flows of articles between the different
+  clusters from one network to another in successive time windows.}
+Regarding European and US authors, for each time window, we compute the
+\emph{(i)} share of articles written by European authors and US authors
+in each cluster, and \emph{(ii)} the overall share of European authors
+and US authors. Then, for each cluster, we average its relative shares
+per time window across all the time windows in which the cluster exists:
 
 \bigskip
 
-\({\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}\)
+\({\scriptstyle \text{Log of ratios EU/US }=\log(\frac{(\frac{\text{Mean Share of European Authored Articles in the Cluster}}{\text{Mean Share of US Authored Articles in the Cluster}})} {(\frac{\text{Overall Mean Share of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share of US Authored Articles in Cluster's Time Window}})})}\)
 \bigskip
 
 We then use a second similar index for the publication venue of the
@@ -704,7 +711,7 @@ articles in the cluster:
 
 \bigskip
 
-\({\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of EER Articles In The Cluster}}{\text{1-Mean Share Of EER Articles In The Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}\)
+\({\scriptstyle \text{Log of ratios EER/Top5 }=\log(\frac{(\frac{\text{Mean Share of EER Articles in the Cluster}}{\text{1-Mean Share of EER Articles in the Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}\)
 \bigskip
 
 Figure \ref{fig:plot-community-diff} displays the position of each
@@ -715,9 +722,9 @@ captures the number of articles in the cluster.\footnote{To verify the
   robustness of our index, we also test two alternatives indexes giving
   similar results (see \protect\hyperlink{alt-index}{Appendix B.3.}}
 
-\begin{figure}[h]
+\begin{figure}[H]
 
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation_odds_windows_bw_wide} 
+{\centering \includegraphics[width=1.4\linewidth,angle=90]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation_odds_windows_bw_wide} 
 
 }
 
@@ -786,23 +793,12 @@ with \(N_{\text{EER in topic }i}\) the number of EER articles in the
 topic and \(N_{\text{topic }i}\) the total number of articles in the
 topic. We perform the same calculation for articles written exclusively
 by Europe-based authors or US-based authors. The two log odds ratios are
-plotted in a two-dimensional graph (Figure \ref{fig:plot-topic-diff}),
-which allows us to observe which topics are over-represented in the EER
-and more frequently mentioned by Europe-based authors.\footnote{Refer to
+plotted in a two-dimensional graph (Figure \ref{fig:plot-topic-diff}) to
+observe which topics are over-represented in the EER and more frequently
+mentioned by Europe-based authors.\footnote{Refer to
   \protect\hyperlink{topic}{Appendix B.4.} for details on the measure
   and the results using an alternative measure that does not employ
   \(\gamma\) as a threshold.}
-
-\begin{figure}[h]
-
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_plot_new_bw} 
-
-}
-
-\caption{The most European topics (the size of points capture the topics prevalence)}\label{fig:plot-topic-diff}
-\end{figure}
-
-\bigskip
 
 The combination of two distinct unsupervised methods enables us to
 systematically identify potential European specialities.\footnote{To our
@@ -826,15 +822,28 @@ allows us to comprehend what is published in the EER and to connect
 these publications to broader lines of research (and thus to articles by
 Europe-based authors published in other journals).
 
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1.4\linewidth,angle=90]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_plot_new_bw} 
+
+}
+
+\caption{The most European topics (the size of points capture the topics prevalence)}\label{fig:plot-topic-diff}
+\end{figure}
+
+\bigskip
+
 In the final two sections, we delve into these more ``European''
 clusters and topics to understand the evolving characteristics of
-European macroeconomics. From this investigation, we identify two main
-periods: the 1970s to mid-1980s; the mid-1980s to late 1990s).
+European macroeconomics. The corresponding data has been systematically
+analysed to build our historical narrative. From this investigation, we
+identify two main periods: the 1970s to mid-1980s; the mid-1980s to late
+1990s).
 
-\hypertarget{the-1970s-to-mid-1980s-a-progressive-europeanisation-in-opposition-to-us-macroeconomics}{%
-\section{The 1970s to mid-1980s: A progressive Europeanisation in
-opposition to US
-macroeconomics}\label{the-1970s-to-mid-1980s-a-progressive-europeanisation-in-opposition-to-us-macroeconomics}}
+\hypertarget{the-1970s-to-mid-1980s-a-gradual-europeanisation-in-opposition-to-us-macroeconomics}{%
+\section{The 1970s to mid-1980s: A Gradual Europeanisation in Opposition
+to US
+Macroeconomics}\label{the-1970s-to-mid-1980s-a-gradual-europeanisation-in-opposition-to-us-macroeconomics}}
 
 In contrast to the literature in the history of macroeconomics, which
 emphasizes the transformations of macroeconomics in response to debates
@@ -848,9 +857,9 @@ their own microfoundational program through the disequilibrium theory.
 
 \hypertarget{opposition-trends}{%
 \subsection{Opposition to New Trends in US
-macroeconomics}\label{opposition-trends}}
+Macroeconomics}\label{opposition-trends}}
 
-The analysis of topics and clusters allows us to understand what
+The analysis of topics and clusters allows us to understand first what
 European macroeconomics \emph{was not} in this period. Several
 literatures seem to be ignored by the Europeans in the EER. That is the
 case of the debates around the life-cycle and permanent income
@@ -858,26 +867,24 @@ hypotheses, influenced by Friedman
 (\protect\hyperlink{ref-friedman1957}{1957}) and Hall
 (\protect\hyperlink{ref-hall1978b}{1978}).\footnote{See clusters
   ``Intergenerational model, Savings \& Consumption'' and ``Permanent
-  Income and Life-Cycle Hypotheses'', as well as topics 12 and 14.} This
-literature sought to introduce structural heterogenity in life cycle or
-permanent income models (see Cherrier, Duarte and Saïdi, this issue).
+  Income and Life-Cycle Hypotheses'', as well as topics 12 and 14. This
+  literature sought to introduce structural heterogeneity in life cycle
+  or permanent income models (see Cherrier, Duarte and Saïdi, this
+  issue).}
 
-Other more US-oriented areas were research about \emph{(i)} the demand
-for money---for which Baumol (\protect\hyperlink{ref-baumol1952}{1952})
-and Friedman and Schwartz (\protect\hyperlink{ref-friedman1963}{1963})
-were central references---as well as \emph{(ii)} the ``new classical
-monetary theory'' (\protect\hyperlink{ref-hoover1988}{Hoover, 1988,
-chap. 6}) of the 1970s inspired by Sargent's, Bryant's and Wallace's
-works (\protect\hyperlink{ref-bryant1979}{Bryant and Wallace, 1979};
+Other more US-oriented areas dealt with \emph{(i)} the demand for
+money---for which Baumol (\protect\hyperlink{ref-baumol1952}{1952}) and
+Friedman and Schwartz (\protect\hyperlink{ref-friedman1963}{1963}) were
+central references---as well as \emph{(ii)} the ``new classical monetary
+theory'' (\protect\hyperlink{ref-hoover1988}{Hoover, 1988, chap. 6}) of
+the 1970s inspired by Sargent's, Bryant's and Wallace's works
+(\protect\hyperlink{ref-bryant1979}{Bryant and Wallace, 1979};
 \protect\hyperlink{ref-sargent1982}{Sargent and Wallace,
 1982}).\footnote{See clusters ``Monetary Economics \& Demand for Money''
-  and, even if it is not as ``non-European'' as the first one, the
-  cluster ``Demand for Money''. For topics, see topic 2 on the demand
-  for money and money supply, which is one of the most non-European
-  topic, but also topic 19 on demand for money and term structure of
-  interest rates, influenced notably by Fama
-  (\protect\hyperlink{ref-fama1975}{1975}).} The new classical monetary
-theory of the 1970s is described by Hoover
+  and ``Demand for Money'', as well as Topic 2 on the demand for money
+  and money supply, which is one of the most non-European topic, and
+  Topic 19 on demand for money and term structure of interest rates.}
+The new classical monetary theory of the 1970s is described by Hoover
 (\protect\hyperlink{ref-hoover1988}{1988, p. 111}) as the research for
 ``microfoundations for the theory of money consistent with general
 equilibrium and individual optimization'' promoted by new classical
@@ -898,13 +905,18 @@ and 1980s (see Figure \ref{fig:plot-new-classical}).\footnote{We have to
   wait the 1982-1988 window to see some new classical contributions
   cited as much by Europeans as by US economists. The integration of
   these contributions obviously took some time in Europe and lagged
-  behind the US.} This is consistent with the fact that European
-macroeconomists favoured in the late 1970s and early 1980s an
-alternative ``microfoundational programme''
-(\protect\hyperlink{ref-hoover2012}{Hoover, 2012}): disequilibrium
-theory (see Section \ref{disequilibrium}).
+  behind the US.} This aligns with the observation that during the late
+1970s and early 1980s European macroeconomists favoured an alternative
+``microfoundational programme''
+(\protect\hyperlink{ref-hoover2012}{Hoover, 2012}), namely,
+disequilibrium theory (see Section \ref{disequilibrium}).
 
-\begin{figure}[h]
+The rejection of new theoretical research in line with the search for
+microfoundations and originating from the US may also be related to the
+fact that European macroeconomics, as represented in the EER, tended to
+be more oriented towards applied and empirical contributions.
+
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations_bw} 
 
@@ -912,11 +924,6 @@ theory (see Section \ref{disequilibrium}).
 
 \caption{Citation of new classical works by European economists relatively to US-based economists (log of ratios on articles by European and US economists computed on 7-year moving average)}\label{fig:plot-new-classical}
 \end{figure}
-
-But this rejection of new theoretical research in line with the search
-for microfoundations, and coming from the US, may also be linked to the
-fact that European macroeconomics as it appeared in the EER, was
-relatively more oriented toward applied and empirical contributions.
 
 \hypertarget{the-importance-of-applied-and-empirical-works}{%
 \subsection{The importance of applied and empirical
@@ -938,7 +945,7 @@ As an emerging journal, the EER was still less likely in the mid-1970s
 to publish very influential contributions. But some of the early
 contributions belong to some already well established literature and
 connect with two important lines of research that influenced these
-contributions in the ERR.\footnote{These contributions are grouped in
+contributions in the EER. \footnote{These contributions are grouped in
   topic 46 and cluster ``Modeling Consumption \& Production'', which
   partially overlap.} These two lines of research were at the juncture
 of econometrics and macroeconomics.
@@ -969,73 +976,71 @@ the permanent income/life cycle hypothesis in Hall's -Hall
 (\protect\hyperlink{ref-hall1978b}{1978}) formulation
 (\protect\hyperlink{ref-davidson1981}{Davidson and Hendry, 1981}).
 
-Econometric research on demand and consumption did not limit to the LSE
-in the UK. Angus Deaton's and John Muellbauer's contributions also
-appear to have had impact on research published in the EER. Their focus
-was on the aggregation problem and the weaknesses of a ``representative
-consumer'' (see Cherrier et al., this issue). In 1980 in the
-\emph{American Economic Review}, they proposed a new system of demand
-equations, modelling the relationship between consumer demand, relative
-prices and income, that they called the ``Almost Ideal Demand System''
+British econometric research on demand and consumption was not confined
+to the LSE. Angus Deaton's and John Muellbauer's contributions also
+appear to have had a significant impact on research published in the
+EER. Their focus was on addressing the aggregation issue and the
+limitations of a ``representative consumer'' (see Cherrier et al., this
+issue). In 1980, in the \emph{American Economic Review}, they proposed a
+new system of demand equations, modelling the relationship between
+consumer demand, relative prices and income. They called this the
+``Almost Ideal Demand System''
 (\protect\hyperlink{ref-deaton1980}{Deaton and Muellbauer, 1980}). They
-claimed the superiority of this model to competitor like the translog
+claimed the superiority of this model to competitor such as the translog
 model, or the Rotterdam model developed by Henri Theil and Anton Barten.
 
-The research around the Rotterdam model constituted a second research
-program that appeared central in the 1970s for the European
-contributions published in the EER. Theil had been appointed in 1953 as
-Professor of Econometrics at the Netherlands School of Economics in
-Rotterdam, to take the succession of Jan Tinbergen
-(\protect\hyperlink{ref-kloek2001}{Kloek, 2001}). In 1966, he eventually
-moved to Chicago, one year after having published ``The Information
-Approach to Demand Analysis'' (\protect\hyperlink{ref-theil1965}{Theil,
-1965}), an essential pillar of the Rotterdam model, modelling the role
-played by marginal budget shares
-(\protect\hyperlink{ref-clements2015a}{Clements and Gao, 2015}). The
-other essential contribution was the one of Barten
-(\protect\hyperlink{ref-barten1964}{1964}).
+Research around the Rotterdam model constituted a second research
+program that was central in the 1970s for European contributions
+published in the EER. Theil had been appointed Professor of Econometrics
+at the Netherlands School of Economics in Rotterdam in 1953, succeeding
+Jan Tinbergen (\protect\hyperlink{ref-kloek2001}{Kloek, 2001}). In 1966,
+he moved to Chicago, a year after publishing ``The Information Approach
+to Demand Analysis'' (\protect\hyperlink{ref-theil1965}{Theil, 1965}),
+an essential pillar of the Rotterdam model, modelling the role played by
+marginal budget shares (\protect\hyperlink{ref-clements2015a}{Clements
+and Gao, 2015}). Another essential contribution was the one of Barten
+(\protect\hyperlink{ref-barten1964}{1964}), his Ph.D.~student in
+Rotterdam (\protect\hyperlink{ref-kuleuven2016}{Leuven, 2016}).
 
-Barten had indeed started a Ph.D.~thesis on consumer behaviour under the
-supervision of Theil in Rotterdam
-(\protect\hyperlink{ref-kuleuven2016}{Leuven, 2016}). Barten was
-recruited in 1966 by KU Leuven to join the newly-established CORE. His
-most cited paper is the very first article published in the EER
-(\protect\hyperlink{ref-barten1969}{Barten, 1969}), in which Barten
-developed a new estimation procedure of a demand equations system that
-would gather a lot of attention in the first years of the
-EER.\footnote{Barten tackled broader project than demand equations. With
-  other CORE economists, he contributed to develop a macroeconometric
-  model of the European Economic Community (EEC), which was presented in
-  the EER (\protect\hyperlink{ref-barten1976}{Barten et al., 1976}). The
-  next year, André Dramais from the \emph{Université Libre de Bruxelles}
-  presented empirical results on inflation transmission between EEC
-  members, using a competing macroeconometric model, DESMOS. Both models
-  constituted crucial steps in the development of macroeconometric model
-  within the European Commission (see Acosta et al., this issue).} The
-Rotterdam model recurrently appeared in EER publications, somewhat
-culminating in 1984 when two synthesis articles were devoted to it
-(\protect\hyperlink{ref-barnett1984}{Barnett, 1984};
+Barten was recruited in 1966 by KU Leuven to join the newly-established
+CORE. His most cited paper was the very first article published in the
+EER (\protect\hyperlink{ref-barten1969}{Barten, 1969}), where Barten
+developed a new estimation procedure for a system of demand equations.
+The article garnered significant attention in the early years of the
+EER.\footnote{Barten's work extended beyond demand equations. Along with
+  other CORE economists, he developed a macroeconometric model of the
+  European Economic Community (EEC), which was presented in the EER
+  (\protect\hyperlink{ref-barten1976}{Barten et al., 1976}). The
+  following year, André Dramais from the \emph{Université Libre de
+  Bruxelles} presented empirical results on inflation transmission
+  between EEC members, using a competing macroeconometric model, DESMOS.
+  Both models constituted crucial steps in the development of
+  macroeconometric models within the European Commission (see Acosta et
+  al., this issue).} The Rotterdam model recurrently appeared in EER
+publications, somewhat culminating in 1984 when two synthesis articles
+were devoted to it (\protect\hyperlink{ref-barnett1984}{Barnett, 1984};
 \protect\hyperlink{ref-byron1984}{Byron, 1984}).
 
 These two lines of research (the LSE approach and the Rotterdam model)
 as well as the contributions of researchers gravitating around them,
-appear as original and distinguished from the developments of
+appear as distinct and original compared to developments in
 macroeconomics occurring on the other side of the Atlantic.\footnote{This
-  is even more true for the British side, that devoted time to criticise
-  many new trends in the US. For instance, Deaton and Muellbauer
-  attacked the search for theoretical microfoundations to
+  is especially true for the British side, which devoted time to
+  criticising many new trends in the US. For instance, Deaton and
+  Muellbauer attacked the search for theoretical microfoundations to
   macroeconomics, which ignored aggregation issues (Cherrier et al.,
-  this issue).} Nonetheless, we cannot speak of European specialities
-are these research lines were very nationally anchored (or just connect
-Belgium and the Netherlands in the second case) and did not yet
-participate to a true process of Europeanisation. Some transnational
-connections existed. For instance, Hendry visited the CORE during
-1980-1981, at the time where Angus Deaton was also there
-(\protect\hyperlink{ref-ericsson2004}{Ericsson, 2004}). Hendry started
-to work with Jean-François Richard, a CORE econometrician, and Robert
-Engle, then at University of California San Diego. The resulting article
-developed the concept of ``strong exogeneity'' and ``super exogeneity''
-(\protect\hyperlink{ref-engle1983}{Engle et al., 1983}).
+  this issue).} Nonetheless, we cannot that these research lines were
+European specialities, as they remained primarily nationally anchored
+(or only connecting Belgium and the Netherlands in the second case) and
+had not yet contributing to a true process of
+Europeanisation.\footnote{Some transnational connections did exist yet.
+  For instance, Hendry visited the CORE during 1980-1981, at the time
+  where Angus Deaton was also there
+  (\protect\hyperlink{ref-ericsson2004}{Ericsson, 2004}). Hendry started
+  to work with Jean-François Richard, a CORE econometrician, and Robert
+  Engle, then at University of California San Diego. The resulting
+  article developed the concept of ``strong exogeneity'' and ``super
+  exogeneity'' (\protect\hyperlink{ref-engle1983}{Engle et al., 1983}).}
 
 The LSE approach and Hendry had a delayed impact on the development of
 European specialities. The cointegration concept
@@ -1184,13 +1189,13 @@ in \emph{Economica} the next year.\footnote{On this episode, see
   both in this issue.} Macroeconomists from different countries
 presented their analyses of European national unemployment rates. While
 Sneessens and Drèze estimated a ``two-market macroeconomic rationing (or
-disequilibirum) model of the economy
+disequilibirum) model of the economy''
 (\protect\hyperlink{ref-sneessens1986}{Sneessens and Drèze, 1986, p.
 S97}), Malinvaud (\protect\hyperlink{ref-malinvaud1986}{1986}) proposed
 a more descriptive analysis to explain the rise of unemployment in
 France, although he acknowledged proximities with Sneessens and Drèze
-formalisation in the same issue. Malinvaud discussed determinants
-of''the classical component of unemployment''
+formalisation in the same issue. Malinvaud discussed determinants of
+``the classical component of unemployment''
 (\protect\hyperlink{ref-malinvaud1986}{Malinvaud, 1986, p. S216}), but
 also criticised the use of Phillips curve with a non-accelerating
 inflation rate of unemployment (NAIRU) to account for the causes of
@@ -1232,9 +1237,9 @@ European matters (such as high unemployment or European integration), as
 well as a new approach to address many macroeconomic issues: political
 economy. This later trend served as the belated entry point for new
 classical economics to eventually influence European macroeconomics, and
-this was achieved not through Lucas and Sargent's works, but through the
-time consistency literature based on the contributions of Kydland,
-Prescott and Barro.
+this was achieved not through Lucas and Sargent's works, or through the
+Real Business Cycles models, but through the time consistency literature
+based on the contributions of Kydland, Prescott and Barro.
 
 \hypertarget{disequilibrium-fall}{%
 \subsection{The Fall of Disequilibrium}\label{disequilibrium-fall}}
@@ -1243,19 +1248,21 @@ After the mid-1980s, publications about disequilibrium continued to pop
 out occasionally in the EER. But in quantitative terms, we observe a
 decrease of disequilibrium importance both through the bibliometric and
 topic modelling analyses.\footnote{See the destiny of the disequilibrium
-  cluster and of topic 11 in Figure \ref{fig:plot-cluster-flow} and
-  Figure \ref{fig:plot-topic-year}.} We can also observe that indirectly
-in topic 25 on real wages and employment: while Malinvaud
+  cluster and of topic 11 in the summary figures in the two online
+  appendices.} We can also observe that indirectly in topic 25 on real
+wages and employment: while Malinvaud
 (\protect\hyperlink{ref-malinvaud1977}{1977}) was an important reference
-for the older article of the topic, it disappeared from the bibliography
-of the most recent articles. Part of the research program on
-disequilibrium seems to have persist in the 1990s through its most
+for the older articles of the topic, it disappeared from the
+bibliography of the most recent articles. Part of the research program
+on disequilibrium seems to have persisted in the 1990s through its most
 theoretical part and developed closer links with the literature on
-coordination and sunspots.\footnote{See cluster on ``Coordination \&
-  Sunspots 2'' and Figure \ref{fig:plot-cluster-flow}. This cluster was
-  only slightly over-represented by European economists, but gathered
-  articles mainly published in the Top 5, so it does not really
-  constitute a European speciality.}
+coordination and sunspots.\footnote{Many articles of the Disequilibrium
+  cluster are to be found in the cluster ``Coordination \& Sunspots 2''
+  after the disappearance of the former (see the summary flow chart in
+  the Bibliographic coupling online appendix). The cluster
+  ``Coordination \& Sunspots 2'' was only slightly over-represented by
+  European economists, but gathered articles mainly published in the Top
+  5.}
 
 The decline of the disequilibrium program can also be observed in the
 diminishing prominence of the Keynesian/classical unemployment
@@ -1285,9 +1292,9 @@ unemployment in Europe.
 \subsection{New Approaches to Explain European
 Unemployment}\label{unemployment}}
 
-Unemployment became a significant area of research for European
-macroeconomists after the mid-1980s and the EER published multitude of
-articles on the subject.\footnote{See Topic 37 and Community ``Theory of
+After the mid-1980s, unemployment became a significant area of research
+for European macroeconomists and the EER published multitude of articles
+on the subject.\footnote{See Topic 37 and Community ``Theory of
   Unemployment and Job Dynamics''} Following the stagflation and the
 subsequent disinflation of the early 1980s, unemployment rose to rare
 quasi unprecedented levels in European countries. However, unlike the US
@@ -1296,110 +1303,111 @@ the early 1970s, European unemployment remained high even after
 inflation stabilised. This macroeconomic situation was coined the
 ``Eurosclerosis'', presenting a new puzzle for macroeconomists to solve.
 
-This puzzle was the starting point of numerous contributions by
-Europe-based economists. It fostered the Europeanisation of
-macroeconomics by pushing forward comparisons between European
-countries, to identify common features that would explain European high
-unemployment. This was happening notably through the organisation of
-conferences, like the May 1985 conference in Sussex, published in
-\emph{Economica} the next year (Backhouse et al., this issue).
-Macroeconomists also proposed empirical studies using data of various
-OECD countries to understand Europe peculiarities.
+The Eurosclerosis puzzle was the starting point for numerous
+contributions by Europe-based economists. It fostered the
+Europeanisation of macroeconomics by encouraging comparisons between
+European countries in order to identify common features that would
+explain European high unemployment. This process was facilitated notably
+through the organisation of conferences and special issues, like the May
+1985 conference in Sussex, published in \emph{Economica} the next year
+(Backhouse et al., this issue). Macroeconomists also proposed empirical
+studies using data from various OECD countries to understand the
+peculiarities of the European context. These collaborative efforts and
+comparative analyses contributed to the development of a more unified
+European macroeconomic research community.
 
-That has been the case in Bruno and Sachs'
+Such comparison of OECD countries were developed in Bruno and Sachs'
 (\protect\hyperlink{ref-brunosachs1985}{1985}) book, which analysed the
 differences in terms of nominal and real wage rigidities between the US
-and Europe. The higher unemployment cost of the stagflation in Europe
-would be the result of larger real rigidities. Bruno and Sachs approach
-of the unemployment issue, that was developed in a series of articles
-since 1979 and culminated in their book, remained influential for
-European economists during the 1980s. It constituted a point of
-departure of another important line of research developed by LSE
-economists Richard Layard, Richard Jackman, Stephen Nickell, and their
-various co-authors.
+and Europe. They argued that the higher unemployment cost of stagflation
+in Europe was the result of larger real rigidities. Bruno and Sachs's
+approach to the unemployment issue, developed in a series of articles
+since 1979 and culminating in their book, remained influential for
+European economists during the 1980s.
 
-In a conference held in Cambridge in July 1981, Grubb et al.
+Their work constituted a point of departure for another important line
+of research developed by LSE economists Richard Layard, Richard Jackman,
+Stephen Nickell, and their various co-authors. In a conference held in
+Cambridge in July 1981, Grubb et al.
 (\protect\hyperlink{ref-grubb1982}{1982}) proposed an explanation of the
 ``Causes of the Current Stagflation'' through a comparison of 19 OECD
-countries (see also Backhouse et al., this issue). If they want in the
-direction of too high real wages in Europe, they consider them as ``a
-consequence rather than a prime cause of the difficulty''
-(\protect\hyperlink{ref-grubb1982}{Grubb et al., 1982, p. 707}). High
-real wages were the symptom of a rise in the NAIRU, caused by an
-increase in the relative prices of raw materials and a sharp fall in the
-rate of productivity growth. Grubb, Jackman and Layard pursued this
-analysis of real and nominal rigidities in OECD countries the next year
-in the ISoM in Mannheim, in a paper then published in the EER
-(\protect\hyperlink{ref-grubb1983a}{Grubb et al., 1983}). During a
-decade, the LSE team will provided a series of articles with different
-specifications and estimations of European unemployment. This culminated
-in 1991 with Layard, Nickell and Jackman's book, ``Unemployment:
-Macroeconomic Performance and the Labour Market'', which proposed an
-extensive analysis of unemployment in the OECD, relying on a theoretical
-framework of inflation dynamics and wage bargaining
+countries (see also Backhouse et al., this issue). They argued that high
+real wages in Europe were ``a consequence rather than a prime cause of
+the difficulty'' (\protect\hyperlink{ref-grubb1982}{Grubb et al., 1982,
+p. 707}). High real wages were the symptom of a rise in the NAIRU,
+caused by an increase in the relative prices of raw materials and a
+sharp fall in the rate of productivity growth. Grubb, Jackman and Layard
+pursued this analysis of real and nominal rigidities in OECD countries
+the next year during the ISoM in Mannheim, in a paper later published in
+the EER (\protect\hyperlink{ref-grubb1983a}{Grubb et al., 1983}). Over
+the course of a decade, the LSE team produced a series of articles
+exploring various specifications and estimations of European
+unemployment determinants. This research culminated in 1991 with Layard,
+Nickell and Jackman's book, ``Unemployment: Macroeconomic Performance
+and the Labour Market''. The book provided an extensive analysis of
+unemployment in the OECD, relying on a theoretical framework of
+inflation dynamics and wage bargaining
 (\protect\hyperlink{ref-layard1991a}{Layard et al., 1991}). Three years
-later, Charles Bean, also at the LSE, and who had collaborated at
-different occasion with Layard and Nickell, published two surveys of the
-treatment of European unemployment, in the \emph{Journal of Economic
-Literature} and the EER (\protect\hyperlink{ref-bean1994}{Bean, 1994a},
+later, Charles Bean, also at the LSE and who had collaborated with
+Layard and Nickell on several occasions, published two surveys in the
+\emph{Journal of Economic Literature} and the EER about the treatment of
+European unemployment (\protect\hyperlink{ref-bean1994}{Bean, 1994a},
 \protect\hyperlink{ref-bean1994a}{1994b}).
 
 Beyond comparing macroeconomic data of different European countries,
-European macroeconomists also adopted more institutional comparisons,
-looking at differences in wage bargaining organisation, labor market
-regulations, etc. A central study cited in EER articles was Lars
-Calmfors (University of Stockholm) and John Driffil (University of
-Southampton) analysis of European countries corporatism
+European macroeconomists began also to focus on institutional
+comparisons to better understand the differences in wage bargaining
+organisation, labor market regulations and other factors across European
+countries. In this regard, Lars Calmfors (University of Stockholm) and
+John Driffil's (University of Southampton) analysis of European
+countries corporatism constituted a key study cited in EER articles
 (\protect\hyperlink{ref-calmfors1988}{Calmfors and Driffill, 1988}).
-They estimated the impact on wages and unemployment of different
-measures of corporatism offered by economists or political scientists.
-Calmfors and Driffil argue that countries with low centralisation of
-wage bargaining (like the US) and with high centralisation (the Nordic
-Countries) would do better in terms of employment than middle
-centralisation countries (most countries of the European Community at
-the time).
+They estimated the impact on wages and unemployment of various measures
+of corporatism provided by economists or political scientists. Calmfors
+and Driffil argued that countries with low centralisation of wage
+bargaining (like the US) and high centralisation (the Nordic Countries)
+performed better in terms of employment than those with medium
+centralisation (most countries of the European Community at the time).
 
-In a similar vein, the insider and outsider approach of the labour
-market also gained some popularity in Europe. The approach was developed
-by University of Stockholm economists Nils Gottfries, Henrik Horn, Assar
-Lindbeck (all from the University of Stockholm), in collaboration with
-Denis Snower from Birkbeck College
+Another institutional approach that gained popularity in Europe was the
+insider-outsider perspective. The approach was developed Nils Gottfries,
+Henrik Horn, Assar Lindbeck (all from the University of Stockholm), in
+collaboration with Denis Snower from Birkbeck College
 (\protect\hyperlink{ref-gottfries1992}{Gottfries, 1992};
 \protect\hyperlink{ref-gottfries1987}{Gottfries and Horn, 1987};
 \protect\hyperlink{ref-lindbeck1987a}{Lindbeck and Snower, 1987},
-\protect\hyperlink{ref-lindbeck1986}{1986}).{]}. The insider-outsider
-literature argues that the insiders (the employed or the unionised
-workers) have the lead on wage-setting. Employment being determined in
-function of wages, too high wages maintain outsiders excluded from the
-labour market. In the case of Europe after the stagflation, it means
-that an increase in labour demand would rather lead to rising wages
-without rising employment.
+\protect\hyperlink{ref-lindbeck1986}{1986}). The insider-outsider
+literature posited that insiders (the employed or unionised workers)
+have the upper-hand in wage-setting. Employment being determined in
+function of wages, higher wages could maintain outsiders outside of the
+labour market. In the context of Europe after the stagflation, this
+means that an increase in labour demand might result in rising wages
+without a corresponding increase in employment.
 
-The interest for explaining the high European unemployment did not limit
-to UK and Swedish macroeconomists. Another influential path of research
-were notably developed by the Spanish Samuel Bentolila and the French
-Gilles Saint-Paul (EHESS), in collaboration with Giuseppe Bertola from
-Princeton (\protect\hyperlink{ref-bentolila1990}{Bentolila and Bertola,
-1990}; \protect\hyperlink{ref-bentolila1992a}{Bentolila and Saint-Paul,
-1992}; \protect\hyperlink{ref-bertola1990a}{Bertola, 1990}). They
-developed a series of articles studying the role that job security and
-firing costs played in the stock of unemployment and its variation.
+The interest in explaining high European unemployment extended beyond
+the contributions of UK and Swedish macroeconomists. Another influential
+research path was developed by the Spanish Samuel Bentolila and the
+French Gilles Saint-Paul (EHESS), in collaboration with Giuseppe Bertola
+from Princeton (\protect\hyperlink{ref-bentolila1990}{Bentolila and
+Bertola, 1990}; \protect\hyperlink{ref-bentolila1992a}{Bentolila and
+Saint-Paul, 1992}; \protect\hyperlink{ref-bertola1990a}{Bertola, 1990}).
+They produced a series of articles examining the role of job security
+and firing costs in the stock of unemployment and its variation.
 
 All these lines of research were central for European macroeconomists
-publishing in the EER, as well as they constitute a true specificity in
-comparison to the US. They spread across different European countries
-and fostered transnational collaborations, even if the UK appears as a
-more dynamic producer of contributions on European unemployment. Another
-approach, also partly centred in the UK and the LSE, was quite
-influential in the 1990s: the literature on search and matching models,
-developed by Dale Mortensen from Northwestern University and Christopher
-Pissarides from the LSE (\protect\hyperlink{ref-mortensen1994}{Mortensen
-and Pissarides, 1994}). Mortensen and Pissarides' theoretical framework
-contributed to shape the orientation of the research agenda in Europe,
-whether on job flows, firing costs, skills and geographical mismatching.
-However, this approach appears to have found some echo among US
-macroeconomists and Top 5 journals, and does not limit to European
-macroeconomics.
+publishing in the EER, as well as they constituted a true specificity in
+comparison to the US. They spread across European countries and fostered
+transnational collaborations, even if the UK emerged as a more dynamic
+producer of contributions on European unemployment. Another influential
+approach, also partly centred in the UK and the LSE, was stemming from
+search and matching models, developed by Dale Mortensen from
+Northwestern University and Christopher Pissarides from the LSE
+(\protect\hyperlink{ref-mortensen1994}{Mortensen and Pissarides, 1994}).
+Mortensen and Pissarides' theoretical framework contributed to shape the
+orientation of the research agenda in Europe, whether on job flows,
+firing costs, skills and geographical mismatching. However, this
+approach also found resonance among US macroeconomists and Top 5
+journals, and so does not exclusively belong to European macroeconomics.
 
 \hypertarget{political-economics}{%
 \subsection{A New Unifying Language: Political
@@ -1413,12 +1421,12 @@ these specific objects, many European macroeconomists also adopted a
 specific perspective on these problems by utilising a political economy
 framework.
 
-Political economy, which encompasses various research lines research
-lines that emerged in the 1970s, can be understood as the application of
-modern economic analysis techniques (such optimisation or game theory)
-to examine the impact of politics on economics.\footnote{For a history
-  of the emergence of the ``new political economy'' or ``new political
-  macroeconomics'' label, see Galvão de~Almeida
+Political economy, which encompasses various research lines that emerged
+in the 1970s, can be understood as the application of modern economic
+analysis techniques (such optimisation or game theory) to examine the
+impact of politics on economics.\footnote{For a history of the emergence
+  of the ``new political economy'' or ``new political macroeconomics''
+  label, see Galvão de~Almeida
   (\protect\hyperlink{ref-galvaodealmeida2021}{2021}).} As Allan Drazen
 defined it in his 2000 handbook, \emph{Political Economy in
 Macroeconomics}, the ``new political economy'' focused on understanding
@@ -1427,26 +1435,30 @@ economic outcomes) that differ from optimal policies''
 (\protect\hyperlink{ref-drazen2002}{Drazen, 2002, p. 7}). In Europe,
 Torsten Persson and Guido Tabellini
 (\protect\hyperlink{ref-persson2002}{2002}) provided a detailed
-introduction to political economy.\footnote{Torsten Persson obtained his
-  PhD in 1982 at the Institute for International Economic Studies in
-  Stockholm under the supervision of Lars Svensson and became professor
-  in Stockholm in 1987. Tabellini graduated from Torino before moving to
-  UCLA for his PhD. After an initial position at Stanford, he returned
-  to Italy in 1990. In their book, they used the term ``political
-  economics'' rather than ``political economy'' to avoid a supposed
-  association with ``an alternative analytical approach, as if the
-  traditional tools of analysis in economics were not appropriate to
-  study political phenomena''
-  (\protect\hyperlink{ref-persson2002}{Persson and Tabellini, 2002, p.
-  2}).} They traced ``political economics'' back to three traditions
-(2): \emph{(i)} ``the theory of macroeconomic policy'' inspired by
-Lucas, which focused on the impact of policy decisions on macroeconomic
-variables; \emph{(ii)} the public choice tradition of James Buchanan,
-Gordon Tullock and Mancur Olson, which applied economic theories to
-analyse political decision-making processes; and \emph{(iii)} the formal
-analysis in political analysis, inspired by Riker, that employs
-mathematical models especially to study voting and decision-making
-processes.
+introduction to recent research in political economy.\footnote{Torsten
+  Persson obtained his PhD in 1982 at the Institute for International
+  Economic Studies in Stockholm under the supervision of Lars Svensson
+  and became professor in Stockholm in 1987. Tabellini graduated from
+  Torino before moving to UCLA for his PhD. After an initial position at
+  Stanford, he returned to Italy in 1990.} They advocated for a vision
+of ``political \emph{economics}'' as connected to the ``macroeconomic
+tradition'', by adopting ``a general equilibrium approach'' and seeking
+``explicit microfoundations''
+(\protect\hyperlink{ref-persson2002}{Persson and Tabellini, 2002, p.
+3}).\footnote{They used the term ``political economics'' rather than
+  ``political economy'' to avoid a supposed association with ``an
+  alternative analytical approach, as if the traditional tools of
+  analysis in economics were not appropriate to study political
+  phenomena'' (\protect\hyperlink{ref-persson2002}{Persson and
+  Tabellini, 2002, p. 2}).} They traced ``political economics'' back to
+three traditions (p.~2): \emph{(i)} ``the theory of macroeconomic
+policy'' inspired by Lucas, which focused on the impact of policy
+decisions on macroeconomic variables; \emph{(ii)} the public choice
+tradition of James Buchanan, Gordon Tullock and Mancur Olson, which
+applied economic theories to analyse political decision-making
+processes; and \emph{(iii)} the formal analysis in political analysis,
+inspired by Riker, that employs mathematical models especially to study
+voting and decision-making processes.
 
 That is this first tradition that lies at the core of European
 macroeconomics in the 1990s. The integration of rational expectations in
@@ -1474,29 +1486,20 @@ popularity in the 1990s (Figure \ref{fig:plot-political-economy}). This
 renewed interest can be attributed to European macroeconomists who
 increasingly cited these references more than their US counterparts
 (Figure \ref{fig:plot-political-economy-europe}). Prominent European
-macroeconomists, such as Persson, Svensson, Horn in Sweden, Daniel Cohen
-in France, Dolado in Spain, or Francesco Giavazzi and Tabellini in
+macroeconomists, such as Persson, Svensson, and Horn in Sweden, Daniel
+Cohen in France, Dolado in Spain, or Francesco Giavazzi and Tabellini in
 Italy, played a significant role in revitalising these ideas in the
 context of European macroeconomic issues.\footnote{Italian economists
   were overly represented in this line of research, not only in Europe
   but also in the US, the most famous example being Alberto Alesina.}
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw} 
 
 }
 
 \caption{Share of articles citing political economy literature (5-year moving average)}\label{fig:plot-political-economy}
-\end{figure}
-
-\begin{figure}[h]
-
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_bw} 
-
-}
-
-\caption{Citation of political economy articles by European economists relatively to US-based economists (log of ratios on articles by European and US economists computed on 7-year moving average)}\label{fig:plot-political-economy-europe}
 \end{figure}
 
 This interest of European economists for the new political economy
@@ -1507,7 +1510,7 @@ European macroeconomists in various clusters and topics.\footnote{See
   the cluster ``Political Economics of Central Banks'' and the topic 8
   on credibility, optimal policy and policy rule. Beyond these very
   ``European'' cluster and topic, the examination of other topics allow
-  us to observe the new political economy literature infused many
+  us to observe that the new political economy literature infused many
   subjects in the 1990s. In many prevalent topics in the 1990s, the
   difference in the references cited by Europe-based and US-based
   economists is explained by the fact that Europeans refer more to
@@ -1522,6 +1525,15 @@ counterpart.\footnote{The interest for political economy in the EER may
   Nonetheless, this inclination of Europe-based macroeconomists for
   political economy is not limited to the EER, as a similar trend was
   observable in the Top 5 journals.}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_bw} 
+
+}
+
+\caption{Citation of political economy articles by European economists relatively to US-based economists (log of ratios on articles by European and US economists computed on 7-year moving average)}\label{fig:plot-political-economy-europe}
+\end{figure}
 
 First, many discussions regarding the appropriate framework for monetary
 policy incorporated political economy contributions. Giavazzi and Marco
@@ -1961,10 +1973,6 @@ doi:\href{https://doi.org/10.2307/1911990}{10.2307/1911990}
 Ericsson, N.R., 2004. The {ET} interview: {Professor David F}. {Hendry}:
 {Interviewed} by neil {R}. {Ericsson}. Econometric Theory 20, 743--804.
 
-\leavevmode\vadjust pre{\hypertarget{ref-fama1975}{}}%
-Fama, E.F., 1975. Short-term interest rates as predictors of inflation.
-American Economic Review 65.
-
 \leavevmode\vadjust pre{\hypertarget{ref-fourcade2006}{}}%
 Fourcade, M., 2006. The construction of a global profession: The
 transnationalization of economics. American Journal of Sociology 112,
@@ -2288,15 +2296,15 @@ doi:\href{https://doi.org/10.1016/0014-2921(69)90016-6}{10.1016/0014-2921(69)900
 
 \begingroup\fontsize{7}{9}\selectfont
 
-\begin{longtable}[t]{llrr}
+\begin{longtable}[t]{l>{\raggedright\arraybackslash}m{30em}cc}
 \caption{\label{tab:summary-topics}Summary of Topics}\\
 \toprule
-Topics & Terms with the highest frex value & Author EU/US Orientation score & Journal EU/US Orientation* score\\
+Topics & Terms with highest frex values & Log of ratios EU/US  & Log of ratios EER/Top 5\\
 \midrule
 \endfirsthead
 \caption[]{Summary of Topics \textit{(continued)}}\\
 \toprule
-Topics & Terms with the highest frex value & Author EU/US Orientation score & Journal EU/US Orientation* score\\
+Topics & Terms with highest frex values & Log of ratios EU/US  & Log of ratios EER/Top 5\\
 \midrule
 \endhead
 
@@ -2310,13 +2318,13 @@ monetary
 system;
 union;
 expansion;
-\cellcolor{gray!6}{stability} & \cellcolor{gray!6}{0.9071399} & \cellcolor{gray!6}{1.1293765}\\
+\cellcolor{gray!6}{stability} & \cellcolor{gray!6}{0.907} & \cellcolor{gray!6}{1.129}\\
 Topic 4 & macroeconomics;
 rich;
 history;
 robert;
 divide;
-lead & 1.1407547 & 0.5540123\\
+lead & 1.141 & 0.554\\
 Topic 46 & german;
 money
 demand;
@@ -2324,14 +2332,14 @@ germany;
 unite
 kingdom;
 unite;
-\cellcolor{gray!6}{kingdom} & \cellcolor{gray!6}{0.6243111} & \cellcolor{gray!6}{0.6198704}\\
+\cellcolor{gray!6}{kingdom} & \cellcolor{gray!6}{0.624} & \cellcolor{gray!6}{0.620}\\
 Topic 22 & political;
 oecd
 country;
 oecd;
 world;
 country;
-index & 0.3110320 & 0.7223477\\
+index & 0.311 & 0.722\\
 Topic 37 & unemployment;
 job;
 unemployment
@@ -2339,7 +2347,7 @@ rate;
 creation;
 flow;
 phillips
-\cellcolor{gray!6}{curve} & \cellcolor{gray!6}{0.4662997} & \cellcolor{gray!6}{0.5280369}\\
+\cellcolor{gray!6}{curve} & \cellcolor{gray!6}{0.466} & \cellcolor{gray!6}{0.528}\\
 \addlinespace
 Topic 6 & real
 exchange;
@@ -2354,14 +2362,14 @@ flexible
 exchange
 rate;
 target
-zone & 0.0641214 & 0.7032247\\
+zone & 0.064 & 0.703\\
 Topic 25 & real
 wage;
 contract;
 employment;
 capacity;
 wage;
-\cellcolor{gray!6}{stickiness} & \cellcolor{gray!6}{0.2083779} & \cellcolor{gray!6}{0.5475815}\\
+\cellcolor{gray!6}{stickiness} & \cellcolor{gray!6}{0.208} & \cellcolor{gray!6}{0.548}\\
 Topic 39 & trade
 balance;
 trade;
@@ -2369,7 +2377,7 @@ wealth;
 relative
 price;
 balance;
-external & 0.1401229 & 0.6053056\\
+external & 0.140 & 0.605\\
 Topic 8 & credibility;
 strategic;
 policy;
@@ -2377,7 +2385,7 @@ maker;
 economic
 policy;
 policy
-\cellcolor{gray!6}{rule} & \cellcolor{gray!6}{0.4678103} & \cellcolor{gray!6}{0.2403548}\\
+\cellcolor{gray!6}{rule} & \cellcolor{gray!6}{0.468} & \cellcolor{gray!6}{0.240}\\
 Topic 28 & exchange
 market;
 foreign
@@ -2388,7 +2396,7 @@ foreign
 exchange;
 transaction;
 transaction
-cost & 0.1809789 & 0.5182943\\
+cost & 0.181 & 0.518\\
 \addlinespace
 Topic 13 & unanticipated;
 activity;
@@ -2396,7 +2404,7 @@ economic
 activity;
 national;
 economy;
-\cellcolor{gray!6}{gap} & \cellcolor{gray!6}{0.1962931} & \cellcolor{gray!6}{0.4182108}\\
+\cellcolor{gray!6}{gap} & \cellcolor{gray!6}{0.196} & \cellcolor{gray!6}{0.418}\\
 Topic 44 & level;
 national
 income;
@@ -2405,14 +2413,14 @@ equation;
 price
 level;
 money
-balance & 0.3904491 & 0.0633894\\
+balance & 0.390 & 0.063\\
 Topic 31 & welfare
 cost;
 cost;
 welfare;
 bear;
 survey;
-\cellcolor{gray!6}{household} & \cellcolor{gray!6}{0.4670256} & \cellcolor{gray!6}{-0.0926148}\\
+\cellcolor{gray!6}{household} & \cellcolor{gray!6}{0.467} & \cellcolor{gray!6}{-0.093}\\
 Topic 43 & federal;
 signal;
 monetary
@@ -2420,14 +2428,14 @@ policy;
 federal
 reserve;
 revision;
-feed & 0.1599255 & 0.2091719\\
+feed & 0.160 & 0.209\\
 Topic 23 & short
 run;
 run;
 short;
 burden;
 indirect;
-\cellcolor{gray!6}{externality} & \cellcolor{gray!6}{0.0421424} & \cellcolor{gray!6}{0.3071523}\\
+\cellcolor{gray!6}{externality} & \cellcolor{gray!6}{0.042} & \cellcolor{gray!6}{0.307}\\
 \addlinespace
 Topic 20 & inflation
 target;
@@ -2436,7 +2444,7 @@ stabilize;
 central
 bank;
 central;
-length & -0.0632181 & 0.4034395\\
+length & -0.063 & 0.403\\
 Topic 26 & inflation;
 inflation
 rate;
@@ -2444,7 +2452,7 @@ relative;
 evidence;
 dispersion;
 nominal
-\cellcolor{gray!6}{price} & \cellcolor{gray!6}{0.2682666} & \cellcolor{gray!6}{0.0646658}\\
+\cellcolor{gray!6}{price} & \cellcolor{gray!6}{0.268} & \cellcolor{gray!6}{0.065}\\
 Topic 45 & power
 parity;
 purchase
@@ -2454,7 +2462,7 @@ purchase
 power;
 power;
 purchase;
-parity & 0.0909326 & 0.1668964\\
+parity & 0.091 & 0.167\\
 Topic 40 & economic
 growth;
 growth
@@ -2463,7 +2471,7 @@ productivity
 growth;
 growth;
 fast;
-\cellcolor{gray!6}{region} & \cellcolor{gray!6}{0.1981467} & \cellcolor{gray!6}{0.0580332}\\
+\cellcolor{gray!6}{region} & \cellcolor{gray!6}{0.198} & \cellcolor{gray!6}{0.058}\\
 Topic 36 & spend;
 government
 spend;
@@ -2471,7 +2479,7 @@ deficit;
 fiscal;
 government;
 government
-debt & 0.0320921 & 0.1763820\\
+debt & 0.032 & 0.176\\
 \addlinespace
 Topic 17 & indexation;
 distortion;
@@ -2479,20 +2487,20 @@ labor
 market;
 labor;
 product;
-\cellcolor{gray!6}{corporate} & \cellcolor{gray!6}{-0.2943298} & \cellcolor{gray!6}{0.4335662}\\
+\cellcolor{gray!6}{corporate} & \cellcolor{gray!6}{-0.294} & \cellcolor{gray!6}{0.434}\\
 Topic 11 & walrasian;
 competitive;
 temporary;
 existence;
 search;
-equilibrium & 0.3140762 & -0.1803778\\
+equilibrium & 0.314 & -0.180\\
 Topic 35 & likelihood;
 variable;
 estimation;
 autoregressive;
 variance;
 endogenous
-\cellcolor{gray!6}{variable} & \cellcolor{gray!6}{0.1599255} & \cellcolor{gray!6}{-0.1268647}\\
+\cellcolor{gray!6}{variable} & \cellcolor{gray!6}{0.160} & \cellcolor{gray!6}{-0.127}\\
 Topic 24 & term;
 spread;
 short
@@ -2500,13 +2508,13 @@ term;
 term
 structure;
 premium;
-structure & 0.1793436 & -0.1768752\\
+structure & 0.179 & -0.177\\
 Topic 15 & production;
 class;
 factor;
 identical;
 preference;
-\cellcolor{gray!6}{input} & \cellcolor{gray!6}{0.1209233} & \cellcolor{gray!6}{-0.1515574}\\
+\cellcolor{gray!6}{input} & \cellcolor{gray!6}{0.121} & \cellcolor{gray!6}{-0.152}\\
 \addlinespace
 Topic 50 & budget
 constraint;
@@ -2514,7 +2522,7 @@ constraint;
 project;
 budget;
 bad;
-loan & -0.2455396 & 0.1485472\\
+loan & -0.246 & 0.149\\
 Topic 30 & business
 cycle;
 business;
@@ -2524,13 +2532,13 @@ business
 cycle;
 real
 business;
-\cellcolor{gray!6}{volatility} & \cellcolor{gray!6}{-0.1120082} & \cellcolor{gray!6}{-0.0337743}\\
+\cellcolor{gray!6}{volatility} & \cellcolor{gray!6}{-0.112} & \cellcolor{gray!6}{-0.034}\\
 Topic 47 & investment;
 monopolistic;
 dynamic;
 competition;
 macroeconomic;
-replace & -0.0013427 & -0.1589375\\
+replace & -0.001 & -0.159\\
 Topic 38 & asset
 price;
 financial
@@ -2540,13 +2548,13 @@ market;
 return;
 asset
 market;
-\cellcolor{gray!6}{stock} & \cellcolor{gray!6}{-0.2568392} & \cellcolor{gray!6}{0.0039660}\\
+\cellcolor{gray!6}{stock} & \cellcolor{gray!6}{-0.257} & \cellcolor{gray!6}{0.004}\\
 Topic 21 & process;
 procedure;
 property;
 incentive;
 build;
-endogenous & 0.0421424 & -0.3004030\\
+endogenous & 0.042 & -0.300\\
 \addlinespace
 Topic 42 & stationary;
 rational
@@ -2557,7 +2565,7 @@ equilibrium;
 expectation;
 unique;
 rational
-\cellcolor{gray!6}{expectation} & \cellcolor{gray!6}{0.0421424} & \cellcolor{gray!6}{-0.3385508}\\
+\cellcolor{gray!6}{expectation} & \cellcolor{gray!6}{0.042} & \cellcolor{gray!6}{-0.339}\\
 Topic 5 & price
 adjustment;
 oil;
@@ -2565,14 +2573,14 @@ price;
 commodity
 price;
 sticky;
-import & -0.0379003 & -0.2718594\\
+import & -0.038 & -0.272\\
 Topic 9 & skill;
 asymmetric
 information;
 program;
 change;
 research;
-\cellcolor{gray!6}{complementarity} & \cellcolor{gray!6}{-0.0119248} & \cellcolor{gray!6}{-0.3214564}\\
+\cellcolor{gray!6}{complementarity} & \cellcolor{gray!6}{-0.012} & \cellcolor{gray!6}{-0.321}\\
 Topic 29 & capital
 market;
 mobility;
@@ -2580,7 +2588,7 @@ capital
 mobility;
 capital;
 imperfect;
-intensity & -0.4173899 & -0.0077988\\
+intensity & -0.417 & -0.008\\
 Topic 18 & generation;
 overlap;
 overlap
@@ -2589,7 +2597,7 @@ social
 security;
 live;
 generation
-\cellcolor{gray!6}{model} & \cellcolor{gray!6}{-0.2943298} & \cellcolor{gray!6}{-0.3082112}\\
+\cellcolor{gray!6}{model} & \cellcolor{gray!6}{-0.294} & \cellcolor{gray!6}{-0.308}\\
 \addlinespace
 Topic 34 & plan;
 stage;
@@ -2597,19 +2605,19 @@ multiple
 equilibrium;
 option;
 crisis;
-currency & -0.7687878 & 0.1640514\\
+currency & -0.769 & 0.164\\
 Topic 33 & depression;
 theory;
 subsequent;
 classical;
 pure;
-\cellcolor{gray!6}{principle} & \cellcolor{gray!6}{0.0237933} & \cellcolor{gray!6}{-0.6877008}\\
+\cellcolor{gray!6}{principle} & \cellcolor{gray!6}{0.024} & \cellcolor{gray!6}{-0.688}\\
 Topic 48 & liquidity;
 credit;
 debt;
 insurance;
 access;
-investor & -0.5693267 & -0.1455657\\
+investor & -0.569 & -0.146\\
 Topic 10 & tax;
 capital
 income;
@@ -2619,7 +2627,7 @@ tax
 system;
 redistribution;
 income
-\cellcolor{gray!6}{taxation} & \cellcolor{gray!6}{-0.1531663} & \cellcolor{gray!6}{-0.6459524}\\
+\cellcolor{gray!6}{taxation} & \cellcolor{gray!6}{-0.153} & \cellcolor{gray!6}{-0.646}\\
 Topic 27 & perfect
 foresight;
 foresight;
@@ -2628,20 +2636,20 @@ vary;
 time;
 perfect;
 continuous
-time & -0.7050720 & -0.1027672\\
+time & -0.705 & -0.103\\
 \addlinespace
 Topic 7 & control;
 stochastic;
 game;
 equivalence;
 equivalent;
-\cellcolor{gray!6}{solution} & \cellcolor{gray!6}{-0.2029800} & \cellcolor{gray!6}{-0.6091385}\\
+\cellcolor{gray!6}{solution} & \cellcolor{gray!6}{-0.203} & \cellcolor{gray!6}{-0.609}\\
 Topic 16 & public;
 strategy;
 finance;
 local;
 provision;
-desirable & -0.0774027 & -0.7677435\\
+desirable & -0.077 & -0.768\\
 Topic 41 & optimal;
 optimal
 tax;
@@ -2651,7 +2659,7 @@ function;
 optimal
 policy;
 optimal
-\cellcolor{gray!6}{taxation} & \cellcolor{gray!6}{0.0421424} & \cellcolor{gray!6}{-1.0667893}\\
+\cellcolor{gray!6}{taxation} & \cellcolor{gray!6}{0.042} & \cellcolor{gray!6}{-1.067}\\
 Topic 12 & lm;
 risk
 aversion;
@@ -2659,20 +2667,20 @@ utility
 function;
 aversion;
 intertemporal;
-risk & -0.5427912 & -0.7959144\\
+risk & -0.543 & -0.796\\
 Topic 49 & report;
 composition;
 regime;
 critique;
 puzzle;
-\cellcolor{gray!6}{profit} & \cellcolor{gray!6}{-0.2943298} & \cellcolor{gray!6}{-1.1323866}\\
+\cellcolor{gray!6}{profit} & \cellcolor{gray!6}{-0.294} & \cellcolor{gray!6}{-1.132}\\
 \addlinespace
 Topic 1 & inventory;
 hold;
 association;
 century;
 create;
-rationally & -0.6918267 & -0.9161635\\
+rationally & -0.692 & -0.916\\
 Topic 14 & income
 distribution;
 labor
@@ -2681,14 +2689,14 @@ permanent;
 sensitivity;
 permanent
 income;
-\cellcolor{gray!6}{income} & \cellcolor{gray!6}{-0.6398314} & \cellcolor{gray!6}{-1.0056349}\\
+\cellcolor{gray!6}{income} & \cellcolor{gray!6}{-0.640} & \cellcolor{gray!6}{-1.006}\\
 Topic 32 & standard;
 gold;
 dollar;
 reserve;
 price
 level;
-size & -1.4241946 & -0.3214564\\
+size & -1.424 & -0.321\\
 Topic 2 & money
 supply;
 money
@@ -2699,7 +2707,7 @@ exchange;
 supply;
 fix
 exchange
-\cellcolor{gray!6}{rate} & \cellcolor{gray!6}{-0.8160845} & \cellcolor{gray!6}{-1.1001257}\\
+\cellcolor{gray!6}{rate} & \cellcolor{gray!6}{-0.816} & \cellcolor{gray!6}{-1.100}\\
 Topic 19 & expect
 rate;
 cash;
@@ -2707,72 +2715,72 @@ sargent;
 nominal;
 expect
 inflation;
-expect & -1.0892597 & -0.8381471\\*
+expect & -1.089 & -0.838\\*
 \end{longtable}
 \endgroup{}
 
 \begingroup\fontsize{7}{9}\selectfont
 
-\begin{longtable}[t]{lrr}
+\begin{longtable}[t]{lcc}
 \caption{\label{tab:summary-communities}Summary of Bibliographic Clusters}\\
 \toprule
-Communities & Author EU/US Orientation score & Journal EU/US Orientation* score\\
+Communities & Log of ratios EU/US  & Log of ratios EER/Top 5\\
 \midrule
 \endfirsthead
 \caption[]{Summary of Bibliographic Clusters \textit{(continued)}}\\
 \toprule
-Communities & Author EU/US Orientation score & Journal EU/US Orientation* score\\
+Communities & Log of ratios EU/US  & Log of ratios EER/Top 5\\
 \midrule
 \endhead
 
 \endfoot
 \bottomrule
 \endlastfoot
-\cellcolor{gray!6}{Modeling Consumption \& Production} & \cellcolor{gray!6}{0.6008836} & \cellcolor{gray!6}{0.3850385}\\
-Disequilibrium \& Keynesian Macro & 0.5191341 & 0.3604811\\
-\cellcolor{gray!6}{International Macroeconomics \& Target Zone} & \cellcolor{gray!6}{0.1311871} & \cellcolor{gray!6}{0.4805425}\\
-Optimal Taxation 1 & 0.5444505 & 0.0235582\\
-\cellcolor{gray!6}{Political Economics of Central Banks} & \cellcolor{gray!6}{0.2807079} & \cellcolor{gray!6}{0.1570998}\\
+\cellcolor{gray!6}{Modeling Consumption \& Production} & \cellcolor{gray!6}{0.601} & \cellcolor{gray!6}{0.385}\\
+Disequilibrium \& Keynesian Macro & 0.519 & 0.360\\
+\cellcolor{gray!6}{International Macroeconomics \& Target Zone} & \cellcolor{gray!6}{0.131} & \cellcolor{gray!6}{0.481}\\
+Optimal Taxation 1 & 0.544 & 0.024\\
+\cellcolor{gray!6}{Political Economics of Central Banks} & \cellcolor{gray!6}{0.281} & \cellcolor{gray!6}{0.157}\\
 \addlinespace
-Capital \& Income Taxation & 0.0912589 & 0.2837561\\
-\cellcolor{gray!6}{Exchange Rate Dynamics} & \cellcolor{gray!6}{0.0294075} & \cellcolor{gray!6}{0.3283407}\\
-Taxation, Tobin's Q \& Monetarism & 0.1639680 & 0.1891055\\
-\cellcolor{gray!6}{Theory of Unemployment \& Job Dynamics} & \cellcolor{gray!6}{0.1665261} & \cellcolor{gray!6}{0.0492033}\\
-Optimal Taxation 2 & 0.5089146 & -0.3252071\\
+Capital \& Income Taxation & 0.091 & 0.284\\
+\cellcolor{gray!6}{Exchange Rate Dynamics} & \cellcolor{gray!6}{0.029} & \cellcolor{gray!6}{0.328}\\
+Taxation, Tobin's Q \& Monetarism & 0.164 & 0.189\\
+\cellcolor{gray!6}{Theory of Unemployment \& Job Dynamics} & \cellcolor{gray!6}{0.167} & \cellcolor{gray!6}{0.049}\\
+Optimal Taxation 2 & 0.509 & -0.325\\
 \addlinespace
-\cellcolor{gray!6}{Business Cycles, Cointegration \& Trends} & \cellcolor{gray!6}{0.1340055} & \cellcolor{gray!6}{0.0486818}\\
-Coordination \& Sunspots 2 & 0.2206951 & -0.0577712\\
-\cellcolor{gray!6}{Target Zone \& Currency Crises} & \cellcolor{gray!6}{-0.1410594} & \cellcolor{gray!6}{0.2906544}\\
-Monetary Policy, Financial Transmission \& Cycles 2 & 0.0603952 & 0.0413168\\
-\cellcolor{gray!6}{Terms of Trade \& Devaluation} & \cellcolor{gray!6}{-0.0885325} & \cellcolor{gray!6}{0.1631356}\\
+\cellcolor{gray!6}{Business Cycles, Cointegration \& Trends} & \cellcolor{gray!6}{0.134} & \cellcolor{gray!6}{0.049}\\
+Coordination \& Sunspots 2 & 0.221 & -0.058\\
+\cellcolor{gray!6}{Target Zone \& Currency Crises} & \cellcolor{gray!6}{-0.141} & \cellcolor{gray!6}{0.291}\\
+Monetary Policy, Financial Transmission \& Cycles 2 & 0.060 & 0.041\\
+\cellcolor{gray!6}{Terms of Trade \& Devaluation} & \cellcolor{gray!6}{-0.089} & \cellcolor{gray!6}{0.163}\\
 \addlinespace
-Taxation, Debt \& Growth & -0.1058333 & 0.1046673\\
-\cellcolor{gray!6}{Monetary Policy, Financial Transmission \& Cycles 1} & \cellcolor{gray!6}{-0.1511096} & \cellcolor{gray!6}{0.0441990}\\
-RBC & -0.1153824 & 0.0054381\\
-\cellcolor{gray!6}{Coordination \& Sunspots 1} & \cellcolor{gray!6}{0.0664730} & \cellcolor{gray!6}{-0.2082945}\\
-Endogenous Growth & -0.0981404 & -0.0519489\\
+Taxation, Debt \& Growth & -0.106 & 0.105\\
+\cellcolor{gray!6}{Monetary Policy, Financial Transmission \& Cycles 1} & \cellcolor{gray!6}{-0.151} & \cellcolor{gray!6}{0.044}\\
+RBC & -0.115 & 0.005\\
+\cellcolor{gray!6}{Coordination \& Sunspots 1} & \cellcolor{gray!6}{0.066} & \cellcolor{gray!6}{-0.208}\\
+Endogenous Growth & -0.098 & -0.052\\
 \addlinespace
-\cellcolor{gray!6}{REH, Monetary Policy \& Business Cycles} & \cellcolor{gray!6}{-0.2171467} & \cellcolor{gray!6}{-0.0007970}\\
-Exchange Rate Dynamics \& Expectations & -0.3986383 & 0.1774216\\
-\cellcolor{gray!6}{Inflation, Interest Rates \& Expectations} & \cellcolor{gray!6}{-0.1050581} & \cellcolor{gray!6}{-0.1682303}\\
-Demand for Money & 0.0027240 & -0.3531459\\
-\cellcolor{gray!6}{Monetary Approach of Balance of Payments} & \cellcolor{gray!6}{-0.2916010} & \cellcolor{gray!6}{-0.0590268}\\
+\cellcolor{gray!6}{REH, Monetary Policy \& Business Cycles} & \cellcolor{gray!6}{-0.217} & \cellcolor{gray!6}{-0.001}\\
+Exchange Rate Dynamics \& Expectations & -0.399 & 0.177\\
+\cellcolor{gray!6}{Inflation, Interest Rates \& Expectations} & \cellcolor{gray!6}{-0.105} & \cellcolor{gray!6}{-0.168}\\
+Demand for Money & 0.003 & -0.353\\
+\cellcolor{gray!6}{Monetary Approach of Balance of Payments} & \cellcolor{gray!6}{-0.292} & \cellcolor{gray!6}{-0.059}\\
 \addlinespace
-Monetary Policy, Target \& Output Gap & -0.0547661 & -0.3030388\\
-\cellcolor{gray!6}{Credit Rationing, Rational Expectations \& Imperfect Information} & \cellcolor{gray!6}{-0.1598390} & \cellcolor{gray!6}{-0.2050900}\\
-Inflation \& Rigidities & -0.2867240 & -0.1475074\\
-\cellcolor{gray!6}{New Theory of Money: Search, Bargaining...} & \cellcolor{gray!6}{-0.1669925} & \cellcolor{gray!6}{-0.3648415}\\
-Permanent Income Hypothesis \& Life-Cycle & -0.3549873 & -0.2867849\\
+Monetary Policy, Target \& Output Gap & -0.055 & -0.303\\
+\cellcolor{gray!6}{Credit Rationing, Rational Expectations \& Imperfect Information} & \cellcolor{gray!6}{-0.160} & \cellcolor{gray!6}{-0.205}\\
+Inflation \& Rigidities & -0.287 & -0.148\\
+\cellcolor{gray!6}{New Theory of Money: Search, Bargaining...} & \cellcolor{gray!6}{-0.167} & \cellcolor{gray!6}{-0.365}\\
+Permanent Income Hypothesis \& Life-Cycle & -0.355 & -0.287\\
 \addlinespace
-\cellcolor{gray!6}{Monetary Economics \& Demand for Money} & \cellcolor{gray!6}{-0.2531023} & \cellcolor{gray!6}{-0.4754408}\\
-Intergenerational Model, Savings and Consumption & -0.2882534 & -0.6636256\\
-\cellcolor{gray!6}{Marginal Taxation} & \cellcolor{gray!6}{-0.3048880} & \cellcolor{gray!6}{-0.9756722}\\*
+\cellcolor{gray!6}{Monetary Economics \& Demand for Money} & \cellcolor{gray!6}{-0.253} & \cellcolor{gray!6}{-0.475}\\
+Intergenerational Model, Savings and Consumption & -0.288 & -0.664\\
+\cellcolor{gray!6}{Marginal Taxation} & \cellcolor{gray!6}{-0.305} & \cellcolor{gray!6}{-0.976}\\*
 \end{longtable}
 \endgroup{}
 
 \begingroup\fontsize{7}{9}\selectfont
 
-\begin{longtable}[t]{lcl}
+\begin{longtable}[t]{lc>{\raggedright\arraybackslash}m{40em}}
 \caption{\label{tab:EER-empirics}Articles of European authors in the EER between 1973 and 1978}\\
 \toprule
 First Author & Year & Title\\
@@ -3063,15 +3071,6 @@ network and are stable enough to exists for at least 2 time windows. We
 are thus able to project the composition of each network and how nodes
 circulated between clusters from one time window to the following one.
 
-\begin{figure}[h]
-
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intertemporal_communities} 
-
-}
-
-\caption{The distribution of bibliographic clusters over time}\label{fig:plot-cluster-flow}
-\end{figure}
-
 For each cluster, we identify the US or European oriented nature of its
 publications and authors. A first measure we used is the over/under
 representation of European/US authors in the cluster. For each time
@@ -3139,7 +3138,7 @@ In addition to the main index, we propose a few alternative indexes:
   \emph{European Authored Articles} was used for the residual.
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation_mean_of_log_ratio} 
 
@@ -3148,7 +3147,7 @@ In addition to the main index, we propose a few alternative indexes:
 \caption{The most European clusters using Mean of Log of Ratios Index (the size of the points captures the number of articles in the cluster)}\label{fig:plot-mean-log-ratios}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europeanisation__chi_mean} 
 
@@ -3251,16 +3250,7 @@ but did not lead to fundamentally different results.
 
 For each cluster, we are able to plot the distribution of the years of
 publications of article, depending on their \emph{gamma} value for the
-corresponding topic.
-
-\begin{figure}[h]
-
-{\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/topic_per_year} 
-
-}
-
-\caption{The distribution of topics over time}\label{fig:plot-topic-year}
-\end{figure}
+corresponding topic (See the online appendix ``Details on the topics'').
 
 \hypertarget{studying-the-european-character-of-topics}{%
 \paragraph*{Studying the European character of
@@ -3268,16 +3258,20 @@ topics}\label{studying-the-european-character-of-topics}}
 \addcontentsline{toc}{paragraph}{Studying the European character of
 topics}
 
-To look at the features of the topics regarding our two variables of
-interest (EER \emph{vs.} Top 5 publications and US authors \emph{vs.}
-European authors), we use two methods. The first one keeps all articles
-and, for each topic, calculate the average gamma value for articles
-published in the EER and in the Top 5. We subtract the two means. We do
-the same for articles written by European authors only and by US authors
-only. The two resulting differences are plot in the following Figure
+In Figure \ref{fig:plot-topic-diff} in the text above, we are only
+keeping, for each topic, articles with a \emph{gamma} value above 0.1.
+We then calculate the log ratio of EER and Top 5 articles for each
+topic:
+
+For robustness, we have also tested another method. We do not filter the
+\(\gamma\) values and keep all articles. For each topic, we calculate
+the average \(\gamma\) for articles published in the EER and in the Top
+5. We subtract the two means. We do the same for articles written by
+European authors only and by US authors only. The two resulting
+differences are plot in the following Figure
 \ref{fig:plot-topic-diff-alternative}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 
 {\centering \includegraphics[width=1\linewidth]{../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_new_bw} 
 
@@ -3285,23 +3279,5 @@ only. The two resulting differences are plot in the following Figure
 
 \caption{The most European topics (Differences of mean method)}\label{fig:plot-topic-diff-alternative}
 \end{figure}
-
-In Figure \ref{fig:plot-topic-diff} in the text above, we are only
-keeping, for each topic, articles with a \emph{gamma} value above 0.1.
-We then calculate the log ratio of EER and Top 5 articles for each
-topic:
-
-\bigskip
-
-\({\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{\frac{\text{Share Of EER Articles In The Topic}}{\text{Total Share Of EER Articles}}} {\frac{\text{Share Of Top 5 Articles In The Topic}}{\text{Total Share Of Top 5 Articles}}})}\)
-
-\bigskip
-
-We do the same for articles written by Europe-based and US-based
-authors:
-
-\bigskip
-
-\({\scriptstyle \text{Author EU/US Orientation}=\log(\frac{\frac{\text{Share Of European Authored Articles In The Topic}}{\text{Total Share Of European Authored Articles}}} {\frac{\text{Share Of US Authored Articles In The Topic}}{\text{Total Share Of US Authored Articles}}})}\)
 
 \end{document}
