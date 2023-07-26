@@ -1,0 +1,316 @@
+---
+title: "An Independent European Macro? A History of European Macroeconomics through the Lens of the European Economic Review"
+author:
+
+journal: "European Economic Review"
+date: "`r Sys.Date()`"
+bibliography: bibliography.bib
+link-citations: yes
+csl: elsevier-harvard.csl
+output: 
+  rticles::elsevier_article:
+    number_sections: true
+    toc: false
+    toc_depth: 3
+    extra_dependencies: ["float"]
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE, 
+                      eval = TRUE, 
+                      cache = TRUE,
+                      fig.align = "center",
+                      fig.pos = "h")
+
+package_list <- c("data.table", 
+                  "tidyverse",
+                  "tidygraph",
+                  "ggrepel",
+                  "scico", "see",
+                  "googledrive",
+                  "here",
+                  "kableExtra",
+                  "DiagrammeR",
+                  "webshot")
+for (p in package_list) {
+  if (p %in% installed.packages() == FALSE) {
+    install.packages(p, dependencies = TRUE)
+  }
+  library(p, character.only = TRUE)
+}
+
+
+# Paths
+if (str_detect(getwd(), "goutsmedt")) {
+  data_path <- "C:/Users/goutsmedt/Mon Drive/data"
+} else {
+  if (str_detect(getwd(), "Dropbox")) {
+    data_path <- "G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data"
+  } else {
+    data_path <- "/projects/data/macro_AA"
+  }
+}
+source(here("Script_paths_and_basic_objects_EER.R"))
+
+
+# Loading Corpus and filter it to have to good corpus EER, and macroEER/Top 5
+
+all_macro <- readRDS(here(data_path,
+                          "macro_AA",
+                          "2_Matched_data",
+                          "Econlit_matched_ID_Art.RDS"))
+
+Corpus <- readRDS(here(eer_data,
+                       "1_Corpus_Prepped_and_Merged",
+                       "Corpus_top5_EER.RDS"))
+
+econlit_new <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_JEL_Articles.rds"))
+econlit_old <- readRDS(here(data_path, "macro_AA","Corpus_Econlit", "dt_Old_JEL_Articles.rds"))
+econlit_art <- rbind(econlit_old, econlit_new)
+
+# Corpus EER
+Corpus_all_EER <- Corpus[journal_type=="EER"] 
+# Corpus macro EER/Top5
+Corpus<- Corpus[jel_id==1]
+Corpus <- Corpus[Annee_Bibliographique>=1973]
+
+# Corpus alluvial and network
+alluv_dt <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt.RDS"))
+alluv_dt_graph <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Alluv_dt_graph.RDS"))
+tbl_coup_list <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "Tbl_coup_list.RDS"))
+communities <- readRDS(here(eer_data,"2_Raw_Networks_and_Alluv", "euro_vs_us_communities.rds")) %>% arrange(desc(sum_diff))
+
+# Topic modelling data
+topic_diff <- readRDS(here(eer_data, 
+                           "3_Topic_modelling",
+                           "TM_topics_diff.rds")) %>% 
+  mutate(total_diff = diff_affiliation + diff_journal,
+         topic = as.integer(str_extract(topic_name, "[:digit:]+")))
+
+top_terms <- readRDS(here(eer_data,
+                          "3_Topic_modelling",
+                          "TM_top_terms.rds")) %>% 
+  left_join(select(topic_diff, topic, total_diff))
+
+# Loading boards
+boards <- read_csv(here(eer_data,
+                        "editorial_boards", 
+                        "Members_EB_by_year.csv"))
+```
+
+\newpage
+
+# Appendices {.unnumbered}
+
+## A - Summary Tables {.unnumbered}
+
+Here are the tables listing the different clusters and topics, with their synthetic indicator of how much they are "European".
+
+```{r summary-communities}
+communities_table <- communities %>% select(Label_com, sum_diff) %>% arrange(desc(sum_diff))
+
+communities_table %>%
+  kbl(caption="Summary of Bibliographic Communities",
+      booktabs = TRUE,
+      longtable = FALSE,
+      col.names =c("Communities", "Differences"),
+      format= "latex",
+      align="lr") %>%
+  kable_styling(latex_options = c("striped", "repeat_header", "hold_position"),
+                font_size = 9)
+```
+
+\newpage
+
+```{r summary-topics}
+topics_summary <- top_terms %>%
+  filter(measure == "frex") %>%
+  group_by(topic) %>%
+  slice_max(value, n = 6) %>%
+  mutate(topic = paste("Topic", topic),
+         top_terms = str_wrap(paste0(term, collapse = "; "), 0),
+         total_diff = round(total_diff, 3)) %>%
+  select(topic, total_diff, top_terms) %>%
+  unique %>%
+  arrange(desc(total_diff))
+
+
+topics_summary %>% 
+  kbl(caption="Summary of Topics",
+      booktabs = TRUE,
+      longtable = TRUE,
+      format= "latex",
+      col.names = c("Topics", "Differences", "Terms with the highest frex value"),
+      align="lrl") %>%
+  column_spec(1, latex_valign = "m") %>%
+  column_spec(2, latex_valign = "m") %>%
+  column_spec(3, width = "25em", latex_valign = "m") %>%
+  kable_styling(latex_options = c("repeat_header", "hold_position", "striped"),
+                font_size = 9) %>%
+  footnote(general = "Differences values are the sum of (i) the difference in the gamma mean between EER and Top 5; (ii) the same difference but between European-based and US-based authors",
+           threeparttable = TRUE)
+
+```
+
+\newpage
+
+## B - Information on the Methods {#appendix .unnumbered}
+
+### B.1. Corpus Creation {#corpus .unnumbered}
+
+For the present study we used two different corpora. The first corpus is composed of all EER articles and allows us to track how publications, citations, references and authors affiliations evolved since the creation of the journal in 1969 up to the 2002. The second corpus is composed of all macroeconomic articles published in the top five economics journals and the EER. Macroeconomic articles are identified thanks to the former and new classification of the JEL codes [@jel1991].[^18] This is used as the basis for topic modeling and bibliographic coupling analysis to contrast the top macroeconomics publications authored by European-based and US-based authors, and/or published in top 5 journals and in the EER.
+
+[^18]: See \ref{eer-top5-macro} for the list of JEL codes used.
+
+#### EER Publications {.unnumbered}
+
+For the creation of the first corpus composed of all EER articles, we used a mix of *Web of Science* (WoS) and *Scopus*. While WoS has all articles of the EER between 1969-1970 and 1974-2002, it is missing most articles published between 1971 and 1973. To make up for the missing data, we use Scopus to complete the dataset. This operation required normalization of the Scopus dataset, and manual cleaning of variables that were missing from Scopus compared to WoS. This mostly includes cleaning the references to match *Scopus* references with WoS ones, and identification of author's affiliation.
+
+```{r echo=FALSE, out.width = '100%', fig.cap='Construction of Corpus 1',fig.pos = "!ht"}
+# drive_download("Pictures/infographics_corpus1.png",
+#                overwrite = TRUE)
+
+# knitr::include_graphics("Pictures/infographics_corpus1.png")
+
+```
+
+Moreover, given that the size of our corpus is modest, we made an extensive semi-automatic cleaning of references to improve references identification by adding the most commonly cited books, book chapter, and articles that are not otherwise identified in WoS when possible.
+
+#### EER and Top 5 Macroeconomics Articles {#eer-top5-macro .unnumbered}
+
+```{r}
+
+n_corpus <- Corpus[,.N]
+
+n_econlit <- econlit_art[toupper(Journal)=="JOURNAL OF POLITICAL ECONOMY" 
+               | toupper(Journal)=="QUARTERLY JOURNAL OF ECONOMICS" 
+               | toupper(Journal)=="AMERICAN ECONOMIC REVIEW"
+               | toupper(Journal)=="EUROPEAN ECONOMIC REVIEW"
+               | toupper(Journal)=="REVIEW OF ECONOMIC STUDIES"
+               | toupper(Journal)=="ECONOMETRICA"][Year.V1>=1973 & Year.V1<=2002][,.N]
+
+# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT),.N,YEAR], aes(x=as.character(YEAR),y=N)) + geom_bar(stat="identity")
+# ggplot(missing_ID_Art_abstracts[is.na(ID_Art) & !is.na(ABSTRACT)], aes(x=as.character(YEAR))) + geom_bar() +  facet_wrap(~JOURNAL, ncol = 2, scales = "fixed")
+
+```
+
+The construction of this corpus is made in multiple steps:
+
+1.  Identifying macroeconomics articles
+
+    -   We identified all articles published in macroeconomics using JEL codes related to macroeconomics (we get JEL codes of Top 5 and EER articles thanks to the Econlit database). We consider that an article is a macroeconomics article if it has one of the following codes:
+
+        -   For old JEL codes (pre-1991): 023, 131, 132, 133, 134, 223, 311, 313, 321, 431, 813, 824.
+        -   For new JEL codes (1991 onward): all E, F3 and F4.[^19].
+
+2.  Using these JEL codes, we match econlit articles with WoS articles when they shared the same:
+
+    -   Journal, Volume, First Page
+    -   Year, Journal, First Page, Last Page
+    -   Year, Volume, First Page, Last Page
+    -   First Author, Year, Volume, First Page
+    -   First Author, Title, Year
+    -   Title, Year, First Page
+
+Out of the `r n_econlit` articles we get in econlit, we matched `r n_corpus` of them in WoS.[^20]
+
+3.  Using this list of articles in WoS, we took all articles in macroeconomics published in the EER (Corpus 1 improved with Scopus) and in the top five journals (*American Economic Review*, Econometrica, *Review of Economic Studies*, *Journal of Political Economy*, *Quarterly Journal of Economics*).
+
+4.  Finally, we were able to collect abstracts:
+
+    -   using *Scopus* for the EER. All abstracts have been matched with the EER corpus.
+    -   using *Microsoft Academics* to collect the highest number of available abstracts for the Top 5 as too many abstracts were missing in WoS or *Scopus*. The abstracts extracted from this database are matched with our WoS Top 5 corpus using
+
+[^19]: The new classification has a clear categorisation of Macroeconomics (the letter 'E'), but we had F3 and F4 as they deal with international macroeconomics. For the older JEL codes, we use the table of correspondence produce by the *Journal of Economic Literature* itself [@jel1991].
+
+[^20]: Most of the unmatched articles are not 'articles' properly speaking: they often are reply and comments on other published articles. (Investigate this deeper)
+
+### B.2. Variable creation {.unnumbered}
+
+#### Authors' affiliation {#author-affiliation .unnumbered}
+
+Authors' affiliations information were extracted from WoS. However, the affiliations are not per author, but instead per institutional departments per paper. For example, in the case of an article with two authors from the same department, the department (and institution or country associated with it) is only counted once. Similarly, a single-authored article where the author has three affiliations can result in one article having three affiliations. While in some cases we can inferred the institutional affiliation for each author (e.g., one institution, multiple authors), in others we cannot (e.g., two institutions, three authors). For example, in an article with two authors from Princeton and one author from Stanford, we only know that the article was written by at least one author from Princeton and at least one from Stanford, but not that the individual ratio was two third.
+
+We restructure the information in two ways.
+
+First, for each article, we only kept one occurrence of each unique institutions (university, research institutes...) to avoid the multiplication of observations resulting from the variety of departments observed in some institutions. In other words, for each article, authors are group by their institutional affiliation not by their department or research team.
+
+Second, and more importantly, for the purpose of our analysis, we mostly looked at the share of papers authored by European-based and US-based economists. While we do not have individual affiliation, we know with certainty when a paper has only European authors, only American authors, or a mix of the two. For this reason, while the share of institutions within the corpus is only an estimation based on the occurrences of affiliation, the information generated to identify US authored papers and European authored paper is certain.
+
+### B.3. Bibliographic Coupling and Cluster Detection {#network .unnumbered}
+
+```{r}
+network_raw_com <- lapply(tbl_coup_list,function(x) x %>% activate(nodes) %>% as.data.table %>% .[,.N,Leiden1])
+network_raw_com <- rbindlist(network_raw_com,fill = TRUE)
+n_communities_raw <- network_raw_com[,.N]
+
+n_communities_alluv <- alluv_dt_graph[,.N,new_Id_com][,.N]
+n_communities_of_interest <- alluv_dt_graph[,.N,Label_com][!is.na(Label_com),.N]
+n_windows <- alluv_dt_graph[,.N,Window][,.N]
+meta_group <- alluv_dt_graph[!is.na(Label_com),.N,meta_group]
+
+time_window <- 8
+min_n_years <- 2
+min_leiden_max <- 0.04
+
+```
+
+A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
+
+1. The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
+2. The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
+
+For all macroeconomics articles published in the EER and in the Top 5, we build the networks with `time_window`-year overlapping windows. This results in `r n_windows`.
+
+We used Leiden detection algorithm [@traag2019] that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in `r n_communities_raw` across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster
+
+Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster.
+
+This gives us `r n_communities_alluv`, with `r n_communities_of_interest` that are at least `r min_leiden_max`% of a network at any given point and are stable enough to exists for at least `r min_n_years` time windows.
+
+For each clusters, we identified the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each cluster, and for articles authored by solely European or American authors, we measured the log of the ratio of the share of european authored articles in the cluster on the share of european authored articles in the networks on the same time window of the cluster:
+
+${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{\text{Share Of European Authored Articles In The Cluster}}{\text{Share Of European Authored Articles In The Time Window}})}$
+
+We then use a second similar index for the publication venue of the articles in the cluster. For each cluster, we subtracted the relative share of EER publications to Top 5 publications in the cluster, to the relative share of EER publications to Top 5 publications on the same time window of the cluster:
+
+${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{\text{Share Of EER Articles In The Cluster}}{\text{Share Of EER  Articles In Time Window}})}$
+
+To get an overall index score of the European/US orientation of clusters, we simply sum the two previous index:
+
+${\scriptstyle \text{Overall EU/US Orientation}=\text{Author EU/US Orientation} + \text{Journal EU/US Orientation}}$
+
+Finally, clusters are placed on a scatterplot with the Y-axis for the EER vs Top 5 score, and the X-Axis for the American vs European authors score. The size of the points captures the size of the cluster with the number of articles that are in it, and the color of the cluster is simply the sum of the two Y and X scores.
+
+### B.4. Topic Modelling {#topic .unnumbered}
+
+#### Preprocessing {.unnumbered}
+
+We have several steps to clean our texts before running our topic models:
+
+1. Once we have our corpus, we merge titles and abstracts together for all EER and Top 5 articles. 
+2. We use the *tidytext* and *tokenizers* R packages to 'tokenise' the resulting texts (when there is no abstract, only the title if thus tokenise)?^[See Silge J, Robinson D (2016). “tidytext: Text Mining and Analysis Using Tidy Data Principles in R.” _JOSS_, *1*(3) and Lincoln A. Mullen et al., "Fast, Consistent Tokenization of Natural Language Text," Journal of Open Source Software 3, no.23 (2018): 655.] Tokenisation is the process of transforming human-readable text into machine readable objects. Here, the text is split in unique words (unigrams), bigrams (pair of words) and trigrams. In other words, to each article is now associated a list of unigrams, bigrams and trigrams, some appearing several times in the same title + abstract.
+3. Stop words are removed using the *Snowball* dictionary.^[See http://snowball.tartarus.org/algorithms/english/stop.txt.] We add to this dictionary some current verbs in abstract like "demonstrate", "show", "explain". Such verbs are likely to be randomly distributed in abstracts, but we want to limit the noise as much as possible.
+4. We lemmatise the words using the *textstem* package.^[Rinker, T. W. (2018). textstem: Tools for stemming and lemmatizing text version 0.1.4. Buffalo, New York.] The lemmatisation is the process of grouping words together according to their "lemma" which depends on the context. For instance, different form of a verb are reduced to its infinitive form. The plural of nouns are reduced to the singular.  
+
+#### Choosing the number of topics {.unnumbered}
+
+We use the Correlated Topic Model [@blei2007] method implemented in the *STM* R package.^[Roberts ME, Stewart BM, Tingley D (2019). “stm: An R Package for Structural Topic Models.” _Journal of Statistical Software_, *91*(2), 1-40.]
+
+```{r}
+# I am not sure it should be Copurs in the `r trunc(0.005 * nrow(corpus), 1)` part
+
+```
+
+From the list of words we have tokenised, cleaned and lemmatised, we test different thresholds and choices by running different models: 
+
+- by exluding trigrams or not;
+- by removing the terms that are present in less than 0.5% of the Corpus (`r trunc(0.005 * nrow(corpus), 1)`), 1% (`r trunc(0.01 * nrow(corpus), 1)`) and 2% (`r trunc(0.02 * nrow(corpus), 1)`);
+- by removing articles with less than 6 words or with less than 12 words.^[Here, only articles with no abstract are impacted.]
+
+Crossing all these criteria, we thus have 12 different possible combinations. For each of these 12 different combinations, we have run topic models for different number of topics from 20 to 110 with a gap of 5. The chosen model integrates trigram, removes only terms that appear in less than 0,5% of the documents and keep all articles if they have more than 6 words in their title + abstract. We choose to keep the model with 55 topics.
+
+We have chosen the criteria and the number of topics by comparing the performance of the different models in terms of the FREX value [@bischof2012].

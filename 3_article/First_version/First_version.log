@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  19 APR 2022 20:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  26 JUL 2023 10:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -355,12 +355,12 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip57
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 47.
+Package hyperref Info: Option `breaklinks' set `true' on input line 49.
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 47.
+(hyperref)                setting the option has no effect on input line 49.
 
-Package hyperref Info: Option `colorlinks' set `false' on input line 47.
+Package hyperref Info: Option `colorlinks' set `false' on input line 49.
 \cslhangindent=\skip58
 \csllabelwidth=\skip59
 \cslentryspacingunit=\skip60
@@ -535,7 +535,7 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 )
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
-6.
+7.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -545,24 +545,24 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 ) (./First_version.aux)
 \openout1 = `First_version.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 106.
-LaTeX Font Info:    ... okay on input line 106.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
 (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count323
@@ -584,18 +584,18 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 106.
-Package microtype Info: Applying patch `item' on input line 106.
-Package microtype Info: Applying patch `toc' on input line 106.
-Package microtype Info: Applying patch `eqnum' on input line 106.
-Package microtype Info: Applying patch `footnote' on input line 106.
+LaTeX Info: Redefining \microtypecontext on input line 107.
+Package microtype Info: Applying patch `item' on input line 107.
+Package microtype Info: Applying patch `toc' on input line 107.
+Package microtype Info: Applying patch `eqnum' on input line 107.
+Package microtype Info: Applying patch `footnote' on input line 107.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 106.
+LaTeX Info: Redefining \showhyphens on input line 107.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -603,7 +603,7 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-Package hyperref Info: Link coloring OFF on input line 106.
+Package hyperref Info: Link coloring OFF on input line 107.
 (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -613,407 +613,23 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count329
 )
-LaTeX Info: Redefining \ref on input line 106.
-LaTeX Info: Redefining \pageref on input line 106.
-LaTeX Info: Redefining \nameref on input line 106.
+LaTeX Info: Redefining \ref on input line 107.
+LaTeX Info: Redefining \pageref on input line 107.
+LaTeX Info: Redefining \nameref on input line 107.
 (./First_version.out) (./First_version.out)
 \@outlinefile=\write4
 \openout4 = `First_version.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-50.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-50.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-150.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-150.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 150.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 150.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 150.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 150
-.
-(c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-) (c:/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg
-File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 150
-.
-(c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (c:/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg
-File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 150.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 150.
-[1
-
-
-{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/mean_jel.png, id=187, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/mean_jel.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/mean_jel.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/mean_jel.png  used on input line 337.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4] [5pdfTeX warning (ext4): destination with the same identifier (name{figure.
-1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.396 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/mean_jel.png>]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Board_affiliations.png, id=226, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/Board_affiliations.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/Board_affiliations.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/Board_affiliations.png  used on input line 399.
-
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_affiliations.png, id=227, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/EER_affiliations.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/EER_affiliations.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/EER_affiliations.png  used on input line 408.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.445 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/Board_affiliations.png>]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Collab_strict.png, id=238, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/Collab_strict.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/Collab_strict.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/Collab_strict.png  used on input line 448.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_Importance_econ.png, id=241, 1138.0116pt x 853.5087pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/EER_Importance_econ.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/EER_Importance_econ.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/EER_Importance_econ.png  used on input line 466
-.
-(pdftex.def)             Requested size: 310.4979pt x 232.87279pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/EER_Importance_macro.png, id=242, 1138.0116pt x 853.5087pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/EER_Importance_macro.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/EER_Importance_macro.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/EER_Importance_macro.png  used on input line 47
-5.
-(pdftex.def)             Requested size: 310.4979pt x 232.87279pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[7pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.500 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/EER_affiliations.png>] [8pdfTeX warning (ext4): destination with
- the same identifier (name{figure.4}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.544 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/Collab_strict.png>] [9pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.5}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.559 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/EER_importance_econ.png>]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Communities_europeanisation_colored.png, id=294, 853.5087pt x 569.0058p
-t>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/Communities_europeanisation_colored.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/Communities_europeanisation_colored.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/Communities_europeanisation_colored.png  used o
-n input line 590.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-[10pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
- has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.595 \end{figure}
-                   <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN
-5/data/EER/pictures/Graphs/EER_importance_macro.png>] [11pdfTeX warning (ext4):
- destination with the same identifier (name{figure.7}) has been already used, d
-uplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.632 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/Communities_europeanisation_colored.png>]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/logratio_diff_plot_new_bw.png, id=330, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/logratio_diff_plot_new_bw.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/logratio_diff_plot_new_bw.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/logratio_diff_plot_new_bw.png  used on input li
-ne 648.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-[12pdfTeX warning (ext4): destination with the same identifier (name{figure.8})
- has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.675 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/logratio_diff_plot_new_bw.png>] [13]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/graphs/g2_over_citations.png, id=391, 1138.0116pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/graphs/g2_over_citations.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/graphs/g2_over_citations.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/graphs/g2_over_citations.png  used on input line 774.
-(pdftex.def)             Requested size: 345.0pt x 172.50029pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[14] [15pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.9}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.850 
-       <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/p
-ictures/Graphs/g2_over_citations.png>] [16] [17] [18] [19]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/graphs/g1_citations.png, id=590, 1138.0116pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/graphs/g1_citations.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/graphs/g1_citations.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/graphs/g1_citations.png  used on input line 1101.
-(pdftex.def)             Requested size: 345.0pt x 172.50029pt.
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/graphs/g1_over_citations.png, id=591, 1138.0116pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/graphs/g1_over_citations.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/graphs/g1_over_citations.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/graphs/g1_over_citations.png  used on input line 1110.
-
-(pdftex.def)             Requested size: 345.0pt x 172.50029pt.
-[20pdfTeX warning (ext4): destination with the same identifier (name{figure.10}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1135 
-       pdfTeX warning (ext4): destination with the same identifier (name{figure
-.11}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1135 
-        <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/
-pictures/Graphs/g1_citations.png> <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv
-0_Stf5xyrvo_dkN5/data/EER/pictures/Graphs/g1_over_citations.png>] [21] [22] [23
-] [24]
-Overfull \hbox (3.16737pt too wide) in paragraph at lines 1321--1325
-\T1/lmr/m/n/10 (-20) ment Debt. The Re-view of Eco-nomic Stud-ies 57, 403--414.
- doi:[]10.2307/2298021[] 
- []
-
-[25] [26] [27]
-Overfull \hbox (6.48627pt too wide) in paragraph at lines 1669--1673
-\T1/lmr/m/n/10 (-20) In-te-gra-tion. The Re-view of Eco-nomic Stud-ies 59, 689-
--701. doi:[]10.2307/2297993[] 
- []
-
-[28]
-Overfull \hbox (24.84084pt too wide) in paragraph at lines 1755--1759
-\T1/lmr/m/n/10 (-20) ing in-fla-tion tar-gets. Eu-ro-pean Eco-nomic Re-view 41,
- 1111--1146. doi:[]10.1016/S0014-
- []
-
-
-Overfull \hbox (51.03685pt too wide) in paragraph at lines 1768--1772
-\T1/lmr/m/n/10 (-20) per-spec-tive. Jour-nal of Eco-nomic Method-ol-ogy 1--12. 
-doi:[]10.1080/1350178X.2020.1868774[] 
- []
-
-[29]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 1807.
-[30pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
-has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.1854 \newpage
-               ]
-Overfull \hbox (0.82571pt too wide) in alignment at lines 1858--1863
- [] [] [] 
- []
-
-
-Overfull \hbox (0.82571pt too wide) in alignment at lines 1863--1868
- [] [] [] 
- []
-
-
-Overfull \hbox (0.82571pt too wide) in alignment at lines 1868--1870
- [] [] [] 
- []
-
-
-Overfull \hbox (0.82571pt too wide) in alignment at lines 1870--1872
- [] [] [] 
- []
-
-
-Overfull \hbox (0.82571pt too wide) in alignment at lines 1872--2278
- [] [] [] 
- []
-
-[31] [32]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-335.
-(c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [33] [34] [35]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/Intertemporal_communities.png, id=817, 995.6397pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/Intertemporal_communities.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/Intertemporal_communities.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/Intertemporal_communities.png  used on input li
-ne 2507.
-(pdftex.def)             Requested size: 345.0pt x 197.16676pt.
-[36pdfTeX warning (ext4): destination with the same identifier (name{figure.12}
-) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.2552 
-        <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/
-pictures/Graphs/Intertemporal_communities.png>] [37]
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/topic_per_year.png, id=850, 1422.5145pt x 1138.0116pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/topic_per_year.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/topic_per_year.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/topic_per_year.png  used on input line 2655.
-(pdftex.def)             Requested size: 345.0pt x 275.99353pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pictures
-/Graphs/mean_diff_plot_new_bw.png, id=852, 853.5087pt x 569.0058pt>
-File: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pic
-tures/Graphs/mean_diff_plot_new_bw.png Graphic file (type png)
-<use G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_dkN5/data/EER/pict
-ures/Graphs/mean_diff_plot_new_bw.png>
-Package pdftex.def Info: G:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrv
-o_dkN5/data/EER/pictures/Graphs/mean_diff_plot_new_bw.png  used on input line 2
-679.
-(pdftex.def)             Requested size: 345.0pt x 229.9946pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[38] [39pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.13}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.2705 \end{document}
-                      <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/topic_per_year.png>] [40pdfTeX warning (ext4): de
-stination with the same identifier (name{figure.14}) has been already used, dup
-licate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.2705 \end{document}
-                      <g:/.shortcut-targets-by-id/1EHqA0pp2uozTykWv0_Stf5xyrvo_
-dkN5/data/EER/pictures/Graphs/mean_diff_plot_new_bw.png>] (./First_version.aux)
-Package rerunfilecheck Info: File `First_version.out' has not changed.
-(rerunfilecheck)             Checksum: D83F086FA29A1360B0C1DA3180B85C4F;3856.
- ) 
+! Undefined control sequence.
+l.122       \affiliation
+                        [1]{UCLouvain, ISPOLE. Collège Jacques Leclercq, Place
+ 
 Here is how much of TeX's memory you used:
- 15841 strings out of 478278
- 260906 string characters out of 5850546
- 588419 words of memory out of 5000000
- 33179 multiletter control sequences out of 15000+600000
- 549252 words of font info for 211 fonts, out of 8000000 for 9000
+ 14873 strings out of 478278
+ 233016 string characters out of 5850546
+ 557413 words of memory out of 5000000
+ 32823 multiletter control sequences out of 15000+600000
+ 473974 words of font info for 35 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,9n,76p,1010b,532s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/tex
-mf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvip
-s/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}<c
-:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/texlive/2021/tex
-mf-dist/fonts/type1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1
-/public/lm/lmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr5.pfb
-><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/texlive/2021/te
-xmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1
-/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr9.pfb>
-<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/texlive/2021/t
-exmf-dist/fonts/type1/public/lm/lmri7.pfb><c:/texlive/2021/texmf-dist/fonts/typ
-e1/public/lm/lmri8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri9.
-pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/texlive/202
-1/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on First_version.pdf (40 pages, 8841859 bytes).
-PDF statistics:
- 1001 PDF objects out of 1200 (max. 8388607)
- 904 compressed objects within 10 object streams
- 276 named destinations out of 1000 (max. 500000)
- 39143 words of extra memory for PDF output out of 42996 (max. 10000000)
-
+ 70i,1n,76p,1010b,272s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
