@@ -9,7 +9,6 @@ abstract: |
   In this article, we use topic modelling and bibliometric coupling to identify European specialities between 1969 and 2002. We focus on macroeconomics, and we use the articles published in the European Economic Review and compare their bibliographic references and textual content (*via* titles and abstracts) to what has been published in the top 5 journals.
   
   In the late 1970s and early 1980s, disequilibrium theory constituted a significant part of the research undertaken by European macroeconomists, and did not limit to the general equilibrium theory, but also represented a unifying framework to deal with different macroeconomic issues. After it lost its influence in the second part of the 1980s, political economy occupied this role. It constituted a resource for tackling the issues raised by the European integration and the building of a European monetary system, and constituted a common language for many European macroeconomists.   
-
 journal: "European Economic Review"
 date: "`r Sys.Date()`"
 bibliography: bibliography.bib
@@ -17,6 +16,10 @@ link-citations: yes
 csl: elsevier-harvard.csl
 lang: en-UK
 output:
+  word_document:
+    number_sections: yes
+    toc: false
+    toc_depth: 2
   pdf_document:
     keep_tex: yes
     number_sections: yes
