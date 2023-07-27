@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  26 JUL 2023 10:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.10)  26 JUL 2023 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -208,6 +208,69 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen155
 \Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks25
+) (c:/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip53
+\LTright=\skip54
+\LTpre=\skip55
+\LTpost=\skip56
+\LTchunksize=\count277
+\LTcapwidth=\dimen157
+\LT@head=\box53
+\LT@firsthead=\box54
+\LT@foot=\box55
+\LT@lastfoot=\box56
+\LT@gbox=\box57
+\LT@cols=\count278
+\LT@rows=\count279
+\c@LT@tables=\count280
+\c@LT@chunks=\count281
+\LT@p@ftn=\toks26
+) (c:/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen158
+\lightrulewidth=\dimen159
+\cmidrulewidth=\dimen160
+\belowrulesep=\dimen161
+\belowbottomsep=\dimen162
+\aboverulesep=\dimen163
+\abovetopsep=\dimen164
+\cmidrulesep=\dimen165
+\cmidrulekern=\dimen166
+\defaultaddspace=\dimen167
+\@cmidla=\count282
+\@cmidlb=\count283
+\@aboverulesep=\dimen168
+\@belowrulesep=\dimen169
+\@thisruleclass=\count284
+\@lastruleclass=\count285
+\@thisrulewidth=\dimen170
+) (c:/texlive/2021/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen171
+\ar@mcellbox=\box58
+\extrarowheight=\dimen172
+\NC@list=\toks27
+\extratabsurround=\skip57
+\backup@length=\skip58
+\ar@cellbox=\box59
+) (c:/texlive/2021/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count286
+\calc@Bcount=\count287
+\calc@Adimen=\dimen173
+\calc@Bdimen=\dimen174
+\calc@Askip=\skip59
+\calc@Bskip=\skip60
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count288
+\calc@Cskip=\skip61
+) (c:/texlive/2021/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
+Package: footnotehyper 2021/08/13 v1.1e hyperref aware footnote.sty (JFB)
+\FNH@notes=\box60
+\FNH@width=\dimen175
+\FNH@toks=\toks28
 ) (c:/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 (c:/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
@@ -219,115 +282,57 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen157
-\Gin@req@width=\dimen158
+\Gin@req@height=\dimen176
+\Gin@req@width=\dimen177
 )
-\cslhangindent=\skip53
-\csllabelwidth=\skip54
-\cslentryspacingunit=\skip55
-(c:/texlive/2021/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count277
-\calc@Bcount=\count278
-\calc@Adimen=\dimen159
-\calc@Bdimen=\dimen160
-\calc@Askip=\skip56
-\calc@Bskip=\skip57
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count279
-\calc@Cskip=\skip58
-) (c:/texlive/2021/texmf-dist/tex/generic/babel/babel.sty
+\cslhangindent=\skip62
+\csllabelwidth=\skip63
+\cslentryspacingunit=\skip64
+(c:/texlive/2021/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2022/01/26 3.70 The Babel package
-\babel@savecnt=\count280
-\U@D=\dimen161
+\babel@savecnt=\count289
+\U@D=\dimen178
 \l@unhyphenated=\language87
 (c:/texlive/2021/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count281
+\bbl@dirlevel=\count290
 Package babel Info: You haven't specified a language. I'll use 'nil'
 (babel)             as the main language. Reported on input line 4299.
 (c:/texlive/2021/texmf-dist/tex/generic/babel/nil.ldf
 Language: nil 2022/01/26 3.70 Nil language
 \l@nil=\language88
 ))
-\everypar=\toks26
+\everypar=\toks29
 (c:/texlive/2021/texmf-dist/tex/generic/babel/locale/en/babel-british.tex
 (c:/texlive/2021/texmf-dist/tex/generic/babel/locale/en/babel-english-unitedkin
 gdom.tex))
 Package babel Info: Importing data for british
-(babel)             from babel-en-GB.ini. Reported on input line 84.
+(babel)             from babel-en-GB.ini. Reported on input line 94.
 Package babel Info: Hyphen rules for 'british' set to \l@ukenglish
-(babel)             (\language21). Reported on input line 84.
+(babel)             (\language21). Reported on input line 94.
 (c:/texlive/2021/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count282
-\float@exts=\toks27
-\float@box=\box53
-\@float@everytoks=\toks28
-\@floatcapt=\box54
-) (c:/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen162
-\lightrulewidth=\dimen163
-\cmidrulewidth=\dimen164
-\belowrulesep=\dimen165
-\belowbottomsep=\dimen166
-\aboverulesep=\dimen167
-\abovetopsep=\dimen168
-\cmidrulesep=\dimen169
-\cmidrulekern=\dimen170
-\defaultaddspace=\dimen171
-\@cmidla=\count283
-\@cmidlb=\count284
-\@aboverulesep=\dimen172
-\@belowrulesep=\dimen173
-\@thisruleclass=\count285
-\@lastruleclass=\count286
-\@thisrulewidth=\dimen174
-) (c:/texlive/2021/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip59
-\LTright=\skip60
-\LTpre=\skip61
-\LTpost=\skip62
-\LTchunksize=\count287
-\LTcapwidth=\dimen175
-\LT@head=\box55
-\LT@firsthead=\box56
-\LT@foot=\box57
-\LT@lastfoot=\box58
-\LT@gbox=\box59
-\LT@cols=\count288
-\LT@rows=\count289
-\c@LT@tables=\count290
-\c@LT@chunks=\count291
-\LT@p@ftn=\toks29
-) (c:/texlive/2021/texmf-dist/tex/latex/tools/array.sty
-Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen176
-\ar@mcellbox=\box60
-\extrarowheight=\dimen177
-\NC@list=\toks30
-\extratabsurround=\skip63
-\backup@length=\skip64
-\ar@cellbox=\box61
+\c@float@type=\count291
+\float@exts=\toks30
+\float@box=\box61
+\@float@everytoks=\toks31
+\@floatcapt=\box62
 ) (c:/texlive/2021/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip65
 \multirow@cntb=\count292
 \multirow@dima=\skip66
-\bigstrutjot=\dimen178
+\bigstrutjot=\dimen179
 ) (c:/texlive/2021/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen179
-\WF@size=\dimen180
+\wrapoverhang=\dimen180
+\WF@size=\dimen181
 \c@WF@wrappedlines=\count293
-\WF@box=\box62
-\WF@everypar=\toks31
+\WF@box=\box63
+\WF@everypar=\toks32
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/texlive/2021/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
-\everycr=\toks32
+\everycr=\toks33
 \minrowclearance=\skip67
 ) (c:/texlive/2021/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
@@ -339,10 +344,10 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (c:/texlive/2021/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box63
+\@vwid@box=\box64
 \sift@deathcycles=\count294
-\@vwid@loff=\dimen181
-\@vwid@roff=\dimen182
+\@vwid@loff=\dimen182
+\@vwid@roff=\dimen183
 )
 \c@taburow=\count295
 \tabu@nbcols=\count296
@@ -350,25 +355,25 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@Xcol=\count298
 \tabu@alloc=\count299
 \tabu@nested=\count300
-\tabu@target=\dimen183
-\tabu@spreadtarget=\dimen184
-\tabu@naturalX=\dimen185
-\tabucolX=\dimen186
-\tabu@Xsum=\dimen187
-\extrarowdepth=\dimen188
-\abovetabulinesep=\dimen189
-\belowtabulinesep=\dimen190
-\tabustrutrule=\dimen191
-\tabu@thebody=\toks33
-\tabu@footnotes=\toks34
-\tabu@box=\box64
-\tabu@arstrutbox=\box65
-\tabu@hleads=\box66
-\tabu@vleads=\box67
+\tabu@target=\dimen184
+\tabu@spreadtarget=\dimen185
+\tabu@naturalX=\dimen186
+\tabucolX=\dimen187
+\tabu@Xsum=\dimen188
+\extrarowdepth=\dimen189
+\abovetabulinesep=\dimen190
+\belowtabulinesep=\dimen191
+\tabustrutrule=\dimen192
+\tabu@thebody=\toks34
+\tabu@footnotes=\toks35
+\tabu@box=\box65
+\tabu@arstrutbox=\box66
+\tabu@hleads=\box67
+\tabu@vleads=\box68
 \tabu@cellskip=\skip68
 ) (c:/texlive/2021/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box68
+\@tempboxb=\box69
 ) (c:/texlive/2021/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
 Package: threeparttablex 2013/07/23 v0.3 by daleif
 (c:/texlive/2021/texmf-dist/tex/latex/environ/environ.sty
@@ -378,21 +383,21 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
 \TPTL@width=\skip69
 ) (c:/texlive/2021/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box69
-\UL@hyphenbox=\box70
+\UL@box=\box70
+\UL@hyphenbox=\box71
 \UL@skip=\skip70
-\UL@hook=\toks35
-\UL@height=\dimen192
+\UL@hook=\toks36
+\UL@height=\dimen193
 \UL@pe=\count301
-\UL@pixel=\dimen193
-\ULC@box=\box71
+\UL@pixel=\dimen194
+\ULC@box=\box72
 Package: ulem 2019/11/18
-\ULdepth=\dimen194
+\ULdepth=\dimen195
 ) (c:/texlive/2021/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen195
+\rotheadsize=\dimen196
 \c@nlinenum=\count302
-\TeXr@lab=\toks36
+\TeXr@lab=\toks37
 ) (c:/texlive/2021/texmf-dist/tex/latex/bookmark/bookmark.sty
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
 (c:/texlive/2021/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -417,7 +422,7 @@ Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 ) (c:/texlive/2021/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 )
-\@linkdim=\dimen196
+\@linkdim=\dimen197
 \Hy@linkcounter=\count303
 \Hy@pagecounter=\count304
 (c:/texlive/2021/texmf-dist/tex/latex/hyperref/pd1enc.def
@@ -452,7 +457,7 @@ Package hyperref Info: Bookmarks ON on input line 4445.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen197
+\XeTeXLinkMargin=\dimen198
 (c:/texlive/2021/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (c:/texlive/2021/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
@@ -460,8 +465,8 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
 \Fld@menulength=\count307
-\Field@Width=\dimen198
-\Fld@charsize=\dimen199
+\Field@Width=\dimen199
+\Fld@charsize=\dimen256
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -506,40 +511,40 @@ Package: xurl 2022/01/09 v 0.10 modify URL breaks
 ) (c:/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count314
-\l__pdf_internal_box=\box72
+\l__pdf_internal_box=\box73
 ) (./Final_version.aux)
 \openout1 = `Final_version.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
-LaTeX Font Info:    ... okay on input line 121.
-LaTeX Info: Redefining \microtypecontext on input line 121.
-Package microtype Info: Applying patch `item' on input line 121.
-Package microtype Info: Applying patch `toc' on input line 121.
-Package microtype Info: Applying patch `eqnum' on input line 121.
-Package microtype Info: Applying patch `footnote' on input line 121.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
+LaTeX Font Info:    ... okay on input line 129.
+LaTeX Info: Redefining \microtypecontext on input line 129.
+Package microtype Info: Applying patch `item' on input line 129.
+Package microtype Info: Applying patch `toc' on input line 129.
+Package microtype Info: Applying patch `eqnum' on input line 129.
+Package microtype Info: Applying patch `footnote' on input line 129.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 121.
+LaTeX Info: Redefining \showhyphens on input line 129.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -549,16 +554,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 ) (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count315
-\scratchdimen=\dimen256
-\scratchbox=\box73
+\scratchdimen=\dimen257
+\scratchbox=\box74
 \nofMPsegments=\count316
 \nofMParguments=\count317
-\everyMPshowfont=\toks37
+\everyMPshowfont=\toks38
 \MPscratchCnt=\count318
-\MPscratchDim=\dimen257
+\MPscratchDim=\dimen258
 \MPnumerator=\count319
 \makeMPintoPDFobject=\count320
-\everyMPtoPDFconversion=\toks38
+\everyMPtoPDFconversion=\toks39
 ) (c:/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -601,7 +606,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 121.
+Package hyperref Info: Link coloring OFF on input line 129.
 (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -611,43 +616,43 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count321
 )
-LaTeX Info: Redefining \ref on input line 121.
-LaTeX Info: Redefining \pageref on input line 121.
-LaTeX Info: Redefining \nameref on input line 121.
+LaTeX Info: Redefining \ref on input line 129.
+LaTeX Info: Redefining \pageref on input line 129.
+LaTeX Info: Redefining \nameref on input line 129.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-23.
+31.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-23.
+31.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-123.
+131.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-123.
+131.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 123.
+(Font)              <14.4> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 123.
+(Font)              <10> on input line 131.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 123.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 123
+(Font)              <7> on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 131
 .
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (c:/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 123
+LaTeX Font Info:    Trying to load font information for U+msb on input line 131
 .
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -655,29 +660,29 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-23.
+31.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 123.
+(Font)              <5> on input line 131.
 [1
 
 {c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 168.
+(Font)              <12> on input line 145.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 168.
+(Font)              <8> on input line 145.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 168.
+(Font)              <6> on input line 145.
 [2] [3] [4] [5]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png, id=13
-8, 1138.0116pt x 426.6339pt>
+6, 1138.0116pt x 426.6339pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png G
 raphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_jel.png  used on input line 371.
+aphs/mean_jel.png  used on input line 163.
 (pdftex.def)             Requested size: 426.78804pt x 160.00034pt.
 [6 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_jel.png>]
 
@@ -688,180 +693,180 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7] [8]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_collab.
-png, id=193, 1138.0116pt x 569.0058pt>
+png, id=191, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_co
 llab.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_col
 lab.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Intra_vs_US_collab.png  used on input line 535.
+aphs/Intra_vs_US_collab.png  used on input line 241.
 (pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_macr
-o_minimal_bw.png, id=197, 1138.0116pt x 569.0058pt>
+o_minimal_bw.png, id=195, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance
 _macro_minimal_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_importance_
 macro_minimal_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/EER_importance_macro_minimal_bw.png  used on input line 554.
+aphs/EER_importance_macro_minimal_bw.png  used on input line 254.
 (pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 [9 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Intra_vs_US_coll
 ab.png>] [10 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/EER_im
 portance_macro_minimal_bw.png>] [11] [12]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
-nisation_odds_windows_bw_wide.png, id=265, 1138.0116pt x 569.0058pt>
+nisation_odds_windows_bw_wide.png, id=263, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
 ropeanisation_odds_windows_bw_wide.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
 opeanisation_odds_windows_bw_wide.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Communities_europeanisation_odds_windows_bw_wide.png  used on input line 7
-24.
+aphs/Communities_europeanisation_odds_windows_bw_wide.png  used on input line 2
+99.
 (pdftex.def)             Requested size: 597.49977pt x 298.74988pt.
 [13] [14 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communitie
 s_europeanisation_odds_windows_bw_wide.png>] [15]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_plot_
-new_bw.png, id=317, 853.5087pt x 569.0058pt>
+new_bw.png, id=315, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_
 plot_new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_diff_p
 lot_new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/logratio_diff_plot_new_bw.png  used on input line 824.
+aphs/logratio_diff_plot_new_bw.png  used on input line 325.
 (pdftex.def)             Requested size: 597.50412pt x 398.33607pt.
 [16] [17 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/logratio_d
 iff_plot_new_bw.png>] [18]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citations_b
-w.png, id=371, 1138.0116pt x 569.0058pt>
+w.png, id=369, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g2_over_citations_bw.png  used on input line 918.
+aphs/g2_over_citations_bw.png  used on input line 354.
 (pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 [19] [20 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g2_over_ci
 tations_bw.png>] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw.png
-, id=641, 1138.0116pt x 569.0058pt>
+, id=639, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_b
 w.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
 .png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_citations_bw.png  used on input line 1495.
+aphs/g1_citations_bw.png  used on input line 443.
 (pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 [33 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_citations_bw
 .png>]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citations_b
-w.png, id=652, 1138.0116pt x 569.0058pt>
+w.png, id=650, 1138.0116pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citati
 ons_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citatio
 ns_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/g1_over_citations_bw.png  used on input line 1528.
+aphs/g1_over_citations_bw.png  used on input line 454.
 (pdftex.def)             Requested size: 426.78804pt x 213.39401pt.
 [34 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/g1_over_citatio
 ns_bw.png>] [35] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46]
-Overfull \hbox (22.1608pt too wide) in paragraph at lines 2272--2276
+Overfull \hbox (22.1608pt too wide) in paragraph at lines 818--820
 \T1/lmr/m/n/12 (-20) spect-ive. Journal of Eco-nomic Meth-od-o-logy 1--12. doi:
 []10.1080/1350178X.2020.1868774[] 
  []
 
 [47] [48]
-Overfull \hbox (50.83548pt too wide) in alignment at lines 2296--2301
+Overfull \hbox (50.83548pt too wide) in alignment at lines 838--843
  [] [] [] [] 
  []
 
 
-Overfull \hbox (50.83548pt too wide) in alignment at lines 2301--2306
+Overfull \hbox (50.83548pt too wide) in alignment at lines 843--848
  [] [] [] [] 
  []
 
 
-Overfull \hbox (50.83548pt too wide) in alignment at lines 2306--2308
+Overfull \hbox (50.83548pt too wide) in alignment at lines 848--850
  [] [] [] [] 
  []
 
 
-Overfull \hbox (50.83548pt too wide) in alignment at lines 2308--2310
+Overfull \hbox (50.83548pt too wide) in alignment at lines 850--852
  [] [] [] [] 
  []
 
 
-Overfull \hbox (50.83548pt too wide) in alignment at lines 2310--2716
+Overfull \hbox (50.83548pt too wide) in alignment at lines 852--1258
  [] [] [] [] 
  []
 
 [49]
-Overfull \hbox (0.68349pt too wide) in alignment at lines 2721--2726
+Overfull \hbox (0.68349pt too wide) in alignment at lines 1263--1268
  [] [] [] 
  []
 
 
-Overfull \hbox (0.68349pt too wide) in alignment at lines 2726--2731
+Overfull \hbox (0.68349pt too wide) in alignment at lines 1268--1273
  [] [] [] 
  []
 
 
-Overfull \hbox (0.68349pt too wide) in alignment at lines 2731--2733
+Overfull \hbox (0.68349pt too wide) in alignment at lines 1273--1275
  [] [] [] 
  []
 
 
-Overfull \hbox (0.68349pt too wide) in alignment at lines 2733--2735
+Overfull \hbox (0.68349pt too wide) in alignment at lines 1275--1277
  [] [] [] 
  []
 
 
-Overfull \hbox (0.68349pt too wide) in alignment at lines 2735--2775
+Overfull \hbox (0.68349pt too wide) in alignment at lines 1277--1317
  [] [] [] 
  []
 
 [50] [51] [52] [53] [54] [55] [56] [57] [58]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
-nisation_mean_of_log_ratio.png, id=930, 853.5087pt x 569.0058pt>
+nisation_mean_of_log_ratio.png, id=928, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
 ropeanisation_mean_of_log_ratio.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
 opeanisation_mean_of_log_ratio.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Communities_europeanisation_mean_of_log_ratio.png  used on input line 3140
+aphs/Communities_europeanisation_mean_of_log_ratio.png  used on input line 1533
 .
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 [59]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_europea
-nisation__chi_mean.png, id=938, 853.5087pt x 569.0058pt>
+nisation__chi_mean.png, id=936, 853.5087pt x 569.0058pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eu
 ropeanisation__chi_mean.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
 opeanisation__chi_mean.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/Communities_europeanisation__chi_mean.png  used on input line 3149.
+aphs/Communities_europeanisation__chi_mean.png  used on input line 1542.
 (pdftex.def)             Requested size: 426.79237pt x 284.52824pt.
 [60 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/Communities_eur
 opeanisation_mean_of_log_ratio.png>] [61 <../../../../../../../../Mon Drive/dat
 a/EER/pictures/Graphs/Communities_europeanisation__chi_mean.png>] [62]
 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_new_
-bw.png, id=977, 995.6397pt x 711.1368pt>
+bw.png, id=975, 995.6397pt x 711.1368pt>
 File: ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot
 _new_bw.png Graphic file (type png)
 <use ../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_plot_
 new_bw.png>
 Package pdftex.def Info: ../../../../../../../../Mon Drive/data/EER/pictures/Gr
-aphs/mean_diff_plot_new_bw.png  used on input line 3273.
+aphs/mean_diff_plot_new_bw.png  used on input line 1606.
 (pdftex.def)             Requested size: 426.795pt x 304.83882pt.
 [63] [64 <../../../../../../../../Mon Drive/data/EER/pictures/Graphs/mean_diff_
 plot_new_bw.png>] (./Final_version.aux) ) 
 Here is how much of TeX's memory you used:
- 16991 strings out of 478278
- 278014 string characters out of 5850546
- 641951 words of memory out of 5000000
- 34192 multiletter control sequences out of 15000+600000
+ 17102 strings out of 478278
+ 280418 string characters out of 5850546
+ 644113 words of memory out of 5000000
+ 34298 multiletter control sequences out of 15000+600000
  571499 words of font info for 258 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,12n,77p,1059b,515s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,12n,77p,2751b,515s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/
 dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c
 :/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2021/tex
@@ -877,10 +882,10 @@ mr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/texlive/
 2021/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/font
 s/type1/public/lm/lmri10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/
 lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmri7.pfb>
-Output written on Final_version.pdf (64 pages, 4217230 bytes).
+Output written on Final_version.pdf (64 pages, 4217062 bytes).
 PDF statistics:
- 1216 PDF objects out of 1440 (max. 8388607)
- 1089 compressed objects within 11 object streams
+ 1214 PDF objects out of 1440 (max. 8388607)
+ 1087 compressed objects within 11 object streams
  341 named destinations out of 1000 (max. 500000)
  55544 words of extra memory for PDF output out of 61914 (max. 10000000)
 
