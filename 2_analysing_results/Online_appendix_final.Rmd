@@ -1,6 +1,9 @@
 ---
 title: "Bibliographic information about the EER and details on the bibliographic coupling clusters and topic modelling"
 subtitle: "Appendix in complement of 'An Independent European Macroeconomics? A History of European Macroeconomics through the Lens of the European Economic Review'"
+author:
+- Aurélien Goutsmedt^[UCLouvain, ISPOLE; F.R.S.-FNRS.]
+- Alexandre Truc^[Université Côte d’Azur, CNRS GREDEG France.]
 output: 
   html_document:
     theme: united
@@ -15,6 +18,7 @@ output:
 body {
 text-align: justify}
 </style>
+
 
 ```{css zoom-lib-src, echo = FALSE}
 # Follows the css and js script used for allow zooming in graphs
@@ -38,16 +42,17 @@ $('.zoomDiv').css({opacity: '0', width: '0%'});
 
 # Introduction
 
-In the section [EER Bibliographic Information] of this appendix, we compiled bibliographic information related to all articles published in the European Economic Review (EER). The goal of this section is to provide general information about the journal to contextualize the network analysis which comes after. Users can explore information about the share of macroeconomics publications in the journal, or the type of collaboration between US and European economists in the journal.
+In the section [EER Bibliographic Information] of this appendix, we compiled bibliographic information related to all articles published in the European Economic Review (EER). The goal of this section is to provide general information about the journal. Readers can explore information about the share of macroeconomics publications in the journal, or the type of collaboration between US and European economists in the journal.
 
-In the section [Dynamics Networks], we offer a network analysis of all macro articles, identified by JEL codes, published in the top five economics journals and the EER. In this section, we explore the structure of macroeconomics publications in these journals by identifying clusters of articles that tackle similar subjects based on bibliographic similarity. From these clusters, we identify clusters that are more European-oriented (research published in the EER and/or written by European authors) from clusters that are more US-oriented.
+In the section [Dynamics Networks], we give details about the method for the network analysis of macroeconomic articles published in the top five economics journals and the EER. These articles are identified thanks to JEL codes. In this section, we explore the structure of macroeconomics publications in these journals by identifying clusters of articles that tackle similar subjects based on bibliographic similarity. From these clusters, we identify the clusters that are more European-oriented (research published in the EER and written by European authors) from clusters that are more US-oriented.
 
 In the section [A Look at Dynamic Communities] users can explore a variety of information about the individual clusters identified in the previous section. We produced a variety of tables to explore the most cited references of the cluster or its most distinctive words/institutions compared to the overall corpus. In addition, users can also find some intra-clusters information about how the cluster evolved overtime, or the differences in the cluster between European/US authors and/or venues of publications.
 
-In the section [General difference in affiliations and journals] of this appendix, we identify what are the most American/European topics resulting from our topic model approach. To achieve our goal, we computed how much each topics is characterize by particular publications venues (EER *vs.* Top 5), and by the countries of affiliations of authors (US *vs.* European). 
+In the section [Topic modelling], we identify what are the most American/European topics resulting from our topic model approach. To achieve our goal, we computed how much each topics is characterize by particular publications venues (EER *vs.* Top 5), and by the countries of affiliations of authors (US *vs.* European). Users can explore information about the individual topics. We produced a variety of tables to explore the most cited references of the topics, or the most common terms of the topics. In addition, users can also find some intra-topics information about the differences in the clusters between European/American authors and/or venues of publications.
 
-In the section [Details on the different topics] of this appendix, users can explore information about the individual topics. We produced a variety of tables to explore the most cited references of the topics, or the most common terms of the topics. In addition, users can also find some intra-topics information about the differences in the clusters between European/American authors and/or venues of publications.
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
 
 ```{r, include=FALSE, set.seed(333)}
 source(here::here("Script_paths_and_basic_objects_EER.R"))
@@ -110,49 +115,6 @@ topics <- readRDS(here(eer_data,
 boards <- read_csv(here(eer_data,
                         "editorial_boards", 
                         "Members_EB_by_year.csv"))
-#################### Replace communities with new name ####################
-# 
-# community_name <- tribble(
-#   ~new_Id_com, ~Label_com,
-#   "Mgz4J8yL", "International Macroeconomics & Target Zone",
-#   "CQpUqaZS", "Disequilibrium & Keynesian Macro",
-#   "Pnz6WX4w", "Modeling Consumption & Production",
-#   "piySoCVv", "Optimal Taxation (1)",
-#   "Ezhslxbw", "Political Economics of Central Banks",
-#   "JAqUI5vj", "Target Zone & Currency Crises",
-#   "SMwcTgPW", "Optimal Taxation (2)",
-#   "kthrIEeL", "Exchange Rate Dynamics",
-#   "5LSPOQtk", "Theory of Unemployment & Job Dynamics",
-#   "RL0j0Wjd", "Capital & Income Taxation",
-#   "BW7MeofH", "Taxation, Tobin's Q & Monetarism",
-#   "8ljfcYnr", "Coordination & Sunspots (2)",
-#   "mFfXMCSH", "Coordination & Sunspots (1)",
-#   "Th6dCLZm", "Monetary Policy, Financial Transmission & Cycles (2)",
-#   "vpvjT1UD", "Business Cycles, Cointegration & Trends",
-#   "rabMUXQL", "Terms of Trade & Devaluation",
-#   "OwqYJU4A", "Taxation, Debt & Growth",
-#   "5tcMbr61", "Endogenous Growth",
-#   "QLir0DCu", "Monetary Policy, Financial Transmission & Cycles (1)",
-#   "slbs4yZO", "RBC",
-#   "oWvS0ZKo", "Exchange Rate Dynamics & Expectations",
-#   "ZfbnKTMy", "Monetary Approach of Balance of Payments",
-#   "ghGgIdnw", "Demand for Money",
-#   "piHtlAjF", "Inflation, Interest Rates & Expectations",
-#   "VcbF4o2X", "REH, Monetary Policy & Business Cycles",
-#   "8rBp4n5V", "Credit Rationing, Rational Expectations & Imperfect Information",
-#   "wQE43lv5", "Inflation & Rigidities",
-#   "dEgJmubE", "Monetary Policy, Target & Output Gap",
-#   "ztGPr6dZ", "Permanent Income Hypothesis & Life-Cycle",
-#   "KkkrUrNU", "Monetary Economics & Demand for Money",
-#   "fMHDM0xi", "New Theory of Money: Search, Bargaining...",
-#   "tG4VUh3F", "Marginal Taxation",
-#   "NTSLryx5", "Intergenerational Model, Savings and Consumption"
-# )
-# 
-# alluv_dt <- merge(alluv_dt,community_name,by="new_Id_com",all.x=TRUE)
-# alluv_dt <- merge(alluv_dt_graph,community_name,by="new_Id_com",all.x=TRUE)
-
-
 # Corpus, smoothing 
 Corpus[,ID_Art:=as.character(ID_Art)]
 Corpus[,ItemID_Ref:=as.character(ItemID_Ref)]
@@ -203,13 +165,6 @@ Authors <- Authors[ID_Art %in% Corpus$ID_Art]
 Authors[,ID_Art:=as.character(ID_Art)]
 Refs_item0 <- copy(Refs[ItemID_Ref==0])
 
-#################### Macro EER and TOP5 separated ####################
-
-# Corpus_EER <- Corpus[journal_type=="EER"]
-# Corpus_top5 <- Corpus[journal_type=="TOP5"]
-# Refs_top5 <- Refs[ID_Art %in% Corpus_top5$ID_Art]
-# Refs_EER <- Refs[ID_Art %in% Corpus_EER$ID_Art]
-
 #################### Configuration for individual networks in case ####################
 time_window <- 8
 first_year <- Corpus[order(Annee_Bibliographique), head(.SD, 1)]$Annee_Bibliographique
@@ -236,19 +191,7 @@ ggplot(Corpus_all_EER, aes(as.numeric(Annee_Bibliographique))) +
   labs(x = NULL,
        y = "Number of articles") +
   theme_minimal() 
-
-
 ```
-
-<!-- ## Most Influential Articles -->
-
-<!-- The following table lists the top 50 articles published in the EER that have the highest number of citations in Web of Science overall: -->
-
-<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
-
-<!-- kable(who_cites[order(-nb_cit_wos)][, head(.SD, 1), .(ID_Art)][,.(Nom, Annee_Bibliographique, Titre, nb_cit_wos)] %>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-
-<!-- ``` -->
 
 ## Share Macro
 
@@ -267,36 +210,10 @@ ggplot(mean_jel[V1!=0 & Annee_Bibliographique!="2016"], aes(x=as.numeric(Annee_B
   scale_x_continuous(n.breaks = 6) +
   coord_cartesian(ylim = c(0.2,0.45)) +
   theme_minimal() 
-# ggplot2::annotate("text", x = max(mean_jel$Annee_Bibliographique), y = min(mean_jel$V1), hjust=0.95, vjust=-1,
-#                   label="Smoothed using local polynomial regression",
-#                   color="Darkgrey")
-# theme(plot.background = element_rect(fill = 'white', colour = NA)) +
+
 ggsave(here(eer_data,"pictures","Graphs","mean_jel.png"), width=40, height=15, units = "cm", scaling = 2.3)
 
-# ragg::agg_png(here(eer_data,"pictures","Graphs","ragg.png"), width = 30, height = 20, units = "cm", res = 300, scaling = 2)
-
-
-
-
-
 ```
-
-<!-- ## Most Productive authors -->
-
-<!-- The following table lists the 20 most occurring author in the EER: -->
-
-<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
-<!-- kable(Authors_EER[,.N,Nom_ISI][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-<!-- ``` -->
-
-<!-- ## Most Productive Institutions and Countries -->
-
-<!-- The two following tables lists the 20 most occurring institutions and countries in the EER: -->
-
-<!-- ```{r, message=FALSE, warning=FALSE, error=FALSE, results=TRUE, cache=FALSE} -->
-<!-- kable(Institutions_all_EER[,.N,Pays][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-<!-- kable(Institutions_all_EER[,.N,Institution][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-<!-- ``` -->
 
 ## Collaborations between Europeans and US in the EER
 
@@ -463,24 +380,6 @@ bridges_collab <- bridges_collab[Source > Target, c("Target", "Source") := list(
 
 
 ```
-
-<!-- The following table lists the 20 most occurring pairs of countries in articles that are in the category "collaboration" between American and European economists: -->
-
-<!-- ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'} -->
-
-<!-- kable(bridges_collab[Target!=Source,.N,.(Target,Source)][order(-N)] %>% top_n(20)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-
-<!-- ``` -->
-
-<!-- ## Refs: top journals -->
-
-<!-- The following table lists the 50 most occurring journals in references of articles in the EER: -->
-
-<!-- ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'} -->
-
-<!-- kable(Refs_all_EER[!is.na(Revue),.N, Revue][order(-N)]%>% top_n(50)) %>% kable_styling(bootstrap_options = c("striped", "condensed", full_width = F)) -->
-
-<!-- ``` -->
 
 ## Occurence of Institutions and Countries
 
@@ -980,22 +879,6 @@ ggplot(g1_citation, aes(x=Annee_Bibliographique , y=share, color=color_bw, linet
        x = NULL) 
 ggsave(here(eer_data,"pictures","Graphs","g1_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
-
-
-# geom_smooth(method="auto", se=FALSE, fullrange=FALSE, level=0.95, span = 0.75)+
-# theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-# scale_y_continuous(NULL, labels = scales::percent_format(scale=1)) +
-# scale_x_continuous(breaks=c(1970, 1980, 1990, 2000)) +
-# coord_cartesian(ylim = c(0,NA), xlim = c(NA, 2010)) +
-# scale_linetype_identity() +
-# scale_color_identity() +
-# guides(linetype = FALSE, color = FALSE) +
-# ggrepel::geom_label_repel(aes(label = Journal_label), data = count[Annee_Bibliographique==2002], nudge_x = 1, segment.color = NA, size=2, box.padding = 0.01) +
-# theme_minimal() +
-# theme(plot.background = element_rect(fill = 'white', colour = NA)) +
-# labs(title = NULL,
-#      x = NULL) 
-
 # share of EU/US
 g1_citation <- copy(Refs)
 g1_citation <- merge(g1_citation, g1, by="ItemID_Ref")
@@ -1203,26 +1086,6 @@ ggplot(obs_th_comparison[!is.na(y) & Annee_Bibliographique<=1992], aes(x=Annee_B
                     size=2.8,color="Darkgrey", parse = TRUE)
 ggsave(here(eer_data,"pictures","Graphs","g2_over_citations_bw.png"), width=40, height=20, units = "cm", scaling = 2.3)
 
-
-
-
-
-
-
-# old share method:
-
-# # share of articles citing the ref
-# g1_citation <- copy(Refs)
-# g1_citation <- merge(g1_citation, g1, by="ItemID_Ref")
-# g1_citation[,n_cite_year:=.N,.(Annee_Bibliographique,ItemID_Ref)]
-# g1_citation <- complete(g1_citation, Annee_Bibliographique, nesting(ItemID_Ref, Annee)) %>% as.data.table # add years when no observations to have 0 cite years
-# 
-# g1_citation[is.na(n_cite_year),n_cite_year:=0] # add 0 when NA
-# g1_citation <- merge(g1_citation, n_art_years, by="Annee_Bibliographique")
-# g1_citation[,share:=n_cite_year/n_art_years]
-# g1_citation[Annee_Bibliographique<Annee,share:=NA]
-# 
-# g1_citation <- merge(g1_citation, color_g1, by="ItemID_Ref", all.x = TRUE)
 ```
 
 ## Relative importance of particular articles in the corpus measured by citations
@@ -1278,46 +1141,43 @@ min_leiden_max <- 0.04
 
 ```
 
-A first way to identify potential differences between European and US macroeconomics is to find articles written by Europeans and published in European journals, resembling each others but dissimilar to US articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019. This method normalized and weight the strength between articles by taking into account two important elements
+A first way to identify potential differences between European and American macroeconomics is to find articles written by Europeans and published in a European journal, the EER, resembling each other but dissimilar to American articles. To do that, we used bibliographic coupling techniques. In a bibliographic coupling network, a link is created between two articles when they have one or more references in common. The more references that two articles have in common, the stronger the link. Bibliographic coupling is one way to measure how similar two articles are in a corpus. To normalize and weight the link between two articles, we used the refined bibliographic coupling strength of @shen2019.^[We have implemented this method in the *biblionetwork* R package [@goutsmedt2023].] This method normalizes the strength between articles by taking into account two elements:
 
--   The size of the bibliography of the two linked articles. It means that common references between two articles with long bibliography are weighted as less significant since the likeliness of potential common references is higher. Conversely, common references between two articles with a short bibliography is weighted as more significant.
--   The number of occurrences of each reference in the overall corpus. When a reference is shared between two articles, it is weighted as less significant if it is very common reference across the entire corpus and very significant if it is scarcely cited. The assumption is that a very rare common reference points to a higher content similarity between two articles than a highly cited reference.
+1. The size of the respective bibliography of the two linked articles. When two articles have long bibliographies, their shared references are weighted as less significant, as the likelihood of having common references increases with the size of the bibliography. Conversely, common references between two articles with a short bibliography are considered more significant.
 
-For all macroeconomics articles published in the EER and in the Top 5, we build the networks with `time_window`-year overlapping windows. This results in `r n_windows`.
+2. The number of occurrences of each reference in the overall corpus. If a reference is commonly cited across the entire corpus, its weight as a shared reference between two articles is considered less significant. Conversely, if a reference is rarely cited in the corpus, its occurrence as a common reference between two articles is given higher significance. The underlying assumption is that a rare common reference indicates a higher content similarity between the two articles, compared to a frequently cited reference that may appear in various contexts throughout the corpus.
 
-We used Leiden detection algorithm that optimize the modularity on each network to identify groups of articles that are similar to each others and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in `r n_communities_raw` across all networks. Because networks have a lot of overlaps, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two time windows, we considered that *(i)* if at least 55% of the articles in a community of the first time window where in the same cluster in the second time window, and that *(ii)* if the cluster was also composed by at least 55% of articles of the first time window, *then* it is the same cluster
+For all macroeconomics articles published in the EER and in the Top 5, we build the networks with 8-year overlapping windows. This results in `r n_windows` networks with overlapping time windows, from 1973-1980, through 1974-1981, 1975-1982, until 1995-2002.
 
-Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster.
+We use the Leiden detection algorithm [@traag2019] that optimises the modularity on each network to identify groups of articles that are similar to each other and dissimilar to the rest of the network. We use a resolution of 1 with 1000 iterations. This results in `r n_communities_raw` clusters across all the networks. Because networks overlapped, many clusters between two periods are composed of the same articles. To identify these clusters that are very similar between two consecutive time windows, we considered that two clusters belong to the same intertemporal cluster if *(i)* at least 55% of the articles in the first cluster of the first time window were in the second cluster in the second time window, and *(ii)* if the second cluster was also composed by at least 55% of articles of the first cluster. Simply put, if two clusters share a high number of articles, and are both mostly composed by these shared articles, they are considered the same cluster.
+
+This gives us `r n_communities_alluv` clusters, with `r n_communities_of_interest` that represent at least `r min_leiden_max*100`% of a network and are stable enough to exist for at least `r min_n_years` time windows. We are thus able to project the composition of each network and how nodes circulated between clusters from one time window to the following one.
 
 ## Alluvial
 
-The following plot is a way to represent these networks and communities as an alluvial that tracks how nodes that exists across multiple overlapping windows change or stay in the same communities (flows of the alluvial). In addition to individual clusters detected using previous methods, we also color-coded clusters that have strong relationships as vizualized by the flows with similar, yet slightly different colors:
+The following plot is a way to represent these networks and clusters as an alluvial that tracks how nodes that exists across multiple overlapping windows change or stay in the same communities (flows of the alluvial). In addition to individual clusters detected using previous methods, we also colour-coded clusters that have strong relationships as visualised by the flows with similar, yet slightly different colours:
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'}
-
 knitr::include_graphics(here(eer_data,"pictures","Graphs","Intertemporal_communities.png"))
-
 ```
 
 ## European/US identity of clusters
 
 #### Main Index
 
-For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios:
+For each intertemporal cluster, we determine the US or European orientation of its publications (the nodes) and authors. We assess the over/under representation of Europe- and US-based authors in the cluster and the over/under representation of the EER and top 5 journals, using a log of ratios. These two measures inform us on which are the most 'European' clusters, meaning those where relatively more articles are published in the EER and by Europe-based economists. Regarding European and US authors, for each time window, we compute the *(i)* share of articles written by Europe-based authors and US-based authors in each cluster, and *(ii)* the overall share of Europe-based and US-based authors. Then, for each cluster, we average its relative shares per time window across all the time windows in which the cluster exists:
 
 \bigskip
-${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}$
+${\scriptstyle \text{Log of ratios EU/US }=\log(\frac{(\frac{\text{Mean of the Time Windows' Shares of European Authored Articles in the Cluster}}{\text{Mean of the Time Windows' Shares of US Authored Articles in the Cluster}})} {(\frac{\text{Overall Mean of Shares of European Authored Articles in Cluster's Time Windows}}{\text{Overall Mean of Shares of US Authored Articles in Cluster's Time Windows}})})}$
 \bigskip
 
 We then use a second similar index for the publication venue of the articles in the cluster:
 
 \bigskip
-${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of EER Articles In The Cluster}}{\text{1-Mean Share Of EER Articles In The Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}$
+${\scriptstyle \text{Log of ratios EER/Top5 }=\log(\frac{(\frac{\text{Mean of the Time Windows' Shares of EER Articles in the Cluster}}{\text{1-Mean of the Time Windows' Shares of EER Articles in the Cluster}})} {(\frac{\text{Overall Mean of Shares of EER Articles in Cluster's Time Windows}}{\text{1-Overall Mean of Shares of EER Articles in Cluster's Time Windows}})})}$
 \bigskip
 
 Finally, clusters are placed on a scatterplot with the X-axis for the *Author EU/US Orientation* score, and the X-Axis for the *Journal EU/US Orientation* score. The size of the points captures the number of articles in the cluster.
-
-Supplementary information about each cluster can be found in the online appendix "Bibliographic information about the EER and details on the bibliographic coupling clusters".
 
 #### Alternative Indexes {#alt-index .unnumbered}
 
@@ -1812,88 +1672,6 @@ saveRDS(diff_stat_euro_com,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_
 
 ```
 
-
-
-```{r}
-# alluv_dt_as_nodes[Revue=="EUROPEAN ECONOMIC REVIEW", EER_bin:=1]
-# alluv_dt_as_nodes[is.na(EER_bin), EER_bin:=0]
-# alluv_dt_as_nodes[, EU_US_collab_bin:=99]
-# alluv_dt_as_nodes[EU_US_collab=="Europe Only", EU_US_collab_bin:=1]
-# alluv_dt_as_nodes[EU_US_collab=="USA Only", EU_US_collab_bin:=0]
-# 
-# euro_chi_list <- list()
-# 
-# 
-# for (windows in alluv_dt_as_nodes[order(Window),.N,Window]$Window){
-# eer_contingency <- table(as.character(alluv_dt_as_nodes$EER_bin),as.character(alluv_dt_as_nodes$new_Id_com))
-# result <- chisquare(as.data.frame.matrix(eer_contingency), B=999)
-# result$stand.resid.
-# eer_resid <- result$stand.resid. %>% as.data.table
-# eer_resid <- melt(eer_resid) %>% as.data.table
-# eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# 
-# collab_contingency <- table(as.character(alluv_dt_as_nodes$EU_US_collab_bin),as.character(alluv_dt_as_nodes$new_Id_com))
-# result <- chisquare(as.data.frame.matrix(collab_contingency), B=999)
-# result$stand.resid.
-# collab_resid <- result$stand.resid. %>% as.data.table
-# collab_resid <- melt(collab_resid) %>% as.data.table
-# collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# 
-# plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
-# euro_chi_list[[as.character(windows)]] <- euro_com_stat
-# }
-# 
-# plot_resid_all <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
-#   geom_point() +
-#   geom_text_repel(max.overlaps = 100) +
-#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
-#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
-#   theme_classic(base_size = 9) 
-# 
-# # En ne gardant que les grosses com
-# eer_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EER_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
-# result <- chisquare(as.data.frame.matrix(eer_contingency), B=99)
-# result$stand.resid.
-# eer_resid <- result$stand.resid. %>% as.data.table
-# eer_resid <- melt(eer_resid) %>% as.data.table
-# eer_resid <-  merge(eer_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# 
-# collab_contingency <- table(as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$EU_US_collab_bin),as.character(alluv_dt_as_nodes[new_Id_com %in% com_to_inspect]$new_Id_com))
-# result <- chisquare(as.data.frame.matrix(collab_contingency), B=99)
-# result$stand.resid.
-# collab_resid <- result$stand.resid. %>% as.data.table
-# collab_resid <- melt(collab_resid) %>% as.data.table
-# collab_resid <-  merge(collab_resid, community_name, by.x = "variable", by.y = "new_Id_com", all.x = TRUE)
-# 
-# plot_resid <- merge(eer_resid[variable %in% com_to_inspect, head(.SD,1), variable], collab_resid[variable %in% com_to_inspect, head(.SD,1), variable], by = "variable", all.x = TRUE)
-# 
-# plot_resid <- merge(plot_resid, alluv_dt_as_nodes[,.N,.(new_Id_com)], by.x = "variable", by.y = "new_Id_com")
-# plot_resid[, sum_diff:= -1*(value.x+value.y)]
-# 
-# plot_resid_big_com <- ggplot(plot_resid, aes(x=-1*value.y, y=-1*value.x, label = Label_com.x)) + 
-#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3) +
-#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3) +
-#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-#   geom_point(aes(color = sum_diff, size = N), alpha = 0.8) +
-#   ggrepel::geom_text_repel(aes(label = as.character(Label_com.x)), alpha = 1, hjust = 0, size=2, 
-#                            min.segment.length = 0.07, 
-#                            segment.linetype=	"dashed",
-#                            segment.size = 0.3,
-#                            box.padding=0.15,
-#                            max.overlaps = 3) +
-#   scico::scale_color_scico(palette = "grayC", breaks = c(-6,7), labels = c("Less European", "More European"), begin = 0.3, end = 0.8) +
-#   labs(title = NULL,
-#        color = NULL,
-#        x = "US Only (left) vs. European Only (right)",
-#        y = "Top 5 (down) vs. EER (up)") + 
-#   theme_classic(base_size = 9) +
-#   guides(size = "none") + 
-#   theme(legend.position = "bottom")
-# 
-# ggsave(here(eer_data,"pictures","Graphs","Communities_europeanisation__chi_big_com.png"), width=30, height=20, units = "cm", scaling = 1.5)
-
-```
-
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=FALSE, echo=FALSE}
 alluv_dt_as_nodes[Revue=="EUROPEAN ECONOMIC REVIEW", EER_bin:=1]
 alluv_dt_as_nodes[is.na(EER_bin), EER_bin:=0]
@@ -1964,26 +1742,7 @@ saveRDS(plot_resid,here(eer_data,"2_Raw_Networks_and_Alluv","euro_vs_us_communit
 
 
 ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE}
-# noodle_collab <- copy(alluv_dt_as_nodes[EU_US_collab=="USA Only" | EU_US_collab=="Europe Only"])
-# noodle_collab[,n_collab_cluster:=.N, .(Window, EU_US_collab, Label_com)]
-# noodle_collab[,n_collab_window:=.N, .(Window, EU_US_collab)]
-# noodle_collab[,n_cluster_window:=.N, .(Window, Label_com)]
-# noodle_collab[,n_window:=.N, .(Window)]
-# noodle_collab[,share_collab_cluster:=n_collab_cluster/n_cluster_window]
-# noodle_collab[,share_collab_window:=n_collab_window/n_window]
-# 
-# noodle_collab <- noodle_collab[EU_US_collab=="Europe Only", head(.SD,1), .(Window, Label_com)]
-# noodle_collab[,log_share:=log10(share_collab_cluster/share_collab_window)]
-# 
-# ggplot(noodle_collab[new_Id_com %in% com_to_inspect], aes(x=as.numeric(Window), y=log_share, group=Label_com)) +
-#   geom_point() +
-#   geom_smooth(se = FALSE, color = "black") +
-#   geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
-#   theme_classic() +
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-#   # scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
-#   facet_wrap(~ Label_com)
-# 
+
 noodle_pub <- copy(alluv_dt_as_nodes)
 noodle_pub[,n_collab_cluster:=.N, .(Window, Revue , Label_com)]
 noodle_pub[,n_collab_window:=.N, .(Window, Revue )]
@@ -1994,16 +1753,6 @@ noodle_pub[,share_pub_window:=n_collab_window/n_window]
 
 noodle_pub <- noodle_pub[Revue =="EUROPEAN ECONOMIC REVIEW", head(.SD,1), .(Window, Label_com)]
 noodle_pub[,log_share:=log10(share_pub_cluster/share_pub_window)]
-# 
-# ggplot(noodle_pub[new_Id_com %in% com_to_inspect], aes(x=as.numeric(Window), y=log_share, group=Label_com)) +
-#   geom_point() +
-#   geom_smooth(se = FALSE, color = "black") +
-#   geom_hline(yintercept = 0, size = 1, alpha = 0.4) +
-#   theme_classic() +
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.75)) +
-#   # scale_x_continuous(breaks=c(1980, 1985, 1990, 1995, 2000)) +
-#   facet_wrap(~ Label_com)
-
 
 ##################### mean of log for each time windows, however impossible because  you have some time windows with 0 observations for some variables (so you divide by 0)
 noodle_collab <- copy(alluv_dt_as_nodes)
@@ -2113,38 +1862,6 @@ Chi2 Index:
 knitr::include_graphics(here(eer_data,"pictures","graphs","Communities_europeanisation__chi_mean.png"))
 
 ```
-
-
-
-<!-- Same graph with all cluster name -->
-
-<!-- ```{r echo=FALSE,  message=FALSE, warning=FALSE, error=FALSE, results=TRUE, out.width='100%'} -->
-
-<!-- ggplot(diff_stat_euro_com, aes(x = europeans_authors_diff, y = EER_articles_diff)) + -->
-<!--   geom_vline(data=diff_stat_euro_com[mask==0], aes(xintercept = xintercept), size = 1, alpha = 0.3) + -->
-<!--   geom_hline(data=diff_stat_euro_com[mask==0], aes(yintercept = yintercept), size = 1, alpha = 0.3) + -->
-<!--   geom_vline(data=diff_stat_euro_com[mask==1], aes(xintercept = xintercept), size = 1, alpha = 0.3) + -->
-<!--   geom_vline(data=diff_stat_euro_com[mask==2], aes(xintercept = xintercept), size = 1, alpha = 0.3) + -->
-<!--   geom_hline(data=diff_stat_euro_com[mask==0], aes(yintercept = yintercept_break), size = 1, alpha = 0.1, linetype = "dotted") + -->
-<!--   geom_smooth(data=diff_stat_euro_com[mask==0], method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) + -->
-<!--   geom_point(aes(color = sum_diff, size = new_Id_com_size), alpha = 0.8) + -->
-<!--   ggrepel::geom_text_repel(data = . %>% filter((sum_diff > 0.01 | sum_diff < -0.012)), -->
-<!--                            aes(label = as.character(Label_com)), alpha = 1, hjust = 0, size=2,  -->
-<!--                            min.segment.length = 0.03,  -->
-<!--                            segment.linetype=	"dashed", -->
-<!--                            segment.size = 0.3, -->
-<!--                            box.padding=0.15, -->
-<!--                            max.overlaps = 10) + -->
-<!--   scico::scale_color_scico(palette = "roma", breaks = c(-1, 0.38), labels = c("Less European", "More European")) + -->
-<!--   labs(title = NULL, -->
-<!--        color = NULL, -->
-<!--        x = "US Only (left) vs. European Only (right)", -->
-<!--        y = "Top 5 (down) vs. EER (up)") +  -->
-<!--   theme_classic(base_size = 9) + -->
-<!--   guides(size = "none")  -->
-
-<!-- ``` -->
-
 
 ## A Look at Dynamic Communities
 
@@ -2335,81 +2052,7 @@ for (com in com_to_inspect) {
   } else {
     Europeans_ratio_plot <- data.frame(message = "Nothing to display")
   }
-  
-  
-  # refs_td_idf <- refs_td_idf %>% 
-  #   select(ID_Art, topic, topic_name, journal_type, EU_US_collab) %>% 
-  #   inner_join(Direct_citations) %>% # we don't want doc without references
-  #   .[, nb_cit_topic := .N, by = c("topic", "id_clean")] %>% 
-  #   .[, nb_cit_journal := .N, by = c("topic", "id_clean", "journal_type")] %>%
-  #   .[, nb_cit_affiliation := .N, by = c("topic", "id_clean", "EU_US_collab")] %>% 
-  #   select(id_clean, Nom, Annee, Titre, Revue, Revue_Abbrege, topic_name, journal_type, EU_US_collab, nb_cit_topic, nb_cit_journal, nb_cit_affiliation) %>%
-  #   unique()
-  # 
-  #   top_refs_journal <- refs_td_idf %>%
-  #     select(ItemID_Ref, Nom, Annee, Titre, Revue, Revue_Abbrege, EER_pub_bin, nb_cit_journal) %>%
-  #     unique() %>%
-  #     group_by(EER_pub_bin ) %>% 
-  #     slice_max(order_by = nb_cit_journal, n = 15, with_ties = FALSE) %>% 
-  #     filter(nb_cit_journal > 1) %>% 
-  #     select(-ItemID_Ref)
-  #   
-  #   top_refs_affiliation <- refs_td_idf %>%
-  #     filter(EU_US_collab %in% c("USA Only", "Europe Only")) %>% 
-  #     select(ItemID_Ref, Nom, Annee, Titre, Revue, Revue_Abbrege, EU_US_collab, nb_cit_affiliation) %>%
-  #     unique() %>%
-  #     group_by(EU_US_collab) %>% 
-  #     slice_max(order_by = nb_cit_affiliation, n = 15, with_ties = FALSE) %>% 
-  #     select(-ItemID_Ref) %>% 
-  #     filter(nb_cit_affiliation > 1)
-  #   
-  #   # Calculating log odds
-  #   logratio_ref_affiliation <- refs_td_idf %>% 
-  #     filter(nb_cit_topic > 2) %>% 
-  #     select(-c(EER_pub_bin , nb_cit_journal, nb_cit_topic)) %>% 
-  #     unique
-  #   
-  #   if(nrow(filter(logratio_ref_affiliation, EU_US_collab == "Europe Only")) > 0 &
-  #      nrow(filter(logratio_ref_affiliation, EU_US_collab == "USA Only")) > 0){
-  #     logratio_ref_affiliation <- logratio_ref_affiliation %>% 
-  #       pivot_wider(names_from = EU_US_collab, values_from = nb_cit_affiliation, values_fill = 0) %>% 
-  #       mutate(Annee = as.character(Annee)) %>% 
-  #       mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
-  #       mutate(logratio = log(`Europe Only`/`USA Only`)) %>% 
-  #       select(Nom, Annee, Titre, Revue, Revue_Abbrege, logratio)
-  #     
-  #     top_logratio_ref_affiliation <- logratio_ref_affiliation %>% 
-  #       slice_max(n = 10, order_by = logratio, with_ties = FALSE) %>% 
-  #       bind_rows(logratio_ref_affiliation %>% 
-  #                   slice_min(n = 10, order_by = logratio, with_ties = FALSE)) %>% 
-  #       arrange(desc(logratio))
-  #   } else {
-  #     top_logratio_ref_affiliation <- data.frame(message = "Nothing to display")
-  #   }
-  #   
-  #   logratio_ref_journal <- refs_td_idf %>% 
-  #     filter(nb_cit_topic > 2) %>% 
-  #     select(-c(EU_US_collab, nb_cit_affiliation, nb_cit_topic)) %>% 
-  #     unique 
-  #   
-  #   if(nrow(filter(logratio_ref_journal, EER_pub_bin  == "EER")) > 0 &
-  #      nrow(filter(logratio_ref_journal, EER_pub_bin  == "TOP5")) > 0){
-  #     logratio_ref_journal <- logratio_ref_journal %>%
-  #       pivot_wider(names_from = EER_pub_bin , values_from = nb_cit_journal, values_fill = 0) %>% 
-  #       mutate(Annee = as.character(Annee)) %>% 
-  #       mutate_if(is.integer, list(~(. + 1) / (sum(.) +1))) %>% 
-  #       mutate(logratio = log(EER/TOP5)) %>% 
-  #       select(Nom, Annee, Titre, Revue, Revue_Abbrege, logratio)
-  #     
-  #     top_logratio_ref_journal <- logratio_ref_journal %>% 
-  #       slice_max(n = 10, order_by = logratio, with_ties = FALSE) %>% 
-  #       bind_rows(logratio_ref_journal %>% 
-  #                   slice_min(n = 10, order_by = logratio, with_ties = FALSE)) %>% 
-  #       arrange(desc(logratio))
-  #   } else {
-  #     top_logratio_ref_journal <- data.frame(message = "Nothing to display")
-  #   }
-  #   
+
   # extracting the first year and last year of the community
   window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window))) + (time_window - 1)))
   window <- as.integer(c(min(unique(alluv_com$Window)), as.integer(max(unique(alluv_com$Window)))))
@@ -2476,11 +2119,7 @@ for (com in com_to_inspect) {
   print(kable(most_influential_nodes_com[Revue %notlike% "EUROPEAN%",.(Label, Titre, Revue, EU_US_collab, weighted_size)][, head(.SD, 10)]) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
-  
-  # cat("\n\n")
-  # print(htmltools::tagList(datatable(most_influential_nodes_com, rownames = FALSE, class = 'cell-border stripe')))
-  # cat("\n\n")
-  
+
   cat("###","The most productive journals:", "\n")
   cat("\n\n")
   print(kable(most_productive_journals[, head(.SD, 20)]) %>% 
@@ -2529,29 +2168,7 @@ for (com in com_to_inspect) {
   print(kable(Europeans_ratio_plot) %>% 
           kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
   cat("\n\n")
-  
-  # cat("####", "Refs Top5")
-  # cat("\n\n")
-  # print(kable(refs_td_idf[order(-tf_idf)][EER_pub_bin=="TOP5", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
-  #         kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
-  # cat("\n\n")
-  
-  # cat("Most distinctive refs Europeans:")
-  # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # print(kable(refs_td_idf_collab[order(-tf_idf)][EU_US_collab=="Europe Only", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
-  #         kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
-  # }
-  # cat("\n\n")
-  # 
-  # cat("Most distinctive refs US:")
-  # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # print(kable(refs_td_idf_collab[order(-tf_idf)][EU_US_collab=="USA Only", head(.SD,1),ItemID_Ref][, head(.SD, 20)][,.(Label_Target,Titre, Revue_Abbrege, share, tf_idf)]) %>% 
-  #         kable_styling(bootstrap_options =     c("striped", "condensed", full_width = F)))
-  # }
-  # cat("\n\n")
-  
+ 
   cat("###","Authors and Institutions:{.tabset}", "\n")
   cat("####", "Most productive authors")
   cat("\n\n")
@@ -2596,17 +2213,6 @@ for (com in com_to_inspect) {
   cat("\n\n")
   
   cat("  \n")
-  # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # plot(EER_ratio_plot)
-  #   }
-  # cat("\n\n")
-  # 
-  # cat("\n\n")
-  # if(refs_td_idf[,.N,EER_pub_bin][,.N]==2 & refs_td_idf[,.N,EU_US_collab][EU_US_collab=="USA Only" | EU_US_collab=="Europe Only",.N]==2){
-  # plot(Europeans_ratio_plot)
-  #   }
-  # cat("\n\n")
 }
 
 ```
@@ -2789,9 +2395,9 @@ countries_tf_idf <-  institutions %>%
 
 ## General difference in affiliations and journals
 
-Articles have multiple topics, and more importantly, articles have different 'rate of belonging' for each of their topic (the *gamma* value). We are able, for each topic, to compute the difference in the means of *gamma* values for (i) articles published in the EER and articles published in the Top 5 and (ii) articles written by US-based authors and those written by European-based authors.
+All the documents of our corpus (a document is an article's title and abstract) have a 'rate of belonging' with each topic (the *gamma* value) that represents the extent to which a topic is present in the document. We are able, for each topic, to compute the difference in the means of *gamma* values for *(i)* articles published in the EER and articles published in the Top 5 and *(ii)* articles written by US-based authors and those written by European-based authors. The two differences are plotted in a two-dimensional graph to observe which topics are over-represented in the EER and more frequently mentioned by Europe-based authors.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 # knitr::include_graphics(here(picture_path, "topic_modelling", "mean_diff_plot.png"))
 topic_gamma_attributes <- readRDS(here(eer_data,"3_Topic_modelling" ,"TM_gamma_values.RDS"))
 topics_complete <- readRDS(here(eer_data,"3_Topic_modelling" ,"topics_complete.RDS"))
@@ -2819,52 +2425,6 @@ topic_diff_summary <- pivot_wider(topic_diff_summary,
   select(id, topic_label, topic_name, Com_name, com_color, diff_affiliation, diff_journal, total_diff, topic_prevalence) %>% 
   as.data.table()
 
-#' We can now plot the differences in a two-dimensions diagram:
-#' 
-
-# mean_diff_plot <- ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
-#   geom_vline(xintercept = 0, size = 1.5, alpha = 0.9) +
-#   geom_hline(yintercept = 0, size = 1.5, alpha = 0.5) +
-#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-#   geom_label_repel(aes(label = topic_label, 
-#                        group = factor(Com_name),
-#                        color = com_color, 
-#                        fill = com_color), size = 2, alpha = 0.7, hjust = 0) +
-#   geom_point(aes(group = factor(Com_name),
-#                  color = com_color, 
-#                  fill = com_color,
-#                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-#   scale_size_continuous(range = c(0.2, 50)) %>% 
-#   scale_color_identity() +
-#   scale_fill_identity() +
-#   labs(title = "Topic Prevalence over journals (Difference of Means method)",
-#        x = "US Only (left) vs. European Only (right)",
-#        y = "Top 5 (down) vs. EER (up)") +
-#   dark_theme_classic()
-
-# ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
-#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
-#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
-#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-#   geom_point(aes(group = factor(Com_name),
-#                  color = com_color, 
-#                  fill = com_color,
-#                  size = topic_prevalence), alpha = 0.8, show.legend = FALSE) +
-#   geom_text_repel(aes(label = topic_label, 
-#                        group = factor(Com_name),
-#                        color = com_color, 
-#                        fill = com_color), size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1) +
-#   labs(title = NULL,
-#        x = "US Only (left) vs. European Only (right)",
-#        y = "Top 5 (down) vs. EER (up)") +
-#   theme_classic(base_size = 9) +
-#   scale_size_continuous(range = c(0.2, 50)) %>% 
-#   guides(size = "none") +
-#   theme(legend.position = "bottom") +
-#   scale_color_identity() +
-#   scale_fill_identity() 
-# ggsave(here(tm_picture_path, "mean_diff_plot_new.png"), width=40, height=20, units = "cm", scaling = 1.5)
-
 topic_diff_summary[,sumdiff:=diff_affiliation+diff_journal]
 
 ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
@@ -2891,41 +2451,38 @@ ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
-ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
-  labs(title = NULL,
-       color = NULL,
-       size = "Topic prevalence",
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") +
-  theme_classic(base_size = 9) +
-  scale_size_continuous(range = c(0.2, 10)) + 
-  theme(legend.position = "bottom") +
-  ggrepel::geom_text_repel(
-    data= topic_diff_summary[topic_prevalence>0.01], 
-    aes(label = as.character(topic_label)), 
-    size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
-    segment.linetype=	"dashed",
-    segment.size = 0.3) 
-ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=35, height=25, units = "cm", scaling = 1.5)
+# ggplot(topic_diff_summary, aes(x = diff_affiliation, y = diff_journal)) +
+#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
+#   labs(title = NULL,
+#        color = NULL,
+#        size = "Topic prevalence",
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") +
+#   theme_classic(base_size = 9) +
+#   scale_size_continuous(range = c(0.2, 10)) + 
+#   theme(legend.position = "bottom") +
+#   ggrepel::geom_text_repel(
+#     data= topic_diff_summary[topic_prevalence>0.01], 
+#     aes(label = as.character(topic_label)), 
+#     size = 2, alpha = 1, hjust = 0, max.overlaps = 4, min.segment.length = 0.1,
+#     segment.linetype=	"dashed",
+#     segment.size = 0.3) 
+# ggsave(here(eer_data,"pictures","Graphs","mean_diff_plot_new_bw.png"), width=35, height=25, units = "cm", scaling = 1.5)
 
-# ggsave(here(tm_picture_path, "mean_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-# ragg::agg_png(here(tm_picture_path, "mean_diff_plot_new.png"), 
-#               width = 50, 
-#               height = 40, 
-#               units = "cm", 
-#               res = 400,
-#               scale=2)
-# mean_diff_plot
-# invisible(dev.off())
 ```
 
-If we look at the distribution of topics only for highest gamma (superior to 0.1), using the logratio for affiliations and journals:
+Rather than averaging on all documents, we can take the documents the most associated to each topic. That is what we did in the article by keeping only the articles with a *gamma* value superior to 0.1 for each topic. We then assess the over/under representation of EER articles for each topic, by calculating the log odds ratio in comparison to top 5 articles:
 
-```{r}
+$$
+\text{log odds ratio EER/Top5 for topic }i = ln(\frac{[\frac{N_{\text{EER in topic }i}+1}{N_{\text{topic }i} + 1}]_{EER}}{[\frac{N_{\text{Top5 in topic }i}+1}{N_{\text{topic }i} + 1}]_{Top5}})
+$$
+
+with $N_{\text{EER in topic }i}$ the number of EER articles in the topic and $N_{\text{topic }i}$ the total number of articles in the topic. We perform the same calculation for articles written exclusively by Europe-based authors or US-based authors. 
+
+```{r, message=FALSE, warning=FALSE}
 topic_diff_logratio_journal <- copy(topic_gamma_attributes) %>% 
   filter(gamma > 0.1) %>% 
   group_by(topic) %>% 
@@ -2987,29 +2544,28 @@ ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) 
 # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
 ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new.png"), width=30, height=20, units = "cm", scaling = 1.5)
 
-ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
-  geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
-  geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
-  labs(title = NULL,
-       color = NULL,
-       size = "Topic prevalence",
-       x = "US Only (left) vs. European Only (right)",
-       y = "Top 5 (down) vs. EER (up)") +
-  theme_classic(base_size = 10) +
-  scale_size_continuous(range = c(0.2, 7)) +
-  theme(legend.position = "bottom") +
-  ggrepel::geom_text_repel(
-    data= topic_diff_summary[topic_prevalence>0.014], 
-    aes(label = as.character(topic_label)), 
-    size = 1.6, alpha = 1, hjust = 0, max.overlaps = 5, min.segment.length = 0.1,
-    segment.linetype=	"dashed",
-    segment.size = 0.3) 
-# ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
-ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
+# ggplot(topic_diff_summary, aes(x = logratio_affiliation, y = logratio_journal)) +
+#   geom_vline(aes(xintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_hline(aes(yintercept = 0), size = 1, alpha = 0.3, color="black") +
+#   geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "gray", alpha = 0.5) +
+#   geom_point(aes(size = topic_prevalence), color = "#808080", alpha = 0.8) +
+#   labs(title = NULL,
+#        color = NULL,
+#        size = "Topic prevalence",
+#        x = "US Only (left) vs. European Only (right)",
+#        y = "Top 5 (down) vs. EER (up)") +
+#   theme_classic(base_size = 10) +
+#   scale_size_continuous(range = c(0.2, 7)) +
+#   theme(legend.position = "bottom") +
+#   ggrepel::geom_text_repel(
+#     data= topic_diff_summary[topic_prevalence>0.014], 
+#     aes(label = as.character(topic_label)), 
+#     size = 1.6, alpha = 1, hjust = 0, max.overlaps = 5, min.segment.length = 0.1,
+#     segment.linetype=	"dashed",
+#     segment.size = 0.3) 
+# # ggsave(here(tm_picture_path, "logratio_diff_plot_new_bw.png"), width=40, height=20, units = "cm", scaling = 1.5)
+# ggsave(here(eer_data,"pictures","Graphs","logratio_diff_plot_new_bw.png"), width=30, height=20, units = "cm", scaling = 1.5)
 ```
-
 
 ## Prevalence of topics per years
 
@@ -3019,11 +2575,11 @@ knitr::include_graphics(here(picture_path, "topic_modelling", "topic_per_year.pn
 
 ## Details on the different topics
 
-We printed a variety of tables to explore the content of content of each topics identified. Users can explore individual topics and find the most cited references of each clusters, the most common terms, the articles with the highest number of citations and/or the articles that belong the most to a given topics. We also printed intra-clusters information such as the most common references of EER articles vs Top-5 articles in individual topics.
+We print a variety of tables to explore the content of content of each topics identified. Users can explore individual topics and find the most cited references of each clusters, the most common terms, the articles with the highest number of citations and/or the articles that belong the most to a given topics. We also printed intra-clusters information such as the most common references of EER articles vs Top-5 articles in individual topics.
 
 We also cross-checked our topic analysis with our network analysis by measuring how much articles in a given topics belong to particular communities identified with the network analysis.
 
-```{r results = "asis"}
+```{r, results = "asis", message=FALSE, warning=FALSE}
 
 for (topic_turn in unique(topics$topic_name)) {
   topic_in_question <- topics %>% 
