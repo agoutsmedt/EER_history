@@ -766,16 +766,16 @@ We use Leiden detection algorithm [@traag2019] that optimize the modularity on e
 
 This gives us `r n_communities_alluv` clusters, with `r n_communities_of_interest` that represent at least `r min_leiden_max*100`% of a network and are stable enough to exists for at least `r min_n_years` time windows. We are thus able to project the composition of each network and how nodes circulated between clusters from one time window to the following one.
 
-For each cluster, we identify the US or European oriented nature of its publications and authors. A first measure we used is the over/under representation of European/US authors in the cluster. For each time window, we computed the *(i)* share of articles written by European authors and US authors in each cluster, and *(ii)* the overall share of European authors and US authors. Then, for each cluster, we computed the *(i)* mean share of European authors and US authors, and *(ii)* the overall mean share of European authors and US authors, across all time windows in which the cluster exists. When then compared these mean share using the log of ratios:
+For each intertemporal cluster, we determine the US or European orientation of its publications (the nodes) and authors. We assess the over/under representation of Europe- and US-based authors in the cluster and the over/under representation of the EER and top 5 journals, using a log of ratios. These two measures inform us on which are the most 'European' clusters, meaning those where relatively more articles are published in the EER and by Europe-based economists. Regarding European and US authors, for each time window, we compute the *(i)* share of articles written by Europe-based authors and US-based authors in each cluster, and *(ii)* the overall share of Europe-based and US-based authors. Then, for each cluster, we average its relative shares per time window across all the time windows in which the cluster exists:
 
 \bigskip
-${\scriptstyle \text{Author EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of European Authored Articles In The Cluster}}{\text{Mean Share Of US Authored Articles In The Cluster}})} {(\frac{\text{Overall Mean Share Of European Authored Articles in Cluster's Time Window}}{\text{Overall Mean Share Of US Authored Articles in Cluster's Time Window}})})}$
+${\scriptstyle \text{Log of ratios EU/US }=\log(\frac{(\frac{\text{Mean of the Time Windows' Shares of European Authored Articles in the Cluster}}{\text{Mean of the Time Windows' Shares of US Authored Articles in the Cluster}})} {(\frac{\text{Overall Mean of Shares of European Authored Articles in Cluster's Time Windows}}{\text{Overall Mean of Shares of US Authored Articles in Cluster's Time Windows}})})}$
 \bigskip
 
 We then use a second similar index for the publication venue of the articles in the cluster:
 
 \bigskip
-${\scriptstyle \text{Journal EU/US Orientation}=\log(\frac{(\frac{\text{Mean Share Of EER Articles In The Cluster}}{\text{1-Mean Share Of EER Articles In The Cluster}})} {(\frac{\text{Overall Mean Share of EER Articles in Cluster's Time Window}}{\text{1-Overall Mean Share of EER Articles in Cluster's Time Window}})})}$
+${\scriptstyle \text{Log of ratios EER/Top5 }=\log(\frac{(\frac{\text{Mean of the Time Windows' Shares of EER Articles in the Cluster}}{\text{1-Mean of the Time Windows' Shares of EER Articles in the Cluster}})} {(\frac{\text{Overall Mean of Shares of EER Articles in Cluster's Time Windows}}{\text{1-Overall Mean of Shares of EER Articles in Cluster's Time Windows}})})}$
 \bigskip
 
 Finally, clusters are placed on a scatterplot with the X-axis for the *Author EU/US Orientation* score, and the X-Axis for the *Journal EU/US Orientation* score. The size of the points captures the number of articles in the cluster (see Figure \@ref(fig:plot-community-diff)).
