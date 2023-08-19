@@ -4,6 +4,7 @@ author:
 - Aurélien Goutsmedt^[UCLouvain, ISPOLE; F.R.S.-FNRS.]
 - Alexandre Truc^[Université Côte d’Azur, CNRS GREDEG France.]
 abstract: |
+
   Economics in Europe has become more international since the 1970s. To a certain extent, this internationalisation is also an 'Americanisation' as many European economists have adopted the standards and approaches of US economics. This prompts an important question: amidst this convergence, are there any fields that have managed to retain a distinctively European character? 
   
   In this article, we use topic modelling and bibliometric coupling to identify European specialties between 1969 and 2002. We focus on macroeconomic articles published in the European Economic Review and compare their bibliographic references and textual content to what has been published in the top 5 journals.
@@ -18,17 +19,17 @@ link-citations: yes
 csl: elsevier-harvard.csl
 lang: en
 output:
-  bookdown::word_document2:
-    number_sections: yes
-    toc: false
-    toc_depth: 2
-    fig.caption: yes
   bookdown::pdf_document2:
     keep_tex: yes
     number_sections: yes
     toc: false
     toc_depth: 2
     extra_dependencies: ["float"]
+  bookdown::word_document2:
+    number_sections: yes
+    toc: false
+    toc_depth: 2
+    fig.caption: yes
 fontsize: 12pt
 linestretch: 1.5
 documentclass: article
@@ -51,6 +52,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       fig.align = "center",
                       fig.pos = "H")
 
+
 package_list <- c("data.table", 
                   "tidyverse",
                   "tidygraph",
@@ -69,6 +71,8 @@ for (p in package_list) {
   }
   library(p, character.only = TRUE)
 }
+
+format <- str_detect(knitr::opts_knit$get("rmarkdown.pandoc.to"), "pdf")
 ```
 
 ```{r loading-data, cache=TRUE}
@@ -574,7 +578,7 @@ topics_summary <- top_terms %>%
   arrange(desc(sum_logratio)) %>% 
   select(topic, top_terms, logratio_affiliation, logratio_journal)
 
-if(knitr:::pandoc_to() == "pdf"){
+if(knitr::is_latex_output()){
 topics_summary  %>% 
   kbl(caption="Summary of Topics",
       booktabs = TRUE,
@@ -583,22 +587,22 @@ topics_summary  %>%
       col.names = c("Topics", "Terms with highest frex values", "Log of ratios EU/US", "Log of ratios EER/Top 5"),
       align="llcc") %>%
  # column_spec(1, latex_valign = "m") %>%
-  column_spec(2, width = "30em", latex_valign = "m") %>%
+  column_spec(2, width = "25em", latex_valign = "m") %>%
   #column_spec(3, latex_valign = "m") %>%
   #column_spec(4, latex_valign = "m") %>%
   kable_styling(latex_options = c("repeat_header", "hold_position", "striped"), position = "center") %>% 
   kable_styling(font_size = 7)
 } else {
 set_flextable_defaults(font.size = 7.5,
-                       padding = 3)  
-table <- flextable(topics_summary) %>% 
-    set_caption(caption = "Summary of Topics") %>% 
-  ftExtra::colformat_md() %>% 
+                       padding = 3)
+table <- flextable(topics_summary) %>%
+    set_caption(caption = "Summary of Topics") %>%
+  ftExtra::colformat_md() %>%
   set_header_labels(topic = "Topics  ",
                     top_terms = "Terms with highest frex values",
                     logratio_affiliation = "Log of ratios EU/US",
                     logratio_journal = "Log of ratios EER/Top 5")
-set_table_properties(table, layout = "autofit")  
+set_table_properties(table, layout = "autofit")
 }
 ```
 
@@ -610,7 +614,7 @@ communities_table <- communities %>%
   mutate(across(contains("diff_odds"), ~round(., 3))) %>% 
   select(Label_com, europeans_authors_diff_odds_windows, EER_articles_diff_odds_windows)
 
-if(knitr:::pandoc_to() == "pdf"){
+if(knitr::is_latex_output()){
 communities_table  %>%
   kbl(caption="Summary of Bibliographic Clusters",
       booktabs = TRUE,
@@ -643,7 +647,7 @@ table_eer_empirics <- table_eer_empirics %>%
          Titre = stringr::str_to_title(Titre)) %>% 
   arrange(Annee_Bibliographique)
 
-if(knitr:::pandoc_to() == "pdf"){
+if(knitr::is_latex_output()){
   set_flextable_defaults(font.size = 7.5,
                        padding = 3)  
   table_eer_empirics %>% 
